@@ -1,4 +1,4 @@
-const reducer = (state, action) => {
+const Reducer = (state, action) => {
     switch (action.type) {
         case 'Fetch_Data':
             return {
@@ -16,4 +16,4 @@ const reducer = (state, action) => {
             return state
     }
 }
-export default reducer
+export default Reducer

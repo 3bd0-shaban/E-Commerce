@@ -4,7 +4,7 @@ import helmet from 'helmet'
 import morgan from 'morgan'
 import cors from 'cors'
 import mongoose from 'mongoose'
-// import router from './Routes/Router.js';
+import router from './Routes/Router.js';
 import data from './data.js';
 const app = express();
 const port = process.env.PORT || 5000
@@ -15,18 +15,25 @@ app.use(cors({
 }));
 app.use(helmet());
 app.use(morgan('common'));
-mongoose.connect(process.env.MongoDB_URL,{
-    useNewUrlParser:true
+mongoose.connect(process.env.MongoDB_URL, {
+    useNewUrlParser: true
 }).then(() => {
-    app.listen(port,() => {
+    app.listen(port, () => {
         console.log(`Successfully started at http://localhost:${port}`)
     })
 }).catch((err) => {
     console.log(err)
 });
-app.get('/api/products',(req,res) => {
+app.get('/api/products', (req, res) => {
     res.send(data.products)
-}
-)
+});
+app.get('/api/products/:id', (req, res) => {
+    const product = data.products.find(x => x.id === req.params.id);
+    if (product){
+        res.send(product);
+    }else{
+        res.status(400).json({msg:'Product Not Founded'})
+    }
+});
 app.use(express.json())
-// app.use('/api/auth', router);
+app.use('/api/auth', router);
