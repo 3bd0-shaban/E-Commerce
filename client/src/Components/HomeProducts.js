@@ -1,26 +1,27 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import Reducer from '../Redux/Reducer'
+import {BsImages} from 'react-icons/bs'
+import { useSelector, useDispatch } from 'react-redux'
+import { ProductsAction } from '../Redux/Slices/ProductSlice'
+// import Reducer from '../Redux/Reducer'
 import { Helmet } from 'react-helmet-async';
-const HomeProducts = () => {// eslint-disable-next-line
-    const [{ loading, error, products }, dispatch] = useReducer(Reducer, {
-        products: [],
-        loading: true,
-        error: ''
-    })
+import getError from './../utile';
+const HomeProducts = () => {
+    const dispatch = useDispatch();
+    const { loading, error, products } = useSelector((state) => state.products);
     useEffect(() => {
         const FetchData = async () => {
-            dispatch({ type: 'Fetch_Data' })
+            dispatch(ProductsAction.Fetch_Data())
             try {
                 const result = await axios.get('http://localhost:5000/api/products');
-                dispatch({ type: 'Success_Fetch', payload: result.data });
+                dispatch(ProductsAction.Success_Fetch(result.data));
             } catch (error) {
-                dispatch({ type: 'Fail_Fetch', payload: error.message })
+                dispatch(ProductsAction.Fail_Fetch(getError(error)));
             }
         };
         FetchData();
-    }, [])
+    }, [dispatch]);
     const addtocart = () => {
         const current = localStorage.getItem('cart');
         const cart = current + 1
@@ -32,7 +33,7 @@ const HomeProducts = () => {// eslint-disable-next-line
                 <div className='grid grid-cols-4 gap-3'>
                     <div className="space-y-8 animate-pulse border p-2">
                         <div className="flex justify-center items-center w-full h-48 bg-gray-300 rounded">
-                            <svg className="w-12 h-12 text-gray-200" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" fill="currentColor" viewBox="0 0 640 512"><path d="M480 80C480 35.82 515.8 0 560 0C604.2 0 640 35.82 640 80C640 124.2 604.2 160 560 160C515.8 160 480 124.2 480 80zM0 456.1C0 445.6 2.964 435.3 8.551 426.4L225.3 81.01C231.9 70.42 243.5 64 256 64C268.5 64 280.1 70.42 286.8 81.01L412.7 281.7L460.9 202.7C464.1 196.1 472.2 192 480 192C487.8 192 495 196.1 499.1 202.7L631.1 419.1C636.9 428.6 640 439.7 640 450.9C640 484.6 612.6 512 578.9 512H55.91C25.03 512 .0006 486.1 .0006 456.1L0 456.1z"></path></svg>
+                        <BsImages style={{ fontSize: '50px', color: '#99999B' }} />
                         </div>
                         <div className="w-full">
                             <div className="h-5 bg-gray-200 rounded-full w-48 mb-4"></div>
@@ -48,7 +49,7 @@ const HomeProducts = () => {// eslint-disable-next-line
                 : error ? <p>error</p> : (
                     <div className='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-3'>
                         <Helmet>
-                            <title>{products.name}</title>
+                            <title>{'e-commerce'}</title>
                         </Helmet>
                         {products.map((product) =>
                             <Link to={`/product/${product.id}`} className='relative border px-3 shadow hover:shadow-md' key={product.id}>

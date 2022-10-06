@@ -1,7 +1,15 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 
 const Header = () => {
+  const navigate = useNavigate();
+  const { isLogged } = useSelector((state) => state.user);
+  const handlelogout = (event) => {
+    localStorage.removeItem('Logedin ?');
+    navigate('/signin')
+  }
+
   return (
     <div className=' bg-gray-50 py-5'>
       <div className='container max-w-8xl flex justify-between items-center px-1 md:px-3'>
@@ -28,8 +36,14 @@ const Header = () => {
             <span className="sr-only">Notifications</span>
             <div className="inline-flex absolute -top-1 -right-1 justify-center items-center w-5 h-5 text-[8px] font-bold text-white bg-red-500 rounded-full border-2 border-white">20</div>
           </Link>
-          <Link to='/signin' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Sign In</Link>
-          <Link to='/signup' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Sign Up</Link>
+          {isLogged ?
+            <button type='submit' onClick={handlelogout} className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Log Out</button>
+            :
+            <>
+              <Link to='/signin' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Sign In</Link>
+              <Link to='/signup' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Sign Up</Link>
+            </>
+          }
         </div>
       </div>
     </div>

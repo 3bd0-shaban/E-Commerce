@@ -1,34 +1,30 @@
-import React, { useEffect, useReducer } from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import Reducer from '../Redux/Reducer'
+import { useSelector, useDispatch } from 'react-redux'
+import { ProductsAction } from '../Redux/Slices/ProductSlice'
 import { useParams } from 'react-router-dom';
 import { Comments, Header, Rating, getError } from '../Exports'
 import { Helmet } from 'react-helmet-async';
 import { Danger } from '../Components/Alerts';
-// import  data  from '../data';
-
 const ProductScreen = () => {
+  const { loading, error, products } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
   const params = useParams();
   const { id } = params;
-  const [{ loading, error, products }, dispatch] = useReducer(Reducer, {
-    products: [],
-    loading: true,
-    error: ''
-  })
-  // const [products, setProducts] = useState([]);
+
   useEffect(() => {
     const FetchData = async () => {
-      dispatch({ type: 'Fetch_Data' })
-      try {
-        const result = await axios.get(`http://localhost:5000/api/products/${id}`);
-        dispatch({ type: 'Success_Fetch', payload: result.data });
-      } catch (error) {
-        dispatch({ type: 'Fail_Fetch', payload: getError(error) })
-      }
+        dispatch(ProductsAction.Fetch_Data())
+        try {
+            const result = await axios.get(`http://localhost:5000/api/products/${id}`);
+            dispatch(ProductsAction.Success_Fetch(result.data));
+        } catch (error) {
+            dispatch(ProductsAction.Fail_Fetch(getError(error)));
+        }
     };
     FetchData();
-  }, [id])
+}, [dispatch,id]);
 
   return (
     <>
@@ -36,7 +32,7 @@ const ProductScreen = () => {
       <div className='container max-w-5xl mt-5'>
         {loading ?
           <p className='mx-auto mt-20 text-3xl font-serif font-semibold'>Loading ....</p>
-          : error ? <Danger error={error} /> : (
+          : error ? <Danger error={error} className={'mx-auto mt-20 text-7xl font-serif font-semibold bg-red-200 py-3 px-5'}/> : (
             <>
               <div className='h-96 grid grid-cols-1 md:grid-cols-3'>
                 <Helmet>

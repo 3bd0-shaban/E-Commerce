@@ -7,14 +7,17 @@ import send_Email from './sendEmail.js';
 const { Client_URL } = process.env
 const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 
-export const SignUp = async (req, res, next) => {
-    const { username, email, password } = req.body;
+export const SignUp = async (req, res) => {
+    const { username, email, password, confirmpassword} = req.body;
     try {
-        if (!email || !username || !password) {
+        if (!email || !username || !password || !confirmpassword) {
             return res.status(400).json({ msg: 'Please fill all fields' });
         }
         if (password.lenght <= 6) {
             return res.status(400).json({ msg: 'Password must be more than 6 characters' });
+        }
+        if (password !== confirmpassword) {
+            return res.status(400).json({ msg: 'Password does not match' });
         }
         if (!validateEmail(email)) {
             return res.status(400).json({ msg: 'Invalid Email' });
