@@ -135,7 +135,7 @@ export const ResetPassword = async (req, res) => {
 }
 export const UserInfo = async (req, res) => {
     try {
-        const user = await Users.findById(req.user._id);
+        const user = await Users.findById(req.params.id);
         res.json(user);
     } catch (error) {
         return res.status(500).json({ msg: error.message });

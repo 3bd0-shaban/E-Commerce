@@ -2,31 +2,37 @@ import { createSlice } from "@reduxjs/toolkit"
 const UserSlice = createSlice({
     name: 'user',
     initialState: {
-        user: [],
+        user: {
+            email: '',
+            username: ''
+        },
         error: '',
         isLogged: false,
         idAdmin: false
     },
     reducers: {
-        LoggedIn(state,action) {
+        LoggedIn(state, action) {
             state.user = action.payload;
             state.isLogged = true;
-            state.isadmin = false;
+            state.idAdmin = false;
+            state.error = ''
         },
-        Admin (state,action){
+        Admin(state, action) {
             state.user = action.payload;
-            state.isLogged=true;
-            state.isadmin = true;
+            state.isLogged = true;
+            state.idAdmin = true;
+            state.error = ''
         },
-        LogOut (state){
+        LogOut(state) {
             state.user = [];
-            state.isLogged=false;
-            state.isadmin = false;
+            state.isLogged = false;
+            state.idAdmin = false;
+            state.error = ''
         },
-        Failed_LogIn (state,action){
+        Failed_LogIn(state, action) {
             state.user = [];
-            state.isLogged=false;
-            state.isadmin = false;
+            state.isLogged = false;
+            state.idAdmin = false;
             state.error = action.payload
         }
     }

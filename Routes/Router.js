@@ -10,5 +10,5 @@ router.post('/refresh_token', GetAccessToken);
 router.post('/forgot', ForgotPassword);
 router.post('/resetpassword:', ResetPassword);
 router.get('/info',auth, UserInfo);
-router.get('/users',isAdmin, AllUsers);
+router.get('/users', AllUsers);
 export default router
