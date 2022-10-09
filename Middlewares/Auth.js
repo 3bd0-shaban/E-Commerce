@@ -1,30 +1,46 @@
 import jwt from "jsonwebtoken";
-import Users from './../Models/Users.js';
+import Users from '../Models/Users.js';
 
 export const auth = async (req, res, next) => {
-    let token
-    const authHeader = req.headers.authorization
+    try {
+        const {token} = req.cookies;
+        if(!token){
+            return res.status(500).json({ msg: 'not authorized' });
 
-    if (authHeader && authHeader.startsWith('Bearer')) {
-        try {
-            // extract token from authHeader string
-            token = authHeader.split(' ')[1]
-
-            // verified token returns user id
-            const decoded = jwt.verify(token, process.env.JWT_SECRET)
-
-            // find user's obj in db and assign to req.user 
-            req.user = await User.findById(decoded.id).select('-password')
-
-            next()
-        } catch (error) {
-            res.status(401).json('Not authorized, invalid token')
         }
-    }
+        const verify = await jwt.verify(token,process.env.JWT_SCCESS);
+        req.user = await Users.findById(verify.id);
+        next();
+    } catch (error) {
+        return res.status(500).json({ msg: error.message });
 
-    if (!token) {
-        res.status(401).json('Not authorized, no token found')
     }
+    // let token
+    // const authHeader = req.headers.authorization
+
+    // if (authHeader && authHeader.startsWith('Bearer')) {
+    //     try {
+    //         // extract token from authHeader string
+    //         token = authHeader.split(' ')[1]
+
+    //         // verified token returns user id
+    //         const decoded = jwt.verify(token, process.env.JWT_SECRET)
+
+    //         // find user's obj in db and assign to req.user 
+    //         req.user = await User.findById(decoded.id).select('-password')
+
+    //         next()
+    //     } catch (error) {
+    //         res.status(401).json('Not authorized, invalid token')
+    //     }
+    // }
+
+    // if (!token) {
+    //     res.status(401).json('Not authorized, no token found')
+    // }
+
+
+
 
     // try {
     //     const token = req.header("Authorization")

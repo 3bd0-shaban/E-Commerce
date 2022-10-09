@@ -8,36 +8,36 @@ import axios from 'axios';
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const initState = {
-    email: '',
-    password: '',
-    confirmpassword: '',
-    username: '',
-  }
   useEffect(() => {
     if (localStorage.getItem("Logedin ?")) {
       navigate("/");
     }
   })
-  const { user, error } = useSelector((state) => state.user)
-  const [auth, setAuth] = useState(initState)
+  const { error } = useSelector((state) => state.auth)
+  const [inputs, setInputs] = useState({
+    email: '',
+    password: '',
+    confirmpassword: '',
+    username: '',
+  })
   const handleChange = ({ currentTarget: input }) => {
-    setAuth({ ...auth, [input.name]: input.value });
+    setInputs({ ...inputs, [input.name]: input.value });
   };
-
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { email, password, username, confirmpassword } = auth
+    const { email, password, username, confirmpassword } = inputs
     try {
       const config = {
         header: {
+          Accept: "application/json",
           "Content-Type": "application/json"
         },
+        credentials: "include"
       };
       await axios.post('http://localhost:5000/api/auth/signup', { email, password, username, confirmpassword }, config);
-      setAuth({ ...auth, error, user })
+      // setInputs({ ...inputs, error, auth })
       dispatch(UserAction.LoggedIn());
-      localStorage.setItem("Logedin ?", true);
+      // localStorage.setItem("Logedin ?", true);
       navigate('/');
     } catch (error) {
       dispatch(UserAction.Failed_LogIn(getError(error)));
@@ -51,10 +51,10 @@ const Signup = () => {
         <div className='flex items-center justify-center align-middle mt-16 '>
           <form onSubmit={handleSubmit} className='border px-4 text-center rounded-xl py-32'>
             <p className='mx-auto text-4xl font-bold font-mono text-gray-600 py-5'>Sign In</p>
-            <input onChange={handleChange} name='email' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='email' placeholder='Enter Email' />
-            <input onChange={handleChange} name='username' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='text' placeholder='Enter username' />
-            <input onChange={handleChange} name='password' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='password' placeholder='Enter Password' />
-            <input onChange={handleChange} name='confirmpassword' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='password' placeholder='Confirm Password' />
+            <input onChange={handleChange} value={inputs.email} name='email' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='email' placeholder='Enter Email' />
+            <input onChange={handleChange} value={inputs.username} name='username' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='text' placeholder='Enter username' />
+            <input onChange={handleChange} value={inputs.password} name='password' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='password' placeholder='Enter Password' />
+            <input onChange={handleChange} value={inputs.confirmpassword} name='confirmpassword' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='password' placeholder='Confirm Password' />
             <button className='bg-green-500 py-2 px-3 rounded-lg text-white font-semibold w-1/2 focus:ring focus:ring-green-400 mt-5'>Submit</button>
             <div className='flex text-center items-center justify-center mt-5'>
               <p>Aleardy have an account ?</p>

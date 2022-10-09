@@ -2,25 +2,27 @@ import React, { useEffect } from 'react'
 import { HomeProducts, Header } from '../Exports'
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import { TokenAction } from './../Redux/Slices/TokenSlice';
-const Home = () => {
-    const token = useSelector((state) => state.token);
-    const { user } = useSelector((state) => state.user);
+import { UserAction } from './../Redux/Slices/UserSlice';
+import getError from './../utile';
+const Home = () => {// eslint-disable-next-line
+    const { isLogged, user, error } = useSelector((state) => state.auth);
     const dispatch = useDispatch();
-    useEffect(() => {
-        const isLogged = localStorage.getItem('Loggedin ?');
-        if (isLogged) {
-            const getToken = async () => {
-                const res = await axios.post('http://localhost:5000/api/auth/refresh_token', null)
-                console.log(res);
-                dispatch(TokenAction.AccessToken(res.data.refresh_Token))
-            }
-            getToken();
-        }
-    }, [token, user, dispatch])
+    // useEffect(() => {
+    //     if (isLogged) {
+    //         const getToken = async () => {
+    //             const res = await axios.get('http://localhost:5000/api/auth/verifytoken')
+    //             // console.log(res);
+    //             dispatch(UserAction.LoggedIn(res.data));
+    //         }
+    //         getToken();
+    //     }
+    // }, [dispatch, isLogged])
     return (
         <div>
             <Header />
+            {isLogged && <p className='text-3xl font-mono font-extrabold'>{user.email}</p>}
+            {isLogged && <p className='text-3xl font-mono font-extrabold'>Helllooooooooooooooooooooo</p>}
+            {error && dispatch(UserAction.Failed_LogIn(getError(error)))}
             <HomeProducts />
         </div>
     )

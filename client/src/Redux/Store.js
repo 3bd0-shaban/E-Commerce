@@ -1,15 +1,33 @@
-import ProductsSlice  from "./Slices/ProductSlice";
-import UserSlice  from "./Slices/UserSlice";
-import {configureStore} from '@reduxjs/toolkit'
-import TokenSlice from "./Slices/TokenSlice";
+import ProductsSlice from "./Slices/ProductSlice";
+import UserSlice from "./Slices/UserSlice";
+import { configureStore,getDefaultMiddleware } from '@reduxjs/toolkit'
+import {persistReducer, persistStore, FLUSH,REHYDRATE,PAUSE,PERSIST,PURGE,REGISTER,} from 'redux-persist';
+import storage from 'redux-persist/lib/storage';
+// import GetUserProfileSlice from "./Slices/GetUserProfileSlice";
 import AllUsers from "./Slices/AllUsers";
-const Store = configureStore({  
+const persistConfig = {
+    key: 'root',
+    storage,
+}
+
+const UserSlicePersist = persistReducer(persistConfig, UserSlice)
+// const GetUserProfileSlicePersist = persistReducer(persistConfig, GetUserProfileSlice)
+
+export const Store = configureStore({
     reducer: {
         products: ProductsSlice,
-        user:UserSlice,
-        token:TokenSlice,
-        allusers:AllUsers
-    }});
+        auth: UserSlicePersist,
+        // user: GetUserProfileSlicePersist,
+        allusers: AllUsers
+    },
+    middleware: getDefaultMiddleware({
+        serializableCheck: {
+            ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER],
+        },
+    }),
 
+});
+
+export const persistor = persistStore(Store)
 export default Store
 

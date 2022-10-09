@@ -1,15 +1,32 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import axios from 'axios';
+import getError from './../utile';
+// import { GetUserProfileAction } from '../Redux/Slices/GetUserProfileSlice';
+import { UserAction } from './../Redux/Slices/UserSlice';
 
 const Header = () => {
+  const dispach = useDispatch();
   const navigate = useNavigate();
-  const { user, isLogged } = useSelector((state) => state.user);
+  const { user, isLogged } = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    // const getUserInfo = async () => {
+    //   await axios.get('http://localhost:5000/api/auth/verifytoken')
+    //     .then(res => {
+    //       dispach(GetUserProfileAction.getUserInfo(res.data));
+    //     }).catch(error => {
+    //       dispach(GetUserProfileAction.Fail_getUserInfo(getError(error)));
+    //     });
+    // }
+    // getUserInfo();
+  }, [dispach]);
   const handlelogout = (event) => {
-    localStorage.removeItem('Logedin ?');
+    dispatch(UserAction.LogOut());
+    // dispach(GetUserProfileAction.LogoutUser());
     navigate('/signin')
   }
-
   return (
     <div className=' bg-gray-50 py-5 border-b'>
       <div className='container max-w-8xl flex justify-between items-center px-1 md:px-3'>
@@ -38,7 +55,9 @@ const Header = () => {
           </Link>
           {isLogged ? <>
             <button type='submit' onClick={handlelogout} className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Log Out</button>
-            <p>{user.email}</p>
+            <Link to='/dashboard' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Dashboard</Link>
+
+            <p>{user.id}</p>
           </>
             :
             <>

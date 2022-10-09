@@ -3,7 +3,7 @@ import React, { useEffect } from 'react'
 import { MdOutlineSearch } from 'react-icons/md'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { AllUsersAction } from './../../Redux/Slices/AllUsers';
+import { AllUsersAction } from '../../Redux/Slices/AllUsers';
 import getError from './../../utile';
 import { Danger } from '../Alerts';
 

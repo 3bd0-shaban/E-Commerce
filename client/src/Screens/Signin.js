@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { Header, getError } from '../Exports';
 import { Danger } from '../Components/Alerts';
@@ -8,37 +8,36 @@ import axios from 'axios';
 const Signin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const initState = {
+  // useEffect(() => {
+  //   if (localStorage.getItem("Logedin ?")) {
+  //     navigate("/");
+  //   }
+  // })
+  const { error } = useSelector((state) => state.auth)
+  // const { token } = useSelector((state) => state.token)
+  const [inputs, setInputs] = useState({
     email: '',
-    password: '',
-  }
-  useEffect(() => {
-    if (localStorage.getItem("Logedin ?")) {
-      navigate("/");
-    }
+    password: ''
   })
-  const { user, error } = useSelector((state) => state.user)
-  const [auth, setAuth] = useState(initState)
   const handleChange = ({ currentTarget: input }) => {
-    setAuth({ ...auth, [input.name]: input.value });
+    setInputs({ ...inputs, [input.name]: input.value });
   };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { email, password } = auth
+    const { email, password } = inputs
     try {
-      const config = {
-        header: {
-          "Content-Type": "application/json"
-        },
-      };
-      const values = await axios.post('http://localhost:5000/api/auth/signin', { email, password }, config);
-      setAuth({ ...auth, error, user })
-      dispatch(UserAction.LoggedIn());
-      localStorage.setItem("Logedin ?", true);
+      // const config = {
+      //   header: {
+      //     "Content-Type": "application/json"
+      //   },
+      // };
+      const res = await axios.post('http://localhost:5000/api/auth/signin', { email, password },{withCredentials: true});
+      // localStorage.setItem('token', res.data.token);
+      dispatch(UserAction.LoggedIn(res.data));
+      dispatch(UserAction.AccessToken(res.data.token));
       navigate('/');
     } catch (error) {
-      // console.log(error)
       dispatch(UserAction.Failed_LogIn(getError(error)));
     }
   }
@@ -50,8 +49,8 @@ const Signin = () => {
         <div className='flex items-center justify-center align-middle mt-16 '>
           <form onSubmit={handleSubmit} className='border px-4 text-center rounded-xl py-32'>
             <p className='mx-auto text-4xl font-bold font-mono text-gray-600 py-5'>Sign In</p>
-            <input onChange={handleChange} name='email' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='email' placeholder='Enter Email' />
-            <input onChange={handleChange} name='password' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='password' placeholder='Enter Password' />
+            <input onChange={handleChange} value={inputs.email} name='email' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='email' placeholder='Enter Email' />
+            <input onChange={handleChange} value={inputs.password} name='password' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='password' placeholder='Enter Password' />
             <button className='bg-green-500 py-2 px-3 rounded-lg text-white font-semibold w-1/2 focus:ring focus:ring-green-400 mt-5'>Submit</button>
             <div className='flex text-center items-center justify-center mt-5'>
               <p>Don't have an account ?</p>

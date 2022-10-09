@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
-import {BsImages} from 'react-icons/bs'
+import { BsImages } from 'react-icons/bs'
 import { useSelector, useDispatch } from 'react-redux'
 import { ProductsAction } from '../Redux/Slices/ProductSlice'
-// import Reducer from '../Redux/Reducer'
 import { Helmet } from 'react-helmet-async';
 import getError from './../utile';
 const HomeProducts = () => {
@@ -33,7 +32,7 @@ const HomeProducts = () => {
                 <div className='grid grid-cols-4 gap-3'>
                     <div className="space-y-8 animate-pulse border p-2">
                         <div className="flex justify-center items-center w-full h-48 bg-gray-300 rounded">
-                        <BsImages style={{ fontSize: '50px', color: '#99999B' }} />
+                            <BsImages style={{ fontSize: '50px', color: '#99999B' }} />
                         </div>
                         <div className="w-full">
                             <div className="h-5 bg-gray-200 rounded-full w-48 mb-4"></div>
