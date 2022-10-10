@@ -8,17 +8,17 @@ import { Comments, Header, Rating, getError } from '../Exports'
 import { Helmet } from 'react-helmet-async';
 import { Danger } from '../Components/Alerts';
 const ProductScreen = () => {
-  const { loading, error, products } = useSelector((state) => state.products);
+  const { loading, error, productDetails } = useSelector((state) => state.products);
   const dispatch = useDispatch();
   const params = useParams();
   const { id } = params;
 
   useEffect(() => {
     const FetchData = async () => {
-        dispatch(ProductsAction.Fetch_Data())
+        dispatch(ProductsAction.Fetch_DataDetails())
         try {
             const result = await axios.get(`http://localhost:5000/api/products/${id}`);
-            dispatch(ProductsAction.Success_Fetch(result.data));
+            dispatch(ProductsAction.Success_FetchDetails(result.data));
         } catch (error) {
             dispatch(ProductsAction.Fail_Fetch(getError(error)));
         }
@@ -36,17 +36,17 @@ const ProductScreen = () => {
             <>
               <div className='h-96 grid grid-cols-1 md:grid-cols-3'>
                 <Helmet>
-                  <title>{products.name}</title>
+                  <title>{productDetails.name}</title>
                 </Helmet>
                 <div className='col-span-2 '>
-                  <img src={products.image} className=' object-cover w-full mx-auto md:w-1/2' alt='' />
+                  <img src={productDetails.image} className=' object-cover w-full mx-auto md:w-1/2' alt='' />
                 </div>
                 <div className=''>
-                  <p className='text-xl font-semibold'>{products.name}</p>
-                  {products.quentity > 0 ?
+                  <p className='text-xl font-semibold'>{productDetails.name}</p>
+                  {productDetails.quentity > 0 ?
                     <>
-                      <p className='text-xl mt-auto'>{products.price}$</p>
-                      <Rating rating={`${products.rating}`} />
+                      <p className='text-xl mt-auto'>{productDetails.price}$</p>
+                      <Rating rating={`${productDetails.rating}`} />
                       <div className=' mb-3 flex gap-4 mt-5'>
                         <Link className='border border-orange-300 px-4 py-2 rounded-2xl font-medium hover:bg-orange-300 focus:ring focus:ring-orange-200 hover:text-white'>Card</Link>
                         <Link className='border border-orange-300 px-4 py-2 rounded-2xl font-medium hover:bg-orange-300 focus:ring focus:ring-orange-200 hover:text-white'>Favorite</Link>
@@ -56,7 +56,7 @@ const ProductScreen = () => {
                     :
                     <p>Out Of Stock</p>
                   }
-                  {products.quentity < 5 && products.quentity > 0 && <p>Only {products.quentity} is available</p>}
+                  {productDetails.quentity < 5 && productDetails.quentity > 0 && <p>Only {productDetails.quentity} is available</p>}
                 </div>
               </div>
               <Comments />

@@ -25,20 +25,10 @@ const usesrSchema = new mongoose.Schema(
       type: String,
       default: "https://res.cloudinary.com/abdo9/image/upload/v1664213293/samples/people/istockphoto-1300845620-612x612_ose5xw.jpg"
     },
-    // followers: {
-    //   type: Array,
-    //   default: []
-    // },
-    // following: {
-    //   type: Array,
-    //   default: []
-    // },
     isAdmin: {
       type: Boolean,
       default: false,
     },
-    // resetPasswordToken: String,
-    // resetPasswordExpire: Date
   },
   { timestamps: true }
 );

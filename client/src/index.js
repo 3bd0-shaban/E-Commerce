@@ -13,6 +13,7 @@ root.render(
     <Provider store={Store}>
       <PersistGate loading={null} persistor={persistor}>
         <HelmetProvider>
+        
           <App />
         </HelmetProvider>
       </PersistGate>

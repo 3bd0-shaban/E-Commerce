@@ -1,4 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit"
+
 const UserSlice = createSlice({
     name: 'user',
     initialState: {
@@ -13,20 +14,30 @@ const UserSlice = createSlice({
             state.user = action.payload;
             state.isLogged = true;
             state.idAdmin = false;
+            state.error = ''
+        },
+        Register(state, action) {
+            state.user = [];
+            state.isLogged = false;
+            state.idAdmin = action.payload.data.isAdmin ? true : false;
+            state.error = ''
         },
         Admin(state, action) {
             state.user = action.payload;
             state.isLogged = true;
             state.idAdmin = true;
+            state.error = ''
         },
-        LogOut(state, action) {
+        LogOut(state) {
             state.user = [];
             state.isLogged = false;
             state.idAdmin = false;
+            state.error = ''
 
         },
         AccessToken(state, action) {
-            state.token = localStorage.getItem('token') ? action.payload : '';
+            state.token = action.payload;
+            state.error = ''
         },
         Failed_LogIn(state, action) {
             state.user = [];

@@ -73,19 +73,18 @@ export const SignIn = async (req, res) => {
                 }
             }
             const token = createToken({ id: user._id })
-                // res.cookie(String(user._id),token);
-            //     res.send('Cookie have been saved successfully');
+            if (req.cookies[`${user._id}`]) {
+                req.cookies[`${user._id}`] = "";
+            }
             res.cookie(String(user.id), token, {
                 httpOnly: true,
                 path: '/',
-                secure:true,
+                secure: true,
+                expires: new Date(Date.now() + 1000 * 35), // 30 seconds
                 // maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-                maxAge: 60 * 1000, // 30s
-
-                sameSite:'lax'
+                sameSite: 'lax'
             })
-            console.log(req.cookies)
-            return res.status(200).json({ msg: 'Successfully Logged in' });
+            return res.status(200).json(user);
 
         }
     } catch (error) {
@@ -95,26 +94,83 @@ export const SignIn = async (req, res) => {
 export const VerifyToken = (req, res, next) => {
     try {
         const cookie = req.headers.cookie;
-        if(!cookie){
+        if (!cookie) {
             return res.status(500).json({ msg: 'Sign In First' });
         }
         const token = cookie.split("=")[1];
         if (!token) {
             return res.status(500).json({ msg: 'No Token Found' });
         }
-        Jwt.verify(token, process.env.JWT_REFRESH, (err, user) => {
+        Jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
             if (err) {
-                return res.status(400).json({ msg: 'Please Login first' });
+                // return res.status(400).json({ msg: 'Please Login first' });
             }
             // return res.json({ user });
             console.log(user.id)
             req.id = user.id
-        }) 
+        })
         next();
     } catch (error) {
         return res.status(500).json({ msg: error.message });
     }
 };
+export const RefreshToken = (req, res, next) => {
+    const UserId = req.id;
+    try {
+        const cookie = req.headers.cookie;
+        if (!cookie) {
+            return res.status(500).json({ msg: 'Sign In First' });
+        }
+        const oldtoken = cookie.split("=")[1];
+        if (!oldtoken) {
+            return res.status(500).json({ msg: 'No Token Found' });
+        }
+        Jwt.verify(oldtoken, process.env.JWT_SECRET, (err, user) => {
+            if (err) {
+                return res.status(400).json({ msg: 'Failed Authorization,Please Log in again' });
+            }
+            res.clearCookie(`${user.id}`);
+            // req.cookie[`${user.id}`] = '';
+            const token = Jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
+                expiresIn: "35s",
+              });
+              res.cookie(String(user.id), token, {
+                httpOnly: true,
+                path: '/',
+                secure: true,
+                expires: new Date(Date.now() + 1000 * 35), // 30 seconds
+                // maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
+                sameSite: 'lax'
+            })
+            console.log(user.id)
+            req.id = user.id
+            next();
+        });
+    } catch (error) {
+        console.log(error)
+        return res.status(500).json({ msg: error.message });
+    }
+};
+export const logout = (req, res) => {
+    const cookies = req.headers.cookie;
+    const prevToken = cookies.split("=")[1];
+    if (!prevToken) {
+        return res.status(400).json({ message: "You are not logged in" });
+    }
+    Jwt.verify(String(prevToken), process.env.JWT_SECRET, (err, user) => {
+        if (err) {
+            Jwt.verify(String(prevToken), process.env.JWT_SECRET, (err, user) => {
+                if (err) {
+                    return res.status(400).json({ msg: 'Failed Authorization' });
+                }
+                res.clearCookie(`${user.id}`);
+                req.cookies[`${user.id}`] = "";
+                return res.status(200).json({ msg: "Successfully Logged Out" });
+            })
+        }
+    });
+};
+
 // export const GetAccessToken = (req, res) => {
 //     try {
 //         const cookie = req.headers.cookie;
@@ -168,7 +224,7 @@ export const UserInfo = async (req, res) => {
     const UserId = req.id;
     try {
         const user = await Users.findById(UserId).select('-password');
-        if(!user){
+        if (!user) {
             return res.status(400).json({ msg: 'User Not Founded' });
         }
         res.json(user);
@@ -197,12 +253,12 @@ function validateEmail(email) {
     return re.test(email);
 }
 const createToken = (payload) => {
-    return Jwt.sign(payload, process.env.JWT_REFRESH, { expiresIn: '15m' })
+    return Jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30s' })
 }
 const createAccessToken = (payload) => {
     return Jwt.sign(payload, process.env.JWT_SCCESS, { expiresIn: '15m' })
 }
-// const createRefreshToken = (payload) => {
-//     return Jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '7d' })
-// }
+const createRefreshToken = (payload) => {
+    return Jwt.sign(payload, process.env.JWT_REFRESH, { expiresIn: '7d' })
+}
 

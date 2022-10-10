@@ -36,9 +36,9 @@ const Signup = () => {
       };
       await axios.post('http://localhost:5000/api/auth/signup', { email, password, username, confirmpassword }, config);
       // setInputs({ ...inputs, error, auth })
-      dispatch(UserAction.LoggedIn());
+      dispatch(UserAction.Register());
       // localStorage.setItem("Logedin ?", true);
-      navigate('/');
+      navigate('/signin');
     } catch (error) {
       dispatch(UserAction.Failed_LogIn(getError(error)));
     }

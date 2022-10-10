@@ -10,6 +10,7 @@ export { default as Home } from './Screens/Home';
 export { default as Signin } from './Screens/Signin';
 export { default as Signup } from './Screens/Signup';
 export { default as ProductScreen } from './Screens/ProductScreen';
+export { default as AddProduct } from './Screens/AddProduct';
 export { default as Dashboard } from './Screens/Dashboard';
 
 // export { default as Store } from './Redux/Store';
