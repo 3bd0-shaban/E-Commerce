@@ -17,7 +17,7 @@ const ProductScreen = () => {
     const FetchData = async () => {
         dispatch(ProductsAction.Fetch_DataDetails())
         try {
-            const result = await axios.get(`http://localhost:5000/api/products/${id}`);
+            const result = await axios.get(`http://localhost:5000/api/upload/fetch_produtddetails/${id}`);
             dispatch(ProductsAction.Success_FetchDetails(result.data));
         } catch (error) {
             dispatch(ProductsAction.Fail_Fetch(getError(error)));

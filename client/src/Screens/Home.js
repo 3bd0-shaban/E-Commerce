@@ -6,7 +6,6 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { useEffect } from 'react';
 import { UserAction } from '../Redux/Slices/UserSlice';
-axios.defaults.withCredentials = true;
 
 const Home = () => {// eslint-disable-next-line
     // const dispatch =useDispatch();

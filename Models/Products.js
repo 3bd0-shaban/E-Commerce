@@ -29,9 +29,12 @@ const ProductSchema = new mongoose.Schema({
     },
     rating: {
         type: Number,
+    },
+    image:{
+        type:String
     }
 },
     { timestamps: true }
 );
-const Products = mongoose.model('Users', ProductSchema);
+const Products = mongoose.model('Products', ProductSchema);
 export default Products;

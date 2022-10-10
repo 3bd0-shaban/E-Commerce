@@ -6,6 +6,7 @@ import cors from 'cors'
 import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 import router from './Routes/Router.js';
+import ProductsRouter from './Routes/ProductsRouter.js';
 import data from './data.js';
 const app = express();
 const port = process.env.PORT || 5000
@@ -37,3 +38,4 @@ app.get('/api/products/:id', (req, res) => {
 });
 app.use(express.json())
 app.use('/api/auth', router);
+app.use('/api/upload', ProductsRouter);

@@ -80,7 +80,7 @@ export const SignIn = async (req, res) => {
                 httpOnly: true,
                 path: '/',
                 secure: true,
-                expires: new Date(Date.now() + 1000 * 35), // 30 seconds
+                expires: new Date(Date.now() + 1000 * 5), // 30 seconds
                 // maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
                 sameSite: 'lax'
             })
@@ -103,7 +103,7 @@ export const VerifyToken = (req, res, next) => {
         }
         Jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
             if (err) {
-                // return res.status(400).json({ msg: 'Please Login first' });
+                return res.status(400).json({ msg: 'Please Login first' });
             }
             // return res.json({ user });
             console.log(user.id)
@@ -131,14 +131,12 @@ export const RefreshToken = (req, res, next) => {
             }
             res.clearCookie(`${user.id}`);
             // req.cookie[`${user.id}`] = '';
-            const token = Jwt.sign({ id: user.id }, process.env.JWT_SECRET, {
-                expiresIn: "35s",
-              });
+            const token = Jwt.sign({ id: user.id }, process.env.JWT_SECRET, {expiresIn: "5s",});
               res.cookie(String(user.id), token, {
                 httpOnly: true,
                 path: '/',
                 secure: true,
-                expires: new Date(Date.now() + 1000 * 35), // 30 seconds
+                expires: new Date(Date.now() + 1000 * 5), // 30 seconds
                 // maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
                 sameSite: 'lax'
             })
@@ -253,7 +251,7 @@ function validateEmail(email) {
     return re.test(email);
 }
 const createToken = (payload) => {
-    return Jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30s' })
+    return Jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5s' })
 }
 const createAccessToken = (payload) => {
     return Jwt.sign(payload, process.env.JWT_SCCESS, { expiresIn: '15m' })

@@ -13,7 +13,7 @@ const HomeProducts = () => {
         const FetchData = async () => {
             dispatch(ProductsAction.Fetch_Data())
             try {
-                const result = await axios.get('http://localhost:5000/api/products');
+                const result = await axios.get('http://localhost:5000/api/upload/fetchproduts');
                 dispatch(ProductsAction.Success_Fetch(result.data));
             } catch (error) {
                 dispatch(ProductsAction.Fail_Fetch(getError(error)));
@@ -51,7 +51,7 @@ const HomeProducts = () => {
                             <title>{'e-commerce'}</title>
                         </Helmet>
                         {products.map((product) =>
-                            <Link to={`/product/${product.id}`} className='relative border px-3 shadow hover:shadow-md' key={product.id}>
+                            <Link to={`/product/${product._id}`} className='relative border px-3 shadow hover:shadow-md' key={product._id}>
                                 <img src={product.image} className='h-1/2 object-cover mx-auto' alt='' />
                                 <div className=''>
                                     {product.quentity > 0 ?
