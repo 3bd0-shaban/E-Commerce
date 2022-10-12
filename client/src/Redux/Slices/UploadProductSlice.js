@@ -4,23 +4,28 @@ const UploadProductSlice = createSlice({
     initialState: {
         loading: false,
         error: '',
+        success:'',
         product: [],
     },
     reducers: {
-        Fetch_Data(state) {
+        Upload_Data(state) {
             state.loading = true;
             state.error = '';
             state.product = [];
+            state.success='';
         },
-        Success_Fetch(state, action) {
-            state.product = action.payload;
+        Success_Upload(state, action) {
+            state.product = action.payload.Uploaded_Product;
             state.loading = false;
-            state.error = ''
+            state.error = '';
+            state.success=action.payload.msg;
         },
-        Fail_Fetch(state, action) {
+        Fail_Upload(state, action) {
             state.loading = false;
             state.product = [];
             state.error = action.payload;
+            state.success='';
+
         },
     },
 

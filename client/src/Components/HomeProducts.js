@@ -13,7 +13,7 @@ const HomeProducts = () => {
         const FetchData = async () => {
             dispatch(ProductsAction.Fetch_Data())
             try {
-                const result = await axios.get('http://localhost:5000/api/upload/fetchproduts');
+                const result = await axios.get('http://localhost:5000/api/upload/fetch_produts');
                 dispatch(ProductsAction.Success_Fetch(result.data));
             } catch (error) {
                 dispatch(ProductsAction.Fail_Fetch(getError(error)));

@@ -7,8 +7,10 @@ import axios from 'axios';
 import { useEffect } from 'react';
 import { UserAction } from '../Redux/Slices/UserSlice';
 
-const Home = () => {// eslint-disable-next-line
-    // const dispatch =useDispatch();
+const Home = () => {
+    const { success } = useSelector((state) => state.auth)
+    // eslint-disable-next-line
+    const dispatch = useDispatch();
     // useEffect(() => {
     //     const sednRequest = async (token) => {
     //         const res = await axios.get("http://localhost:5000/api/auth/verifytoken", { withCredentials: true, },{ headers:{Authorization:token}})
@@ -26,6 +28,7 @@ const Home = () => {// eslint-disable-next-line
             {/* {user && <p className='text-3xl font-mono font-extrabold'>{user.email}</p>} */}
             {/* {isLogged && <p className='text-3xl font-mono font-extrabold'>Helllooooooooooooooooooooo</p>} */}
             {/* {error && dispatch(UserAction.Failed_LogIn(getError(error)))} */}
+            {/* {success && setTimeout(<p className='text-3xl font-mono font-extrabold'>{success}</p>,3*1000) } */}
             <HomeProducts />
         </div>
     )

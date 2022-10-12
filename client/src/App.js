@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from 'react'
-import { Home, Signup, Signin, ProductScreen, Dashboard, AddProduct } from './Exports';
+import { Home, Signup, Signin, ProductScreen, Dashboard, AddProduct,AllProducts } from './Exports';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import axios from 'axios';
 import { useSelector } from 'react-redux';
@@ -35,7 +35,7 @@ function App() {
         }
         let interval = setInterval(() => {
           refreshToken().then((data) => setUser(data.user));
-        }, 1000 * 3);
+        }, 1000 * 300);
         return () => clearInterval(interval);
       }
     }, []);
@@ -48,10 +48,11 @@ function App() {
         <Routes>
           <Route path='/' exact element={<Home />} />
           <Route path='/product/:id' element={<ProductScreen />} />
-          <Route path='/dashboard' element={<Dashboard />} />
+          <Route path='/dashboard/all_users' element={<Dashboard />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/addproduct' element={<AddProduct />} />
+          <Route path='/dashboard/all_products' element={<AllProducts />}/>
         </Routes>
       </BrowserRouter>
     </div>

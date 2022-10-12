@@ -31,7 +31,10 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
     },
     image:{
-        type:String
+        public_id:{
+            type:String,
+            required:true
+        }
     }
 },
     { timestamps: true }

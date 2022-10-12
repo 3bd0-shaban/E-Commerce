@@ -7,7 +7,6 @@ import mongoose from 'mongoose'
 import cookieParser from 'cookie-parser'
 import router from './Routes/Router.js';
 import ProductsRouter from './Routes/ProductsRouter.js';
-import data from './data.js';
 const app = express();
 const port = process.env.PORT || 5000
 dotenv.config();
@@ -25,17 +24,7 @@ mongoose.connect(process.env.MongoDB_URL).then(() => {
 }).catch((err) => {
     console.log(err)
 });
-app.get('/api/products', (req, res) => {
-    res.send(data.products)
-});
-app.get('/api/products/:id', (req, res) => {
-    const product = data.products.find(x => x.id === req.params.id);
-    if (product) {
-        res.send(product);
-    } else {
-        res.status(400).json({ msg: 'Product Not Founded' })
-    }
-});
+
 app.use(express.json())
 app.use('/api/auth', router);
 app.use('/api/upload', ProductsRouter);

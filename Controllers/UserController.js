@@ -72,6 +72,8 @@ export const SignIn = async (req, res) => {
                     return res.status(400).json({ msg: 'wrong Password' });
                 }
             }
+            // return res.status(200).json({ msg: 'successfully logged in' });
+
             const token = createToken({ id: user._id })
             if (req.cookies[`${user._id}`]) {
                 req.cookies[`${user._id}`] = "";
@@ -84,7 +86,7 @@ export const SignIn = async (req, res) => {
                 // maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
                 sameSite: 'lax'
             })
-            return res.status(200).json(user);
+            return res.status(200).json({ msg: 'successfully Logged In', user });
 
         }
     } catch (error) {
@@ -131,8 +133,8 @@ export const RefreshToken = (req, res, next) => {
             }
             res.clearCookie(`${user.id}`);
             // req.cookie[`${user.id}`] = '';
-            const token = Jwt.sign({ id: user.id }, process.env.JWT_SECRET, {expiresIn: "5s",});
-              res.cookie(String(user.id), token, {
+            const token = Jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "5s", });
+            res.cookie(String(user.id), token, {
                 httpOnly: true,
                 path: '/',
                 secure: true,

@@ -4,6 +4,7 @@ export { default as Rating } from './Components/Rating';
 export { default as Comments } from './Components/Comments';
 export { default as Sidebar } from './Components/Dashboard/Sidebar';
 export { default as UsersTable } from './Components/Dashboard/UsersTable';
+export { default as AllProducts } from './Components/Dashboard/AllProducts';
 export { default as DashboardNavBar } from './Components/Dashboard/DashboardNavBar';
 export { default as getError } from './utile';
 export { default as Home } from './Screens/Home';

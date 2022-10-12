@@ -10,8 +10,8 @@ const Sidebar = () => {
     const { pathname } = useLocation();
     const Lilinks = (props) => {
         return (
-            <li className={(pathname === `${props.link}`) ? 'bg-violet-500 !text-white rounded-xl py-3' : 'py-3 hover:bg-violet-500 hover:rounded-xl hover:text-white text-gray-600'}>
-                <Link to="/dashboard" className="SideBarLinks">
+            <li className={(pathname === `${props.selected}`) ? 'bg-violet-500 !text-white rounded-xl py-3' : 'py-3 hover:bg-violet-500 hover:rounded-xl hover:text-white text-gray-600'}>
+                <Link to={props.Link} className="SideBarLinks">
                     <span className="SVGElement">{props.icon}
                     </span>
                     <span className="SideBarElement">{props.title}</span>
@@ -32,25 +32,25 @@ const Sidebar = () => {
                             <div className="maintitle">Menu</div>
                         </div>
                     </li>
-                    <Lilinks link={'/dashboard'} title='Home' icon={<AiOutlineDashboard />} />
-                    <Lilinks link={'/inbox'} title='Community' icon={<AiOutlineMessage />} />
-                    <Lilinks link={'/messages'} title='Discovery' icon={<IoMdPhotos />} />
-                    <Lilinks link={'/notifcations'} title='Coming Soon' icon={<IoIosNotificationsOutline />} />
+                    <Lilinks Link={"/dashboard/all_users"} selected={'/dashboard/all_users'} title='Users' icon={<AiOutlineDashboard />} />
+                    <Lilinks Link={"/dashboard/all_products"} selected={'/dashboard/all_products'} title='Products' icon={<AiOutlineMessage />} />
+                    <Lilinks Link={"/dashboard"} selected={'/messages'} title='Discovery' icon={<IoMdPhotos />} />
+                    <Lilinks Link={"/dashboard"} selected={'/notifcations'} title='Coming Soon' icon={<IoIosNotificationsOutline />} />
                     <li className="px-3">
                         <div className="flex flex-row items-center h-8">
                             <div className="maintitle">Tasks</div>
                         </div>
                     </li>
-                    <Lilinks link={'/availabetasks'} title='Friends' icon={<BiTask />} />
-                    <Lilinks link={'/clients'} title='Parties' icon={<IoPeopleOutline />} />
+                    <Lilinks Link={"/dashboard"} selected={'/availabetasks'} title='Friends' icon={<BiTask />} />
+                    <Lilinks Link={"/dashboard"} selected={'/clients'} title='Parties' icon={<IoPeopleOutline />} />
 
                     <li className="px-3">
                         <div className="flex flex-row items-center h-8">
                             <div className="maintitle">Settings</div>
                         </div>
                     </li>
-                    <Lilinks link={'/profile'} title='Profile' icon={<IoPersonOutline />} />
-                    <Lilinks link={'/settings'} title='Settings' icon={<IoSettingsOutline />} />
+                    <Lilinks Link={"/dashboard"} selected={'/profile'} title='Profile' icon={<IoPersonOutline />} />
+                    <Lilinks Link={"/dashboard"} selected={'/settings'} title='Settings' icon={<IoSettingsOutline />} />
                     <li>
                         <label className="inline-flex relative items-center mb-4 cursor-pointer ml-5">
                             <input type="checkbox" value="" id="default-toggle" className="sr-only peer" />

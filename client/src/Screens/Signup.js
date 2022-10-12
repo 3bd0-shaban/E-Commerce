@@ -34,9 +34,9 @@ const Signup = () => {
         },
         credentials: "include"
       };
-      await axios.post('http://localhost:5000/api/auth/signup', { email, password, username, confirmpassword }, config);
+      const res = await axios.post('http://localhost:5000/api/auth/signup', { email, password, username, confirmpassword }, config);
       // setInputs({ ...inputs, error, auth })
-      dispatch(UserAction.Register());
+      dispatch(UserAction.Register(res.data));
       // localStorage.setItem("Logedin ?", true);
       navigate('/signin');
     } catch (error) {
