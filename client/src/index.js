@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from 'react-redux';
-// import Store from './Redux/Store'
+import { CookiesProvider } from 'react-cookie';
 import { persistor, Store } from './Redux/Store';
 import { PersistGate } from 'redux-persist/integration/react';
 const root = ReactDOM.createRoot(document.getElementById('root'));
@@ -13,7 +13,7 @@ root.render(
     <Provider store={Store}>
       <PersistGate loading={null} persistor={persistor}>
         <HelmetProvider>
-        
+        <CookiesProvider/>
           <App />
         </HelmetProvider>
       </PersistGate>

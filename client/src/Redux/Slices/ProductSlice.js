@@ -9,12 +9,14 @@ const ProductsSlice = createSlice({
     },
     reducers: {
         Fetch_Data(state) {
+            state.products = [];
+            state.productDetails = '';
             state.loading = true;
             state.error = '';
-            state.products = [];
         },
         Success_Fetch(state, action) {
             state.products = action.payload;
+            state.productDetails = '';
             state.loading = false;
             state.error = ''
         },
@@ -44,4 +46,3 @@ const ProductsSlice = createSlice({
 
 export const ProductsAction = ProductsSlice.actions;
 export default ProductsSlice.reducer
-// export const userSelector = state => state.user

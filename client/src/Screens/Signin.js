@@ -14,7 +14,6 @@ const Signin = () => {
   //   }
   // })
   const { error } = useSelector((state) => state.auth)
-  // const { token } = useSelector((state) => state.token)
   const [inputs, setInputs] = useState({
     email: '',
     password: ''
@@ -27,13 +26,8 @@ const Signin = () => {
     event.preventDefault();
     const { email, password } = inputs
     try {
-      // const config = {
-      //   header: {
-      //     "Content-Type": "application/json"
-      //   },
-      // };
+
       const res = await axios.post('http://localhost:5000/api/auth/signin', { email, password },{withCredentials: true});
-      // localStorage.setItem('token', res.data.token);
       dispatch(UserAction.LoggedIn(res.data));
       dispatch(UserAction.AccessToken(res.data.token));
       navigate('/');

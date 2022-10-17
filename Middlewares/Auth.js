@@ -3,12 +3,12 @@ import Users from '../Models/Users.js';
 
 export const auth = async (req, res, next) => {
     try {
-        const {token} = req.cookies;
+        const {token} = req.cookies.token;
         if(!token){
             return res.status(500).json({ msg: 'not authorized' });
 
         }
-        const verify = await jwt.verify(token,process.env.JWT_SCCESS);
+        const verify =jwt.verify(token,process.env.JWT_SECRET);
         req.user = await Users.findById(verify.id);
         next();
     } catch (error) {

@@ -3,32 +3,28 @@ import { HomeProducts, Header } from '../Exports'
 import { useSelector, useDispatch } from 'react-redux';
 // import { UserAction } from './../Redux/Slices/UserSlice';
 // import getError from './../utile';
-import axios from 'axios';
-import { useEffect } from 'react';
-import { UserAction } from '../Redux/Slices/UserSlice';
+
 
 const Home = () => {
-    const { success } = useSelector((state) => state.auth)
-    // eslint-disable-next-line
-    const dispatch = useDispatch();
-    // useEffect(() => {
-    //     const sednRequest = async (token) => {
-    //         const res = await axios.get("http://localhost:5000/api/auth/verifytoken", { withCredentials: true, },{ headers:{Authorization:token}})
-    //             .catch((err) => console.log(err));
-    //         const data = await res.data;
-    //         // return data;
-    //         dispatch(UserAction.LoggedIn(data.user))
-    //     };
-    //     sednRequest()
-    // }, [dispatch])
-
+    const { success, user, isAdmin,isLogged } = useSelector((state) => state.auth)
     return (
         <div>
             <Header />
-            {/* {user && <p className='text-3xl font-mono font-extrabold'>{user.email}</p>} */}
+            {isLogged &&
+                <>
+                    <img src={user[0].avatar} alt='' className='h-10 w-10'></img>
+                    <p className='text-3xl font-mono font-extrabold'>{user[0]._id}</p>
+                    <p className='text-3xl font-mono font-extrabold'>{user[0].username}</p>
+                    <p className='text-3xl font-mono font-extrabold'>{user[0].password}</p>
+                    <p className='text-3xl font-mono font-extrabold'>{user[0].email}</p>
+                    <p className='text-3xl font-mono font-extrabold'>{user[0].isAdmin}</p>
+                    <p className='text-3xl font-mono font-extrabold'>{user[0].createdAt}</p>
+                </>
+            }
+            {isAdmin && <p className='text-3xl font-mono font-extrabold'>Hi Admin</p>}
             {/* {isLogged && <p className='text-3xl font-mono font-extrabold'>Helllooooooooooooooooooooo</p>} */}
             {/* {error && dispatch(UserAction.Failed_LogIn(getError(error)))} */}
-            {/* {success && setTimeout(<p className='text-3xl font-mono font-extrabold'>{success}</p>,3*1000) } */}
+            {success && <p className='text-3xl font-mono font-extrabold'>{success}</p>}
             <HomeProducts />
         </div>
     )

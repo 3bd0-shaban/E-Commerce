@@ -29,7 +29,12 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
-  
+.body{
+    background-image: url('https://www.designyourway.net/blog/wp-content/uploads/2018/06/Seamless-Space-Pattern-by-J.jpg');
+}
+.bg{
+    background-color: rgba(252, 231, 247, 0.5);
+}
 .inputs {
     @apply
     outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border

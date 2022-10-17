@@ -53,13 +53,15 @@ const Header = () => {
             <span className="sr-only">Notifications</span>
             <div className="inline-flex absolute -top-1 -right-1 justify-center items-center w-5 h-5 text-[8px] font-bold text-white bg-red-500 rounded-full border-2 border-white">20</div>
           </Link>
-          {isLogged ? <>
-            <button type='submit' onClick={handlelogout} className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Log Out</button>
-            <Link to='/dashboard' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Dashboard</Link>
-            <Link to='/addproduct/all_users' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>AddProduct</Link>
+          {isLogged ?
+            <>
+              <button type='submit' onClick={handlelogout} className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Log Out</button>
+              <Link to='/profile' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>profile</Link>
+              <Link to='/dashboard/all_users' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Dashboard</Link>
+              <Link to='/addproduct' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>AddProduct</Link>
 
-            <p>{user.id}</p>
-          </>
+              <p>{user.id}</p>
+            </>
             :
             <>
               <Link to='/signin' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Sign In</Link>
