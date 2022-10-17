@@ -57,7 +57,7 @@ const AllProducts = () => {
                                             </th>
                                             <th scope="col" className="py-3 px-6">Name</th>
                                             <th scope="col" className="py-3 px-6">des</th>
-                                            <th scope="col" className="py-3 px-6">Quentity</th>
+                                            <th scope="col" className="py-3 px-6">stock</th>
                                             <th scope="col" className="py-3 px-6">rating</th>
                                             <th scope="col" className="py-3 px-6">rating</th>
                                             <th scope="col" className="py-3 px-6">Action</th>
@@ -80,7 +80,7 @@ const AllProducts = () => {
                                                     </div>
                                                 </th>
                                                 <td className="py-4 px-6">{product.des}</td>
-                                                <td className="py-4 px-6">{product.quentity}</td>
+                                                <td className="py-4 px-6">{product.stock}</td>
                                                 <td className="py-4 px-6">{product.rating}</td>
                                                 <td className="py-4 px-6">
                                                     <div className="flex items-center">

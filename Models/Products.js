@@ -2,38 +2,79 @@ import mongoose from "mongoose";
 const ProductSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: true,
+        required: [true, 'Product name is Required'],
     },
     des: {
         type: String,
-        required: true,
+        required: [true, 'Description is Required'],
+        maxLenght: [4000, 'Description must be less than 4000 chartacter']
+
     },
     price: {
         type: Number,
-        required: true,
+        required: [true, 'Price is Required'],
+    },
+    discountprice: {
+        type: Number,
+    },
+    color: {
+        type: String,
+    },
+    size: {
+        type: String,
     },
     category: {
         type: String,
-        required: true,
+        required: [true, 'Category is Required'],
     },
-    quentity: {
+    stock: {
         type: Number,
-        required: true,
+        required: [true, 'Number of products in stock is Required'],
     },
     brand: {
         type: String,
-        required: true,
+        required: [true, 'brand is Required'],
     },
     numofview: {
         type: Number,
+        default: 0,
     },
     rating: {
         type: Number,
+        default: 0
     },
-    image:{
-        public_id:{
-            type:String,
-            required:true
+    numofreviews: {
+        type: Number,
+        default: 0,
+    },
+    reviews: [
+        {
+            user: {
+                type: mongoose.Schema.ObjectId,
+                ref: 'User',
+                required: true
+            }, name: {
+                type: String,
+                required: true,
+            }, rating: {
+                type: Number,
+                required: true,
+            }, comment: {
+                type: String,
+            }, time: {
+                type: Date,
+                default: Date.now()
+            },
+        },
+    ],
+    image: {
+        public_id: {
+            type: String,
+            required: [true, 'The Product image is Required'],
+        },
+        url: {
+            type: String,
+            required: [true, 'The Product image is Required'],
         }
     }
 },
