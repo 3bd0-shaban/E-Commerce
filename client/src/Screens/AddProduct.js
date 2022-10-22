@@ -38,7 +38,9 @@ const AddProduct = () => {
 
     const onSelectImage = (e, image) => {
         if (!e.target.files || e.target.files.length === 0) {
-            setFileTobase(image)
+            setFileTobase(image);
+            // const {category} = e.target
+            // setInputs({...inputs,[category]:value})
             return
         }
         setImage(e.target.files[0])
@@ -65,7 +67,7 @@ const AddProduct = () => {
             dispatch(UploadProductAction.Fail_Upload(getError(error)));
         }
     }
-
+console.log(inputs)
     return (
         <>
             <Header />
@@ -99,7 +101,7 @@ const AddProduct = () => {
 
                         </div>
                         <label htmlFor="countries" className="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select an option</label>
-                        <select onChange={handleChange} id="category" value={inputs.category} name='category' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none">
+                        <select onChange={(e)=> setInputs((prevState)=>({...prevState,category:e.target.value}))} id="category" value={inputs.category} name='category' className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 outline-none">
                             <option value=''>-- - Select One ---</option>
                             <option value='laptops'>Laptops</option>
                             <option value='phones'>Phones</option>

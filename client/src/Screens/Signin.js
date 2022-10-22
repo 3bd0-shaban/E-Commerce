@@ -28,6 +28,7 @@ const Signin = () => {
     try {
 
       const res = await axios.post('http://localhost:5000/api/auth/signin', { email, password },{withCredentials: true});
+      localStorage.setItem('Logged?',true)
       dispatch(UserAction.LoggedIn(res.data));
       dispatch(UserAction.AccessToken(res.data.token));
       navigate('/');

@@ -5,18 +5,15 @@ import App from './App';
 import { HelmetProvider } from 'react-helmet-async'
 import { Provider } from 'react-redux';
 import { CookiesProvider } from 'react-cookie';
-import { persistor, Store } from './Redux/Store';
-import { PersistGate } from 'redux-persist/integration/react';
+import {  Store } from './Redux/Store';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={Store}>
-      <PersistGate loading={null} persistor={persistor}>
         <HelmetProvider>
         <CookiesProvider/>
           <App />
         </HelmetProvider>
-      </PersistGate>
     </Provider>
   </React.StrictMode>
 );

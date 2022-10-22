@@ -3,7 +3,8 @@ import { Header } from '../Exports';
 import { useSelector } from 'react-redux';
 
 const Profile = () => {
-    const { isLogged, user } = useSelector((state) => state.auth)
+    const { isLogged, user } = useSelector((state) => state.auth);
+
     return (
         <>
             <div className='body h-screen w-screen'>
@@ -13,14 +14,13 @@ const Profile = () => {
                         {
                             isLogged ?
                                 <>
-
-                                    <img src={user[0].avatar} alt='' className='h-full rounded-full' />
+                                    <img src={user.avatar} alt='' className='h-full rounded-full' />
                                     <div className='ml-5'>
-                                        <p className='text-2xl py-2'>{user[0].username}</p>
-                                        <p className='text-2xl py-2'>{user[0].email}</p>
-                                        <p className='text-2xl py-2'>{user[0]._id}</p>
-                                        <p className='text-2xl py-2'>{user[0].createdAt}</p>
-                                        <p className='text-2xl py-2'>{user[0].updatedAt}</p>
+                                        <p className='text-2xl py-2'>{user.username}</p>
+                                        <p className='text-2xl py-2'>{user.email}</p>
+                                        <p className='text-2xl py-2'>{user._id}</p>
+                                        <p className='text-2xl py-2'>{user.createdAt}</p>
+                                        <p className='text-2xl py-2'>{user.updatedAt}</p>
                                     </div>
                                 </>
                                 :

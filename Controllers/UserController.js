@@ -72,18 +72,12 @@ export const SignIn = async (req, res) => {
                     return res.status(400).json({ msg: 'wrong Password' });
                 }
             }
-            // return res.status(200).json({ msg: 'successfully logged in' });
-
             const token = createToken({ id: user._id })
-            // if (req.cookies[`${user._id}`]) {
-            //     req.cookies[`${user._id}`] = "";
-            // }
-            res.cookie(String(user.id), token, {
+            res.cookie('token', token, {
                 httpOnly: true,
                 path: '/',
-                secure: true,
+                // secure: true,
                 expires: new Date(Date.now() + 1000 * 60 * 30), // 30 seconds
-                // maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
                 sameSite: 'lax'
             })
             if (user) {
@@ -131,15 +125,80 @@ export const RefreshToken = (req, res, next) => {
     }
 };
 export const UserInfo = async (req, res) => {
-    const UserId = req.id;
     try {
-        const user = await Users.findById(UserId).select('-password');
+        const user = await Users.findById(req.user.id).select('-password');
+        if (!user) {
+            return res.status(400).json({ msg: 'User Not Founded' });
+        }
+        res.json(user);
+    } catch (error) {
+        return res.status(500).json({ msg: error.message,user });
+    }
+}
+export const Get_UserInfo = async (req, res) => {
+    try {
+        const user = await Users.findById(req.params.id);
         if (!user) {
             return res.status(400).json({ msg: 'User Not Founded' });
         }
         res.json(user);
     } catch (error) {
         return res.status(500).json({ msg: error.message });
+    }
+}
+export const Update_UserInfo = async (req, res) => {
+    try {
+        const user = await Users.findById(req.params.id);
+        if (!user) {
+            return res.status(400).json({ msg: 'User Not Founded with this Id' });
+        } else {
+            const user = await Users.findByIdAndUpdate(req.params.id, req.body, {
+                new: true,
+                runValidators: true,
+                useFindAndModify: false,
+            });
+            return res.json(user);
+
+        }
+    } catch (error) {
+        return res.status(500).json({ msg: error.message })
+    }
+}
+export const Update_UserRole = async (req, res) => {
+    try {
+        const user = await Users.findById(req.params.id);
+        if (!user) {
+            return res.status(400).json({ msg: 'User Not Founded with this Id' });
+        } else {
+            const user = await Users.findByIdAndUpdate(req.params.id, req.body.isAdmin, {
+                new: true,
+                runValidators: true,
+                useFindAndModify: false,
+            });
+            return res.json(user);
+
+        }
+    } catch (error) {
+        return res.status(500).json({ msg: error.message })
+    }
+}
+export const Delete_UserInfo = async (req, res) => {
+    try {
+        const user = await Users.findById(req.params.id);
+        if (!user) {
+            return res.status(400).json({ msg: 'User Not Founded with this Id' });
+        } else {
+            await Users.findByIdAndRemove(req.params.id, req.body, {
+                new: true,
+                runValidators: true,
+                useUnified: true,
+            });
+            return res.status(200).json({ msg: 'User deleted successfully' });
+
+
+        }
+    } catch (error) {
+        return res.status(500).json({ msg: error.message })
     }
 }
 export const logout = (req, res) => {
@@ -161,47 +220,7 @@ export const logout = (req, res) => {
         }
     });
 };
-// export const VerifyToken = (req, res, next) => {
-//     try {
-//         const cookie = req.headers.cookie;
-//         if (!cookie) {
-//             return res.status(500).json({ msg: 'Sign In First' });
-//         }
-//         const token = cookie.split("=")[1];
-//         if (!token) {
-//             return res.status(500).json({ msg: 'No Token Found' });
-//         }
-//         Jwt.verify(token, process.env.JWT_SECRET, (err, user) => {
-//             if (err) {
-//                 return res.status(400).json({ msg: 'Please Login first' });
-//             }
-//             // return res.json({ user });
-//             console.log(user.id)
-//             req.id = user.id
-//         })
-//         next();
-//     } catch (error) {
-//         return res.status(500).json({ msg: error.message });
-//     }
-// };
-// export const GetAccessToken = (req, res) => {
-//     try {
-//         const cookie = req.headers.cookie;
-//         const token = cookie.split("=")[1];
-//         if (!token) {
-//             res.status(400).json({ msg: 'Log In First' })
-//         }
-//         Jwt.verify(token, process.env.JWT_REFRESH, (err, user) => {
-//             if (err) {
-//                 res.status(400).json({ msg: 'Log In First Man' });
-//             }
-//             const access_Token = createAccessToken({ id: user.id });
-//             res.json({ access_Token })
-//         })
-//     } catch (error) {
-//         return res.status(500).json({ msg: error.message });
-//     }
-// };
+
 export const ForgotPassword = async (req, res) => {
     try {
         const { email } = req.body;
@@ -243,8 +262,8 @@ export const AllUsers = async (req, res) => {
 }
 export const LogOut = async (req, res) => {
     try {
-        res.clearCookie('authcookie', { path: '/api/auth/refresh_token', })
-        res.json({ msg: 'LogedOut' });
+        res.clearCookie('token', { path: '/', })
+        res.json({ msg: 'Loged Out' });
     } catch (error) {
         return res.status(500).json({ msg: error.message });
     }

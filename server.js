@@ -11,7 +11,7 @@ const app = express();
 const port = process.env.PORT || 5000
 dotenv.config();
 app.use(cors({
-    origin: "http://localhost:3000", //react location
+    origin: "http://localhost:3000", 
     credentials: true
 }));
 app.use(cookieParser());
