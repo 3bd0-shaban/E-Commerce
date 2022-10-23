@@ -1,10 +1,10 @@
 import React, { useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
-import getError from './../utile';
+// import axios from 'axios';
+// import getError from './../../utile';
 // import { GetUserProfileAction } from '../Redux/Slices/GetUserProfileSlice';
-import { UserAction } from './../Redux/Slices/UserSlice';
+import { UserAction } from './../../Redux/Slices/UserSlice';
 
 const Header = () => {
   const dispach = useDispatch();

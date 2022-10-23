@@ -2,11 +2,11 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
-import { ProductsAction } from '../Redux/Slices/ProductSlice'
+import { ProductsAction } from '../../Redux/Slices/ProductSlice'
 import { Helmet } from 'react-helmet-async';
-import getError from './../utile';
-import { SKHomeProducts } from '../Exports'
-import { Danger } from './Alerts'
+import getError from './../../utile';
+import { SKHomeProducts } from '../../Exports'
+import { Danger } from './../Alerts'
 const HomeProducts = () => {
     const dispatch = useDispatch();
     const { loading, error, products } = useSelector((state) => state.products);

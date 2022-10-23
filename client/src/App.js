@@ -1,12 +1,13 @@
 import React, { useEffect } from 'react'
-import { Home, Signup, Signin, ProductScreen, Dashboard, AddProduct,AllProducts,Profile,getError } from './Exports';
+import { Home, Signup, Signin, ProductScreen, Dashboard, AddProduct,AllProducts,Profile,Charts,getError } from './Exports';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
-import {  useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { UserAction } from './Redux/Slices/UserSlice';
 import axios from 'axios'
 axios.defaults.withCredentials = true;
 function App() {
   const dispatch = useDispatch();
+  // const {isLogged}=useSelector((state)=>state.auth);
   useEffect(() => {
       const FetchData = async () => {
           try {
@@ -18,6 +19,9 @@ function App() {
       };
       FetchData();
   }, [dispatch]);
+  // if(isLogged){
+    
+  // }
   return (
     <div>
       <BrowserRouter>
@@ -30,6 +34,7 @@ function App() {
           <Route path='/profile' element={<Profile />} />
           <Route path='/addproduct' element={<AddProduct />} />
           <Route path='/dashboard/all_products' element={<AllProducts />}/>
+          <Route path='/dashboard/charts' element={<Charts />}/>
         </Routes>
       </BrowserRouter>
     </div>
