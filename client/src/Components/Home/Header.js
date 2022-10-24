@@ -1,59 +1,77 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSelector, useDispatch } from 'react-redux';
-// import axios from 'axios';
-// import getError from './../../utile';
-// import { GetUserProfileAction } from '../Redux/Slices/GetUserProfileSlice';
 import { UserAction } from './../../Redux/Slices/UserSlice';
-
+import { IoSettingsOutline } from 'react-icons/io5'
+import { TbMessageReport } from 'react-icons/tb'
+import { CgProfile } from 'react-icons/cg'
+import { BsSave2, BsWhatsapp } from 'react-icons/bs'
 const Header = () => {
-  const dispach = useDispatch();
   const navigate = useNavigate();
   const { user, isLogged } = useSelector((state) => state.auth);
   const dispatch = useDispatch();
-  useEffect(() => {
-    // const getUserInfo = async () => {
-    //   await axios.get('http://localhost:5000/api/auth/verifytoken')
-    //     .then(res => {
-    //       dispach(GetUserProfileAction.getUserInfo(res.data));
-    //     }).catch(error => {
-    //       dispach(GetUserProfileAction.Fail_getUserInfo(getError(error)));
-    //     });
-    // }
-    // getUserInfo();
-  }, [dispach]);
+
   const handlelogout = (event) => {
     dispatch(UserAction.LogOut());
     // dispach(GetUserProfileAction.LogoutUser());
     navigate('/signin')
   }
   return (
-    <div className=' bg-gray-50 py-5 border-b'>
+    <div className=' bg-gray-50 py-3 border-b'>
       <div className='container max-w-8xl flex justify-between items-center px-1 md:px-3'>
-        <Link to='/' className='font-bold font-serif text-xl md:text-3xl'>E-Commerce</Link>
-        <div className='hidden lg:block'>
-          <form className="flex items-center mx-auto">
-            <label className="sr-only">Search</label>
-            <div className="relative w-96">
-              <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
-                <i className="fa fa-search w-4 h-4 text-gray-500  hover:text-gray-900" aria-hidden="true"></i>
-              </div>
-              <input type="text" className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg  w-full pl-10 p-2.5" placeholder="Search Laptops, Tablets, Phones ..." required="" />
-              <button type="button" className="flex absolute inset-y-0 right-0 items-center pr-3">
-                <i className="fa fa-microphone w-4 h-4 text-gray-500 hover:text-gray-900" aria-hidden="true"></i>
-              </button>
-            </div>
-            <button type="submit" className="inline-flex items-center py-2.5 px-3 ml-2 text-sm font-medium text-white bg-blue-700 rounded-lg border border-blue-700 hover:bg-blue-800 focus:ring-2 focus:ring-blue-300">
-              <i className="fa fa-search pr-2 "></i>Search</button>
-          </form>
+        <div className='flex'>
+          <div className='bg-orange-300 rounded-full mr-2 px-2 flex items-center'>
+            <i className="fa fa-cart-arrow-down text-white  text-xl"></i>
+          </div>
+          <Link to='/' className='font-bold font-serif text-xl md:text-3xl'>Market</Link>
         </div>
+        <div className='hidden lg:block'>
+
+          <form>
+            <div class="flex px-10">
+              <label for="location-search" class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300">Your Email</label>
+              <div class="relative w-full">
+                <input type="search" id="location-search&quot;" class="block p-2.5 w-full z-20 text-sm text-gray-900 bg-gray-50 rounded-r-lg border-l-gray-50 border-l-2 border border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Search for city or address" required="" />
+                <button type="submit" class="absolute top-0 right-0 p-2.5 text-sm font-medium text-white bg-blue-700 rounded-r-lg border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300">
+                  <svg aria-hidden="true" class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path></svg>
+                  <span class="sr-only">Search</span>
+                </button>
+              </div>
+            </div>
+          </form>
+
+        </div>
+
         <div className='flex gap-3'>
+          <div className='flex items-center'>
+            <BsWhatsapp style={{ 'fontSize': '2.5rem', 'backgroundColor': '#FDBA74', 'borderRadius': '50%', 'color': '#fff' }} />
+            <div className='ml-3'>
+              <p className='font-medium'>Call Us Now</p>
+              <p>+205482148</p>
+            </div>
+          </div>
           <Link type="button" className="inline-flex relative items-center px-3 text-sm font-medium text-center  text-white rounded-lg  focus:outline-none">
             <i className="fa fa-cart-arrow-down text-black text-xl"></i>
             <span className="sr-only">Notifications</span>
             <div className="inline-flex absolute -top-1 -right-1 justify-center items-center w-5 h-5 text-[8px] font-bold text-white bg-red-500 rounded-full border-2 border-white">20</div>
           </Link>
-          {isLogged ?
+          <div className='relative dropdown'>
+            <button className=" flex text-sm rounded-full md:mr-0">
+              <img className="p-1 w-10 h-10 rounded-full focus:ring-2 focus:ring-gray-300" src={user.avatar} alt="" />
+            </button>
+            <div className='absolute dropdwon-content hidden w-64 shadow-lg right-0 text-end bg-white z-10'>
+              <div>
+                <Link to='/' className='flex gap-2 py-3 px-4 hover:bg-gray-100 pt-3' ><CgProfile style={{ 'marginTop': '3px', 'fontSize': '1.3rem' }} />Profile</Link>
+                <Link to='/' className='flex gap-2 py-3 px-4 hover:bg-gray-100' ><BsSave2 style={{ 'marginTop': '3px', 'fontSize': '1.3rem' }} />Favourite</Link>
+                <Link to='/' className='flex gap-2 py-3 px-4 hover:bg-gray-100' ><IoSettingsOutline style={{ 'marginTop': '3px', 'fontSize': '1.3rem' }} />Orders</Link>
+                <Link to='/' className='flex gap-2 py-3 px-4 hover:bg-gray-100' ><TbMessageReport style={{ 'marginTop': '3px', 'fontSize': '1.3rem' }} />Report a problem</Link>
+              </div>
+              <div className="py-1 hover:bg-gray-100 pb-3">
+                <Link to="/signup" className="text-gray-700 px-4 py-2 text-base font-poppins flex gap-3 mt-1 ">Log Out</Link>
+              </div>
+            </div>
+          </div>
+          {/* {isLogged ?
             <>
               <button type='submit' onClick={handlelogout} className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Log Out</button>
               <Link to='/profile' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>profile</Link>
@@ -68,7 +86,7 @@ const Header = () => {
               <Link to='/signup' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Sign Up</Link>
               <Link to='/dashboard/all_users' className='border text-center px-3 font-medium font-serif rounded-lg py-2 hover:bg-gray-200 focus:ring focus:ring-gray-200'>Dashboard</Link>
             </>
-          }
+          } */}
         </div>
       </div>
     </div>

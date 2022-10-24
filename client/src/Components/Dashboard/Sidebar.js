@@ -35,7 +35,7 @@ const Sidebar = () => {
                     <Lilinks Link={"/dashboard/all_users"} selected={'/dashboard/all_users'} title='Users' icon={<AiOutlineDashboard />} />
                     <Lilinks Link={"/dashboard/all_products"} selected={'/dashboard/all_products'} title='Products' icon={<AiOutlineMessage />} />
                     <Lilinks Link={"/dashboard/charts"} selected={'/dashboard/charts'} title='Charts' icon={<IoMdPhotos />} />
-                    <Lilinks Link={"/dashboard"} selected={'/notifcations'} title='Coming Soon' icon={<IoIosNotificationsOutline />} />
+                    <Lilinks Link={"/dashboard/calender"} selected={'/dashboard/calender'} title='Calender' icon={<IoIosNotificationsOutline />} />
                     <li className="px-3">
                         <div className="flex flex-row items-center h-8">
                             <div className="maintitle">Tasks</div>

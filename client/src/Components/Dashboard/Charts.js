@@ -1,10 +1,5 @@
 import React from 'react'
-import Header from '../Home/Header'
-import LineChart from './Chart/LineChart'
-import GeoChart from './Chart/GeoChart'
-import PieChart from './Chart/PieChart'
-import Sidebar from './Sidebar';
-
+import { Sidebar, Header,LineChart,PieChart } from '../../Exports';
 const Charts = () => {
     return (
         <>

@@ -6,32 +6,32 @@ import { useSelector } from 'react-redux';
 
 
 const Home = () => {
-    function getCookie(cname) {
-        let name = cname + "=";
-        let decodedCookie = decodeURIComponent(document.cookie);
-        let ca = decodedCookie.split(';');
-        for (let i = 0; i < ca.length; i++) {
-            let c = ca[i];
-            while (c.charAt(0) === ' ') {
-                c = c.substring(1);
-            }
-            if (c.indexOf(name) === 0) {
-                return c.substring(name.length, c.length);
-            }
-        }
-        return "";
-    }
-    useEffect(() => {
-        const CheckAuthorization = async () => {
-            const cookie = getCookie('token');
-            if (cookie === "") {
-                console.log(cookie)
-                console.log('xcvbnm')
-                localStorage.removeItem('Logged?')
-            }
-        }
-        CheckAuthorization();
-    }, [])
+    // function getCookie(cname) {
+    //     let name = cname + "=";
+    //     let decodedCookie = decodeURIComponent(document.cookie);
+    //     let ca = decodedCookie.split(';');
+    //     for (let i = 0; i < ca.length; i++) {
+    //         let c = ca[i];
+    //         while (c.charAt(0) === ' ') {
+    //             c = c.substring(1);
+    //         }
+    //         if (c.indexOf(name) === 0) {
+    //             return c.substring(name.length, c.length);
+    //         }
+    //     }
+    //     return "";
+    // }
+    // useEffect(() => {
+    //     const CheckAuthorization = async () => {
+    //         const cookie = getCookie('token');
+    //         if (cookie === "") {
+    //             console.log(cookie)
+    //             console.log('xcvbnm')
+    //             localStorage.removeItem('Logged?')
+    //         }
+    //     }
+    //     CheckAuthorization();
+    // }, [])
     const { success, user, isAdmin, isLogged } = useSelector((state) => state.auth)
     return (
         <div>

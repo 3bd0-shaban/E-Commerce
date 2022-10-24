@@ -5,9 +5,11 @@ export { default as Comments } from './Components/Products/Comments';
 export { default as Sidebar } from './Components/Dashboard/Sidebar';
 export { default as UsersTable } from './Components/Dashboard/UsersTable';
 export { default as Charts } from './Components/Dashboard/Charts';
+export { default as Calender } from './Components/Dashboard/Calender';
 
 export { default as LineChart } from './Components/Dashboard/Chart/LineChart';
 export { default as GeoChart } from './Components/Dashboard/Chart/GeoChart';
+export { default as PieChart } from './Components/Dashboard/Chart/PieChart';
 
 export { default as AllProducts } from './Components/Dashboard/AllProducts';
 export { default as DashboardNavBar } from './Components/Dashboard/DashboardNavBar';

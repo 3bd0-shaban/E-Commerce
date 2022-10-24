@@ -2,6 +2,21 @@
 @tailwind components;
 @tailwind utilities;
 
+.dropdown:hover .dropdwon-content{
+    display: block;
+}
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hideScrollBare::-webkit-scrollbar {
+    display: none;
+  }
+  /* Hide scrollbar for IE, Edge and Firefox */
+  .hideScrollBare {
+    -ms-overflow-style: none;  /* IE and Edge */
+    scrollbar-width: none;  /* Firefox */
+  }
+.arrow{
+    background-color: rgba(255, 255, 255, 0.2);
+}
 .SideBarLinks{
     @apply
     relative flex flex-row items-center h-11 focus:outline-none border-l-4 border-transparent pr-6 
