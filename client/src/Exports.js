@@ -6,6 +6,7 @@ export { default as Sidebar } from './Components/Dashboard/Sidebar';
 export { default as UsersTable } from './Components/Dashboard/UsersTable';
 export { default as Charts } from './Components/Dashboard/Charts';
 export { default as Calender } from './Components/Dashboard/Calender';
+export { default as Addbanner } from './Components/Dashboard/Addbanner';
 
 export { default as LineChart } from './Components/Dashboard/Chart/LineChart';
 export { default as GeoChart } from './Components/Dashboard/Chart/GeoChart';

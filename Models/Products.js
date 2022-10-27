@@ -2,17 +2,17 @@ import mongoose from "mongoose";
 const ProductSchema = new mongoose.Schema({
     name: {
         type: String,
-        required: [true, 'Product name is Required'],
+        // required: [true, 'Product name is Required'],
     },
     des: {
         type: String,
-        required: [true, 'Description is Required'],
-        maxLenght: [4000, 'Description must be less than 4000 chartacter']
+        // required: [true, 'Description is Required'],
+        // maxLenght: [4000, 'Description must be less than 4000 chartacter']
 
     },
     price: {
         type: Number,
-        required: [true, 'Price is Required'],
+        // required: [true, 'Price is Required'],
     },
     discountprice: {
         type: Number,
@@ -25,15 +25,16 @@ const ProductSchema = new mongoose.Schema({
     },
     category: {
         type: String,
-        required: [true, 'Category is Required'],
+        // required: [true, 'Category is Required'],
     },
     stock: {
         type: Number,
-        required: [true, 'Number of products in stock is Required'],
+        default: 1,
+        // required: [true, 'Number of products in stock is Required'],
     },
     brand: {
         type: String,
-        required: [true, 'brand is Required'],
+        // required: [true, 'brand is Required'],
     },
     numofview: {
         type: Number,
@@ -47,6 +48,22 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    warranty: {
+        type: Number,
+        default: 1
+    },
+    specifications: [
+        {
+            title: {
+                type: String,
+                required: true
+            },
+            description: {
+                type: String,
+                required: true
+            }
+        }
+    ],
     reviews: [
         {
             user: {
@@ -70,13 +87,25 @@ const ProductSchema = new mongoose.Schema({
     image: {
         public_id: {
             type: String,
-            required: [true, 'The Product image is Required'],
+            // required: [true, 'Main image is Required'],
         },
         url: {
             type: String,
-            required: [true, 'The Product image is Required'],
+            // required: [true, 'Main image is Required'],
         }
-    }
+    },
+    images: [
+        {
+            public_id: {
+                type: String,
+                required: [true, 'The Product image is Required'],
+            },
+            url: {
+                type: String,
+                required: [true, 'The Product image is Required'],
+            }
+        }
+    ]
 },
     { timestamps: true }
 );

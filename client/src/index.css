@@ -14,8 +14,9 @@
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
-.arrow{
-    background-color: rgba(255, 255, 255, 0.2);
+.react-multi-carousel-item{
+    @apply
+     -ml-3 mr-1
 }
 .SideBarLinks{
     @apply

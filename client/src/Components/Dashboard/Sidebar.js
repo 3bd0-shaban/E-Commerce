@@ -41,7 +41,7 @@ const Sidebar = () => {
                             <div className="maintitle">Tasks</div>
                         </div>
                     </li>
-                    <Lilinks Link={"/dashboard"} selected={'/availabetasks'} title='Friends' icon={<BiTask />} />
+                    <Lilinks Link={"/dashboard/addbanner"} selected={'/dashboard/addbanner'} title='Add Banners' icon={<BiTask />} />
                     <Lilinks Link={"/dashboard"} selected={'/clients'} title='Parties' icon={<IoPeopleOutline />} />
 
                     <li className="px-3">

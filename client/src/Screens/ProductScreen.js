@@ -39,13 +39,14 @@ const ProductScreen = () => {
                   <title>{productDetails.name}</title>
                 </Helmet>
                 <div className='col-span-2 '>
-                  <img src={productDetails.image} className=' object-cover w-full mx-auto md:w-1/2' alt='' />
+                  <img src={productDetails.image.url} className=' object-cover w-full mx-auto md:w-1/2' alt='' />
                 </div>
                 <div className=''>
                   <p className='text-xl font-semibold'>{productDetails.name}</p>
                   {productDetails.stock > 0 ?
                     <>
                       <p className='text-xl mt-auto'>{productDetails.price}$</p>
+                      <p  className='text-xl mt-auto'></p>
                       <Rating rating={`${productDetails.rating}`} />
                       <div className=' mb-3 flex gap-4 mt-5'>
                         <Link className='border border-orange-300 px-4 py-2 rounded-2xl font-medium hover:bg-orange-300 focus:ring focus:ring-orange-200 hover:text-white'>Card</Link>
