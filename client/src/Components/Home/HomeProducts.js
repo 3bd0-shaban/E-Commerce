@@ -3,15 +3,14 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { ProductsAction } from '../../Redux/Slices/ProductSlice'
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 import { Helmet } from 'react-helmet-async';
 import getError from './../../utile';
-import { SKHomeProducts } from '../../Exports'
+import { SKHomeProducts,Banners } from '../../Exports'
 import { Danger } from './../Alerts'
 const HomeProducts = () => {
     const dispatch = useDispatch();
     const { loading, error, products } = useSelector((state) => state.products);
+
     useEffect(() => {
         const FetchData = async () => {
             dispatch(ProductsAction.Fetch_Data())
@@ -29,47 +28,8 @@ const HomeProducts = () => {
         const cart = current + 1
         localStorage.setItem('cart', cart)
     }
-    const images = ['https://res.cloudinary.com/abdo9/image/upload/v1666631306/samples/ecommerce/p1_qu5t1r.jpg',
-        'https://res.cloudinary.com/abdo9/image/upload/v1666631307/samples/ecommerce/p2_jc5d0v.gif',
-        'https://res.cloudinary.com/abdo9/image/upload/v1666631310/samples/ecommerce/p4_h5ttvx.jpg',
-        'https://res.cloudinary.com/abdo9/image/upload/v1666631310/samples/ecommerce/p3_cvczwb.jpg']
-    const Carouseltop = () => {
-        const responsive = {
-            desktop: {
-                breakpoint: {
-                    max: 3000,
-                    min: 1024
-                },
-                items: 1
-            },
-            mobile: {
-                breakpoint: {
-                    max: 464,
-                    min: 0
-                },
-                items: 1
-            },
-            tablet: {
-                breakpoint: {
-                    max: 1024,
-                    min: 464
-                },
-                items: 1
-            }
-        };
-        return (
-            <div className='relative container max-w-8xl'>
-                <Carousel additionalTransfrom={0} autoPlay arrows autoPlaySpeed={3000} centerMode={false} className="" containerClass="container" dotListClass=""
-                    draggable focusOnSelect={false} infinite itemClass="" keyBoardControl minimumTouchDrag={80} pauseOnHover renderArrowsWhenDisabled={false}
-                    renderButtonGroupOutside={false} renderDotsOutside={false} rewind={false} rewindWithAnimation={false} rtl={false} shouldResetAutoplay showDots
-                    sliderClass="" slidesToSlide={1} swipeable responsive={responsive}>
-                    {images.map((image) => (
-                        <img className='w-full' src={image} alt='' />
-                    ))}
-                </Carousel>
-            </div>
-        )
-    }
+    
+
     const ScrollableCategory = (props) => {
         const responsive = {
             superLargeDesktop: {
@@ -123,7 +83,7 @@ const HomeProducts = () => {
     }
     return (
         <>
-            <Carouseltop />
+            <Banners />
             <div className='container max-w-8xl mt-5'>
                 <ScrollableCategory Category={'Best Offers'} />
                 <ScrollableCategory Category={'Monitors'} />

@@ -1,7 +1,8 @@
 import express from "express";
-import { Upload_Banners } from '../Controllers/FeaturesController.js'
+import { Upload_Banners,Get_Banners } from '../Controllers/BannersController.js'
 import { auth, isAdmin } from '../Middlewares/Auth.js'
 const router = express.Router();
 
 router.post('/new', Upload_Banners);
+router.get('/get_banners', Get_Banners);
 export default router

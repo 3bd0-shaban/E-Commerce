@@ -1,5 +1,6 @@
 export { default as HomeProducts } from './Components/Home/HomeProducts';
 export { default as Header } from './Components/Home/Header';
+export { default as Banners } from './Components/Home/Banners';
 export { default as Rating } from './Components/Products/Rating';
 export { default as Comments } from './Components/Products/Comments';
 export { default as Sidebar } from './Components/Dashboard/Sidebar';

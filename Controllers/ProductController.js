@@ -4,27 +4,18 @@ export const UploadProduct = async (req, res) => {
     try {
 
         const { name, price, stock, des, brand, category, image, specifications, images } = req.body
-    
-        const file = req.body.preview
 
-        // if (file.size > 1024 * 1024) {
-        //     removeTmp(file.tempFilePath);
-        //     return res.status(400).json({ msg: 'Size too large' });
-        // }
+        const file = req.body.preview
         console.log(file)
         const result = await cloudinary.uploader.upload(file, {
             folder: "Market",
         });
-        // image({
-        //     public_id: result.public_id,
-        //     url: result.secure_url
-        // });
         console.log(result)
         new Products({
-            name, price, stock, des, brand, category, specifications,image,
-                image:{
-                    public_id: result. public_id,
-                    url: result.secure_url,
+            name, price, stock, des, brand, category, specifications, image,
+            image: {
+                public_id: result.public_id,
+                url: result.secure_url,
             }
         })
             .save()
@@ -42,6 +33,30 @@ export const UploadProduct = async (req, res) => {
         return res.status(500).json({ msg: error.message })
     }
 }
+// if (!req.files || Object.keys(req.files).length === 0)
+// return res.status(400).json({ msg: 'No files were uploaded.' })
+
+// const file = req.files.file;
+// const banners = [];
+// let bannersBuffer = [];
+// for (let i = 0; i < banners.length; i++) {
+// const result = await cloudinary.uploader.upload(file.tempFilePath[i], {
+//     folder: "Banners",
+// });
+// bannersBuffer.push({
+//     public_id: result.public_id,
+//     url: result.secure_url
+// })
+// }
+// req.body.banners = bannersBuffer
+
+
+// new Banners({
+// banners: {
+//     public_id: result.public_id,
+//     url: result.secure_url,
+// }
+// })
 export const Fetch_Products = async (req, res) => {
     try {
         const Product = await Products.find();

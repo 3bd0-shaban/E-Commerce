@@ -2,17 +2,15 @@ import axios from 'axios';
 import React, { useState } from 'react'
 import { Sidebar, Header } from '../../Exports';
 import { useDispatch, useSelector } from 'react-redux';
-import { UploadProductAction } from '../../Redux/Slices/UploadProductSlice';
 import getError from './../../utile';
 import { Danger, Success } from './../../Components/Alerts';
+import { Get_BannersAction } from '../../Redux/Slices/BannersSlice';
 const Addbanner = () => {
 
     const [images, setImages] = useState([]);
     const [preview, setPreview] = useState([]);
     const dispatch = useDispatch();
-    const { error, success, loading } = useSelector((state) => state.Upload_Product);
-
-    console.log(images)
+    const { error, success, loading } = useSelector((state) => state.Banners);
     const HandleImages = (e) => {
         const files = Array.from(e.target.files);
         setPreview([]);
@@ -29,22 +27,14 @@ const Addbanner = () => {
     const HandleSubmit = async (e) => {
         e.preventDefault();
         try {
-            const config = {
-                headers: {
-                    'Content-Type': 'multipart/form-data'
-                }
-            }
-            dispatch(UploadProductAction.Upload_Image_Request());
-
-            const res = await axios.post('http://localhost:5000/api/banner/new', { images }, config);
-            dispatch(UploadProductAction.Upload_Image_Success(res.data));
-
+            dispatch(Get_BannersAction.uploading_Banners_Request());
+            const res = await axios.post('http://localhost:5000/api/banner/new', { preview });
+            dispatch(Get_BannersAction.uploading_Banners_Success(res.data));
+            setPreview()
         } catch (error) {
-            dispatch(UploadProductAction.Fail_UploadImage(getError(error)));
+            dispatch(Get_BannersAction.uploading_Banners_Fails(getError(error)));
         }
     }
-
-
     return (
         <>
             <Header />
@@ -62,19 +52,14 @@ const Addbanner = () => {
                                         <span className="font-semibold">Click to upload</span> or drag and drop</p>
                                     <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                 </div>
-                                <input onChange={HandleImages} name='images' accept='image/*' multiple type="file" className="hidden" />
+                                <input onChange={HandleImages} value={images} name='images' accept='image/*' type="file" className="hidden" />
                             </label>
                         </div>
                         <div className='flex justify-center'>
                             <button type='submit' className='bg-green-500 py-2 mx-auto px-3 rounded-lg text-white font-semibold w-1/2 focus:ring focus:ring-green-400 mt-5'>{loading ? 'Uploading .....' : 'Submit'}</button>
                         </div>
                     </form>
-                    {preview &&
-                        <img src={preview} className='h-80 py-2' alt='' />
-                    }
-                    {/* {preview.map((image, i) => (
-                        <img src={image} key={i} className='h-80 py-2' alt='' />
-                    ))} */}
+                    {preview && <img src={preview} className='h-80 py-2' alt='' />}
                 </div>
             </div>
         </>
