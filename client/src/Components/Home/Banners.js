@@ -1,13 +1,31 @@
 import axios from 'axios';
-import React, { useEffect } from 'react'
+import React, { useEffect, Component } from 'react'
 import { Get_BannersAction } from './../../Redux/Slices/BannersSlice';
 import { useSelector, useDispatch } from 'react-redux'
 import getError from '../../utile';
 import Carousel from 'react-multi-carousel';
 import 'react-multi-carousel/lib/styles.css';
-
+import Slider from "react-slick";
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 const Banners = () => {
     const dispatch = useDispatch();
+
+
+    var settings = {
+        dots: true,
+        autoplay: true,
+        autoplaySpeed: 2000,
+        pauseOnHover: true,
+        infinite: true,
+        // fade: true,
+        speed: 500,
+        slidesToShow: 1,
+        slidesToScroll: 1
+    };
+
+
+
     const { loading, Banners } = useSelector((state) => state.Banners);
     const responsive = {
         desktop: {
@@ -47,17 +65,15 @@ const Banners = () => {
     }, [dispatch]);
 
     return (
-        <div className='relative container max-w-8xl'>
-            {loading ? <p>Loading .....</p> :
-                <Carousel additionalTransfrom={0} autoPlay arrows autoPlaySpeed={3000} centerMode={false} className="" containerClass="container" dotListClass=""
-                    draggable focusOnSelect={false} infinite itemClass="" keyBoardControl minimumTouchDrag={80} pauseOnHover renderArrowsWhenDisabled={false}
-                    renderButtonGroupOutside={false} renderDotsOutside={false} rewind={false} rewindWithAnimation={false} rtl={false} shouldResetAutoplay showDots
-                    sliderClass="" slidesToSlide={1} swipeable responsive={responsive}>
-                    {Banners && Banners.map((image) => (
+        <div className='w-[97%] mx-auto'>
+            <Slider {...settings}>
+                {Banners && Banners.map((image) => (
+                    <div>
                         <img className='w-full' key={image} src={image.banners.url} alt='' />
-                    ))}
-                </Carousel>
-            }
+                    </div>
+
+                ))}
+            </Slider>
         </div>
     )
 }
