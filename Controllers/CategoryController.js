@@ -22,8 +22,16 @@ export const Upload_Category = async (req, res) => {
     }
 }
 
+export const Get_All_Category = async (req, res) => {
+    try {
+        const Get_Category = await Category.find()
+        return res.json(Get_Category)
+    } catch (error) {
+        return res.status(500).json({ msg: error.message })
+    }
+}
+
 export const Update_Category = async (req, res) => {
-    const { category, subcategory } = req.body
     try {
         const isCategory = await Category.findById(req.params.id);
         if (!isCategory) {
