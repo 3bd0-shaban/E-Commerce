@@ -3,14 +3,14 @@ import cloudinary from "../Utils/cloudinary.js";
 export const UploadProduct = async (req, res) => {
     try {
 
-        const { name, price, stock, des, brand, category, image, specifications, images } = req.body
-
+        const { name, price, stock, des, brand, category, image, specifications } = req.body
         const file = req.body.preview
-        console.log(file)
+        if (!name || !price || !stock || !des || !brand || !category || !file) {
+            return res.status(400).json({msg: 'Please fill all fields'});
+        }
         const result = await cloudinary.uploader.upload(file, {
             folder: "Market",
         });
-        console.log(result)
         new Products({
             name, price, stock, des, brand, category, specifications, image,
             image: {

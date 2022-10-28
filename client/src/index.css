@@ -1,7 +1,15 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital@1&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Island+Moments&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@1,300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
 .dropdown:hover .dropdwon-content{
     display: block;
 }
@@ -17,6 +25,10 @@
 .react-multi-carousel-item{
     @apply
      -ml-3 mr-1
+}
+.slick-arrow {
+    @apply
+    !bg-gray-700
 }
 .SideBarLinks{
     @apply

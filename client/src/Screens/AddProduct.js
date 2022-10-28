@@ -39,12 +39,10 @@ const AddProduct = () => {
         if (!preview) return;
         try {
             dispatch(UploadProductAction.Upload_Data());
-            const config = {
-                header: { "Content-Type": "application/json" },
-                body: JSON.stringify({ data: base64EncodedImage })
-            }
             const res = await axios.post('http://localhost:5000/api/upload/uploadproduct', { preview,name, des, stock, price, brand, category });
             dispatch(UploadProductAction.Success_Upload(res.data));
+            setPreview('');
+            setInputs('');
         } catch (error) {
             dispatch(UploadProductAction.Fail_Upload(getError(error)));
         }

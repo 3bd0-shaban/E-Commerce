@@ -2,8 +2,7 @@ import React from 'react'
 import { BsImages } from 'react-icons/bs'
 const SK_HomeProducts = (props) => {
     return (
-        <div className='grid grid-cols-4 gap-3'>
-            <div className="space-y-8 animate-pulse border p-2">
+            <div className="space-y-8 animate-pulse w-2/12 p-2">
                 <div className="flex justify-center items-center w-full h-48 bg-gray-300 rounded">
                     <BsImages style={{ fontSize: '50px', color: '#99999B' }} />
                 </div>
@@ -17,7 +16,6 @@ const SK_HomeProducts = (props) => {
                 </div>
                 <span className="sr-only">Loading...</span>
             </div>
-        </div>
     )
 }
 

@@ -26,6 +26,7 @@ export { default as Profile } from './Screens/Profile';
 
 
 export { default as SKHomeProducts } from './Components/Skiliton/SK_HomeProducts';
+export { default as SKBanners } from './Components/Skiliton/SK_Banners';
 
 // export { default as Store } from './Redux/Store';
 // export { default as Reducer } from './Redux/Reducer';

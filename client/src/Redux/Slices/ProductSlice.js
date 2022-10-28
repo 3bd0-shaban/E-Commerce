@@ -8,19 +8,19 @@ const ProductsSlice = createSlice({
         productDetails:[],
     },
     reducers: {
-        Fetch_Data(state) {
+        Fetch_Products_Request(state) {
             state.products = [];
             state.productDetails = '';
             state.loading = true;
             state.error = '';
         },
-        Success_Fetch(state, action) {
+        Fetch_Products_Success(state, action) {
             state.products = action.payload;
             state.productDetails = '';
             state.loading = false;
             state.error = ''
         },
-        Fail_Fetch(state, action) {
+        Fetch_Products_Fails(state, action) {
             state.loading = false;
             state.products = [];
             state.error = action.payload;
@@ -35,11 +35,11 @@ const ProductsSlice = createSlice({
             state.loading = false;
             state.error = ''
         },
-        // Fail_Fetch(state, action) {
-        //     state.loading = false;
-        //     state.products = [];
-        //     state.error = action.payload;
-        // },
+        Fail_FetchDetails(state, action) {
+            state.loading = false;
+            state.products = [];
+            state.error = action.payload;
+        },
     },
 
 })
