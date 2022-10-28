@@ -71,6 +71,7 @@ const HomeProducts = () => {
                     slidesToShow: 4,
                     slidesToScroll: 4,
                     infinite: true,
+                    autoplay:true
                 }
             },
             {
@@ -78,14 +79,17 @@ const HomeProducts = () => {
                 settings: {
                     slidesToShow: 3,
                     slidesToScroll: 3,
-                    initialSlide: 2
+                    initialSlide: 2,
+                    autoplay:false
                 }
             },
             {
                 breakpoint: 567,
                 settings: {
                     slidesToShow: 2,
-                    slidesToScroll: 2
+                    slidesToScroll: 2,
+                    infinite:true,
+                    autoplay:false
                 }
             }
         ]
@@ -94,10 +98,12 @@ const HomeProducts = () => {
 
         return (
             <>
+                <Helmet>
+                    <title>Market</title>
+                </Helmet>
                 <p className='text-3xl font-serif font-light mb-3 uppercase'>{props.Category}</p>
                 <hr className='mt-4 h-[2px] bg-gray-200 rounded' />
                 <div>
-                    <h2> Multiple items </h2>
                     {
                         loading ?
                             <div className='flex gap-2'>
@@ -108,36 +114,36 @@ const HomeProducts = () => {
                                 <SKHomeProducts />
                                 <SKHomeProducts />
                                 <SKHomeProducts />
-                            </div> :
+                            </div> : error ? <Danger /> :
 
-                            <Slider {...settings}>
-                                {
-                                    products.map((product) => (
-                                        <Link to={`/product/${product._id}`} key={product._id} >
-                                            <div className='h-72 flex items-center'>
-                                                <img src={product.image.url} className='rounded-2xl object-cover h-full relative' alt={product.name}></img>
-                                            </div>
-                                            {product.stock > 0 ?
-                                                <>
-                                                    <div className='mt-5 text-center'>
-                                                        <p className='text-xl font-semibold'>{product.name}</p>
-                                                        <p className='text-xl mt-auto'>{product.price}$</p>
+                                <Slider {...settings}>
+                                    {
+                                        products.map((product) => (
+                                            <Link to={`/product/${product._id}`} key={product._id} className='mt-2'>
+                                                <div className='h-72 flex items-center'>
+                                                    <img src={product.image.url} className='rounded-2xl object-cover h-full relative' alt={product.name}></img>
+                                                </div>
+                                                {product.stock > 0 ?
+                                                    <>
+                                                        <div className='mt-5 text-center'>
+                                                            <p className='text-xl font-semibold'>{product.name}</p>
+                                                            <p className='text-xl mt-auto'>{product.price}$</p>
 
-                                                    </div>
-                                                    <div className='bottom-0 mb-44 absolute text-white'>
-                                                        <div className='flex justify-center gap-4'>
-                                                            <Link onClick={addtocart} className='pointer-events-auto border border-orange-300 px-4 py-2 rounded-2xl font-medium hover:bg-orange-300 focus:ring focus:ring-orange-200'>Card</Link>
-                                                            <Link className='border border-orange-300 px-4 py-2 rounded-2xl font-medium hover:bg-orange-300 focus:ring focus:ring-orange-200'>Favorite</Link>
                                                         </div>
-                                                        <p className='text-sm mt-3 mx-auto'>{product.rating}</p>
-                                                    </div>
-                                                </>
-                                                : <p>Out of Stack</p>
-                                            }
-                                        </Link>
-                                    )
-                                    )}
-                            </Slider>
+                                                        <div className='bottom-0 mb-44 absolute text-white'>
+                                                            <div className='flex justify-center gap-4'>
+                                                                <Link onClick={addtocart} className='pointer-events-auto border border-orange-300 px-4 py-2 rounded-2xl font-medium hover:bg-orange-300 focus:ring focus:ring-orange-200'>Card</Link>
+                                                                <Link className='border border-orange-300 px-4 py-2 rounded-2xl font-medium hover:bg-orange-300 focus:ring focus:ring-orange-200'>Favorite</Link>
+                                                            </div>
+                                                            <p className='text-sm mt-3 mx-auto'>{product.rating}</p>
+                                                        </div>
+                                                    </>
+                                                    : <p>Out of Stack</p>
+                                                }
+                                            </Link>
+                                        )
+                                        )}
+                                </Slider>
                     }
                 </div>
 

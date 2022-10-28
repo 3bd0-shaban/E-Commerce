@@ -45,7 +45,7 @@ const Header = (props) => {
               </div>
             </button>
           </div>
-          <div className='absolute dropdwon-content hidden w-64 shadow-lg right-0 text-end bg-white z-10'>
+          <div className='absolute dropdwon-content hidden w-64 shadow-lg right-0 text-end bg-white z-20'>
             <div>
               <Link to='/' className='flex gap-2 py-3 px-4 hover:bg-gray-100 pt-3' ><CgProfile style={{ 'marginTop': '3px', 'fontSize': '1.3rem' }} />Profile</Link>
               <Link to='/' className='flex gap-2 py-3 px-4 hover:bg-gray-100' ><BsSave2 style={{ 'marginTop': '3px', 'fontSize': '1.3rem' }} />Favourite</Link>
@@ -64,39 +64,51 @@ const Header = (props) => {
 
 
   return (
-    <div className='pb-28'>
-      <div className='py-3 mb-4 shadow bg-gradient-to-l from-[#511c97] via-[#5c47cf] to-[#5E50AD] fixed z-10 w-screen'>
-        <div className='container max-w-8xl flex items-center px-1 md:px-3'>
+    <>
+      <div className='pb-28'>
+        <div className='py-3 mb-4 shadow bg-gradient-to-l from-[#511c97] via-[#5c47cf] to-[#5E50AD] fixed z-10 w-screen'>
+          <div className='container max-w-8xl flex items-center px-1 md:px-3'>
 
-          <div className='flex gap-7 items-center'>
-            <div className='flex'>
-              <div className='bg-orange-300 rounded-full mr-2 px-2 flex items-center'>
-                <i className="fa fa-cart-arrow-down text-white  text-2xl"></i>
+            <div className='flex gap-7 items-center'>
+              <div className='flex'>
+                <div className='bg-orange-300 rounded-full mr-2 px-2 flex items-center'>
+                  <i className="fa fa-cart-arrow-down text-white  text-2xl"></i>
+                </div>
+                <Link to='/' className='font-bold font-serif text-xl md:text-3xl text-white'>Market</Link>
               </div>
-              <Link to='/' className='font-bold font-serif text-xl md:text-3xl text-white'>Market</Link>
+              <div className='hidden md:block'>
+                <ul className='flex gap-5 text-white font-medium  font-mono text-lg'>
+                  <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Home</Link>
+                  <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Servic</Link>
+                  <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Cantact Us</Link>
+                  <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Home</Link>
+                </ul>
+              </div>
             </div>
-            <div className='hidden md:block'>
-              <ul className='flex gap-5 text-white font-medium  font-mono text-lg'>
-                <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Home</Link>
-                <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Servic</Link>
-                <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Cantact Us</Link>
-                <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Home</Link>
-              </ul>
-            </div>
-          </div>
 
-          <form className='w-[25%] mx-auto'>
+            <form className='w-[25%] mx-auto hidden lg:block'>
+              <label className='mb-2 text-sm font-medium text-gray-900 sr-only'>Search</label>
+              <div className='relative mx-auto w-full'>
+                <input className='outline-none rounded-3xl pb-3 pt-2 bg-gray-100 w-full mx-auto px-3 placeholder:text-sm' type='search' placeholder='Search for laptops or hardwares ....' />
+                <div className='absolute items-center flex inset-y-0 pr-3 right-0'><BsSearch /></div>
+              </div>
+            </form>
+
+            <Rightnav />
+          </div>
+        </div>
+        <div className='py-3 mb-4 shadow bg-gradient-to-l mt-[4.2rem] from-[#511c97] via-[#5c47cf] to-[#5E50AD] fixed z-10 w-screen lg:hidden'>
+          <form className='w-[75%] mx-auto'>
             <label className='mb-2 text-sm font-medium text-gray-900 sr-only'>Search</label>
             <div className='relative mx-auto w-full'>
               <input className='outline-none rounded-3xl pb-3 pt-2 bg-gray-100 w-full mx-auto px-3 placeholder:text-sm' type='search' placeholder='Search for laptops or hardwares ....' />
               <div className='absolute items-center flex inset-y-0 pr-3 right-0'><BsSearch /></div>
             </div>
           </form>
-
-          <Rightnav />
         </div>
       </div>
-    </div>
+
+    </>
   )
 }
 export default Header
