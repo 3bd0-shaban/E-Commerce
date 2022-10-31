@@ -2,8 +2,8 @@ import axios from 'axios';
 import React, { useEffect } from 'react'
 import { Get_BannersAction } from './../../Redux/Slices/BannersSlice';
 import { useSelector, useDispatch } from 'react-redux'
-import { SKBanners } from '../../Exports';
-import getError from '../../utile';
+import { SKBanners } from './../Exports';
+import getError from '../utile';
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';

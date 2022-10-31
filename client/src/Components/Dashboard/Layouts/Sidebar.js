@@ -2,7 +2,7 @@ import React from "react";
 import { Link, useLocation } from 'react-router-dom';
 import { AiOutlineBarChart } from 'react-icons/ai';
 import { IoCalendarNumber, IoSettingsOutline } from 'react-icons/io5';
-import { CiShoppingTag } from 'react-icons/ci';
+import { MdOutlineAddToPhotos } from 'react-icons/md';
 import { ImUsers } from 'react-icons/im';
 import { BiLogInCircle } from 'react-icons/bi';
 import { BsChatRightTextFill } from 'react-icons/bs';
@@ -39,7 +39,7 @@ const Sidebar = () => {
                         <Lilinks Link={"/dashboard/messages"} selected={'/dashboard/messages'} title='Messegaes' icon={<BsChatRightTextFill />} />
                         <Lilinks Link={"/dashboard/all_products"} selected={'/dashboard/all_products'} title='Products' icon={<GiShoppingBag />} />
                         <Lilinks Link={"/dashboard/addbanner"} selected={'/dashboard/addbanner'} title='Add Banners' icon={<GiVerticalBanner />} />
-                        <Lilinks Link={"/dashboard/addproduct"} selected={'/dashboard/addproduct'} title='Add Product' icon={<CiShoppingTag />} />
+                        <Lilinks Link={"/dashboard/addproduct"} selected={'/dashboard/addproduct'} title='Add Product' icon={<MdOutlineAddToPhotos />} />
                         <Lilinks Link={"/dashboard/orders"} selected={'/dashboard/orders'} title='Orders' icon={<GiShoppingCart />} />
                         <Lilinks Link={"/dashboard/stats"} selected={'/dashboard/stats'} title='Stats' icon={<AiOutlineBarChart />} />
                         <Lilinks Link={"/dashboard/calender"} selected={'/dashboard/calender'} title='Calender' icon={<IoCalendarNumber />} />

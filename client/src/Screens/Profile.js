@@ -1,5 +1,5 @@
 import React from 'react'
-import { Header } from '../Exports';
+import { Header } from '../Components/Exports';
 import { useSelector } from 'react-redux';
 
 const Profile = () => {

@@ -1,5 +1,5 @@
 import React from 'react'
-import { Rating } from '../../Exports'
+import { Rating } from './../Exports'
 
 const Comments = () => {
     return (

@@ -3,22 +3,43 @@ import cloudinary from "../Utils/cloudinary.js";
 export const UploadProduct = async (req, res) => {
     try {
 
-        const { name, price, stock, des, brand, category, image, specifications } = req.body
-        const file = req.body.preview
-        if (!name || !price || !stock || !des || !brand || !category || !file) {
-            return res.status(400).json({msg: 'Please fill all fields'});
+        const { name, price, stock, des, brand, category, specifications, subcategory } = req.body
+        let images = [...req.body.images];
+        if (typeof req.body.images === "string") {
+            images.push(req.body.images);
+        } else {
+            images = req.body.images;
         }
-        const result = await cloudinary.uploader.upload(file, {
-            folder: "Market",
-        });
-        new Products({
-            name, price, stock, des, brand, category, specifications, image,
-            image: {
+        const imagesLink = [];
+        if (!name || !price || !stock || !des || !brand || !category || !subcategory) {
+            return res.status(400).json({ msg: 'Theses field are required\r\n Product Name\r\n Price\r\n' });
+        }
+        if (images.length == 0) {
+            return res.status(400).json({ msg: 'No Images founded Please upload one image at least' });
+        }
+        if (price < 0) {
+            return res.status(400).json({ msg: 'Invailed price value' });
+        }
+        if (stock < 0) {
+            return res.status(400).json({ msg: 'Invailed Product quentity value' });
+        }
+        for (let i = 0; i < images.length; i++) {
+            const result = await cloudinary.uploader.upload(images[i], {
+                folder: "Market",
+            });
+            imagesLink.push({
                 public_id: result.public_id,
                 url: result.secure_url,
-            }
-        })
-            .save()
+            });
+        };
+        req.body.images = imagesLink;
+        // let specs = [];
+        // req.body.specifications.forEach((s) => {
+        //     specs.push(JSON.parse(s))
+        // });
+        // req.body.specifications = specs;
+    
+        await Products.create(req.body)
             .then(Uploaded_Product => {
                 return res.status(200).json({
                     msg: 'Product uploaded successfully', Uploaded_Product
@@ -33,30 +54,7 @@ export const UploadProduct = async (req, res) => {
         return res.status(500).json({ msg: error.message })
     }
 }
-// if (!req.files || Object.keys(req.files).length === 0)
-// return res.status(400).json({ msg: 'No files were uploaded.' })
 
-// const file = req.files.file;
-// const banners = [];
-// let bannersBuffer = [];
-// for (let i = 0; i < banners.length; i++) {
-// const result = await cloudinary.uploader.upload(file.tempFilePath[i], {
-//     folder: "Banners",
-// });
-// bannersBuffer.push({
-//     public_id: result.public_id,
-//     url: result.secure_url
-// })
-// }
-// req.body.banners = bannersBuffer
-
-
-// new Banners({
-// banners: {
-//     public_id: result.public_id,
-//     url: result.secure_url,
-// }
-// })
 export const Fetch_Products = async (req, res) => {
     try {
         const Product = await Products.find();
@@ -102,11 +100,7 @@ export const Delete_Product = async (req, res) => {
         if (!Product) {
             return res.status(400).json({ msg: 'Product Not Founded with this Id' });
         } else {
-            await Products.findByIdAndRemove(req.params.id, req.body, {
-                new: true,
-                runValidators: true,
-                useUnified: true,
-            });
+            await Products.remove();
             return res.status(200).json({ msg: 'Product deleted successfully' });
 
 
@@ -115,9 +109,3 @@ export const Delete_Product = async (req, res) => {
         return res.status(500).json({ msg: error.message })
     }
 }
-
-        // let specs = [];
-        // specifications.forEach((s) => {
-        //     specs.push(JSON.parse(s))
-        // });
-        // specifications = specs

@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
-import { Sidebar, DashHeeder, getError } from '../../../Exports';
+import { Sidebar, DashHeeder, getError } from '../../Exports';
 import axios from 'axios';
 import { RiMoreFill } from 'react-icons/ri'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Danger } from '../../Alerts';
 import { ProductsAction } from '../../../Redux/Slices/ProductSlice';
+import { Helmet } from 'react-helmet-async';
 const Orders = () => {
     const dispatch = useDispatch();
     const { loading, error, products } = useSelector((state) => state.products);
@@ -23,6 +24,9 @@ const Orders = () => {
     }, [dispatch]);
     return (
         <>
+            <Helmet>
+                <title>All Orders - Dashboard</title>
+            </Helmet>
             <DashHeeder />
             <div className='flex'>
                 <Sidebar />
@@ -58,7 +62,7 @@ const Orders = () => {
                                                 </div>
                                             </td>
                                             <td className="flex items-center py-4 ">
-                                                <img className="w-10 h-10 rounded-full" src={product.image.url} alt="" />
+                                                <img className="w-10 h-10 rounded-full" src={product.images ? product.images[0].url : 'error'} alt="" />
                                                 <div className="pl-3">
                                                     <div className="text-base font-semibold  overflow-x-hidden">{product.name}</div>
                                                     <div className="font-normal text-gray-500">{product.price}$</div>

@@ -3,7 +3,6 @@ const UploadProductSlice = createSlice({
     name: "Upload_Product",
     initialState: {
         loading: false,
-        image: '',
         error: '',
         success: '',
         product: [],
@@ -16,7 +15,6 @@ const UploadProductSlice = createSlice({
         Upload_Image_Success(state, action) {
             state.loading = false;
             state.error = '';
-            state.image = action.payload;
             state.success = 'Image uploaded successfully ........';
         },
         Fail_UploadImage(state, action) {

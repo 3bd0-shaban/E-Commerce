@@ -1,10 +1,11 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { Sidebar, DashHeeder } from '../../../Exports';
+import { Sidebar, DashHeeder } from '../../Exports';
 import { useDispatch, useSelector } from 'react-redux';
-import getError from '../../../utile';
+import getError from '../../utile';
 import { Danger, Success } from '../../Alerts';
 import { Get_BannersAction } from './../../../Redux/Slices/BannersSlice';
+import { Helmet } from 'react-helmet-async';
 const Addbanner = () => {
 
     const [images, setImages] = useState([]);
@@ -37,6 +38,9 @@ const Addbanner = () => {
     }
     return (
         <>
+            <Helmet>
+                <title>Add Banner</title>
+            </Helmet>
             <DashHeeder />
             <div className='flex'>
                 <Sidebar />

@@ -4,7 +4,7 @@ import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { ProductsAction } from '../Redux/Slices/ProductSlice'
 import { useParams } from 'react-router-dom';
-import { Comments, Header, Rating, getError } from '../Exports'
+import { Comments, Header, Rating, getError } from '../Components/Exports'
 import { Helmet } from 'react-helmet-async';
 import { Danger } from '../Components/Alerts';
 const ProductScreen = () => {
@@ -39,7 +39,7 @@ const ProductScreen = () => {
                   <title>{productDetails.name}</title>
                 </Helmet>
                 <div className='col-span-2 '>
-                  <img src={productDetails.image.url} className=' object-cover w-full mx-auto md:w-1/2' alt='' />
+                  <img src={productDetails.images ? productDetails.images[0].url : 'Can not load images'} className=' object-cover w-full mx-auto md:w-1/2' alt='' />
                 </div>
                 <div className=''>
                   <p className='text-xl font-semibold'>{productDetails.name}</p>

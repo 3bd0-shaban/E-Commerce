@@ -4,9 +4,10 @@ import { MdOutlineSearch } from 'react-icons/md'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { AllUsersAction } from '../../../Redux/Slices/AllUsers';
-import { Sidebar, DashHeeder, getError } from '../../../Exports';
+import { Sidebar, DashHeeder, getError } from '../../Exports';
 import { Danger } from '../../../Components/Alerts';
 import { RiMoreFill } from 'react-icons/ri'
+import { Helmet } from 'react-helmet-async';
 const Dashboard = () => {
     const { AllUsers, loading, error } = useSelector((state) => state.allusers);
     const dispatch = useDispatch();
@@ -24,11 +25,14 @@ const Dashboard = () => {
     }, [dispatch])
     return (
         <>
+            <Helmet>
+                <title>All Users - Dashboard</title>
+            </Helmet>
             <DashHeeder />
             <div className='flex'>
                 <Sidebar />
                 <div className='container lg:ml-80 mt-24'>
-                    <p className='text-5xl font-Rubik '>Orders</p>
+                    <p className='text-5xl font-Rubik '>All Users</p>
                     <div className='flex gap-6 font-light text-xl mt-5'>
                         <Link className='border-b-transparent hover:border-b-black'>Customers</Link>
                         <Link className='border-b-transparent hover:border-b-black'>Admins</Link>
@@ -61,7 +65,7 @@ const Dashboard = () => {
                             <tbody>
                                 {loading ? <p className='mx-auto text-5xl font-Alegreya flex items-center'>Loading</p>
                                     : error ?
-                                        <Danger error={error} className={'mx-auto mt-20 text-7xl font-serif font-semibold bg-red-200 py-3 px-5'} /> :
+                                        <Danger error={error} className={'container max-w-7xl mx-auto my-5 w-[50vw]'} /> :
                                         AllUsers.map(user =>
                                             <tr className="bg-white border-b hover:bg-gray-50" key={user._id}>
                                                 <td className="py-4 px-6">

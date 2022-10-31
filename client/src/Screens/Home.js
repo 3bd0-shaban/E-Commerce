@@ -1,5 +1,5 @@
 import React,{useEffect} from 'react'
-import { HomeProducts, Header,Banners } from '../Exports'
+import { HomeProducts, Header,Banners } from '../Components/Exports'
 // import { useSelector } from 'react-redux';
 // import { UserAction } from './../Redux/Slices/UserSlice';
 // import getError from './../utile';

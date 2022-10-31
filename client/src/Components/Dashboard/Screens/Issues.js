@@ -1,9 +1,13 @@
 import React from 'react'
-import { Sidebar, DashHeeder } from '../../../Exports';
+import { Helmet } from 'react-helmet-async';
+import { Sidebar, DashHeeder } from '../../Exports';
 
 const Issues = () => {
   return (
     <>
+      <Helmet>
+        <title>Issues - Dashboard</title>
+      </Helmet>
       <DashHeeder />
       <div className='flex'>
         <Sidebar />
