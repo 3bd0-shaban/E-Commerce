@@ -1,7 +1,6 @@
 import React from 'react'
-import { Link, useNavigate } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux';
-import { UserAction } from './../../Redux/Slices/UserSlice';
+import { Link } from 'react-router-dom'
+import { useSelector } from 'react-redux';
 import { IoSettingsOutline } from 'react-icons/io5'
 import { TbMessageReport } from 'react-icons/tb'
 import { CgChevronDown } from 'react-icons/cg'
@@ -9,15 +8,11 @@ import { CgProfile } from 'react-icons/cg'
 import { MdShoppingBag } from 'react-icons/md'
 import { BsSave2, BsWhatsapp, BsSearch } from 'react-icons/bs'
 const Header = (props) => {
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
   const { user, isLogged } = useSelector((state) => state.auth);
-  const dispatch = useDispatch();
+  // const dispatch = useDispatch();
 
-  const handlelogout = (event) => {
-    dispatch(UserAction.LogOut());
-    // dispach(GetUserProfileAction.LogoutUser());
-    navigate('/signin')
-  }
+
   const Rightnav = () => {
     return (
       <div className='flex gap-3 ml-auto'>
@@ -38,10 +33,10 @@ const Header = (props) => {
         <div className='relative dropdown'>
           <div className='flex gap-8 hover:text-[#511c97]'>
             <button className=" flex text-sm rounded-full border-2 border-white  ">
-              <img className="p-1 w-10 h-10 rounded-full focus:ring-2 focus:ring-gray-300 " src={user.avatar} alt="" />
+              <img className="p-1 w-10 h-10 rounded-full focus:ring-2 focus:ring-gray-300 " src={isLogged ? user.avatar : 'https://res.cloudinary.com/abdo9/image/upload/v1664894521/samples/ecommerce/istockphoto-1300845620-612x612_rpokfs.jpg'} alt="" />
               <p className='font-mono font-extrabold text-white my-auto text-xl'>{user.username} </p>
               <div className='font-mono font-extrabold text-white my-auto text-xl'>
-                <CgChevronDown />
+                {isLogged && <CgChevronDown />}
               </div>
             </button>
           </div>
@@ -53,20 +48,36 @@ const Header = (props) => {
               <Link to='/' className='flex gap-2 py-3 px-4 hover:bg-gray-100' ><TbMessageReport style={{ 'marginTop': '3px', 'fontSize': '1.3rem' }} />Report a problem</Link>
             </div>
             <div className="py-1 hover:bg-gray-100 pb-3">
+              <Link to="/signin" className="text-gray-700 px-4 py-2 text-base font-poppins flex gap-3 mt-1 ">Sign In</Link>
               <Link to="/signup" className="text-gray-700 px-4 py-2 text-base font-poppins flex gap-3 mt-1 ">Log Out</Link>
             </div>
           </div>
         </div>
-        <Link to='/addproduct' className='hidden md:block px-4 pt-3.5 md:pt-[.7rem] text-xs md:text-base bg-white font-[100] text-[#511c97] font-Permanent rounded-full hover:bg-[#c4c4c4] hover:text-white focus:ring-2 focus:ring-[#511c97]'>Create Product</Link>
+        <Link to='/addproduct' className='hidden md:block px-4 pt-3.5 md:pt-[.7rem] text-xs md:text-base bg-white font-[100] text-[#511c97] font-Permanent rounded-full hover:bg-[#FDBA74] hover:text-white focus:ring-2 focus:ring-[#511c97]'>Create Product</Link>
+      </div>
+    )
+  }
+  // eslint-disable-next-line
+  const Categorybar = () => {
+    return (
+      <div className='py-3 mb-4 shadow bg-gradient-to-l mt-[4.2rem] from-[#511c97] via-[#5c47cf] to-[#5E50AD] fixed z-10 w-screen '>
+        <div className='flex gap-4 justify-center'>
+          <Link className='font-serif text-3xl text-white'>Cateories</Link>
+          <Link className='font-serif text-3xl text-white'>Cateories</Link>
+          <Link className='font-serif text-3xl text-white'>Cateories</Link>
+          <Link className='font-serif text-3xl text-white'>Cateories</Link>
+          <Link className='font-serif text-3xl text-white'>Cateories</Link>
+        </div>
       </div>
     )
   }
 
 
+
   return (
     <>
       <div className='pb-28'>
-        <div className='py-3 mb-4 shadow bg-gradient-to-l from-[#511c97] via-[#5c47cf] to-[#5E50AD] fixed z-10 w-screen'>
+        <div className='py-3 mb-4 bg-gradient-to-l from-[#511c97] via-[#5c47cf] to-[#5E50AD] fixed z-20 w-screen'>
           <div className='container max-w-8xl flex items-center px-1 md:px-3'>
 
             <div className='flex gap-7 items-center'>
@@ -78,7 +89,8 @@ const Header = (props) => {
               </div>
               <div className='hidden md:block'>
                 <ul className='flex gap-5 text-white font-medium  font-mono text-lg'>
-                  <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Home</Link>
+                  <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300' to='/'>Home</Link>
+                  <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300' to='/dashboard/all_users'>Dashboard</Link>
                   <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Servic</Link>
                   <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Cantact Us</Link>
                   <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Home</Link>
@@ -106,6 +118,8 @@ const Header = (props) => {
             </div>
           </form>
         </div>
+        {/* <Categorybar /> */}
+
       </div>
 
     </>

@@ -23,7 +23,7 @@ const usesrSchema = new mongoose.Schema(
     },
     avatar: {
       type: String,
-      default: "https://res.cloudinary.com/abdo9/image/upload/v1664213293/samples/people/istockphoto-1300845620-612x612_ose5xw.jpg"
+      default: "https://res.cloudinary.com/abdo9/image/upload/v1664894521/samples/ecommerce/istockphoto-1300845620-612x612_rpokfs.jpg"
     },
     isAdmin: {
       type: Boolean,

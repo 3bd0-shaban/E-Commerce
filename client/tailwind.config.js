@@ -27,6 +27,8 @@ module.exports = {
         Nanum: ["Nanum Pen Script"],
         Reenie: ["Reenie Beanie"],
         Modak: ["Modak"],
+        Roboto: ["Roboto"],
+        Rubik: ["Rubik"],
       },
     },
     screens: {

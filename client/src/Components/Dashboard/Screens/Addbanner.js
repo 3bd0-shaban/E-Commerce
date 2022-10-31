@@ -1,10 +1,10 @@
 import axios from 'axios';
 import React, { useState } from 'react'
-import { Sidebar, Header } from '../../Exports';
+import { Sidebar, DashHeeder } from '../../../Exports';
 import { useDispatch, useSelector } from 'react-redux';
-import getError from './../../utile';
-import { Danger, Success } from './../../Components/Alerts';
-import { Get_BannersAction } from '../../Redux/Slices/BannersSlice';
+import getError from '../../../utile';
+import { Danger, Success } from '../../Alerts';
+import { Get_BannersAction } from './../../../Redux/Slices/BannersSlice';
 const Addbanner = () => {
 
     const [images, setImages] = useState([]);
@@ -37,10 +37,10 @@ const Addbanner = () => {
     }
     return (
         <>
-            <Header />
+            <DashHeeder />
             <div className='flex'>
                 <Sidebar />
-                <div className='container max-w-6xl'>
+                <div className='container max-w-6xl lg:ml-80 mt-24'>
                     {error && <Danger error={error} className={'mx-auto mt-5 text-lg text-gray-700 font-serif font-semibold bg-red-200 py-3 px-5'} />}
                     {success && <Success error={success} className={'mx-auto mt-5 text-lg text-gray-700 font-serif font-semibold bg-red-200 py-3 px-5'} />}
                     <form onSubmit={HandleSubmit} className='shadow-lg p-5 mt-10'>

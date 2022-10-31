@@ -1,5 +1,5 @@
 import axios from 'axios';
-import React, { useEffect, Component } from 'react'
+import React, { useEffect } from 'react'
 import { Get_BannersAction } from './../../Redux/Slices/BannersSlice';
 import { useSelector, useDispatch } from 'react-redux'
 import { SKBanners } from '../../Exports';
@@ -47,8 +47,8 @@ const Banners = () => {
             <div className='w-[97%] mx-auto'>
                 <Slider {...settings}>
                     {Banners && Banners.map((image) => (
-                        <div>
-                            <img className='w-full' key={image} src={image.banners.url} alt='' />
+                        <div key={image._id}>
+                            <img className='w-full' src={image.banners.url} alt='' />
                         </div>
 
                     ))}

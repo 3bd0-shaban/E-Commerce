@@ -31,10 +31,10 @@ const DashboardNavBar = () => {
                     </div>
                 </div>
                 <div className='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-4 '>
-                    <Cart title='Users' num='750' icon={<BiGroup />} className='icon bg-fuchsia-500'/>
-                    <Cart title='Posts' num='750' icon={<MdOutlineArticle />} className='icon bg-stone-500'/>
-                    <Cart title='Total Hours' num='750' icon={<BsClockHistory />} className='icon bg-green-500'/>
-                    <Cart title='Users' num='750' icon={<BiGroup />} className='icon bg-orange-500'/>
+                    <Cart title='Users' num='750' icon={<BiGroup />} className='icon bg-fuchsia-500' />
+                    <Cart title='Posts' num='750' icon={<MdOutlineArticle />} className='icon bg-stone-500' />
+                    <Cart title='Total Hours' num='750' icon={<BsClockHistory />} className='icon bg-green-500' />
+                    <Cart title='Users' num='750' icon={<BiGroup />} className='icon bg-orange-500' />
                 </div>
             </div>
         </div>

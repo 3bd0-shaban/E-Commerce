@@ -10,43 +10,65 @@
 @import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Reenie+Beanie&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Modak&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Rubik:wght@500&display=swap');
 .dropdown:hover .dropdwon-content{
     display: block;
 }
+.items{
+    transition: transform 0.3s ease-in;
+}
+.product:hover .items{
+    transform: translateY(0);
+    @apply
+    -translate-y-14 duration-150
+}
+.product:hover .watchitem{
+    transform: translateX(9.5rem);
+    animation:watch ;
+    transition:0.5s;
+}
+@keyframes watch {
+    from{
+        transform: translateX(80%);
+    }
+    to{
+        transform: translateX(100%);
+    }
+}
+.slick-arrow {
+    @apply
+    !z-10 !h-10 !w-10 hidden
+}
+.slick-arrow::before{
+    @apply
+    !opacity-50 !text-zinc-900 
+}
+.slick-next {
+    /* transform: translateX(9.5rem); */
+    @apply
+    !right-14 hover:!mr-2 !ease-in-out duration-75
+}
+.slick-prev {
+    @apply
+    !left-14 hover:!ml-2 !ease-in-out duration-75
+}
+.slick-next::before, .slick-prev::before {
+    font-size: 45px !important;
+}
+.slick-slider:hover .slick-arrow{
+    display: block !important;
+}
+
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hideScrollBare::-webkit-scrollbar {
-    display: none;
+    display: none !important;
   }
   /* Hide scrollbar for IE, Edge and Firefox */
   .hideScrollBare {
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
   }
-.react-multi-carousel-item{
-    @apply
-     -ml-3 mr-1
-}
-.slick-arrow {
-    @apply
-    !bg-gray-700
-}
-.SideBarLinks{
-    @apply
-    relative flex flex-row items-center h-11 focus:outline-none border-l-4 border-transparent pr-6 
-    /* dark:hover:text-gray-100 dark:hover:bg-gray-700 */
-}
-.SVGElement {
-    @apply
-    inline-flex justify-center items-center text-2xl ml-4
-}
-.SideBarheaders{
-    @apply
-    px-2 py-0.5 ml-auto text-xs font-medium tracking-wide rounded-full 
-}
-.SideBarElement{
-    @apply
-    ml-4 text-base tracking-wide truncate 
-} 
 /* Hide scrollbar for Chrome, Safari and Opera */
 .hideScrollBare::-webkit-scrollbar {
     display: none;
