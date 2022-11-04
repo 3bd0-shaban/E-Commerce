@@ -1,5 +1,7 @@
 export { default as HomeProducts } from './Home/HomeProducts';
 export { default as Header } from './Home/Header';
+export { default as HomeCategory } from './Home/HomeCategory';
+export { default as SecNavbar } from './Home/SecNavbar';
 export { default as Banners } from './Home/Banners';
 export { default as Rating } from './Products/Rating';
 export { default as Comments } from './Products/Comments';
@@ -23,6 +25,7 @@ export { default as DashboardNavBar } from './Dashboard/Layouts/DashboardNavBar'
 export { default as getError } from './utile';
 
 export { default as Home } from '../Screens/Home';
+export { default as Cart } from '../Screens/Cart';
 export { default as Signin } from '../Screens/Signin';
 export { default as Signup } from '../Screens/Signup';
 export { default as ProductScreen } from '../Screens/ProductScreen';

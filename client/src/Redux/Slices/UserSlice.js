@@ -8,13 +8,13 @@ const UserSlice = createSlice({
         success: null,
         token: null,
         isLogged: localStorage.getItem('Logged?') ? true : false,
-        isAdmin: false
+        isAdmin: localStorage.getItem('isAdmin?') ? true : false
     },
     reducers: {
         LoggedIn(state, action) {
             // const [cookies, setCookie] = useCookies([action.payload.auth[0]._id]);
             state.isLogged = localStorage.getItem('Logged?') ? true : false;
-            state.isAdmin = action.payload.auth[0].isAdmin;
+            state.isAdmin = localStorage.getItem('isAdmin?') ? true : false;
             state.error = '';
             state.success = action.payload.msg;
         },

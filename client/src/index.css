@@ -108,3 +108,7 @@
     @apply
     rounded-full w-14 h-14 justify-center text-3xl text-white px-2 flex items-center
 }
+.btn-primary{
+    @apply
+    bg-blue-500 rounded-md text-base font-bold text-white py-2 mb-3 focus:bg-blue-400 
+}

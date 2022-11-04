@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Home, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, Profile, Charts, Calender, getError, Addbanner, Orders, Chat, Issues } from './Components/Exports';
+import { Home, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, Profile, Charts, Calender, getError, Addbanner, Orders, Chat, Issues, Cart } from './Components/Exports';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { UserAction } from './Redux/Slices/UserSlice';
@@ -13,7 +13,13 @@ function App() {
       const FetchData = async () => {
         try {
           const result = await axios.get('http://localhost:5000/api/auth/info');
+          // if(status == 400 || status == 50){
+          //   localStorage.removeItem('token')
+          // }
           dispatch(UserAction.GetUserInfo(result.data));
+          if (result.data.isAdmin === true) {
+            localStorage.setItem('isAdmin?', true);
+          }
         } catch (error) {
           dispatch(UserAction.Failed_Fetch(getError(error)));
         }
@@ -34,6 +40,7 @@ function App() {
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/profile' element={<Profile />} />
+          <Route path='/cart' element={<Cart />} />
           <Route path='/dashboard/addproduct' element={<AddProduct />} />
           <Route path='/dashboard/all_products' element={<AllProducts />} />
           <Route path='/dashboard/stats' element={<Charts />} />

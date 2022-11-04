@@ -13,7 +13,7 @@ const Signin = () => {
   //     navigate("/");
   //   }
   // })
-  const { error } = useSelector((state) => state.auth)
+  const { error,success } = useSelector((state) => state.auth)
   const [inputs, setInputs] = useState({
     email: '',
     password: ''
@@ -27,8 +27,8 @@ const Signin = () => {
     const { email, password } = inputs
     try {
 
-      const res = await axios.post('http://localhost:5000/api/auth/signin', { email, password },{withCredentials: true});
-      localStorage.setItem('Logged?',true)
+      const res = await axios.post('http://localhost:5000/api/auth/signin', { email, password }, { withCredentials: true });
+      localStorage.setItem('Logged?', true)
       dispatch(UserAction.LoggedIn(res.data));
       dispatch(UserAction.AccessToken(res.data.token));
       navigate('/');
@@ -39,24 +39,43 @@ const Signin = () => {
 
   return (
     <>
-      <Header />
-      <div className=' container max-w-xl'>
-        <div className='flex items-center justify-center align-middle mt-16 '>
-          <form onSubmit={handleSubmit} className='border px-4 text-center rounded-xl py-32'>
-            <p className='mx-auto text-4xl font-bold font-mono text-gray-600 py-5'>Sign In</p>
-            <input onChange={handleChange} value={inputs.email} name='email' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='email' placeholder='Enter Email' />
-            <input onChange={handleChange} value={inputs.password} name='password' className='outline-none bg-gray-50 rounded-xl py-3 px-3 w-full my-2 placeholder:text-sm placeholder:font-mono focus:border' type='password' placeholder='Enter Password' />
-            <button className='bg-green-500 py-2 px-3 rounded-lg text-white font-semibold w-1/2 focus:ring focus:ring-green-400 mt-5'>Submit</button>
-            <div className='flex text-center items-center justify-center mt-5'>
-              <p>Don't have an account ?</p>
-              <Link to='/signup' className='text-sm font-poppins font-medium text-green-500 mt-1 ml-2'>Sign Up</Link>
+      <div>
+        <div className='container max-w-4xl flex place-content-center h-[80%] mt-28 mb-28'>
+          <div className='hidden md:block '>
+            {/* <img src='Images/logo.webp' className='w-full' alt='' /> */}
+          </div>
+          <div className='container  max-w-md md:mt-20'>
+            <div className='md:border border-gray-300 px-12 items-center text-center md:bg-white'>
+              {success && <span className="text-green-500 pt-4 pb-3 font-poppins font-medium">{success.msg}</span>}
+              <Link to="/"><p className="py-10 instalogo">Market</p></Link>
+              <form className='flex flex-col' onSubmit={handleSubmit}>
+                <input type='email' onChange={handleChange} value={inputs.email} name='email' className='inputfield' placeholder='Phone number username,or email' />
+                <input type='password' onChange={handleChange} value={inputs.password} name='password' className='inputfield' placeholder='Password' />
+                <button className='btn-primary'>Log In</button>
+                <div className='flex justify-center mt-4'>
+                  <hr className='w-[40%] mt-3'></hr>
+                  <p className='mx-3 font-semibold text-gray-500'>OR</p>
+                  <hr className='w-[40%] mt-3'></hr>
+                </div>
+                <button className='flex mx-auto pt-5 mb-3 ' >
+                  <div className='mt-1 text-blue-700 focus:text-blue-300 text-xl'>
+                    {/* <AiFillFacebook /> */}
+                  </div>
+                  <p className=' focus:text-blue-300 ml-2 text-base text-blue-900 font-medium'>Log in with facebook</p>
+                </button>
+                <Link to='forgetpassword' className='text-blue-800 focus:text-blue-300 md:mb-7 text-sm mt-2'>Forgot password ?</Link>
+                {error && <span className="text-red-500 pb-3 font-poppins font-medium">{error}</span>}
+              </form>
             </div>
-            {error && <Danger error={error} className={'mx-auto mt-5 text-lg text-gray-700 font-serif font-semibold bg-red-200 py-3 px-5'} />}
-
-          </form>
-
+            <div className='md:border border-gray-300 justify-center flex mt-5 md:bg-white'>
+              <p className="py-5 inline">Don't have an account? <Link to="/signup" className='font-semibold text-blue-400'>SignUp</Link></p>
+            </div>
+          </div>
         </div>
       </div>
+
+
+
     </>
   )
 }

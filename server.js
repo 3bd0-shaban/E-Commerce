@@ -10,6 +10,7 @@ import router from './Routes/Router.js';
 import CategoryRouter from './Routes/CategoryRouter.js';
 import ProductsRouter from './Routes/ProductsRouter.js';
 import BannersRouter from './Routes/BannersRouter.js';
+import CartRouter from './Routes/CartRouter.js';
 const app = express();
 const port = process.env.PORT || 5000
 dotenv.config();
@@ -35,3 +36,4 @@ app.use('/api/auth', router);
 app.use('/api/banner', BannersRouter);
 app.use('/api/upload', ProductsRouter);
 app.use('/api/category', CategoryRouter);
+app.use('/api/cart', CartRouter);

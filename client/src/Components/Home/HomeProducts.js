@@ -37,7 +37,7 @@ const HomeProducts = () => {
         return (
             <div
                 className={className}
-                style={{ ...style,content:'<' }}
+                style={{ ...style, content: '<' }}
                 onClick={onClick}
             />
         );
@@ -48,7 +48,7 @@ const HomeProducts = () => {
         return (
             <div
                 className={className}
-                style={{ ...style,}}
+                style={{ ...style, }}
                 onClick={onClick}
             />
         );
@@ -95,7 +95,8 @@ const HomeProducts = () => {
                     slidesToShow: 4,
                     slidesToScroll: 4,
                     infinite: true,
-                    autoplay: true
+                    autoplay: true,
+                    arrows: false,
                 }
             },
             {
@@ -104,7 +105,8 @@ const HomeProducts = () => {
                     slidesToShow: 3,
                     slidesToScroll: 3,
                     initialSlide: 2,
-                    autoplay: false
+                    autoplay: false,
+                    arrows: false,
                 }
             },
             {
@@ -113,7 +115,8 @@ const HomeProducts = () => {
                     slidesToShow: 2,
                     slidesToScroll: 2,
                     infinite: true,
-                    autoplay: false
+                    autoplay: false,
+                    arrows: false,
                 }
             }
         ]
@@ -126,8 +129,8 @@ const HomeProducts = () => {
                     <title>Market</title>
                 </Helmet>
                 <div className='flex justify-between mt-8'>
-                    <p className='text-3xl font-Permanent font-medium mb-3 uppercase'>{props.Category}</p>
-                    <Link className='text-xl font-serif border font-semibold hover:bg-orange-300 hover:text-white hover:border-orange-300 focus:ring focus:ring-orange-200 mb-3 px-3 py-2 rounded-2xl'>Browser All</Link>
+                    <p className='text-3xl font-Alegreya font-bold uppercase'>{props.Category}</p>
+                    <Link className='text-xl font-serif font-semibold mb-3 px-3 py-2'>Browser All</Link>
                 </div>
                 <hr className='mt-4 h-[2px] bg-gray-200 rounded' />
                 <div>
@@ -168,7 +171,7 @@ const HomeProducts = () => {
                                                     <>
                                                         <div className='mt-5 text-center'>
                                                             <Link to={`/product/${product._id}`} className='text-xl hover:text-orange-300 font-semibold'>{product.name}</Link>
-                                                            <p className='text-xl mt-auto'>{product.price}$</p>
+                                                            <p className='text-xl mt-4 font-semibold text-cyan-600'>{product.price}$</p>
                                                         </div>
 
                                                     </>
@@ -186,7 +189,7 @@ const HomeProducts = () => {
     }
     return (
         <>
-            <div className='container max-w-[120rem] mt-5'>
+            <div className='container max-w-[130rem] mt-5'>
                 <ScrollableCategory Category={'Best Offers'} />
                 <ScrollableCategory Category={'Monitors'} />
                 <ScrollableCategory Category={'Laptops'} />

@@ -1,10 +1,5 @@
 import React,{useEffect} from 'react'
-import { HomeProducts, Header,Banners } from '../Components/Exports'
-// import { useSelector } from 'react-redux';
-// import { UserAction } from './../Redux/Slices/UserSlice';
-// import getError from './../utile';
-
-
+import { HomeProducts, Header,Banners,HomeCategory } from '../Components/Exports'
 const Home = () => {
     function getcookie(cookiename){
         var cookiestring  = document.cookie;
@@ -30,6 +25,7 @@ const Home = () => {
     return (
         <div>
             <Header />
+            <HomeCategory/>
             <Banners />
             <HomeProducts />
         </div>

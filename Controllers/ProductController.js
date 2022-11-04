@@ -1,5 +1,6 @@
 import Products from "../Models/Products.js";
 import cloudinary from "../Utils/cloudinary.js";
+import ApiFeatures from './../Utils/ApiFeatures.js';
 export const UploadProduct = async (req, res) => {
     try {
 
@@ -38,7 +39,7 @@ export const UploadProduct = async (req, res) => {
         //     specs.push(JSON.parse(s))
         // });
         // req.body.specifications = specs;
-    
+
         await Products.create(req.body)
             .then(Uploaded_Product => {
                 return res.status(200).json({
@@ -57,6 +58,7 @@ export const UploadProduct = async (req, res) => {
 
 export const Fetch_Products = async (req, res) => {
     try {
+        // const ApiFeatures = new ApiFeatures(Products.find(), req.query)
         const Product = await Products.find();
         return res.status(200).json(Product);
     } catch (error) {
@@ -100,10 +102,8 @@ export const Delete_Product = async (req, res) => {
         if (!Product) {
             return res.status(400).json({ msg: 'Product Not Founded with this Id' });
         } else {
-            await Products.remove();
+            await Products.deleteOne({ _id: req.params.id });
             return res.status(200).json({ msg: 'Product deleted successfully' });
-
-
         }
     } catch (error) {
         return res.status(500).json({ msg: error.message })

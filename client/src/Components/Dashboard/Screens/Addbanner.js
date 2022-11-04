@@ -46,7 +46,7 @@ const Addbanner = () => {
                 <Sidebar />
                 <div className='container max-w-6xl lg:ml-80 mt-24'>
                     {error && <Danger error={error} className={'mx-auto mt-5 text-lg text-gray-700 font-serif font-semibold bg-red-200 py-3 px-5'} />}
-                    {success && <Success error={success} className={'mx-auto mt-5 text-lg text-gray-700 font-serif font-semibold bg-red-200 py-3 px-5'} />}
+                    {success && <Success error={success}  />}
                     <form onSubmit={HandleSubmit} className='shadow-lg p-5 mt-10'>
                         <div className="flex justify-center items-center w-full">
                             <label className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800">
@@ -56,7 +56,7 @@ const Addbanner = () => {
                                         <span className="font-semibold">Click to upload</span> or drag and drop</p>
                                     <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
                                 </div>
-                                <input onChange={HandleImages} value={images} name='images' accept='image/*' type="file" className="hidden" />
+                                <input onChange={HandleImages} name='images' accept='image/*' type="file" className="hidden" />
                             </label>
                         </div>
                         <div className='flex justify-center'>

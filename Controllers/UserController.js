@@ -8,9 +8,9 @@ const { Client_URL } = process.env
 const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 
 export const SignUp = async (req, res) => {
-    const { username, email, password, confirmpassword } = req.body;
+    const { username, email, password, confirmpassword, firstname, lastname } = req.body;
     try {
-        if (!email || !username || !password || !confirmpassword) {
+        if (!email || !username || !password || !confirmpassword || !firstname || !lastname) {
             return res.status(400).json({ msg: 'Please fill all fields' });
         }
         if (password.lenght <= 6) {
@@ -29,7 +29,7 @@ export const SignUp = async (req, res) => {
             const slat = await bcrypt.genSalt();
             const HashedPassword = await bcrypt.hash(password, slat)
             const newuser = {
-                email, password, username
+                email, password, username, firstname, lastname
             }
             // const token = createActivationToken(newuser)
 
@@ -39,10 +39,10 @@ export const SignUp = async (req, res) => {
             // return res.status(200).json({ msg: 'Account Created successfully , Please activate your acount', newuser, token });
 
             new Users({
-                email, username, password: HashedPassword
+                email, username, password: HashedPassword, firstname, lastname
             }).save()
                 .then(newuser => {
-                    return res.status(200).json({ msg: 'Account Created successfully , Please activate your acount', newuser });
+                    return res.status(200).json({ msg: 'Account Created successfully' });
                 })
                 .catch(err => {
                     return res.status(400).json({ msg: err.message });
@@ -62,7 +62,7 @@ export const SignIn = async (req, res) => {
         if (!validateEmail(email)) {
             return res.status(400).json({ msg: 'Invalid Email' });
         } else {
-            const user = await Users.findOne({ email });
+            const user = await Users.findOne({ email }).select('+password');
             if (!user) {
                 return res.status(400).json({ msg: 'wrong Email' });
             } else {
@@ -132,7 +132,7 @@ export const UserInfo = async (req, res) => {
         }
         res.json(user);
     } catch (error) {
-        return res.status(500).json({ msg: error.message,user });
+        return res.status(500).json({ msg: error.message, user });
     }
 }
 export const Get_UserInfo = async (req, res) => {
