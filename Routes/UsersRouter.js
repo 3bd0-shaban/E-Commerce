@@ -1,6 +1,6 @@
 import express from "express";
 import { SignUp, SignIn, ForgotPassword, ResetPassword, UserInfo, AllUsers, RefreshToken, logout, LogOut, Get_UserInfo, Update_UserInfo, Delete_UserInfo, Update_UserRole } from '../Controllers/UserController.js'
-import { SetNewAddress } from '../Controllers/AddressController.js'
+import { SetNewAddress,Delete_All_Address } from '../Controllers/AddressController.js'
 import { auth, isAdmin } from '../Middlewares/Auth.js'
 const router = express.Router();
 
@@ -21,6 +21,7 @@ router.get('/users', auth, isAdmin, AllUsers);
 
 
 router.post('/newaddress', auth, SetNewAddress);
+router.post('/delete', auth, Delete_All_Address);
 
 
 

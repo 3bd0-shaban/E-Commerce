@@ -1,29 +1,46 @@
 import Users from '../Models/Users.js';
-import Address from '../Models/Address.js';
 export const SetNewAddress = async (req, res) => {
 
-    const { city, state, country, zipCode, isDefault, UserId } = req.body
-    // let Address = [...req.body.address];
-    // const ID = address._id
     try {
-        let user = await Users.findOne({ address: { city } });
-        if (user) {
-            let itemIndex = user.address.findIndex(p => p.city == city);
-            if (itemIndex) {
-                user.address.push({ city, state, country, zipCode });
-
-            }
-            const Address_Added = await user.save();
-            return res.status(201).json({ msg: 'Address Addedd Succeessfully', Address_Added });
-        } else {
-            const NewAddress = await Users.create({
-                address: [{ city, state, country, zipCode }]
+        let UserAddress = await Users.findOne({ _id: req.user._id });
+        if (UserAddress.address.length < 1) {
+            const updated_address = await Users.findByIdAndUpdate({ _id: req.user._id }, { address: req.body }, {
+                new: true,
+                runValidators: true,
+                useFindAndModify: false,
             });
-
-            return res.status(201).json({ msg: 'Added to user', NewAddress });
+            return res.status(201).json({ updated_address });
+        } else {
+            const updated_address = await Users.findByIdAndUpdate({ _id: req.user._id }, {
+                $push: {
+                    address: req.body
+                },
+            }, {
+                new: true,
+                runValidators: true,
+                useFindAndModify: false,
+            });
+            return res.status(201).json({ msg: 'added', updated_address });
         }
     } catch (error) {
         console.log(error)
         res.status(500).json({ msg: error.message });
     }
 }
+
+export const Delete_All_Address = async (req, res) => {
+    try {
+        await Users.findByIdAndUpdate({ _id: req.user._id }, {
+            $unset: {
+                address: req.user
+            }
+        }, {
+            new: true,
+            runValidators: true,
+            useFindAndModify: false,
+        });
+        return res.status(201).json({ msg: 'All Address deleted successfully' });
+    } catch (error) {
+        res.status(204).json({ msg: error.message });
+    }
+};

@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { MdOutlineSearch } from 'react-icons/md'
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Sidebar, DashHeeder } from '../../Exports';
 import { Danger } from '../../../Components/Alerts';
@@ -8,11 +8,15 @@ import { RiMoreFill } from 'react-icons/ri'
 import { Helmet } from 'react-helmet-async';
 import { FetchAllUsers } from './../../../Redux/Actions/AuthAction';
 const Dashboard = () => {
+    const { id } = useParams();
     const { AllUsers, loading, error } = useSelector((state) => state.allusers);
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(FetchAllUsers());
-    }, [dispatch])
+    }, [dispatch]);
+    const Delete_User = async () => {
+        dispatch(Delete_User(id));
+    };
     return (
         <>
             <Helmet>
@@ -75,7 +79,7 @@ const Dashboard = () => {
                                                 <td className="py-4 px-6">{user.isAdmin}</td>
                                                 <td className="py-4 px-6">{user.createdAt}</td>
                                                 <td className="py-4 px-6 flex items-center">
-                                                    <Link to="" className="font-medium text-blue-600 text-3xl hover:underline mr-3"><RiMoreFill /></Link>
+                                                    <Link onClick={Delete_User} className="font-medium text-blue-600 text-3xl hover:underline mr-3"><RiMoreFill /></Link>
                                                 </td>
                                             </tr>
                                         )}

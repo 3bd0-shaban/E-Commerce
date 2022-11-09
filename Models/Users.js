@@ -64,47 +64,39 @@ const usesrSchema = new mongoose.Schema(
     ],
     cart: [
       {
-        product: {
+        product_Id: {
           type: mongoose.Schema.Types.ObjectId,
           ref: 'Products'
         },
-        // products: [
-        //   {
-        //     productId: Number,
-        //     quantity: Number,
-        //     name: String,
-        //     price: Number
-        //   }
-        // ],
         quentity: {
           type: Number,
           default: 0
         },
-        purchaseprice: {
-          type: Number,
-          default: 0
-        },
+        // purchaseprice: {
+        //   type: Number,
+        //   default: 0
+        // },
         totalprice: {
           type: Number,
           default: 0
         },
-        priceWithTax: {
+        tax: {
           type: Number,
           default: 0
         },
-        totalTax: {
+        totalwithTax: {
           type: Number,
           default: 0
         },
-        status: {
-          type: String,
-          default: 'Not processed',
-          enum: ['Not processed', 'Processing', 'Shipped', 'Delivered', 'Cancelled']
-        },
-        active: {
-          type: Boolean,
-          default: true
-        },
+        // status: {
+        //   type: String,
+        //   default: 'Not processed',
+        //   enum: ['Not processed', 'Processing', 'Shipped', 'Delivered', 'Cancelled']
+        // },
+        // active: {
+        //   type: Boolean,
+        //   default: true
+        // },
         created: {
           type: Date,
           default: Date.now

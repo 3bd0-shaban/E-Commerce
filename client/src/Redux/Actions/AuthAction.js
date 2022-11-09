@@ -18,8 +18,6 @@ export const SignIn = (email, password, navigate) => async (dispatch) => {
 }
 
 export const SignUp = (email, password, username, lastname, firstname, confirmpassword, navigate) => async (dispatch) => {
-
-
     try {
         const config = {
             header: {
@@ -38,10 +36,20 @@ export const SignUp = (email, password, username, lastname, firstname, confirmpa
 
 export const FetchAllUsers = () => async (dispatch) => {
     try {
-        dispatch(AllUsersAction.Fetch_getAllUsers())
+        dispatch(AllUsersAction.Fetch_getAllUsers());
         const Users = await axios.get('http://localhost:5000/api/auth/users');
-        dispatch(AllUsersAction.getAllUsers(Users.data))
+        dispatch(AllUsersAction.getAllUsers(Users.data));
     } catch (error) {
         dispatch(AllUsersAction.Fail_getAllUsers(getError(error)))
+    }
+};
+
+export const Delete_User = (id) => async (dispatch) => {
+    try {
+        dispatch(AllUsersAction.Delete_User_Request());
+        const Users = await axios.delete(`http://localhost:5000/api/auth/deleteuser/${id}`);
+        dispatch(AllUsersAction.Delete_User_Success(Users.data));
+    } catch (error) {
+        dispatch(AllUsersAction.Delete_User_Fails(getError(error)));
     }
 }

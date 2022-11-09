@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
-// import { ProductsAction, } from '../Redux/Slices/ProductSlice'
 import { useParams } from 'react-router-dom';
-import { Comments, Header, Rating, getError } from '../Components/Exports'
+import { Comments, Header, Rating } from '../Components/Exports'
 import { Helmet } from 'react-helmet-async';
 import { Danger } from '../Components/Alerts';
-import { CartActions } from './../Redux/Slices/CartSlice';
 import { Fetch_Product_Details } from '../Redux/Actions/ProductsAction'
+import { Add_to_cart } from './../Redux/Actions/CartAction';
 const ProductScreen = () => {
   const { loading, error, productDetails } = useSelector((state) => state.products);
   const { user } = useSelector((state) => state.auth)
@@ -21,21 +19,9 @@ const ProductScreen = () => {
   }, [dispatch, id]);
 
   const AddtoCart = async () => {
-    const userID = user._id
-    try {
-      const config = {
-        header: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        credentials: "include"
-      };
-      dispatch(CartActions.Addtocart_Request());
-      const res = await axios.post('http://localhost:5000/api/cart/new', { id, userID });
-      dispatch(CartActions.Addtocart_Success(res.data));
-    } catch (error) {
-      dispatch(CartActions.Addtocart_Fails(getError(error)));
-    }
+    const userId = user._id
+    const products = id
+    dispatch(Add_to_cart(products, userId));
   }
 
   return (

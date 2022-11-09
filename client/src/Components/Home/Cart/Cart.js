@@ -1,11 +1,9 @@
 import React from 'react';
-import { getError, Header } from '../../Exports';
+import { Header } from '../../Exports';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { FaShoppingBag } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-// import { useDispatch, useSelector } from 'react-redux';
-// import axios from 'axios';
-// import { CartActions } from '../../../Redux/Slices/CartSlice';
+// eslint-disable-next-line
 const CartItem = () => {
     return (
         <div className='bg-white shadow rounded-xl relative py-2 my-5'>

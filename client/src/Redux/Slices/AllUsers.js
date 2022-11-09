@@ -3,7 +3,8 @@ const getAllUsers = createSlice({
     name: 'allusers',
     initialState: {
         AllUsers: [],
-        error: '',
+        error: null,
+        success: null,
         loading: false
     },
     reducers: {
@@ -21,7 +22,22 @@ const getAllUsers = createSlice({
             state.AllUsers = [];
             state.error = action.payload
             state.loading = false
-        }
+        },
+        Delete_User_Request(state, action) {
+            state.loading = true;
+            state.error = null;
+            state.success = null
+        },
+        Delete_User_Success(state, action) {
+            state.loading = false;
+            state.error = null;
+            state.success = action.payload.msg
+        },
+        Delete_User_Fails(state, action) {
+            state.loading = false;
+            state.error = action.payload;
+            state.success = null
+        },
     }
 });
 export const AllUsersAction = getAllUsers.actions

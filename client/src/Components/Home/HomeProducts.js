@@ -2,7 +2,6 @@ import React, { useEffect } from 'react'
 import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
-import { ProductsAction } from '../../Redux/Slices/ProductSlice'
 import { Helmet } from 'react-helmet-async';
 import { AiOutlineEye, AiOutlineHeart } from 'react-icons/ai'
 import { MdShoppingBag } from 'react-icons/md'

@@ -1,8 +1,7 @@
-import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { CartActions } from '../../../Redux/Slices/CartSlice';
-import {getError} from '../../Exports';
+import { getError } from '../../Exports';
 
 
 
