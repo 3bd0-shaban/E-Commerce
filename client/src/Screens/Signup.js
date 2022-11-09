@@ -1,10 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { Header, getError } from '../Components/Exports';
-import { Danger } from '../Components/Alerts';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserAction } from '../Redux/Slices/UserSlice';
-import axios from 'axios';
+import { SignUp } from '../Redux/Actions/AuthAction';
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -28,22 +25,7 @@ const Signup = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password, username, firstname, lastname, confirmpassword } = inputs
-    try {
-      const config = {
-        header: {
-          Accept: "application/json",
-          "Content-Type": "application/json"
-        },
-        credentials: "include"
-      };
-      const res = await axios.post('http://localhost:5000/api/auth/signup', { email, password, username, lastname, firstname, confirmpassword }, config);
-      // setInputs({ ...inputs, error, auth })
-      dispatch(UserAction.Register(res.data));
-      // localStorage.setItem("Logedin ?", true);
-      navigate('/signin');
-    } catch (error) {
-      dispatch(UserAction.Failed_LogIn(getError(error)));
-    }
+    dispatch(SignUp(email, password, username, lastname, firstname, confirmpassword, navigate))
   }
 
   return (

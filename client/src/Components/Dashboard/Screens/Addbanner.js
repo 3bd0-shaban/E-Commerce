@@ -1,11 +1,9 @@
-import axios from 'axios';
 import React, { useState } from 'react'
 import { Sidebar, DashHeeder } from '../../Exports';
 import { useDispatch, useSelector } from 'react-redux';
-import getError from '../../utile';
 import { Danger, Success } from '../../Alerts';
-import { Get_BannersAction } from './../../../Redux/Slices/BannersSlice';
 import { Helmet } from 'react-helmet-async';
+import { Upload_Banner } from '../../../Redux/Actions/BannerAction';
 const Addbanner = () => {
 
     const [images, setImages] = useState([]);
@@ -27,14 +25,7 @@ const Addbanner = () => {
     };
     const HandleSubmit = async (e) => {
         e.preventDefault();
-        try {
-            dispatch(Get_BannersAction.uploading_Banners_Request());
-            const res = await axios.post('http://localhost:5000/api/banner/new', { preview });
-            dispatch(Get_BannersAction.uploading_Banners_Success(res.data));
-            setPreview()
-        } catch (error) {
-            dispatch(Get_BannersAction.uploading_Banners_Fails(getError(error)));
-        }
+        dispatch(Upload_Banner(setPreview, preview));
     }
     return (
         <>
@@ -46,7 +37,7 @@ const Addbanner = () => {
                 <Sidebar />
                 <div className='container max-w-6xl lg:ml-80 mt-24'>
                     {error && <Danger error={error} className={'mx-auto mt-5 text-lg text-gray-700 font-serif font-semibold bg-red-200 py-3 px-5'} />}
-                    {success && <Success error={success}  />}
+                    {success && <Success error={success} />}
                     <form onSubmit={HandleSubmit} className='shadow-lg p-5 mt-10'>
                         <div className="flex justify-center items-center w-full">
                             <label className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800">

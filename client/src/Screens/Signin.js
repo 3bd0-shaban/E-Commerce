@@ -1,9 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { getError } from '../Components/Exports';
 import { useDispatch, useSelector } from 'react-redux';
-import { UserAction } from '../Redux/Slices/UserSlice';
-import axios from 'axios';
+import { SignIn } from '../Redux/Actions/AuthAction';
 const Signin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -12,7 +10,7 @@ const Signin = () => {
   //     navigate("/");
   //   }
   // })
-  const { error,success } = useSelector((state) => state.auth)
+  const { error, success } = useSelector((state) => state.auth)
   const [inputs, setInputs] = useState({
     email: '',
     password: ''
@@ -24,16 +22,7 @@ const Signin = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = inputs
-    try {
-
-      const res = await axios.post('http://localhost:5000/api/auth/signin', { email, password }, { withCredentials: true });
-      localStorage.setItem('Logged?', true)
-      dispatch(UserAction.LoggedIn(res.data));
-      dispatch(UserAction.AccessToken(res.data.token));
-      navigate('/');
-    } catch (error) {
-      dispatch(UserAction.Failed_LogIn(getError(error)));
-    }
+    dispatch(SignIn(email, password,navigate))
   }
 
   return (

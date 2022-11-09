@@ -1,12 +1,12 @@
 import axios from 'axios';
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { DashHeeder, Sidebar, getError, Category } from '../../Exports'
-import { UploadProductAction } from '../../../Redux/Slices/UploadProductSlice';
+import { DashHeeder, Sidebar, Category } from '../../Exports'
 import { HiOutlineCloudUpload } from 'react-icons/hi'
 import { BsTrash } from 'react-icons/bs'
 import { Helmet } from 'react-helmet-async';
-import { Success,Danger } from './../../Alerts';
+import { Success, Danger } from './../../Alerts';
+import { Upload_Product } from './../../../Redux/Actions/ProductsAction';
 const AddProduct = () => {
     const { error, success, loading } = useSelector((state) => state.Upload_Product);
     const dispatch = useDispatch();
@@ -32,19 +32,7 @@ const AddProduct = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const { name, des, stock, price, brand, category, subcategory } = inputs
-        if (!images) {
-            dispatch(UploadProductAction.Fail_Upload(getError('No Images founded Please upload one image at least')));
-        }
-        if (!images) return;
-        try {
-            dispatch(UploadProductAction.Upload_Data());
-            const res = await axios.post('http://localhost:5000/api/upload/uploadproduct', { images, name, des, stock, price, brand, category, subcategory });
-            dispatch(UploadProductAction.Success_Upload(res.data));
-            setImages('');
-            setInputs({ name: '', des: '', stock: '', price: '', brand: '', category: '', subcategory: '' });
-        } catch (error) {
-            dispatch(UploadProductAction.Fail_Upload(getError(error)));
-        }
+        dispatch(Upload_Product(images, name, des, stock, price, brand, category, subcategory, setImages, setInputs));
     }
     const PreviewImeges = (props) => {
         return (

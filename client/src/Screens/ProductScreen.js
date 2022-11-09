@@ -2,12 +2,13 @@ import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
-import { ProductsAction } from '../Redux/Slices/ProductSlice'
+// import { ProductsAction, } from '../Redux/Slices/ProductSlice'
 import { useParams } from 'react-router-dom';
 import { Comments, Header, Rating, getError } from '../Components/Exports'
 import { Helmet } from 'react-helmet-async';
 import { Danger } from '../Components/Alerts';
 import { CartActions } from './../Redux/Slices/CartSlice';
+import { Fetch_Product_Details } from '../Redux/Actions/ProductsAction'
 const ProductScreen = () => {
   const { loading, error, productDetails } = useSelector((state) => state.products);
   const { user } = useSelector((state) => state.auth)
@@ -16,17 +17,9 @@ const ProductScreen = () => {
   const { id } = params;
 
   useEffect(() => {
-    const FetchData = async () => {
-      dispatch(ProductsAction.Fetch_DataDetails())
-      try {
-        const result = await axios.get(`http://localhost:5000/api/upload/fetch_productddetails/${id}`);
-        dispatch(ProductsAction.Success_FetchDetails(result.data));
-      } catch (error) {
-        dispatch(ProductsAction.Fail_Fetch(getError(error)));
-      }
-    };
-    FetchData();
+    dispatch(Fetch_Product_Details(id))
   }, [dispatch, id]);
+
   const AddtoCart = async () => {
     const userID = user._id
     try {

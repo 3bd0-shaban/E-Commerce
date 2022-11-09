@@ -1,27 +1,17 @@
-import axios from 'axios';
 import React, { useEffect } from 'react'
 import { MdOutlineSearch } from 'react-icons/md'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import { AllUsersAction } from '../../../Redux/Slices/AllUsers';
-import { Sidebar, DashHeeder, getError } from '../../Exports';
+import { Sidebar, DashHeeder } from '../../Exports';
 import { Danger } from '../../../Components/Alerts';
 import { RiMoreFill } from 'react-icons/ri'
 import { Helmet } from 'react-helmet-async';
+import { FetchAllUsers } from './../../../Redux/Actions/AuthAction';
 const Dashboard = () => {
     const { AllUsers, loading, error } = useSelector((state) => state.allusers);
     const dispatch = useDispatch();
     useEffect(() => {
-        const FetchAllUsers = async () => {
-            try {
-                dispatch(AllUsersAction.Fetch_getAllUsers())
-                const Users = await axios.get('http://localhost:5000/api/auth/users');
-                dispatch(AllUsersAction.getAllUsers(Users.data))
-            } catch (error) {
-                dispatch(AllUsersAction.Fail_getAllUsers(getError(error)))
-            }
-        }
-        FetchAllUsers();
+        dispatch(FetchAllUsers());
     }, [dispatch])
     return (
         <>

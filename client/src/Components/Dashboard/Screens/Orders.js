@@ -1,26 +1,16 @@
 import React, { useEffect } from 'react'
-import { Sidebar, DashHeeder, getError } from '../../Exports';
-import axios from 'axios';
+import { Sidebar, DashHeeder } from '../../Exports';
 import { RiMoreFill } from 'react-icons/ri'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Danger } from '../../Alerts';
-import { ProductsAction } from '../../../Redux/Slices/ProductSlice';
 import { Helmet } from 'react-helmet-async';
+import { Get_AllProducts } from './../../../Redux/Actions/ProductsAction';
 const Orders = () => {
     const dispatch = useDispatch();
     const { loading, error, products } = useSelector((state) => state.products);
     useEffect(() => {
-        const FetchData = async () => {
-            dispatch(ProductsAction.Fetch_Products_Request())
-            try {
-                const result = await axios.get('http://localhost:5000/api/upload/fetch_products');
-                dispatch(ProductsAction.Fetch_Products_Success(result.data));
-            } catch (error) {
-                dispatch(ProductsAction.Fetch_Products_Fails(getError(error)));
-            }
-        };
-        FetchData();
+        dispatch(Get_AllProducts());
     }, [dispatch]);
     return (
         <>
