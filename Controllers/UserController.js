@@ -8,9 +8,9 @@ const { Client_URL } = process.env
 const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
 
 export const SignUp = async (req, res) => {
-    const { username, email, password, confirmpassword, firstname, lastname } = req.body;
+    const { email, password, confirmpassword, firstname, lastname } = req.body;
     try {
-        if (!email || !username || !password || !confirmpassword || !firstname || !lastname) {
+        if (!email || !password || !confirmpassword || !firstname || !lastname) {
             return res.status(400).json({ msg: 'Please fill all fields' });
         }
         if (password.lenght <= 6) {
@@ -28,9 +28,6 @@ export const SignUp = async (req, res) => {
         } else {
             const slat = await bcrypt.genSalt();
             const HashedPassword = await bcrypt.hash(password, slat)
-            const newuser = {
-                email, password, username, firstname, lastname
-            }
             // const token = createActivationToken(newuser)
 
 
@@ -39,7 +36,7 @@ export const SignUp = async (req, res) => {
             // return res.status(200).json({ msg: 'Account Created successfully , Please activate your acount', newuser, token });
 
             new Users({
-                email, username, password: HashedPassword, firstname, lastname
+                email, password: HashedPassword, firstname, lastname
             }).save()
                 .then(newuser => {
                     return res.status(200).json({ msg: 'Account Created successfully' });
@@ -170,7 +167,7 @@ export const Update_UserRole = async (req, res) => {
         if (!user) {
             return res.status(400).json({ msg: 'User Not Founded with this Id' });
         } else {
-            const user = await Users.findByIdAndUpdate(req.params.id, req.body.isAdmin, {
+            const user = await Users.findByIdAndUpdate(req.params.id, req.body.isAdmin, {   //{$set :{isAdmin:true}}
                 new: true,
                 runValidators: true,
                 useFindAndModify: false,
@@ -188,11 +185,7 @@ export const Delete_UserInfo = async (req, res) => {
         if (!user) {
             return res.status(400).json({ msg: 'User Not Founded with this Id' });
         } else {
-            await Users.findByIdAndRemove(req.params.id, req.body, {
-                new: true,
-                runValidators: true,
-                useUnified: true,
-            });
+            await Users.deleteOne({ _id: req.params.id })
             return res.status(200).json({ msg: 'User deleted successfully' });
 
 

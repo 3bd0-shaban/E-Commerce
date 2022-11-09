@@ -58,7 +58,7 @@ export const Delete_Category = async (req, res) => {
         if (!isCategory) {
             return res.status(400).json({ msg: 'No Category Founded with this ID Or something happened' });
         };
-        await Category.findByIdAndRemove({ _id: req.body.id })
+        await Category.deleteOne({ _id: req.params.id });
         return res.status(200).json({ msg: 'Category Deleted successfully' })
 
     } catch (error) {

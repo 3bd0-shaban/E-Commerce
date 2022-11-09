@@ -19,7 +19,7 @@ export const isAdmin = async (req, res, next) => {
     try {
         const admin = req.user && req.user.isAdmin;
         if (!admin) {
-            return res.status(401).json({ msg: 'Only Admin can Access this Page' });
+            return res.status(401).json({ msg: 'Resourses not founded or it may changed to anthor url' });
         }
         next();
 

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 import axios from 'axios'
 import { useSelector, useDispatch } from 'react-redux'
 import { ProductsAction } from '../../Redux/Slices/ProductSlice'
@@ -11,47 +11,37 @@ import { Danger } from './../Alerts';
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { CartActions } from './../../Redux/Slices/CartSlice';
+import { Get_AllProducts } from '../../Redux/Actions/ProductsAction'
 const HomeProducts = () => {
+    const params = useParams();
+    const { id } = params;
     const dispatch = useDispatch();
     const { loading, error, products } = useSelector((state) => state.products);
+    const { user } = useSelector((state) => state.auth);
 
     useEffect(() => {
-        const FetchData = async () => {
-            dispatch(ProductsAction.Fetch_Products_Request())
-            try {
-                const result = await axios.get('http://localhost:5000/api/upload/fetch_products');
-                dispatch(ProductsAction.Fetch_Products_Success(result.data));
-            } catch (error) {
-                dispatch(ProductsAction.Fetch_Products_Fails(getError(error)));
-            }
-        };
-        FetchData();
-    }, [dispatch]);
-    const addtocart = () => {
-        const current = localStorage.getItem('cart');
-        const cart = current + 1
-        localStorage.setItem('cart', cart)
-    }
-    function SampleNextArrow(props) {
-        const { className, style, onClick } = props;
-        return (
-            <div
-                className={className}
-                style={{ ...style, content: '<' }}
-                onClick={onClick}
-            />
-        );
-    }
+        dispatch(Get_AllProducts())
 
-    function SamplePrevArrow(props) {
-        const { className, style, onClick } = props;
-        return (
-            <div
-                className={className}
-                style={{ ...style, }}
-                onClick={onClick}
-            />
-        );
+    }, [dispatch]);
+
+    const AddtoCart = async (event) => {
+        event.preventDefault();
+        const userID = user._id
+        try {
+            const config = {
+                header: {
+                    Accept: "application/json",
+                    "Content-Type": "application/json"
+                },
+                credentials: "include"
+            };
+            dispatch(CartActions.Addtocart_Request());
+            const res = await axios.post('http://localhost:5000/api/cart/new', { id, userID }, config);
+            dispatch(CartActions.Addtocart_Success(res.data));
+        } catch (error) {
+            dispatch(CartActions.Addtocart_Fails(getError(error)));
+        }
     }
 
     const settings = {
@@ -62,8 +52,6 @@ const HomeProducts = () => {
         slidesToShow: 6,
         slidesToScroll: 1,
         initialSlide: 0,
-        nextArrow: <SampleNextArrow />,
-        prevArrow: <SamplePrevArrow />,
         responsive: [
             {
                 breakpoint: 1600,
@@ -154,7 +142,7 @@ const HomeProducts = () => {
                                                     {product.stock > 0 &&
                                                         <div className='-bottom-20 inset-x-0 hover:block max-h-full absolute text-white items'>
                                                             <div className='flex justify-center gap-4'>
-                                                                <Link className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><MdShoppingBag /></Link>
+                                                                <Link onClick={AddtoCart} className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><MdShoppingBag /></Link>
                                                                 <Link className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><AiOutlineHeart /></Link>
                                                             </div>
                                                             <p className='text-sm mt-3 mx-auto'>{product.rating}</p>

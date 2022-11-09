@@ -3,31 +3,24 @@ const usesrSchema = new mongoose.Schema(
   {
     email: {
       type: String,
-      required: true,
+      // required: true,
       unique: true,
       min: 3,
       max: 50
     },
-    username: {
-      type: String,
-      lowercase: true,
-      required: true,
-      min: 3,
-      max: 20
-    },
     password: {
       type: String,
-      required: true,
+      // required: true,
       min: 6,
-      select:false
+      select: false
     },
     firstname: {
       type: String,
-      required: true
+      // required: true
     },
     lastname: {
       type: String,
-      required: true
+      // required: true
     },
     avatar: {
       type: String,
@@ -43,8 +36,8 @@ const usesrSchema = new mongoose.Schema(
     },
     address: [
       {
-        address: {
-          type: String
+        id: {
+          type: Object
         },
         city: {
           type: String
@@ -72,9 +65,17 @@ const usesrSchema = new mongoose.Schema(
     cart: [
       {
         product: {
-          type: mongoose.Schema.ObjectId,
+          type: mongoose.Schema.Types.ObjectId,
           ref: 'Products'
         },
+        // products: [
+        //   {
+        //     productId: Number,
+        //     quantity: Number,
+        //     name: String,
+        //     price: Number
+        //   }
+        // ],
         quentity: {
           type: Number,
           default: 0
@@ -99,6 +100,10 @@ const usesrSchema = new mongoose.Schema(
           type: String,
           default: 'Not processed',
           enum: ['Not processed', 'Processing', 'Shipped', 'Delivered', 'Cancelled']
+        },
+        active: {
+          type: Boolean,
+          default: true
         },
         created: {
           type: Date,

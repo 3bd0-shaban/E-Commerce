@@ -6,7 +6,8 @@ import cors from 'cors';
 import mongoose from 'mongoose';
 import fileUpload from 'express-fileupload';
 import cookieParser from 'cookie-parser';
-import router from './Routes/Router.js';
+import errorMiddleware from './Middlewares/Error.js';
+import UsersRouter from './Routes/UsersRouter.js';
 import CategoryRouter from './Routes/CategoryRouter.js';
 import ProductsRouter from './Routes/ProductsRouter.js';
 import BannersRouter from './Routes/BannersRouter.js';
@@ -22,17 +23,19 @@ app.use(cookieParser());
 app.use(helmet());
 app.use(morgan('common'));
 app.use(fileUpload({ useTempFiles: true }))
-mongoose.connect(process.env.MongoDB_URL).then(() => {
-    app.listen(port, () => {
-        console.log(`Successfully started at http://localhost:${port}`)
-    })
-}).catch((err) => {
-    console.log(err)
-});
+mongoose.connect(process.env.MongoDB_URL)
+    .then(() => {
+        app.listen(port, () => {
+            console.log(`Successfully started at http://localhost:${port}`)
+        })
+    }).catch((err) => {
+        console.log(err)
+    });
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 // app.use(express.json())
-app.use('/api/auth', router);
+app.use(errorMiddleware)
+app.use('/api/auth', UsersRouter);
 app.use('/api/banner', BannersRouter);
 app.use('/api/upload', ProductsRouter);
 app.use('/api/category', CategoryRouter);

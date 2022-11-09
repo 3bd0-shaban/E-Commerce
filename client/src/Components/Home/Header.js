@@ -41,7 +41,7 @@ const Header = () => {
           <div className='flex gap-8 hover:text-[#511c97]'>
             <button className=" flex text-sm rounded-full border-2 border-white  ">
               <img className="p-1 w-10 h-10 rounded-full focus:ring-2 focus:ring-gray-300 " src={isLogged ? user.avatar : 'https://res.cloudinary.com/abdo9/image/upload/v1664894521/samples/ecommerce/istockphoto-1300845620-612x612_rpokfs.jpg'} alt="" />
-              <p className='font-mono font-extrabold text-white my-auto text-xl'>{user.username} </p>
+              <p className='font-mono font-extrabold text-white my-auto text-xl'>{user.firstname} </p>
               <div className='font-mono font-extrabold text-white my-auto text-xl'>
                 {isLogged && <CgChevronDown />}
               </div>
@@ -49,7 +49,7 @@ const Header = () => {
           </div>
           <div className='absolute dropdwon-content hidden w-64 shadow-lg right-0 text-end bg-white z-20'>
             <div>
-              <Link to='/' className='flex gap-2 py-3 px-4 hover:bg-gray-100 pt-3' ><CgProfile style={{ 'marginTop': '3px', 'fontSize': '1.3rem' }} />Profile</Link>
+              <Link to='/profile' className='flex gap-2 py-3 px-4 hover:bg-gray-100 pt-3' ><CgProfile style={{ 'marginTop': '3px', 'fontSize': '1.3rem' }} />Profile</Link>
               <Link to='/' className='flex gap-2 py-3 px-4 hover:bg-gray-100' ><BsSave2 style={{ 'marginTop': '3px', 'fontSize': '1.3rem' }} />Favourite</Link>
               <Link to='/' className='flex gap-2 py-3 px-4 hover:bg-gray-100' ><IoSettingsOutline style={{ 'marginTop': '3px', 'fontSize': '1.3rem' }} />Orders</Link>
               <Link to='/' className='flex gap-2 py-3 px-4 hover:bg-gray-100' ><TbMessageReport style={{ 'marginTop': '3px', 'fontSize': '1.3rem' }} />Report a problem</Link>

@@ -10,7 +10,6 @@ import 'slick-carousel/slick/slick-theme.css';
 const Banners = () => {
     const dispatch = useDispatch();
 
-
     const settings = {
         dots: true,
         autoplay: true,
@@ -42,9 +41,6 @@ const Banners = () => {
             }
         ]
     };
-
-
-
     const { loading, Banners } = useSelector((state) => state.Banners);
     useEffect(() => {
         const Fetch_Banners = async () => {
@@ -69,7 +65,7 @@ const Banners = () => {
                     <Slider {...settings}>
                         {Banners && Banners.map((image) => (
                             <div key={image}>
-                                <img className='w-full object-cover h-[10rem] md:h-[25rem] lg:h-[20rem] xl:h-[30rem] xxxl:h-[30rem]' src={image.banners.url} alt='' />
+                                <img className='w-full object-cover h-[10rem] md:h-[25rem] lg:h-[20rem] xl:h-[30rem] xxxl:h-[30rem]' src={image && image.banners.url} alt='' />
                             </div>
 
                         ))}
@@ -84,7 +80,6 @@ const Banners = () => {
                     </div>
                 </div>
             </div>
-
     )
 }
 

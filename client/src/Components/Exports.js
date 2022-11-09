@@ -16,6 +16,12 @@ export { default as Orders } from './Dashboard/Screens/Orders';
 export { default as Chat } from './Dashboard/Screens/Chat';
 export { default as Issues } from './Dashboard/Screens/Issues';
 
+
+export { default as SideProfile } from './Profile/SideProfile';
+export { default as Address } from './Profile/Address';
+export { default as Mainprofile } from './Profile/Mainprofile';
+export { default as PersonalInfo } from './Profile/PersonalInfo';
+
 export { default as LineChart } from './Dashboard/Chart/LineChart';
 export { default as GeoChart } from './Dashboard/Chart/GeoChart';
 export { default as PieChart } from './Dashboard/Chart/PieChart';
@@ -25,12 +31,14 @@ export { default as DashboardNavBar } from './Dashboard/Layouts/DashboardNavBar'
 export { default as getError } from './utile';
 
 export { default as Home } from '../Screens/Home';
-export { default as Cart } from '../Screens/Cart';
 export { default as Signin } from '../Screens/Signin';
 export { default as Signup } from '../Screens/Signup';
 export { default as ProductScreen } from '../Screens/ProductScreen';
 export { default as AddProduct } from '../Components/Dashboard/Screens/AddProduct';
-export { default as Profile } from '../Screens/Profile';
+
+
+export { default as Cart } from './Home/Cart/Cart';
+// export { default as AddtoCart } from './Home/Cart/AddtoCart';
 
 
 export { default as SKHomeProducts } from './Skiliton/SK_HomeProducts';

@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Home, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, Profile, Charts, Calender, getError, Addbanner, Orders, Chat, Issues, Cart } from './Components/Exports';
+import { Home, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, Mainprofile, Charts, Calender, getError, Addbanner, Orders, Chat, Issues, Cart } from './Components/Exports';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { UserAction } from './Redux/Slices/UserSlice';
@@ -39,7 +39,7 @@ function App() {
           <Route path='/dashboard/all_users' element={<AllUsers />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
-          <Route path='/profile' element={<Profile />} />
+          <Route path='/profile' element={<Mainprofile />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/dashboard/addproduct' element={<AddProduct />} />
           <Route path='/dashboard/all_products' element={<AllProducts />} />

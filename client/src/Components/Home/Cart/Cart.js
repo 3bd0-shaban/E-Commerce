@@ -1,8 +1,11 @@
-import React from 'react'
-import { Header } from '../Components/Exports'
-import { AiOutlineHeart } from 'react-icons/ai'
-import { FaShoppingBag } from 'react-icons/fa'
-import { Link } from 'react-router-dom'
+import React from 'react';
+import { getError, Header } from '../../Exports';
+import { AiOutlineHeart } from 'react-icons/ai';
+import { FaShoppingBag } from 'react-icons/fa';
+import { Link } from 'react-router-dom';
+// import { useDispatch, useSelector } from 'react-redux';
+// import axios from 'axios';
+// import { CartActions } from '../../../Redux/Slices/CartSlice';
 const CartItem = () => {
     return (
         <div className='bg-white shadow rounded-xl relative py-2 my-5'>
@@ -43,6 +46,30 @@ const CartEmpty = () => {
     )
 }
 const Cart = () => {
+    // const dispatch = useDispatch();
+    // const { error, user } = useSelector((state) => state.auth)
+
+
+    // const HandleAddtocart = async (event) => {
+    //     event.preventDefault();
+    //     // const { error, user } = useSelector((state) => state.auth)
+    //     const userID = user._id
+    //     try {
+    //         const config = {
+    //             header: {
+    //                 Accept: "application/json",
+    //                 "Content-Type": "application/json"
+    //             },
+    //             credentials: "include"
+    //         };
+    //         dispatch(CartActions.Addtocart_Request());
+    //         const res = await axios.post('http://localhost:5000/api/auth/signup', { userID }, config);
+    //         dispatch(CartActions.Addtocart_Success(res.data));
+    //     } catch (error) {
+    //         dispatch(CartActions.Addtocart_Fails(getError(error)));
+    //     }
+    // }
+
     return (
         <div>
             <Header />

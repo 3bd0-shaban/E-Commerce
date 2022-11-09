@@ -1,6 +1,6 @@
 import Products from "../Models/Products.js";
 import cloudinary from "../Utils/cloudinary.js";
-import ApiFeatures from './../Utils/ApiFeatures.js';
+import Features from './../Utils/Features.js';
 export const UploadProduct = async (req, res) => {
     try {
 
@@ -56,9 +56,19 @@ export const UploadProduct = async (req, res) => {
     }
 }
 
+// export const Fetch_Products = async (req, res) => {
+//     try {
+//         const resultperpage = 10;
+//         // const productCount = await Products.countDocuments();
+//         const features = new Features(Products.find(), req.query).search().Filter().Pagination(resultperpage)
+//         const Product = await features.query;
+//         return res.status(200).json(Product);
+//     } catch (error) {
+//         return res.status(500).json({ msg: error.message })
+//     }
+// }
 export const Fetch_Products = async (req, res) => {
     try {
-        // const ApiFeatures = new ApiFeatures(Products.find(), req.query)
         const Product = await Products.find();
         return res.status(200).json(Product);
     } catch (error) {
