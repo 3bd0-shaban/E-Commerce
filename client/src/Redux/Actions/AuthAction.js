@@ -5,7 +5,6 @@ import { AllUsersAction } from './../Slices/AllUsers';
 
 export const SignIn = (email, password, navigate) => async (dispatch) => {
     try {
-
         const res = await axios.post('http://localhost:5000/api/auth/signin', { email, password }, { withCredentials: true });
         localStorage.setItem('Logged?', true)
         dispatch(UserAction.LoggedIn(res.data));
@@ -14,9 +13,7 @@ export const SignIn = (email, password, navigate) => async (dispatch) => {
     } catch (error) {
         dispatch(UserAction.Failed_LogIn(getError(error)));
     }
-
 }
-
 export const SignUp = (email, password, username, lastname, firstname, confirmpassword, navigate) => async (dispatch) => {
     try {
         const config = {
@@ -33,7 +30,6 @@ export const SignUp = (email, password, username, lastname, firstname, confirmpa
         dispatch(UserAction.Failed_LogIn(getError(error)));
     }
 };
-
 export const FetchAllUsers = () => async (dispatch) => {
     try {
         dispatch(AllUsersAction.Fetch_getAllUsers());
@@ -43,7 +39,6 @@ export const FetchAllUsers = () => async (dispatch) => {
         dispatch(AllUsersAction.Fail_getAllUsers(getError(error)))
     }
 };
-
 export const Delete_User = (id) => async (dispatch) => {
     try {
         dispatch(AllUsersAction.Delete_User_Request());

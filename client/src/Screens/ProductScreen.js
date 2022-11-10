@@ -9,7 +9,7 @@ import { Fetch_Product_Details } from '../Redux/Actions/ProductsAction'
 import { Add_to_cart } from './../Redux/Actions/CartAction';
 const ProductScreen = () => {
   const { loading, error, productDetails } = useSelector((state) => state.products);
-  const { user } = useSelector((state) => state.auth)
+  // const { user } = useSelector((state) => state.auth)
   const dispatch = useDispatch();
   const params = useParams();
   const { id } = params;
@@ -19,9 +19,8 @@ const ProductScreen = () => {
   }, [dispatch, id]);
 
   const AddtoCart = async () => {
-    const userId = user._id
-    const products = id
-    dispatch(Add_to_cart(products, userId));
+    const product_Id = id
+    dispatch(Add_to_cart(product_Id));
   }
 
   return (

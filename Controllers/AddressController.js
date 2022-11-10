@@ -1,6 +1,5 @@
 import Users from '../Models/Users.js';
 export const SetNewAddress = async (req, res) => {
-
     try {
         let UserAddress = await Users.findOne({ _id: req.user._id });
         if (UserAddress.address.length < 1) {

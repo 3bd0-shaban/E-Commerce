@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Header } from '../../Exports';
 import { AiOutlineHeart } from 'react-icons/ai';
 import { FaShoppingBag } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { Fetch_Products_In_Cat } from '../../../Redux/Actions/CartAction';
 // eslint-disable-next-line
-const CartItem = () => {
+const CartItem = (props) => {
     return (
         <div className='bg-white shadow rounded-xl relative py-2 my-5'>
             <div className='flex'>
                 <img className='h-52 m-2' src='https://res.cloudinary.com/abdo9/image/upload/v1667474833/Market/ni8yf7vmez5iahqieck0.webp' alt=''></img>
                 <div className=''>
-                    <p className='py-3 text-lg'>NOTEBOOK-LENOVO-CI7 IdeaPad Gaming 3 82S900EJAX I712650H 16T -RAM 16G 2 8 SO DDR4 MAX 16 -SSD 512GB 15.6-FHD-IPS-120HzRTX3060 6G</p>
+                    <p className='py-3 text-lg'>{props.Name}</p>
                     <div className='absolute bottom-0 mb-10'>
                         <div className='flex items-center gap-3 py-4'>
                             <label>Select Quentity</label>
@@ -31,6 +33,7 @@ const CartItem = () => {
         </div>
     )
 }
+// eslint-disable-next-line
 const CartEmpty = () => {
     return (
         <div className='text-center'>
@@ -44,29 +47,11 @@ const CartEmpty = () => {
     )
 }
 const Cart = () => {
-    // const dispatch = useDispatch();
-    // const { error, user } = useSelector((state) => state.auth)
-
-
-    // const HandleAddtocart = async (event) => {
-    //     event.preventDefault();
-    //     // const { error, user } = useSelector((state) => state.auth)
-    //     const userID = user._id
-    //     try {
-    //         const config = {
-    //             header: {
-    //                 Accept: "application/json",
-    //                 "Content-Type": "application/json"
-    //             },
-    //             credentials: "include"
-    //         };
-    //         dispatch(CartActions.Addtocart_Request());
-    //         const res = await axios.post('http://localhost:5000/api/auth/signup', { userID }, config);
-    //         dispatch(CartActions.Addtocart_Success(res.data));
-    //     } catch (error) {
-    //         dispatch(CartActions.Addtocart_Fails(getError(error)));
-    //     }
-    // }
+    const dispatch = useDispatch();
+    const { cart } = useSelector((state) => state.Cart);
+    useEffect(() => {
+        dispatch(Fetch_Products_In_Cat())
+    }, [dispatch])
 
     return (
         <div>
@@ -81,8 +66,8 @@ const Cart = () => {
                             {/* <p className='mx-auto'>you have 2 items in your cart</p> */}
                         </div>
                         <div>
-                            {/* <CartItem /> */}
-                            <CartEmpty />
+                            <CartItem Name={cart.User_Cart[0]._id} />
+                            {/* <CartEmpty /> */}
                         </div>
                     </div>
                 </div>

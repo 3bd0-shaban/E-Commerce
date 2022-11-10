@@ -1,104 +1,97 @@
 import Products from "../Models/Products.js";
 import Users from '../Models/Users.js';
-import Cart from "../Models/Cart.js";
-
 
 export const Add_New_Cart = async (req, res) => {
-  const { productId, quantity, name, price, userId } = req.body;
-  // const userId = req.user.id
   try {
-    let cart = await Cart.findOne({ userId }).populate('userId', '_id');
-    console.log(cart)
-    // let product = await Products.findById({ _id: req.params.id });
-    if (cart) {
-      let itemIndex = cart.products.findIndex(p => p._id == _id);
-      if (itemIndex > -1) {
-        let productItem = cart.products[itemIndex];
-        productItem.quantity = quantity;
-        cart.products[itemIndex] = productItem;
-      } else {
-        cart.products.push({ productId, quantity, name, price });
-      }
-      cart = await cart.save();
-      return res.status(201).json({ cart });
+    let UserCart = await Users.findOne({ _id: req.user._id });
+    const { product_Id } = req.body
+    if (UserCart.cart.items.length < 1) {
+      const Updated_Cart = await Users.findByIdAndUpdate({ _id: req.user._id }, {
+        $push: {
+          // _id: Object,
+          purchaseprice: 0, numofitems: 0,
+          'cart.items': {
+            product_Id: req.body.product_Id, quentity: 1,
+          }
+        }
+      }, { new: true, });
+      return res.status(201).json({ Updated_Cart });
     } else {
-      const newCart = await Cart.create({
-        userId,
-        products: [{ productId, quantity, name, price }]
-      });
-
-      return res.status(201).json({ msg: 'Added to cart', newCart });
+      let ExistingCart = UserCart.cart.items.find(p => p.product_Id == product_Id);
+      let Product = await Users.findOne({ _id: req.user._id }).populate('cart.items.product_Id', 'stock');
+      let stockQuentity = Product.cart.items.find(p => p.product_Id._id == product_Id);
+      if (ExistingCart) {
+        // can't increase more than the quentity in stock
+        if (ExistingCart.quentity == stockQuentity.product_Id.stock) {
+          return res.status(201).json({ msg: 'can not increase more' });
+        }
+      }
+      if (ExistingCart) {
+        const Updated_Cart = await Users.findOneAndUpdate({ _id: req.user._id, 'cart.items.product_Id': req.body.product_Id }, {
+          $inc: { 'cart.items.$.quentity': 1 }
+        }, { new: true });
+        return res.status(201).json({ msg: 'updated', Updated_Cart });
+      }
+      const Updated_Cart = await Users.findByIdAndUpdate({ _id: req.user._id }, {
+        $push: {
+          'cart.items': { product_Id: req.body.product_Id, quentity: 1, }
+        },
+      }, { new: true, });
+      return res.status(201).json({ msg: 'added', Updated_Cart });
     }
   } catch (error) {
-    res.status(500).json({ msg: error.message });
+    console.log(error)
+    return res.status(500).json({ msg: error.message });
   }
 };
 
-// export const addItem = async (req, res) => {
-//   try {
-//     const cart = new Cart(req.body);
-//     await cart.save();
-//     return res.status(201).json({ msg: 'Added to cart', cart });
-
-//   } catch (error) {
-//     return res.status(500).json({ msg: error.message });
-//   }
-// };
-export const addItem = async (req, res) => {
+export const Increment = async (req, res) => {
   try {
-    let UserCart = await Users.findOne({ _id: req.body._id });
     const { product_Id } = req.body
-    if (UserCart.cart.length < 1) {
-      const Updated_Cart = await Users.findByIdAndUpdate({ _id: req.body._id }, { cart: { product_Id: req.body.product_Id } }, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false,
-      });
-      return res.status(201).json({ Updated_Cart });
-    } else {
-      let ExistingCart = UserCart.cart.find(p => p.product_Id == product_Id);
-      if (ExistingCart) {
-        const Updated_Cart = await Users.findByIdAndUpdate({ _id: req.body._id }, {
-          $inc: {
-            cart: { quentity: 1 }
-          }
-
-        }, {
-          new: true,
-          runValidators: true,
-          useFindAndModify: false,
-        });
-        return res.status(201).json({ msg: 'updated', Updated_Cart });
+    let UserCart = await Users.findOne({ _id: req.user._id });
+    let ExistingCart = UserCart.cart.items.find(p => p.product_Id == product_Id);
+    let Product = await Users.findOne({ _id: req.user._id }).populate('cart.items.product_Id', 'stock');
+    let stockQuentity = Product.cart.items.find(p => p.product_Id._id == product_Id);
+    if (ExistingCart) {
+      // can't increase more than the quentity in stock
+      if (ExistingCart.quentity == stockQuentity.product_Id.stock) {
+        return res.status(201).json({ msg: 'can not increase more' });
       }
-
-      const Updated_Cart = await Users.findByIdAndUpdate({ _id: req.body._id }, {
-        $push: {
-          cart: { product_Id: req.body.product_Id }
-        },
-        // $inc: {
-        //   cart: { quentity: 1 }
-        // }
-      }, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false,
-      });
-      return res.status(201).json({ msg: 'added', Updated_Cart });
+      const Updated_Cart = await Users.findOneAndUpdate({ _id: req.user._id, 'cart.items.product_Id': req.body.product_Id }, {
+        $inc: { 'cart.items.$.quentity': 1 }
+      }, { new: true });
+      return res.status(201).json({ msg: 'updated', Updated_Cart });
     }
-
+    return res.status(201).json({ msg: 'Product not exist in cart' });
   } catch (error) {
     return res.status(500).json({ msg: error.message });
   }
 };
 
+export const Decrement = async (req, res) => {
+  try {
+    const { product_Id } = req.body
+    let UserCart = await Users.findOne({ _id: req.user._id });
+    let ExistingCart = UserCart.cart.items.find(p => p.product_Id == product_Id);
+    if (ExistingCart) {
+      if (ExistingCart.quentity < 2) {
+        return res.status(201).json({ msg: 'can not decrease more' });
+      }
+      const Updated_Cart = await Users.findOneAndUpdate({ _id: req.user._id, 'cart.items.product_Id': req.body.product_Id }, {
+        $inc: { 'cart.items.$.quentity': -1 }
+      }, { new: true });
+      return res.status(201).json({ msg: 'updated', Updated_Cart });
+    }
+    return res.status(201).json({ msg: 'Product not exist in cart' });
+  } catch (error) {
+    return res.status(500).json({ msg: error.message });
+  }
+};
 
 export const Find_Items_In_Cart = async (req, res) => {
   try {
-    const item = await Cart.find()
-      .populate('products', 'name des price stock rating images -_id')
-      .populate('userId', 'address firstname lastname')
-    return res.status(201).json({ item });
-
+    const User_Cart = await Users.find({ _id: req.user.id }).select('cart').populate('cart.items.product_Id', 'name des price images');
+    return res.status(201).json({ msg: User_Cart });
   } catch (error) {
     console.log(error);
     return res.status(500).json({ msg: error.message });
@@ -108,7 +101,7 @@ export const Find_Items_In_Cart = async (req, res) => {
 
 export const Delete_Items_In_Cart = async (req, res) => {
   try {
-    await Users.findByIdAndUpdate({ _id: req.body._id }, {
+    await Users.findByIdAndUpdate({ _id: req.user._id }, {
       $unset: {
         cart: { product_Id: req.body.product_Id }
       }
@@ -124,14 +117,32 @@ export const Delete_Items_In_Cart = async (req, res) => {
   }
 };
 
-export const removeItem = async (req, res) => {
+export const Delete_Specific_Item_In_Cart = async (req, res) => {
   try {
-    const userId = mongoose.Types.ObjectId(req.body.userId);
-    const productId = mongoose.Types.ObjectId(req.body.productId);
-    await Cart.deleteOne({ userId: userId, productId: productId });
-    res.send();
+    await Users.findByIdAndUpdate({ _id: req.user._id }, {
+      $unset: {
+        cart: { product_Id: req.body.product_Id }
+      }
+    }, {
+      new: true,
+      runValidators: true,
+      useFindAndModify: false,
+    });
+    return res.status(201).json({ msg: 'Items in cart deleted successfully' });
   } catch (error) {
-    res.status(204).json({ msg: error.message });
+    console.log(error);
+    res.status(204).send();
   }
 };
+
+// export const removeItem = async (req, res) => {
+//   try {
+//     const userId = mongoose.Types.ObjectId(req.use.userId);
+//     const productId = mongoose.Types.ObjectId(req.body.productId);
+//     await Cart.deleteOne({ userId: userId, productId: productId });
+//     res.send();
+//   } catch (error) {
+//     res.status(204).json({ msg: error.message });
+//   }
+// };
 

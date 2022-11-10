@@ -62,47 +62,46 @@ const usesrSchema = new mongoose.Schema(
         }
       }
     ],
-    cart: [
-      {
-        product_Id: {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Products'
-        },
-        quentity: {
-          type: Number,
-          default: 0
-        },
-        // purchaseprice: {
-        //   type: Number,
-        //   default: 0
-        // },
-        totalprice: {
-          type: Number,
-          default: 0
-        },
-        tax: {
-          type: Number,
-          default: 0
-        },
-        totalwithTax: {
-          type: Number,
-          default: 0
-        },
-        // status: {
-        //   type: String,
-        //   default: 'Not processed',
-        //   enum: ['Not processed', 'Processing', 'Shipped', 'Delivered', 'Cancelled']
-        // },
-        // active: {
-        //   type: Boolean,
-        //   default: true
-        // },
-        created: {
-          type: Date,
-          default: Date.now
-        },
-      }
-    ]
+    cart: {
+      _id: Object,
+      purchaseprice: {
+        type: Number,
+        default: 0
+      },
+      numofitems: {
+        type: Number,
+        default: 0
+      },
+      items: [
+        {
+          product_Id: {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Products',
+            required: true
+          },
+          quentity: {
+            type: Number,
+            default: 0
+          },
+          totalprice: {
+            type: Number,
+            default: 0
+          },
+          tax: {
+            type: Number,
+            default: 0
+          },
+          totalwithTax: {
+            type: Number,
+            default: 0
+          },
+          created: {
+            type: Date,
+            default: Date.now
+          },
+        }
+      ]
+    }
   },
   { timestamps: true }
 );

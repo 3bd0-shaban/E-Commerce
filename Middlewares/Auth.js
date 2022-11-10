@@ -5,7 +5,6 @@ export const auth = async (req, res, next) => {
         const { token } = req.cookies;
         if (!token) {
             return res.status(500).json({ msg: 'not authorized' });
-
         }
         const verify = jwt.verify(token, process.env.JWT_SECRET);
         req.user = await Users.findById(verify.id);

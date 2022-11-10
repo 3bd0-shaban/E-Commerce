@@ -12,6 +12,7 @@ import CategoryRouter from './Routes/CategoryRouter.js';
 import ProductsRouter from './Routes/ProductsRouter.js';
 import BannersRouter from './Routes/BannersRouter.js';
 import CartRouter from './Routes/CartRouter.js';
+import OrdersRouter from './Routes/OrdersRouter.js'
 const app = express();
 const port = process.env.PORT || 5000
 dotenv.config();
@@ -33,10 +34,10 @@ mongoose.connect(process.env.MongoDB_URL)
     });
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-// app.use(express.json())
 app.use(errorMiddleware)
 app.use('/api/auth', UsersRouter);
 app.use('/api/banner', BannersRouter);
 app.use('/api/upload', ProductsRouter);
 app.use('/api/category', CategoryRouter);
 app.use('/api/cart', CartRouter);
+app.use('/api/order', OrdersRouter);
