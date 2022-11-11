@@ -185,10 +185,8 @@ export const Delete_UserInfo = async (req, res) => {
         if (!user) {
             return res.status(400).json({ msg: 'User Not Founded with this Id' });
         } else {
-            await Users.deleteOne({ _id: req.params.id })
+            await Users.deleteOne({ _id: req.params.id });
             return res.status(200).json({ msg: 'User deleted successfully' });
-
-
         }
     } catch (error) {
         return res.status(500).json({ msg: error.message })

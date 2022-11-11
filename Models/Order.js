@@ -1,4 +1,4 @@
-import mongoose, { model } from "mongoose";
+import mongoose from "mongoose";
 const OrderSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
@@ -13,7 +13,7 @@ const OrderSchema = new mongoose.Schema({
     orderitems: {
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Users',
-        // required: true,
+        required: true,
     },
     totalPrice: {
         type: Number,

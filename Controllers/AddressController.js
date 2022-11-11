@@ -43,3 +43,18 @@ export const Delete_All_Address = async (req, res) => {
         res.status(204).json({ msg: error.message });
     }
 };
+export const Delete_Spacific_Address = async (req, res) => {
+    try {
+        const { _id } = req.body;
+        let user = await Users.findOne({ _id: req.user._id });
+        let AddressId = user.address.find(p => p._id == _id);
+        await Users.findOneAndUpdate({ _id: req.user._id, AddressId: req.body._id }, {
+            $pull: {
+                address: req.body._id
+            }
+        }, { new: true, });
+        return res.status(201).json({ msg: ' Address deleted ' });
+    } catch (error) {
+        res.status(204).json({ msg: error.message });
+    }
+};
