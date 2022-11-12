@@ -14,6 +14,7 @@ import BannersRouter from './Routes/BannersRouter.js';
 import CartRouter from './Routes/CartRouter.js';
 import OrdersRouter from './Routes/OrdersRouter.js';
 import IsssesRouter from './Routes/IssessRouter.js'
+import ReviewsRouter from './Routes/ReviewsRouter.js'
 const app = express();
 const port = process.env.PORT || 5000
 dotenv.config();
@@ -43,3 +44,4 @@ app.use('/api/category', CategoryRouter);
 app.use('/api/cart', CartRouter);
 app.use('/api/order', OrdersRouter);
 app.use('/api/issess', IsssesRouter);
+app.use('/api/review', ReviewsRouter);
