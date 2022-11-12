@@ -8,7 +8,7 @@ const CartSlice = createSlice({
         loading: false
     },
     reducers: {
-        Addtocart_Request(state, action) {
+        Addtocart_Request(state) {
             state.cart = [];
             state.loading = true;
             state.success = null;
@@ -26,7 +26,7 @@ const CartSlice = createSlice({
             state.success = false;
             state.error = action.payload.msg
         },
-        FetchCart_Request(state, action) {
+        FetchCart_Request(state) {
             state.cart = [];
             state.loading = true;
             state.success = null;
@@ -44,7 +44,7 @@ const CartSlice = createSlice({
             state.success = false;
             state.error = action.payload.msg
         },
-        DeleteCart_Request(state, action) {
+        DeleteCart_Request(state) {
             state.loading = true;
             state.success = null;
             state.error = false
@@ -55,6 +55,38 @@ const CartSlice = createSlice({
             state.error = false
         },
         DeleteCart_Fails(state, action) {
+            state.loading = false;
+            state.success = false;
+            state.error = action.payload.msg
+        },
+        Increment_Item_Request(state) {
+            state.loading = true;
+            state.success = null;
+            state.error = false
+        },
+        Increment_Item_Success(state, action) {
+            state.cart = action.payload;
+            state.loading = false;
+            state.success = action.payload.msg;
+            state.error = false
+        },
+        Increment_Item_Fails(state, action) {
+            state.loading = false;
+            state.success = false;
+            state.error = action.payload.msg
+        },
+        Decrement_Item_Request(state) {
+            state.loading = true;
+            state.success = null;
+            state.error = false
+        },
+        Decrement_Item_Success(state, action) {
+            state.cart = action.payload;
+            state.loading = false;
+            state.success = action.payload.msg;
+            state.error = false
+        },
+        Decrement_Item_Fails(state, action) {
             state.loading = false;
             state.success = false;
             state.error = action.payload.msg

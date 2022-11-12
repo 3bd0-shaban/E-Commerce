@@ -36,8 +36,9 @@ const usesrSchema = new mongoose.Schema(
     },
     address: [
       {
-        id: {
-          type: Object
+        PhoneNumber:{
+          type:Number,
+          required:true
         },
         city: {
           type: String

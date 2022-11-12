@@ -12,10 +12,10 @@ export const Add_to_cart = (product_Id) => async (dispatch) => {
     }
 };
 
-export const Fetch_Products_In_Cat = (product_Id) => async (dispatch) => {
+export const Fetch_Products_In_Cart = () => async (dispatch) => {
     try {
         dispatch(CartActions.FetchCart_Request());
-        const res = await axios.get('http://localhost:5000/api/cart/get', { product_Id });
+        const res = await axios.get('http://localhost:5000/api/cart/get');
         dispatch(CartActions.FetchCart_Success(res.data));
     } catch (error) {
         dispatch(CartActions.FetchCart_Fails(getError(error)));
@@ -23,20 +23,20 @@ export const Fetch_Products_In_Cat = (product_Id) => async (dispatch) => {
 };
 export const Increment = (product_Id) => async (dispatch) => {
     try {
-        dispatch(CartActions.FetchCart_Request());
+        dispatch(CartActions.Increment_Item_Request());
         const res = await axios.post('http://localhost:5000/api/cart/increment', { product_Id });
-        dispatch(CartActions.FetchCart_Success(res.data));
+        dispatch(CartActions.Increment_Item_Success(res.data));
     } catch (error) {
-        dispatch(CartActions.FetchCart_Fails(getError(error)));
+        dispatch(CartActions.Increment_Item_Fails(getError(error)));
     }
 };
 export const Dectrement = (product_Id) => async (dispatch) => {
     try {
-        dispatch(CartActions.FetchCart_Request());
+        dispatch(CartActions.Decrement_Item_Request());
         const res = await axios.post('http://localhost:5000/api/cart/decrement', { product_Id });
-        dispatch(CartActions.FetchCart_Success(res.data));
+        dispatch(CartActions.Decrement_Item_Success(res.data));
     } catch (error) {
-        dispatch(CartActions.FetchCart_Fails(getError(error)));
+        dispatch(CartActions.Decrement_Item_Fails(getError(error)));
     }
 };
 export const Delete_Items_In_Cart = (product_Id) => async (dispatch) => {

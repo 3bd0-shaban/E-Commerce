@@ -1,38 +1,10 @@
 import React, { useEffect } from 'react';
-import { Header } from '../../Exports';
-import { AiOutlineHeart } from 'react-icons/ai';
+import { Header, CartItem } from '../../Exports';
 import { FaShoppingBag } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Fetch_Products_In_Cat } from '../../../Redux/Actions/CartAction';
-// eslint-disable-next-line
-const CartItem = (props) => {
-    return (
-        <div className='bg-white shadow rounded-xl relative py-2 my-5'>
-            <div className='flex'>
-                <img className='h-52 m-2' src='https://res.cloudinary.com/abdo9/image/upload/v1667474833/Market/ni8yf7vmez5iahqieck0.webp' alt=''></img>
-                <div className=''>
-                    <p className='py-3 text-lg'>{props.Name}</p>
-                    <div className='absolute bottom-0 mb-10'>
-                        <div className='flex items-center gap-3 py-4'>
-                            <label>Select Quentity</label>
-                            <select className='border rounded-lg outline-none'>
-                                <option>1</option>
-                            </select>
-                        </div>
-                        <div className='flex gap-3'>
-                            <button className='text-teal-800 font-semibold'>Remove</button>
-                            <div className='flex items-center gap-1 text-orange-800 '>
-                                <AiOutlineHeart />
-                                <button className='font-semibold'>Add to white list</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    )
-}
+import { Dectrement, Fetch_Products_In_Cart } from '../../../Redux/Actions/CartAction';
+import { Increment } from './../../../Redux/Actions/CartAction';
 // eslint-disable-next-line
 const CartEmpty = () => {
     return (
@@ -48,10 +20,11 @@ const CartEmpty = () => {
 }
 const Cart = () => {
     const dispatch = useDispatch();
-    const { cart } = useSelector((state) => state.Cart);
+    const { cart, loading } = useSelector((state) => state.Cart);
     useEffect(() => {
-        dispatch(Fetch_Products_In_Cat())
+        dispatch(Fetch_Products_In_Cart())
     }, [dispatch])
+
 
     return (
         <div>
@@ -63,11 +36,17 @@ const Cart = () => {
                             <div className='flex justify-center py-4'>
                                 <p className='text-3xl font-medium font-Permanent'>Shopping Cart</p>
                             </div>
-                            {/* <p className='mx-auto'>you have 2 items in your cart</p> */}
+                            <p className='mx-auto'>you have {cart.numofitems} items in your cart</p>
                         </div>
                         <div>
-                            <CartItem Name={cart.User_Cart[0]._id} />
-                            {/* <CartEmpty /> */}
+                            {loading ? <p className='text-3xl font-bold flex justify-center items-center'>loading</p> :
+                                cart.items?.map((child) => (
+                                    <CartItem Mykey={child._id} Name={child.product_Id.name} Src={child.product_Id.images[0].url}
+                                        Increment={() => { const product_Id = child.product_Id._id; dispatch(Increment(product_Id)) }}
+                                        Decrement={() => { const product_Id = child.product_Id._id; dispatch(Dectrement(product_Id)) }}
+                                        Quentity={child.quentity} />
+                                ))
+                            }
                         </div>
                     </div>
                 </div>
@@ -84,7 +63,7 @@ const Cart = () => {
                         </div>
                         <div className='flex justify-between py-2'>
                             <p className='text-xl text-red-700 font-bold'>Order Total</p>
-                            <p className='text-lg text-green-500 font-bold'>50 EGP</p>
+                            <p className='text-lg text-green-500 font-bold'>{cart.purchaseprice} EGP</p>
                         </div>
                     </div>
                     <div className='flex justify-center mt-4'>

@@ -38,6 +38,7 @@ export { default as AddProduct } from '../Components/Dashboard/Screens/AddProduc
 
 
 export { default as Cart } from './Home/Cart/Cart';
+export { default as CartItem } from './Home/Cart/CartItem';
 // export { default as AddtoCart } from './Home/Cart/AddtoCart';
 
 

@@ -24,7 +24,7 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         // required: true,
     },
-    PaidBy: {
+    CashonDelivery: {
         type: Boolean,
         default: false
     },
@@ -44,10 +44,6 @@ const OrderSchema = new mongoose.Schema({
         type: String,
         default: 'Not processed',
         enum: ['Not processed', 'Processing', 'Shipped', 'Delivered', 'Cancelled']
-    },
-    active: {
-        type: Boolean,
-        default: true
     },
 }, { timestamps: true });
 const Orders = mongoose.model('Orders', OrderSchema);
