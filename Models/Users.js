@@ -36,9 +36,9 @@ const usesrSchema = new mongoose.Schema(
     },
     address: [
       {
-        PhoneNumber:{
-          type:Number,
-          required:true
+        PhoneNumber: {
+          type: Number,
+          required: true
         },
         city: {
           type: String
@@ -63,6 +63,14 @@ const usesrSchema = new mongoose.Schema(
         }
       }
     ],
+    whitleList: [
+      {
+        _id: {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Products'
+        }
+      }
+    ]
   },
   { timestamps: true, minimize: false }
 );
