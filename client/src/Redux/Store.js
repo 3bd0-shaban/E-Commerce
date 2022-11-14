@@ -1,11 +1,14 @@
+import { configureStore } from '@reduxjs/toolkit'
 import ProductsSlice from "./Slices/ProductSlice";
 import UserSlice from "./Slices/UserSlice";
 import Get_BannersSlice from "./Slices/BannersSlice";
 import UploadProductSlice from "./Slices/UploadProductSlice";
-import { configureStore } from '@reduxjs/toolkit'
 import AllUsers from "./Slices/AllUsers";
 import Get_Category from './Slices/CategorySlice';
 import CartSlice from "./Slices/CartSlice";
+import ReviewsSlice from "./Slices/ReviewsSlice";
+import WhiteListSlice from "./Slices/WhiteListSlice";
+import IssessSlice from "./Slices/IssessSlice";
 export const Store = configureStore({
     reducer: {
         products: ProductsSlice,
@@ -14,11 +17,12 @@ export const Store = configureStore({
         allusers: AllUsers,
         Banners: Get_BannersSlice,
         Category: Get_Category,
-        Cart :CartSlice
+        Cart :CartSlice,
+        Review:ReviewsSlice,
+        WhiteList:WhiteListSlice,
+        Issess:IssessSlice
     },
 
 });
-
-// export const persistor = persistStore(Store)
 export default Store
 

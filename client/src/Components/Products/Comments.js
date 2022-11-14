@@ -3,7 +3,7 @@ import { Rating } from './../Exports'
 
 const Comments = () => {
     return (
-        <div>
+        <div className='px-32 py-12'>
             <Rating />
             <p className="text-sm font-medium text-gray-500 ">1,745 global ratings</p>
             <div className="flex items-center mt-4">
@@ -41,7 +41,7 @@ const Comments = () => {
                 </div>
                 <span className="text-sm font-medium text-blue-600 ">1%</span>
             </div>
-            <div className='border w-full mt-5 py-4'>
+            <div className='border w-1/2 mt-5 py-4'>
                 <div className='flex gap-2'>
                     <img className="w-10 h-10 rounded-full" src="https://res.cloudinary.com/abdo9/image/upload/v1664894521/samples/ecommerce/istockphoto-1300845620-612x612_rpokfs.jpg" alt="" />
                     <input className='outline-none border-none placeholder:text-sm font-thin font-poppins' type='text' placeholder='Write comment'></input>

@@ -149,7 +149,7 @@ const HomeProducts = () => {
     }
     return (
         <>
-            <div className='container max-w-[130rem] mt-5'>
+            <div className='container max-w-[140rem] mt-5'>
                 <ScrollableCategory Category={'Best Offers'} />
                 <ScrollableCategory Category={'Monitors'} />
                 <ScrollableCategory Category={'Laptops'} />

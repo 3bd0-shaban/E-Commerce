@@ -9,7 +9,7 @@ const HomeCategory = () => {
     dispatch(Fetch_Category());
   }, [dispatch]);
   return (
-    <div className='dropdwon-content hidden container left-0 right-0 bg-white absolute top-[6.9rem] z-30 rounded-lg border'>
+    <div className='dropdwon-content hidden container left-0 right-0 bg-black absolute top-[6.9rem] z-30 rounded-lg border'>
       {/* <div className='text-black grid grid-cols-5 gap-4 mt-5 font-light text-xl font-poppins'>
         {Category.map((cat) => (
           <>

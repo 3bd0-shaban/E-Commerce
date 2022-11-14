@@ -60,7 +60,7 @@ const Banners = () => {
 
         loading ?
             <SKBanners /> :
-            <div className='container max-w-[130rem] flex gap-3 mt-1'>
+            <div className='container max-w-[140rem] flex gap-3 mt-1'>
                 <div className='max-w-full xl:max-w-[70%] cursor-pointer'>
                     <Slider {...settings}>
                         {Banners && Banners.map((image) => (
@@ -72,11 +72,11 @@ const Banners = () => {
                     </Slider>
                 </div>
                 <div className='hidden xl:flex max-w-[30%]'>
-                    <div className='grid grid-cols-2 gap-2'>
+                    <div className='grid grid-cols-1 gap-2'>
                         <img className='w-full object-cover h-[14.7rem]' src='https://res.cloudinary.com/abdo9/image/upload/v1667226242/Market/bdrtt9rzjht2dipmrlqn.png' alt='' />
                         <img className='w-full object-cover h-[14.7rem]' src='https://res.cloudinary.com/abdo9/image/upload/v1667230361/Market/o2j35oibma2rgxppk7yo.png' alt='' />
-                        <img className='w-full object-cover h-[14.7rem]' src='https://res.cloudinary.com/abdo9/image/upload/v1667230163/Market/nes2ik3wuyb7wxwcaubr.png' alt='' />
-                        <img className='w-full object-cover h-[14.7rem]' src='https://res.cloudinary.com/abdo9/image/upload/v1667235118/Market/ebpk3p8skrxto0cz98ip.png' alt='' />
+                        {/* <img className='w-full object-cover h-[14.7rem]' src='https://res.cloudinary.com/abdo9/image/upload/v1667230163/Market/nes2ik3wuyb7wxwcaubr.png' alt='' />
+                        <img className='w-full object-cover h-[14.7rem]' src='https://res.cloudinary.com/abdo9/image/upload/v1667235118/Market/ebpk3p8skrxto0cz98ip.png' alt='' /> */}
                     </div>
                 </div>
             </div>

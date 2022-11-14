@@ -1,19 +1,23 @@
-import { Link } from 'react-router-dom'
-import React from 'react'
-
+import { Link } from "react-router-dom"
+import { IoPersonOutline } from 'react-icons/io5'
+import { CiShoppingTag } from 'react-icons/ci'
 const SecNavbar = () => {
 
     return (
-        <div className='container max-w-8xl flex items-center pt-2'>
-            <div className='flex gap-7 text-white justify-center mx-auto '>
-                <ul className='container px-0 flex gap-2 lg:gap-5 text-white font-mono font-semibold text-base lg:text-lg'>
-                    <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300' to='/'>Home</Link>
-                    <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300  dropdown'>Category</Link>
-                    <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300' to='/dashboard/all_users'>Dashboard</Link>
-                    <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Servic</Link>
-                    <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Cantact Us</Link>
-                    <Link className='border-b-2 border-b-transparent hover:border-b-2 hover:border-b-white transition ease-in-out duration-300'>Home</Link>
-                </ul>
+        <div className='container max-w-[140rem] px-8'>
+            <div className='flex justify-between items-center py-3'>
+                <div className="flex gap-14 font-semibold text-gray-500 uppercase text-lg">
+                    <Link >Super Deals</Link>
+                    <Link >New Arrival</Link>
+                    <Link >Hot Products</Link>
+                    <Link >Features Brand</Link>
+                    <Link >Top Sells</Link>
+                </div>
+                <div className='text-gray-500 font-light text-center divide-x-2 flex gap-4'>
+                    <Link className="flex gap-1 items-center"><CiShoppingTag />Track Your Order</Link>
+                    <Link className="flex gap-1 items-center">$ Dollar (US)</Link>
+                    <Link to='/signin' className="flex gap-1 items-center"><IoPersonOutline />Register Or Sign in</Link>
+                </div>
             </div>
         </div>
     )

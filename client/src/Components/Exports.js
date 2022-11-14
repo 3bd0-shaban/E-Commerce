@@ -33,12 +33,16 @@ export { default as getError } from './utile';
 export { default as Home } from '../Screens/Home';
 export { default as Signin } from '../Screens/Signin';
 export { default as Signup } from '../Screens/Signup';
-export { default as ProductScreen } from '../Screens/ProductScreen';
 export { default as AddProduct } from '../Components/Dashboard/Screens/AddProduct';
 
 
 export { default as Cart } from './Home/Cart/Cart';
 export { default as CartItem } from './Home/Cart/CartItem';
+
+
+export { default as ProductScreen } from '../Components/Home/ProductScreen';
+export { default as ProductMainScreen } from '../Components/Home/Layouts/ProductMainScreen';
+
 // export { default as AddtoCart } from './Home/Cart/AddtoCart';
 
 
