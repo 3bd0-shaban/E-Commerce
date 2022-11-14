@@ -1,7 +1,8 @@
 import Category from "../Models/Category.js";
 
 export const Upload_Category = async (req, res) => {
-    const { category, subcategory } = req.body
+    const { category, subcategory, products } = req.body
+    const file = req.body.image;
     try {
         if (!category || !subcategory) {
             return res.status(400).json({ msg: 'Please enter all fields' });
@@ -10,7 +11,16 @@ export const Upload_Category = async (req, res) => {
         if (CheckCategory) {
             return res.status(400).json({ msg: 'Category aleardy exists' });
         }
-        new Category({ category, subcategory })
+        const result = await cloudinary.uploader.upload(file, {
+            folder: "E-Commerce/Category",
+        });
+        new Category({
+            category, subcategory, products,
+            image: {
+                public_id: result.public_id,
+                url: result.secure_url,
+            }
+        })
             .save()
             .then((Uploaded_Category) => {
                 return res.status(200).json({ msg: 'Category Created Successfully', Uploaded_Category });

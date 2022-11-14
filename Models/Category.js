@@ -1,5 +1,5 @@
-import moongose from 'mongoose'
-const CategorySchema = new moongose.Schema({
+import mongoose from 'mongoose'
+const CategorySchema = new mongoose.Schema({
     category: {
         type: String,
         required: true
@@ -9,8 +9,32 @@ const CategorySchema = new moongose.Schema({
             type: String,
             required: true
         }
-    ]
+    ],
+    image: {
+        public_id: {
+            type: String,
+            required: [true, 'The Product image is Required'],
+        },
+        url: {
+            type: String,
+            required: [true, 'The Product image is Required'],
+        }
+    },
+    description: {
+        type: String,
+        trim: true
+    },
+    isActive: {
+        type: Boolean,
+        default: true
+    },
+    products: [
+        {
+            type: mongoose.Schema.Types.ObjectId,
+            ref: 'Products'
+        }
+    ],
 
 }, { timestamps: true });
-const Category = moongose.model('Category', CategorySchema);
+const Category = mongoose.model('Category', CategorySchema);
 export default Category

@@ -26,7 +26,7 @@ export const UploadProduct = async (req, res) => {
         }
         for (let i = 0; i < images.length; i++) {
             const result = await cloudinary.uploader.upload(images[i], {
-                folder: "Market",
+                folder: "E-Commerce/Products",
             });
             imagesLink.push({
                 public_id: result.public_id,

@@ -14,7 +14,7 @@ export const Upload_Banners = async (req, res) => {
         // if (!banners) return res.status(400).json({ msg: 'Image is required to upload ' })
         if (!file) return res.status(400).json({ msg: 'Image is required to upload ' })
         const result = await cloudinary.uploader.upload(file, {
-            folder: "Banners",
+            folder: "E-Commerce/Banners",
         });
         new Banners({
             banners: {

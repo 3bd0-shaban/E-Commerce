@@ -13,9 +13,10 @@ import ProductsRouter from './Routes/ProductsRouter.js';
 import BannersRouter from './Routes/BannersRouter.js';
 import CartRouter from './Routes/CartRouter.js';
 import OrdersRouter from './Routes/OrdersRouter.js';
-import IsssesRouter from './Routes/IssessRouter.js'
-import ReviewsRouter from './Routes/ReviewsRouter.js'
-import WhiteListRouter from './Routes/WhiteListRoter.js'
+import IsssesRouter from './Routes/IssessRouter.js';
+import ReviewsRouter from './Routes/ReviewsRouter.js';
+import WhiteListRouter from './Routes/WhiteListRoter.js';
+import BrandRouter from './Routes/BrandRouter.js';
 const app = express();
 const port = process.env.PORT || 5000
 dotenv.config();
@@ -47,3 +48,4 @@ app.use('/api/order', OrdersRouter);
 app.use('/api/issess', IsssesRouter);
 app.use('/api/review', ReviewsRouter);
 app.use('/api/whitelist', WhiteListRouter);
+app.use('/api/brand', BrandRouter);
