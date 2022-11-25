@@ -4,13 +4,14 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Helmet } from 'react-helmet-async';
 import { AiOutlineEye, AiOutlineHeart } from 'react-icons/ai'
 import { MdShoppingBag } from 'react-icons/md'
-import { SKHomeProducts } from './../Exports';
-import { Danger } from './../Alerts';
+import { SKHomeProducts, Header, Banners, HomeCategory } from '../../Exports';
+import { Danger } from '../../Alerts';
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Get_AllProducts } from '../../Redux/Actions/ProductsAction'
-import { Add_to_cart } from './../../Redux/Actions/CartAction';
+import { Get_AllProducts } from '../../../Redux/Actions/ProductsAction'
+import { Add_to_cart } from '../../../Redux/Actions/CartAction';
+import { Add_to_Whitelist } from '../../../Redux/Actions/WhiteListAction';
 const HomeProducts = () => {
     const dispatch = useDispatch();
     const { loading, error, products } = useSelector((state) => state.products);
@@ -83,7 +84,6 @@ const HomeProducts = () => {
         ]
     };
     const ScrollableCategory = (props) => {
-
         return (
             <>
                 <Helmet>
@@ -94,7 +94,7 @@ const HomeProducts = () => {
                     <Link className='text-xl font-serif font-semibold mb-3 px-3 py-2'>Browser All</Link>
                 </div>
                 <hr className='mt-4 h-[2px] bg-gray-200 rounded' />
-                <div>
+                <>
                     {loading ?
                         <div className='flex gap-2'>
                             <SKHomeProducts />
@@ -115,7 +115,7 @@ const HomeProducts = () => {
                                                     <div className='-bottom-20 inset-x-0 hover:block max-h-full absolute text-white items'>
                                                         <div className='flex justify-center gap-4'>
                                                             <Link onClick={() => { const product_Id = product._id; dispatch(Add_to_cart(product_Id)); }} className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><MdShoppingBag /></Link>
-                                                            <Link className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><AiOutlineHeart /></Link>
+                                                            <Link onClick={() => { const id = product._id; dispatch(Add_to_Whitelist(id)); }} className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><AiOutlineHeart /></Link>
                                                         </div>
                                                         <p className='text-sm mt-3 mx-auto'>{product.rating}</p>
                                                     </div>
@@ -143,18 +143,29 @@ const HomeProducts = () => {
                                 )}
                             </Slider>
                     }
-                </div>
+                </>
             </>
         )
     }
     return (
         <>
-            <div className='container max-w-[140rem] mt-5'>
-                <ScrollableCategory Category={'Best Offers'} />
-                <ScrollableCategory Category={'Monitors'} />
-                <ScrollableCategory Category={'Laptops'} />
-                <ScrollableCategory Category={'Storage'} />
+            <div>
+                <Header />
+                <div className='flex container max-w-[140rem] gap-3'>
+                    <HomeCategory />
+                    <div className='container max-w-[120rem]'>
+                        <Banners />
+                        <ScrollableCategory Category={'Best Offers'} />
+                    </div>
+                </div>
+                <div className='container max-w-[140rem] mt-5'>
+                    <ScrollableCategory Category={'Best Offers'} />
+                    <ScrollableCategory Category={'Monitors'} />
+                    <ScrollableCategory Category={'Laptops'} />
+                    <ScrollableCategory Category={'Storage'} />
+                </div>
             </div>
+
         </>
     )
 }

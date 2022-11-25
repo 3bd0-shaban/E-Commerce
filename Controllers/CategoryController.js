@@ -1,7 +1,7 @@
 import Category from "../Models/Category.js";
 
 export const Upload_Category = async (req, res) => {
-    const { category, subcategory, products } = req.body
+    const { category, subcategory } = req.body
     const file = req.body.image;
     try {
         if (!category || !subcategory) {
@@ -15,7 +15,7 @@ export const Upload_Category = async (req, res) => {
             folder: "E-Commerce/Category",
         });
         new Category({
-            category, subcategory, products,
+            category, subcategory,
             image: {
                 public_id: result.public_id,
                 url: result.secure_url,

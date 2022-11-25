@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react'
-import { Home, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, Mainprofile, Charts, Calender, getError, Addbanner, Orders, Chat, Issues, Cart } from './Components/Exports';
+import { HomeProducts, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, Mainprofile, Charts, Calender, getError, Addbanner, Orders, Chat, Issues, Cart,WhiteList } from './Components/Exports';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { UserAction } from './Redux/Slices/UserSlice';
@@ -34,13 +34,14 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' exact element={<Home />} />
+          <Route path='/' exact element={<HomeProducts />} />
           <Route path='/product/:id' element={<ProductScreen />} />
           <Route path='/dashboard/all_users' element={<AllUsers />} />
           <Route path='/signin' element={<Signin />} />
           <Route path='/signup' element={<Signup />} />
           <Route path='/profile' element={<Mainprofile />} />
           <Route path='/cart' element={<Cart />} />
+          <Route path='/whitelist' element={<WhiteList />} />
           <Route path='/dashboard/addproduct' element={<AddProduct />} />
           <Route path='/dashboard/all_products' element={<AllProducts />} />
           <Route path='/dashboard/stats' element={<Charts />} />

@@ -10,11 +10,24 @@ const OrderSchema = new mongoose.Schema({
         ref: 'Users',
         required: true,
     },
-    orderitems: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Users',
-        required: true,
-    },
+    // orderitems: {
+    //     type: mongoose.Schema.Types.ObjectId,
+    //     ref: 'cart',
+    //     required: true,
+    // },
+    orderitems: [
+        {
+            product_Id: {
+                type:String,
+            },
+            quentity: {
+                type:String,
+            },
+            productprice: {
+                type:String,
+            },
+        }
+    ],
     totalPrice: {
         type: Number,
         // required: true,
@@ -24,7 +37,7 @@ const OrderSchema = new mongoose.Schema({
         type: Number,
         // required: true,
     },
-    CashonDelivery: {
+    CashOnDelivery: {
         type: Boolean,
         default: false
     },

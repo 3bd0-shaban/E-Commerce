@@ -12,12 +12,6 @@ const BrandSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    products: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Products'
-        }
-    ],
     image: {
         public_id: {
             type: String,

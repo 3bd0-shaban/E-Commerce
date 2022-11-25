@@ -18,7 +18,7 @@ const Header = () => {
           <p className='absolute top-0 -right-12 font-thin font-serif text-lg text-gray-500'>Market</p>
         </div>
         <div className='ml-6'>
-          <CgDetailsMore style={{ 'fontSize': '2rem' }} />  
+          <CgDetailsMore style={{ 'fontSize': '2rem' }} />
         </div>
       </Link>
     )

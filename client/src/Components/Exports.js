@@ -1,8 +1,9 @@
-export { default as HomeProducts } from './Home/HomeProducts';
+export { default as HomeProducts } from './Home/Main/HomeProducts';
 export { default as Header } from './Home/Header';
-export { default as HomeCategory } from './Home/HomeCategory';
+export { default as Footer } from './Home/Footer';
+export { default as HomeCategory } from './Home/Main/HomeCategory';
 export { default as SecNavbar } from './Home/SecNavbar';
-export { default as Banners } from './Home/Banners';
+export { default as Banners } from './Home/Main/Banners';
 export { default as Rating } from './Products/Rating';
 export { default as Comments } from './Products/Comments';
 export { default as Sidebar } from './Dashboard/Layouts/Sidebar';
@@ -30,18 +31,21 @@ export { default as AllProducts } from './Dashboard/Screens/AllProducts';
 export { default as DashboardNavBar } from './Dashboard/Layouts/DashboardNavBar';
 export { default as getError } from './utile';
 
-export { default as Home } from '../Screens/Home';
+// export { default as Home } from '../Screens/Home';
 export { default as Signin } from '../Screens/Signin';
 export { default as Signup } from '../Screens/Signup';
 export { default as AddProduct } from '../Components/Dashboard/Screens/AddProduct';
 
 
 export { default as Cart } from './Home/Cart/Cart';
-export { default as CartItem } from './Home/Cart/CartItem';
+export { default as CartItem } from './Home/WhitList/WhitList';
+
+export { default as WhiteList } from './Home/Cart/Cart';
+export { default as WhiteListItem } from './Home/WhitList/WhiteListI_Item';
 
 
 export { default as ProductScreen } from '../Components/Home/ProductScreen';
-export { default as ProductMainScreen } from '../Components/Home/Layouts/ProductMainScreen';
+export { default as ProductMainScreen } from '../Components/Home/ProductScreen/ProductMainScreen';
 
 // export { default as AddtoCart } from './Home/Cart/AddtoCart';
 

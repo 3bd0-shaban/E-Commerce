@@ -2,14 +2,14 @@ import Users from "../Models/Users.js";
 import Brand from "../Models/Brand.js";
 export const Add_New_Brand = async (req, res) => {
     try {
-        const { name, products, discription } = req.body
+        const { name, discription } = req.body
         const file = req.body.image;
         if (!file) return res.status(400).json({ msg: 'Image is required to upload ' });
         const result = await cloudinary.uploader.upload(file, {
             folder: "E-Commerce/Brand",
         });
         new Brand({
-            name, products, discription,
+            name, discription,
             image: {
                 public_id: result.public_id,
                 url: result.secure_url,
@@ -38,7 +38,7 @@ export const Delete_Brand = async (req, res) => {
     try {
         const brand = await Brand.find(req.params.id);
         if (!brand) {
-            return res.status(201).json({ msg: 'Log in' });
+            return res.status(201).json({ msg: 'No Brand founded with that id' });
         }
         await deleteOne({ _id: req.params.id });
         return res.json({ msg: 'Brand Deleted Successfully' });

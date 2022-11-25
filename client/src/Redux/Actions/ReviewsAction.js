@@ -2,10 +2,10 @@ import axios from 'axios'
 import getError from '../../Components/utile';
 import { ReviewsAction } from './../Slices/ReviewsSlice';
 
-export const Add_New_Review = (id) => async (dispatch) => {
+export const Add_New_Review = (id,comment,rating) => async (dispatch) => {
     try {
         dispatch(ReviewsAction.Set_New_Review_Request());
-        const res = await axios.post(`http://localhost:5000/api/review/new/${id}`);
+        const res = await axios.post(`http://localhost:5000/api/review/new/${id}`,{comment,rating});
         dispatch(ReviewsAction.Set_New_Review_Success(res.data));
     } catch (error) {
         dispatch(ReviewsAction.Set_New_Review_Fails(getError(error)));

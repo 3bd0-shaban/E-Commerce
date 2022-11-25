@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams, Link } from 'react-router-dom';
-import { Header, ProductMainScreen, Comments } from '../Exports'
+import { Header, ProductMainScreen, Comments, HomeCategory, Footer } from '../Exports'
 import { Helmet } from 'react-helmet-async';
 
 import { Fetch_Product_Details } from '../../Redux/Actions/ProductsAction'
@@ -35,9 +35,16 @@ const ProductScreen = () => {
         <title>{productDetails.name}</title>
       </Helmet>
       <Header />
-      <ProductMainScreen />
-      <SpicHeader />
-      <Comments />
+      <div className='flex container max-w-[144rem] gap-5'>
+        <HomeCategory />
+        <div>
+          <ProductMainScreen />
+          <SpicHeader />
+          <Comments ReviewTxt={productDetails.reviews} />
+
+        </div>
+      </div>
+      <Footer />
     </>
   )
 }

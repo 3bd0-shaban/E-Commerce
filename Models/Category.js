@@ -28,12 +28,6 @@ const CategorySchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
-    products: [
-        {
-            type: mongoose.Schema.Types.ObjectId,
-            ref: 'Products'
-        }
-    ],
 
 }, { timestamps: true });
 const Category = mongoose.model('Category', CategorySchema);

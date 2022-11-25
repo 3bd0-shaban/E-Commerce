@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Fetch_Product_Details } from '../../../Redux/Actions/ProductsAction';
 import { HiOutlineTruck } from 'react-icons/hi'
 import { CiHeart } from 'react-icons/ci'
+import { Add_to_Whitelist } from './../../../Redux/Actions/WhiteListAction';
 
 const ProductMainScreen = () => {
     const { loading, error, productDetails } = useSelector((state) => state.products);
@@ -44,7 +45,7 @@ const ProductMainScreen = () => {
                             <div className='col-span-2 px-10'>
                                 <div className='flex justify-center items-center'>
                                     <p className='text-xl font-semibold py-3 '>{productDetails.name}</p>
-                                    <Link className='fill-black'><CiHeart style={{ fontSize: "2.5rem" }} /></Link>
+                                    <Link onClick={() => { const id = productDetails._id; dispatch(Add_to_Whitelist(id)); }} className='fill-black'><CiHeart style={{ fontSize: "2.5rem" }} /></Link>
                                 </div>
                                 <hr />
                                 <div className='my-5'>
@@ -59,34 +60,37 @@ const ProductMainScreen = () => {
                                 </div>
                                 {/* <p className='text-xl mt-auto'>{productDetails.des}</p> */}
 
-
-                            </div>
-                            <div dat-aos='flip-left' className='px-10 border-l'>
                                 {productDetails.stock > 0 ?
-                                    <>
-                                        <p className='text-lg font-extralight'>Avability : <span className='font-semibold text-green-600'>In Stock</span></p>
+                                    <div className='py-5'>
+                                        <p className='mb-4 text-lg font-extralight'>Avability : <span className='font-semibold text-green-600'>In Stock</span></p>
                                         {productDetails.stock < 5 && productDetails.stock > 0 && <p>Only {productDetails.stock} is available</p>}
                                         <hr />
-                                        <div className='py-3 bg-[#F5F5F5] flex items-center px-4 gap-3 mt-2'>
+                                        <div className='mt-4 py-3 bg-[#F5F5F5] flex items-center px-4 gap-3'>
                                             <div className='text-gray-500'><HiOutlineTruck /></div>
                                             <p className='text-gray-500'>Item with <span className='text-gray-700 font-serif font-semibold'>Free Dilivary</span></p>
                                         </div>
-                                        <div>
-                                            <p className='text-2xl mt-auto text-gray-500 line-through'>$ {productDetails.price}</p>
+                                        <div className='flex gap-5'>
                                             <p className='text-3xl font-bold mt-auto text-blue-600 py-3'>$ {productDetails.price}</p>
+                                            <p className='text-2xl items-center flex text-gray-500 line-through'>$ {productDetails.price}</p>
                                         </div>
-                                        <div>
-                                            <Link onClick={AddtoCart} className='border w-[80%] border-orange-300 px-4 py-2 rounded-2xl font-medium hover:bg-orange-300 focus:ring focus:ring-orange-200 hover:text-white'>Add to Card</Link>
-
+                                        <div className='grid grid-cols-3 gap-6 items-center'>
+                                            <div className='border px-5 rounded-xl col-span-1'>
+                                                <div className='flex justify-between py-4'>
+                                                    <p>1</p>
+                                                    <div className='flex gap-4 font-bold'>
+                                                        <span className='bg-[#F8F8F8] rounded-full px-2'>+</span>
+                                                        <span className='bg-[#F8F8F8] rounded-full px-2'>-</span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            <Link onClick={AddtoCart} className='col-span-2 text-center border-4 border-blue-500 px-8 py-4 rounded-full font-medium hover:bg-blue-500 focus:ring focus:ring-blue-600 hover:text-white'>Add to Card</Link>
                                         </div>
-
-                                    </>
+                                    </div>
                                     :
                                     <p>Out Of Stock</p>
                                 }
                             </div>
                         </div>
-                        
                     </>
             }
         </div>
