@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { Danger } from '../../Alerts';
-import { Comments, Rating } from '../../Exports'
+import { Rating } from '../../Exports'
 import { Link, useParams } from 'react-router-dom'
 import { Add_to_cart } from '../../../Redux/Actions/CartAction';
 import { useSelector, useDispatch } from 'react-redux'

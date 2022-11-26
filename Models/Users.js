@@ -63,7 +63,7 @@ const usesrSchema = new mongoose.Schema(
         }
       }
     ],
-    whitleList: [
+    whiteList: [
       {
         _id: {
           type: mongoose.Schema.Types.ObjectId,

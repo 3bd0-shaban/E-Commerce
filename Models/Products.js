@@ -52,6 +52,10 @@ const ProductSchema = new mongoose.Schema({
         type: Number,
         default: 0,
     },
+    sumOfRating: {
+        type: Number,
+        default: 0,
+    },
     warranty: {
         type: Number,
         default: 1

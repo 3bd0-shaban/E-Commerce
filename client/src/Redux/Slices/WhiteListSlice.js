@@ -15,7 +15,7 @@ const White_List = createSlice({
         },
         Add_to_WhiteList_Success(state, action) {
             state.Products = action.payload;
-            state.loading = true;
+            state.loading = false;
             state.error = null
         },
         Add_to_WhiteList_Fails(state, action) {
@@ -30,7 +30,7 @@ const White_List = createSlice({
         },
         Fetch_WhiteList_Success(state, action) {
             state.Products = action.payload;
-            state.loading = true;
+            state.loading = false;
             state.error = null
         },
         Fetch_WhiteList_Fails(state, action) {

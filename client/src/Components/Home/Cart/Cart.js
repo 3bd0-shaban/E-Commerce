@@ -41,9 +41,9 @@ const Cart = () => {
                         <div>
                             {loading ? <p className='text-3xl font-bold flex justify-center items-center'>loading</p> :
                                 cart.items?.map((child) => (
-                                    <CartItem Mykey={child._id} Name={child.product_Id.name} Src={child.product_Id.images[0].url}
-                                        Increment={() => { const product_Id = child.product_Id._id; dispatch(Increment(product_Id)) }}
-                                        Decrement={() => { const product_Id = child.product_Id._id; dispatch(Dectrement(product_Id)) }}
+                                    <CartItem Mykey={child.product_Id._id} Name={child.product_Id.name} Src={child.product_Id.images[0].url}
+                                        // Increment={() => { const product_Id = child.product_Id._id; dispatch(Increment(product_Id)) }}
+                                        // Decrement={() => { const product_Id = child.product_Id._id; dispatch(Dectrement(product_Id)) }}
                                         Quentity={child.quentity} />
                                 ))
                             }

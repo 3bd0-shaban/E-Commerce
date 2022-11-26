@@ -9,12 +9,16 @@ export const Send_New_Review = async (req, res) => {
         if (!comment || !rating) {
             return res.status(201).json({ msg: 'Please add a comment and review to prosses your review' });
         }
-        const newReview = await Products.findByIdAndUpdate(req.params.id, {
+        await Products.findByIdAndUpdate(req.params.id, {
             $push: {
                 reviews: { user: req.user._id, name: req.user.firstname + ' ' + req.user.lastname, rating, comment }
             },
+            $inc: { numofreviews: 1, sumOfRating: rating },
         }, { new: true });
-        return res.json(newReview);
+        const SetRating = await Products.findByIdAndUpdate(req.params.id, {
+            $set: { rating: product.sumOfRating / product.numofreviews }
+        }, { new: true });
+        return res.json(SetRating);
 
     } catch (error) {
         return res.status(500).json({ msg: error.message })
@@ -22,7 +26,7 @@ export const Send_New_Review = async (req, res) => {
 }
 export const Fetch_Product_Review = async (req, res) => {
     try {
-        const reviews = await Products.findById(req.params.id).select('reviews');
+        const reviews = await Products.findById(req.params.id);
         if (!reviews) return res.status(201).json({ msg: 'Product not founded or may be you not eligable to add a review at this product', });
         return res.json(reviews);
     } catch (error) {

@@ -63,7 +63,7 @@ const Banners = () => {
             <div className='container max-w-[130rem] mx-0 ml-0 px-0 flex gap-3 mt-1'>
                 <div className='max-w-full xl:max-w-[70%] cursor-pointer'>
                     <Slider {...settings}>
-                        {Banners && Banners.map((image) => (
+                        {Banners?.map((image) => (
                             <div key={image}>
                                 <img className='w-full object-cover h-[10rem] md:h-[25rem] lg:h-[20rem] xl:h-[30rem] xxxl:h-[35rem]' src={image && image.banners.url} alt='' />
                             </div>

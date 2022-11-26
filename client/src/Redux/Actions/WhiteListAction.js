@@ -30,10 +30,10 @@ export const Delete_Items_In_WhiteList = (id) => async (dispatch) => {
         dispatch(White_ListAction.Delete_WhiteList_Fails(getError(error)));
     }
 };
-export const Delete_Specific_Item_In_WhiteList = (id) => async (dispatch) => {
+export const Delete_Specific_Item_In_WhiteList = (productId) => async (dispatch) => {
     try {
         dispatch(White_ListAction.Delete_WhiteList_Request());
-        const res = await axios.post(`http://localhost:5000/api/whitelist/delete/${id}`);
+        const res = await axios.post(`http://localhost:5000/api/whitelist/delete/${productId}`);
         dispatch(White_ListAction.Delete_WhiteList_Success(res.data));
     } catch (error) {
         dispatch(White_ListAction.Delete_WhiteList_Fails(getError(error)));

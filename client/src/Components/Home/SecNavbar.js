@@ -14,7 +14,7 @@ const SecNavbar = () => {
                     <Link >Top Sells</Link>
                 </div>
                 <div className='text-gray-500 font-light text-center divide-x-2 flex gap-4'>
-                    <Link className="flex gap-1 items-center"><CiShoppingTag />Track Your Order</Link>
+                    <Link className="flex gap-1 items-center">Track Your Order</Link>
                     <Link className="flex gap-1 items-center">$ Dollar (US)</Link>
                     <Link to='/signin' className="flex gap-1 items-center"><IoPersonOutline />Register Or Sign in</Link>
                 </div>

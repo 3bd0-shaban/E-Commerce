@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams, Link } from 'react-router-dom';
-import { Header, ProductMainScreen, Comments, HomeCategory, Footer } from '../Exports'
+import { Header, ProductMainScreen, HomeCategory, Reviews, Footer } from '../Exports'
 import { Helmet } from 'react-helmet-async';
 
 import { Fetch_Product_Details } from '../../Redux/Actions/ProductsAction'
@@ -23,7 +23,7 @@ const ProductScreen = () => {
           <Link>related</Link>
           <Link>DESCRIPTION</Link>
           <Link>specification</Link>
-          <Link>Reviews ( 5 )</Link>
+          <Link>Reviews ( {productDetails.numofreviews} )</Link>
         </div>
       </div>
     )
@@ -40,8 +40,7 @@ const ProductScreen = () => {
         <div>
           <ProductMainScreen />
           <SpicHeader />
-          <Comments ReviewTxt={productDetails.reviews} />
-
+          <Reviews ReviewTxt={productDetails.reviews} />
         </div>
       </div>
       <Footer />

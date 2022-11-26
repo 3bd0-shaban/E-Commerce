@@ -4,8 +4,8 @@ export { default as Footer } from './Home/Footer';
 export { default as HomeCategory } from './Home/Main/HomeCategory';
 export { default as SecNavbar } from './Home/SecNavbar';
 export { default as Banners } from './Home/Main/Banners';
-export { default as Rating } from './Products/Rating';
-export { default as Comments } from './Products/Comments';
+export { default as Rating } from './Home/ProductScreen/Rating';
+export { default as Reviews } from './Home/ProductScreen/Reviews';
 export { default as Sidebar } from './Dashboard/Layouts/Sidebar';
 export { default as AllUsers } from './Dashboard/Screens/All_Users';
 export { default as Charts } from './Dashboard/Screens/Charts';
@@ -38,9 +38,9 @@ export { default as AddProduct } from '../Components/Dashboard/Screens/AddProduc
 
 
 export { default as Cart } from './Home/Cart/Cart';
-export { default as CartItem } from './Home/WhitList/WhitList';
+export { default as CartItem } from './Home/Cart/CartItem';
 
-export { default as WhiteList } from './Home/Cart/Cart';
+export { default as WhiteList } from './Home/WhitList/WhitList';
 export { default as WhiteListItem } from './Home/WhitList/WhiteListI_Item';
 
 

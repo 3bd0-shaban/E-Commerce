@@ -9,7 +9,6 @@ const Reviews = createSlice({
     },
     reducers: {
         Set_New_Review_Request(state) {
-            state.Reviews = [];
             state.loading = true;
             state.error = null
         },
@@ -19,12 +18,10 @@ const Reviews = createSlice({
             state.error = null
         },
         Set_New_Review_Fails(state, action) {
-            state.Reviews = [];
             state.loading = false;
             state.error = action.payload
         },
         Fetch_Reviews_Request(state) {
-            state.Reviews = [];
             state.loading = true;
             state.error = null
         },
@@ -34,7 +31,6 @@ const Reviews = createSlice({
             state.error = null
         },
         Fetch_Reviews_Fails(state, action) {
-            state.Reviews = [];
             state.loading = false;
             state.error = action.payload
         },
