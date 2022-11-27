@@ -38,8 +38,9 @@ const Sidebar = () => {
                         <Lilinks Link={"/dashboard/all_users"} selected={'/dashboard/all_users'} title='Users' icon={<ImUsers />} />
                         <Lilinks Link={"/dashboard/messages"} selected={'/dashboard/messages'} title='Messegaes' icon={<BsChatRightTextFill />} />
                         <Lilinks Link={"/dashboard/all_products"} selected={'/dashboard/all_products'} title='Products' icon={<GiShoppingBag />} />
-                        <Lilinks Link={"/dashboard/addbanner"} selected={'/dashboard/addbanner'} title='Add Banners' icon={<GiVerticalBanner />} />
+                        {/* <Lilinks Link={"/dashboard/addbanner"} selected={'/dashboard/addbanner'} title='Add Banners' icon={<GiVerticalBanner />} /> */}
                         <Lilinks Link={"/dashboard/addproduct"} selected={'/dashboard/addproduct'} title='Add Product' icon={<MdOutlineAddToPhotos />} />
+                        <Lilinks Link={"/dashboard/addfeatures"} selected={'/dashboard/addfeatures'} title='Add Features' icon={<MdOutlineAddToPhotos />} />
                         <Lilinks Link={"/dashboard/orders"} selected={'/dashboard/orders'} title='Orders' icon={<GiShoppingCart />} />
                         <Lilinks Link={"/dashboard/stats"} selected={'/dashboard/stats'} title='Stats' icon={<AiOutlineBarChart />} />
                         <Lilinks Link={"/dashboard/calender"} selected={'/dashboard/calender'} title='Calender' icon={<IoCalendarNumber />} />

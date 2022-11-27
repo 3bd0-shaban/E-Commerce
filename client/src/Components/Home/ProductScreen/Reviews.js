@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-// import { Rating } from './../Exports'
+import { ShowRating } from '../../Exports'
 import moment from 'moment'
 import { BsStarFill, BsStar } from "react-icons/bs";
 import { useSelector, useDispatch } from 'react-redux'
@@ -8,6 +8,7 @@ const Reviews = (props) => {
     const { productDetails } = useSelector((state) => state.products);
     const { Reviews } = useSelector((state) => state.Review);
     const id = productDetails._id
+    console.log(id)
     const dispatch = useDispatch();
     const [inputs, setInputs] = useState({
         comment: '',
@@ -24,7 +25,7 @@ const Reviews = (props) => {
     }
     useEffect(() => {
         dispatch(Fetch_Product_review(id))
-    }, [dispatch,id])
+    }, [dispatch, id])
     return (
         <>
             <div className='px-32 py-12'>
@@ -34,13 +35,7 @@ const Reviews = (props) => {
 
                         <div className='flex items-center py-10 text-yellow-300 text-2xl gap-8'>
                             <p className='text-6xl text-gray-600'>{Reviews.rating?.toFixed(1)}</p>
-                            <div className='flex items-center gap-4 text-4xl'>
-                                <BsStarFill />
-                                <BsStarFill />
-                                <BsStarFill />
-                                <BsStar />
-                                <BsStar />
-                            </div>
+                            <ShowRating Rating={Reviews.rating} />
                         </div>
                         <div className='flex items-center text-yellow-300 py-2 text-2xl gap-8'>
                             <div className='flex items-center gap-4'>
@@ -143,53 +138,7 @@ const Reviews = (props) => {
                             <div className='col-span-1'>
                                 <p className='text-2xl font-mono font-semibold text-gray-700'>{review.name}</p>
                                 <p className='text-gray-500 font-medium'>{moment(review.time).format(" h:mm Do MMMM  YYYY")}</p>
-                                <div className='flex items-center gap-3 text-3xl text-yellow-300 py-5'>
-                                    {review.rating === 1 &&
-                                        <>
-                                            <BsStarFill />
-                                            <BsStar />
-                                            <BsStar />
-                                            <BsStar />
-                                            <BsStar />
-                                        </>
-                                    }
-                                    {review.rating === 2 &&
-                                        <>
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStar />
-                                            <BsStar />
-                                            <BsStar />
-                                        </>
-                                    }
-                                    {review.rating === 3 &&
-                                        <>
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStar />
-                                            <BsStar />
-                                        </>
-                                    }
-                                    {review.rating === 4 &&
-                                        <>
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStar />
-                                        </>
-                                    }
-                                    {review.rating === 5 &&
-                                        <>
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                            <BsStarFill />
-                                        </>
-                                    }
-                                </div>
+                                <ShowRating Rating={review.rating} />
                             </div>
                             <div className='col-span-2'>
                                 <p>{review.comment}</p>

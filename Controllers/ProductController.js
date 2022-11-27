@@ -69,7 +69,7 @@ export const UploadProduct = async (req, res) => {
 // }
 export const Fetch_Products = async (req, res) => {
     try {
-        const Product = await Products.find();
+        const Product = await Products.find().populate('category','category subcategory');
         return res.status(200).json(Product);
     } catch (error) {
         return res.status(500).json({ msg: error.message })

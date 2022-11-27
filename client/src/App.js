@@ -1,5 +1,8 @@
 import React, { useEffect } from 'react'
-import { HomeProducts, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, Mainprofile, Charts, Calender, getError, Addbanner, Orders, Chat, Issues, Cart,WhiteList } from './Components/Exports';
+import {
+  HomeProducts, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, AddFeatures,
+  Mainprofile, Charts, Calender, getError, Orders, Chat, Issues, Cart, WhiteList
+} from './Components/Exports';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { UserAction } from './Redux/Slices/UserSlice';
@@ -43,10 +46,11 @@ function App() {
           <Route path='/cart' element={<Cart />} />
           <Route path='/whitelist' element={<WhiteList />} />
           <Route path='/dashboard/addproduct' element={<AddProduct />} />
+          <Route path='/dashboard/addfeatures' element={<AddFeatures />} />
           <Route path='/dashboard/all_products' element={<AllProducts />} />
           <Route path='/dashboard/stats' element={<Charts />} />
           <Route path='/dashboard/calender' element={<Calender />} />
-          <Route path='/dashboard/addbanner' element={<Addbanner />} />
+          {/* <Route path='/dashboard/addbanner' element={<Addbanner />} /> */}
           <Route path='/dashboard/Orders' element={<Orders />} />
           <Route path='/dashboard/messages' element={<Chat />} />
           <Route path='/dashboard/issues' element={<Issues />} />

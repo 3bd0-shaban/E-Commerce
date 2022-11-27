@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Sidebar, DashHeeder } from '../../Exports';
 import { useDispatch, useSelector } from 'react-redux';
 import { Danger, Success } from '../../Alerts';
 import { Helmet } from 'react-helmet-async';
@@ -32,9 +31,9 @@ const Addbanner = () => {
             <Helmet>
                 <title>Add Banner</title>
             </Helmet>
-            <DashHeeder />
+            {/* <DashHeeder /> */}
             <div className='flex'>
-                <Sidebar />
+                {/* <Sidebar /> */}
                 <div className='container max-w-6xl lg:ml-80 mt-24'>
                     {error && <Danger error={error} className={'mx-auto mt-5 text-lg text-gray-700 font-serif font-semibold bg-red-200 py-3 px-5'} />}
                     {success && <Success error={success} />}
