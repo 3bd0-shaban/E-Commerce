@@ -1,6 +1,6 @@
 import { Link } from "react-router-dom"
 import { IoPersonOutline } from 'react-icons/io5'
-import { CiShoppingTag } from 'react-icons/ci'
+// import { CiShoppingTag } from 'react-icons/ci'
 const SecNavbar = () => {
 
     return (

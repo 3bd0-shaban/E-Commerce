@@ -1,6 +1,6 @@
 import mongoose from "mongoose";
 const BrandSchema = new mongoose.Schema({
-    name: {
+    brand: {
         type: String,
         required: true
     },
@@ -8,7 +8,7 @@ const BrandSchema = new mongoose.Schema({
         type: Boolean,
         default: true
     },
-    discription: {
+    des: {
         type: String,
         required: true
     },

@@ -1,28 +1,11 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-// import { MdExpandMore } from 'react-icons/md'
 import { HiOutlineShoppingBag } from 'react-icons/hi'
 import { CgDetailsMore } from 'react-icons/cg'
 import { CiHeart } from 'react-icons/ci'
-import { SecNavbar } from '../Exports';
+import { SecNavbar, Logo } from '../../Exports';
 const Header = () => {
-  // const { user, isLogged } = useSelector((state) => state.auth);
 
-
-  const LeftSide = () => {
-    return (
-      <Link to='/' className='flex gap-10 items-center'>
-        <div className='flex gap-2 text-4xl relative'>
-          <p className='font-bold font-sans text-gray-800'>TECH</p>
-          <span className="w-3.5 h-3.5 bg-blue-700 rounded-full flex self-end"></span>
-          <p className='absolute top-0 -right-12 font-thin font-serif text-lg text-gray-500'>Market</p>
-        </div>
-        <div className='ml-6'>
-          <CgDetailsMore style={{ 'fontSize': '2rem' }} />
-        </div>
-      </Link>
-    )
-  }
   const Search = () => {
     return (
       <form className='w-[52%] hidden xl:flex justify-center '>
@@ -74,7 +57,10 @@ const Header = () => {
           <SecNavbar />
           <div className='border-b shadow'>
             <div className='container max-w-[140rem] my-3 px-2 flex items-center justify-between md:px-5'>
-              <LeftSide />
+              <div className='flex'>
+                <Logo />
+                <CgDetailsMore style={{ 'fontSize': '2rem','marginLeft':'3.7rem' }} />
+              </div>
               <Search />
               <Rightnav />
             </div>

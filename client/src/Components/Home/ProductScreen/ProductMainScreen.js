@@ -38,8 +38,8 @@ const ProductMainScreen = () => {
                                         <img src={img.url} className='border w-[80%] object-cover' alt='' />
                                     ))}
                                 </div>
-                                <div className=''>
-                                    <img src={productDetails.images ? productDetails.images[0].url : 'Can not load images'} className='object-cover w-full mx-auto' alt='' />
+                                <div className='flex justify-center'>
+                                    <img src={productDetails.images ? productDetails.images[0].url : 'Can not load images'} className='object-cover h-[35rem] w-full mx-auto' alt='' />
                                 </div>
                             </div>
                             <div className='col-span-2 px-10'>

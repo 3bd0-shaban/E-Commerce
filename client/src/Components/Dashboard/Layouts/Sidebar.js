@@ -6,12 +6,16 @@ import { MdOutlineAddToPhotos } from 'react-icons/md';
 import { ImUsers } from 'react-icons/im';
 import { BiLogInCircle } from 'react-icons/bi';
 import { BsChatRightTextFill } from 'react-icons/bs';
-import { GiShoppingBag,GiShoppingCart,GiVerticalBanner } from 'react-icons/gi';
-import { MdOutlineLocalFireDepartment } from 'react-icons/md'
+import { GiShoppingBag, GiShoppingCart } from 'react-icons/gi';
 import { GoIssueReopened } from 'react-icons/go'
-import { CgChevronDown } from 'react-icons/cg'
-const Sidebar = () => {
+// import { Sidebar } from 'react-pro-sidebar';
+import { useDispatch, useSelector } from 'react-redux';
+import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
+import { Logo } from "../../Exports";
+const SideBar = () => {
+    const dispatch = useDispatch()
     const { pathname } = useLocation();
+    const { SideBar } = useSelector(state => state.Features)
     const Lilinks = (props) => {
         return (
             <li className={(pathname === `${props.selected}`) ? 'bg-[#D7EDFF] rounded-lg text-[#4060ee]' : 'hover:bg-[#D7EDFF] hover:rounded-lg hover:text-[#4060ee] text-gray-600'}>
@@ -25,20 +29,43 @@ const Sidebar = () => {
     }
     return (
         <>
-            <div className="w-80 hidden lg:block bg-[#F6F8F9] h-full z-10 fixed border-r ">
-                <Link to='/' className="flex items-center px-6 pt-7 pb-4">
-                    <span className="text-4xl justify-start mx-1 text-[#fc9755]"><MdOutlineLocalFireDepartment /></span>
-                    <span className="font-bold text-3xl font-Alegreya ">Web App</span>
-                    <div className='font-mono font-extrabold flex items-center ml-1 my-auto text-xl'>
-                        <CgChevronDown />
+            {SideBar &&
+                <>
+                    <div onClick={() => dispatch(FeaturesAction.ShowSideBar(false))} className="w-screen h-screen bg-gray-800 fixed bg-opacity-80 transition-opacity block lg:hidden z-10"></div>
+                    <div className="bg-gray-700 bg-opacity-60 transition-opacity">
+                        <div className="lg:hidden flex h-screen fixed z-20 w-80 border-r shadow-2xl bg-[#F6F8F9]">
+                            <div className="w-full">
+                                <div className="flex items-center py-7 ml-8"><Logo /></div>
+                                <div className="overflow-y-auto overflow-x-hidden flex-grow flex-col">
+                                    <ul className="flex flex-col py-4 space-y-1 px-3 content-end">
+                                        <Lilinks Link={"/dashboard/all_users"} selected={'/dashboard/all_users'} title='Users' icon={<ImUsers />} />
+                                        <Lilinks Link={"/dashboard/messages"} selected={'/dashboard/messages'} title='Messegaes' icon={<BsChatRightTextFill />} />
+                                        <Lilinks Link={"/dashboard/all_products"} selected={'/dashboard/all_products'} title='Products' icon={<GiShoppingBag />} />
+                                        <Lilinks Link={"/dashboard/addproduct"} selected={'/dashboard/addproduct'} title='Add Product' icon={<MdOutlineAddToPhotos />} />
+                                        <Lilinks Link={"/dashboard/addfeatures"} selected={'/dashboard/addfeatures'} title='Add Features' icon={<MdOutlineAddToPhotos />} />
+                                        <Lilinks Link={"/dashboard/orders"} selected={'/dashboard/orders'} title='Orders' icon={<GiShoppingCart />} />
+                                        <Lilinks Link={"/dashboard/stats"} selected={'/dashboard/stats'} title='Stats' icon={<AiOutlineBarChart />} />
+                                        <Lilinks Link={"/dashboard/calender"} selected={'/dashboard/calender'} title='Calender' icon={<IoCalendarNumber />} />
+                                        <Lilinks Link={"/dashboard/issues"} selected={'/dashboard/issues'} title='Isseues' icon={<GoIssueReopened />} />
+                                        <div className="bottom-0 absolute">
+                                            <Lilinks Link={"/dashboard"} selected={'/settings'} title='Settings' icon={<IoSettingsOutline />} />
+                                            <Lilinks Link={"/signin"} selected={''} title='Log Out' icon={<BiLogInCircle />} />
+                                        </div>
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </Link>
+                </>
+            }
+
+            <div className="w-80 hidden lg:block bg-[#F6F8F9] h-full z-10 fixed border-r ">
+                <div className="flex items-center py-7 ml-8"><Logo /></div>
                 <div className="overflow-y-auto overflow-x-hidden flex-grow flex-col">
                     <ul className="flex flex-col py-4 space-y-1 px-3 content-end">
                         <Lilinks Link={"/dashboard/all_users"} selected={'/dashboard/all_users'} title='Users' icon={<ImUsers />} />
                         <Lilinks Link={"/dashboard/messages"} selected={'/dashboard/messages'} title='Messegaes' icon={<BsChatRightTextFill />} />
                         <Lilinks Link={"/dashboard/all_products"} selected={'/dashboard/all_products'} title='Products' icon={<GiShoppingBag />} />
-                        {/* <Lilinks Link={"/dashboard/addbanner"} selected={'/dashboard/addbanner'} title='Add Banners' icon={<GiVerticalBanner />} /> */}
                         <Lilinks Link={"/dashboard/addproduct"} selected={'/dashboard/addproduct'} title='Add Product' icon={<MdOutlineAddToPhotos />} />
                         <Lilinks Link={"/dashboard/addfeatures"} selected={'/dashboard/addfeatures'} title='Add Features' icon={<MdOutlineAddToPhotos />} />
                         <Lilinks Link={"/dashboard/orders"} selected={'/dashboard/orders'} title='Orders' icon={<GiShoppingCart />} />
@@ -56,4 +83,4 @@ const Sidebar = () => {
     );
 }
 
-export default Sidebar;
+export default SideBar;

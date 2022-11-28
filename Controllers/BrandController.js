@@ -1,15 +1,15 @@
-import Users from "../Models/Users.js";
 import Brand from "../Models/Brand.js";
+import cloudinary from "../Utils/cloudinary.js";
 export const Add_New_Brand = async (req, res) => {
     try {
-        const { name, discription } = req.body
+        const { brand, des } = req.body
         const file = req.body.image;
-        if (!file) return res.status(400).json({ msg: 'Image is required to upload ' });
+        if (!brand || !des) return res.status(400).json({ msg: 'Please Fill all fields' });
         const result = await cloudinary.uploader.upload(file, {
             folder: "E-Commerce/Brand",
         });
         new Brand({
-            name, discription,
+            brand, des,
             image: {
                 public_id: result.public_id,
                 url: result.secure_url,
@@ -22,12 +22,13 @@ export const Add_New_Brand = async (req, res) => {
                 return res.status(500).json({ msg: error.message })
             })
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ msg: error.message })
     }
 }
 export const Fetch_All_Brands = async (req, res) => {
     try {
-        const brand = await Brand.find();
+        const brand = await Brand.find().limit(8);
         if (!brand) return res.status(201).json({ msg: 'No Brands Founded' });
         return res.json(brand);
     } catch (error) {
@@ -36,11 +37,11 @@ export const Fetch_All_Brands = async (req, res) => {
 }
 export const Delete_Brand = async (req, res) => {
     try {
-        const brand = await Brand.find(req.params.id);
+        const brand = await Brand.findById(req.params.id);
         if (!brand) {
             return res.status(201).json({ msg: 'No Brand founded with that id' });
         }
-        await deleteOne({ _id: req.params.id });
+        await Brand.deleteOne({ _id: req.params.id });
         return res.json({ msg: 'Brand Deleted Successfully' });
     } catch (error) {
         return res.status(500).json({ msg: error.message })

@@ -9,6 +9,8 @@ import CartSlice from "./Slices/CartSlice";
 import ReviewsSlice from "./Slices/ReviewsSlice";
 import WhiteListSlice from "./Slices/WhiteListSlice";
 import IssessSlice from "./Slices/IssessSlice";
+import FeaturesSlice from './Slices/FeaturesSlice';
+import BrandSlice from './Slices/BrandSlice';
 export const Store = configureStore({
     reducer: {
         products: ProductsSlice,
@@ -17,10 +19,12 @@ export const Store = configureStore({
         allusers: AllUsers,
         Banners: Get_BannersSlice,
         Category: Get_Category,
-        Cart :CartSlice,
-        Review:ReviewsSlice,
-        WhiteList:WhiteListSlice,
-        Issess:IssessSlice
+        Brand: BrandSlice,
+        Cart: CartSlice,
+        Review: ReviewsSlice,
+        WhiteList: WhiteListSlice,
+        Issess: IssessSlice,
+        Features: FeaturesSlice
     },
 
 });

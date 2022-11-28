@@ -4,36 +4,31 @@ import { Danger, Success } from '../../Alerts';
 import { Helmet } from 'react-helmet-async';
 import { Upload_Banner } from '../../../Redux/Actions/BannerAction';
 const Addbanner = () => {
-
-    const [images, setImages] = useState([]);
-    const [preview, setPreview] = useState([]);
+    const [image, setImage] = useState([]);
     const dispatch = useDispatch();
     const { error, success, loading } = useSelector((state) => state.Banners);
     const HandleImages = (e) => {
         const files = Array.from(e.target.files);
-        setPreview([]);
-        setImages(files);
+        setImage([]);
         files.forEach(file => {
             const reader = new FileReader();
             reader.readAsDataURL(file);
             reader.onloadend = () => {
-                setImages(oldArray => [...oldArray, reader.result]);
-                setPreview(reader.result)
+                setImage(reader.result)
             }
         });
     };
     const HandleSubmit = async (e) => {
         e.preventDefault();
-        dispatch(Upload_Banner(setPreview, preview));
+        dispatch(Upload_Banner(setImage, image));
     }
+    console.log(image)
     return (
         <>
             <Helmet>
                 <title>Add Banner</title>
             </Helmet>
-            {/* <DashHeeder /> */}
             <div className='flex'>
-                {/* <Sidebar /> */}
                 <div className='container max-w-6xl lg:ml-80 mt-24'>
                     {error && <Danger error={error} className={'mx-auto mt-5 text-lg text-gray-700 font-serif font-semibold bg-red-200 py-3 px-5'} />}
                     {success && <Success error={success} />}
@@ -53,7 +48,7 @@ const Addbanner = () => {
                             <button type='submit' className='bg-green-500 py-2 mx-auto px-3 rounded-lg text-white font-semibold w-1/2 focus:ring focus:ring-green-400 mt-5'>{loading ? 'Uploading .....' : 'Submit'}</button>
                         </div>
                     </form>
-                    {preview && <img src={preview} className='h-80 py-2' alt='' />}
+                    {image && <img src={image} className='h-80 py-2' alt='' />}
                 </div>
             </div>
         </>

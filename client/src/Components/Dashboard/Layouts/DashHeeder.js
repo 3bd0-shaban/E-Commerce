@@ -4,12 +4,17 @@ import { FaUser } from 'react-icons/fa'
 import { MdNotifications } from 'react-icons/md'
 import { RiMessage3Fill } from 'react-icons/ri'
 import { CgDetailsMore } from 'react-icons/cg'
+// import { useProSidebar } from 'react-pro-sidebar';
+import { useDispatch } from 'react-redux';
+import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
 const DashHeeder = () => {
+  const dispatch = useDispatch()
+  // const { toggleSidebar } = useProSidebar();
   return (
     <div className='fixed lg:ml-80 bg-white z-10 border-b py-3 w-full'>
       <div className='flex'>
         <div className='flex text-2xl lg:hidden items-center gap-4 text-gray-700 mr-3'>
-          <CgDetailsMore />
+          <button onClick={() => dispatch(FeaturesAction.ShowSideBar())}><CgDetailsMore /></button>
         </div>
         <form className='lg:pl-12 pl-4 w-full'>
           <label className='mb-2 text-sm font-medium text-gray-900 sr-only'>Search</label>
@@ -21,7 +26,7 @@ const DashHeeder = () => {
         <div className='text-2xl flex items-center gap-4 text-gray-700 mr-3 ml-auto lg:pr-[22rem]'>
           <RiMessage3Fill />
           <MdNotifications style={{ 'fontSize': '2rem' }} />
-          <FaUser />
+          <button onClick={() => dispatch(FeaturesAction.ShowSideBar())}><FaUser /></button>
         </div>
       </div>
     </div>

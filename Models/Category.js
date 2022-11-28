@@ -6,8 +6,10 @@ const CategorySchema = new mongoose.Schema({
     },
     subcategory: [
         {
-            type: String,
-            required: true
+            nameOfSub: {
+                type: String,
+                required: true
+            }
         }
     ],
     image: {
@@ -20,7 +22,7 @@ const CategorySchema = new mongoose.Schema({
             required: [true, 'The Product image is Required'],
         }
     },
-    description: {
+    des: {
         type: String,
         trim: true
     },
