@@ -1,14 +1,16 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { MdOutlineSearch } from 'react-icons/md'
-import { Link, useParams } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Sidebar, DashHeeder } from '../../Exports';
 import { Danger } from '../../../Components/Alerts';
 import { RiMoreFill } from 'react-icons/ri'
 import { Helmet } from 'react-helmet-async';
 import { FetchAllUsers } from './../../../Redux/Actions/AuthAction';
+import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
+import UserInfo from './../Layouts/Sub_Layouts/UserInfo';
 const Dashboard = () => {
-    const { id } = useParams();
+    const [id, setId] = useState('');
     const { AllUsers, loading, error } = useSelector((state) => state.allusers);
     const dispatch = useDispatch();
     useEffect(() => {
@@ -23,6 +25,7 @@ const Dashboard = () => {
                 <title>All Users - Dashboard</title>
             </Helmet>
             <DashHeeder />
+            {<UserInfo id={id}/>}
             <div className='flex'>
                 <Sidebar />
                 <div className='container lg:ml-80 mt-24'>
@@ -56,12 +59,12 @@ const Dashboard = () => {
                                     <th scope="col" className="py-3 px-6"></th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody onClick={() => dispatch(FeaturesAction.Show_sideUserInfo())} >
                                 {loading ? <p className='mx-auto text-5xl font-Alegreya flex items-center'>Loading</p>
                                     : error ?
                                         <Danger error={error} className={'container max-w-7xl mx-auto my-5 w-[50vw]'} /> :
                                         AllUsers.map(user =>
-                                            <tr className="bg-white border-b hover:bg-gray-50" key={user._id}>
+                                            <tr onClick={() => setId(user._id)} className="bg-white border-b hover:bg-gray-50" key={user._id} >
                                                 <td className="py-4 px-6">
                                                     <div className="flex items-center">
                                                         <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500" />

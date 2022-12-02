@@ -25,17 +25,17 @@ const ProductsSlice = createSlice({
             state.products = [];
             state.error = action.payload;
         },
-        Fetch_DataDetails(state) {
+        Fetch_ProductDetails_Request(state) {
             state.loading = true;
             state.error = '';
             state.productDetails = [];
         },
-        Success_FetchDetails(state, action) {
+        Fetch_FetchDetails_Success(state, action) {
             state.productDetails = action.payload;
             state.loading = false;
             state.error = ''
         },
-        Fail_FetchDetails(state, action) {
+        Fetch_FetchDetails_Fails(state, action) {
             state.loading = false;
             state.products = [];
             state.error = action.payload;

@@ -3,6 +3,7 @@ const UserSlice = createSlice({
     name: 'user',
     initialState: {
         user: '',
+        UserDetails: {},
         error: null,
         success: null,
         token: null,
@@ -52,6 +53,20 @@ const UserSlice = createSlice({
         },
         Failed_Fetch(state, action) {
             state.error = action.payload;
+        },
+        Fetch_UserDetails_Request(state) {
+            state.UserDetails = {};
+            state.laoding = true;
+            state.error = null
+        },
+        Fetch_UserDetails_Success(state, action) {
+            state.UserDetails = action.payload;
+            state.laoding = false;
+            state.error = null
+        },
+        Fetch_UserDetails_Fails(state, action) {
+            state.laoding = false;
+            state.error = action.payload
         },
     }
 })

@@ -41,7 +41,7 @@ app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(errorMiddleware)
 app.use('/api/auth', UsersRouter);
 app.use('/api/banner', BannersRouter);
-app.use('/api/upload', ProductsRouter);
+app.use('/api/product', ProductsRouter);
 app.use('/api/category', CategoryRouter);
 app.use('/api/cart', CartRouter);
 app.use('/api/order', OrdersRouter);

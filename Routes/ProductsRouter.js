@@ -3,10 +3,10 @@ const ProductsRouter = express.Router();
 import { UploadProduct,Fetch_Products,Fetch_ProductDetails,Update_Product,Delete_Product } from '../Controllers/ProductController.js';
 
 
-ProductsRouter.post('/uploadproduct', UploadProduct);
-ProductsRouter.put('/product/:id', Update_Product);
-ProductsRouter.delete('/product/:id', Delete_Product);
-ProductsRouter.get('/fetch_products', Fetch_Products);
-ProductsRouter.get('/fetch_productddetails/:id', Fetch_ProductDetails);
+ProductsRouter.post('/upload', UploadProduct);
+ProductsRouter.put('/update/:id', Update_Product);
+ProductsRouter.delete('/delete/:id', Delete_Product);
+ProductsRouter.get('/get', Fetch_Products);
+ProductsRouter.get('/get/:id', Fetch_ProductDetails);
 
 export default ProductsRouter

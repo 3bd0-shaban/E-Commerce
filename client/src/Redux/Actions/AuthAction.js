@@ -39,6 +39,15 @@ export const FetchAllUsers = () => async (dispatch) => {
         dispatch(AllUsersAction.Fail_getAllUsers(getError(error)))
     }
 };
+export const Fetch_User_Details = (id) => async (dispatch) => {
+    dispatch(UserAction.Fetch_UserDetails_Request())
+    try {
+        const result = await axios.get(`http://localhost:5000/api/auth/get/${id}`);
+        dispatch(UserAction.Fetch_UserDetails_Success(result.data));
+    } catch (error) {
+        dispatch(UserAction.Fetch_UserDetails_Fails(getError(error)));
+    }
+};
 export const Delete_User = (id) => async (dispatch) => {
     try {
         dispatch(AllUsersAction.Delete_User_Request());

@@ -10,8 +10,8 @@ import { GiShoppingBag, GiShoppingCart } from 'react-icons/gi';
 import { GoIssueReopened } from 'react-icons/go'
 // import { Sidebar } from 'react-pro-sidebar';
 import { useDispatch, useSelector } from 'react-redux';
-import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
-import { Logo } from "../../Exports";
+import { FeaturesAction } from '../../../../Redux/Slices/FeaturesSlice';
+import { Logo } from "../../../Exports";
 const SideBar = () => {
     const dispatch = useDispatch()
     const { pathname } = useLocation();

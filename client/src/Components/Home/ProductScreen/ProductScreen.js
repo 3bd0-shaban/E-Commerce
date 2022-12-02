@@ -3,7 +3,6 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useParams, Link } from 'react-router-dom';
 import { Header, ProductMainScreen, HomeCategory, Reviews, Footer } from '../../Exports'
 import { Helmet } from 'react-helmet-async';
-
 import { Fetch_Product_Details } from '../../../Redux/Actions/ProductsAction'
 const ProductScreen = () => {
   const { productDetails } = useSelector((state) => state.products);

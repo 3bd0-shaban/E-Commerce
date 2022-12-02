@@ -1,13 +1,15 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Danger } from '../../Alerts';
-import { Sidebar, DashHeeder, ShowRating } from '../../Exports';
+import { Sidebar, DashHeeder, ShowRating, ProductsInfo } from '../../Exports';
 import { Helmet } from 'react-helmet-async';
 import { Get_AllProducts } from './../../../Redux/Actions/ProductsAction';
 import moment from 'moment';
+import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
 const AllProducts = () => {
     const dispatch = useDispatch();
+    const [id, setId] = useState('');
     const { loading, error, products } = useSelector((state) => state.products);
     useEffect(() => {
         dispatch(Get_AllProducts());
@@ -17,6 +19,7 @@ const AllProducts = () => {
             <Helmet>
                 <title>All Products - Dashboard</title>
             </Helmet>
+            {<ProductsInfo id={id} />}
             <DashHeeder />
             <div className='flex'>
                 <Sidebar />
@@ -42,10 +45,10 @@ const AllProducts = () => {
                                     <th scope="col" className="py-3 px-6">Date</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody onClick={() => dispatch(FeaturesAction.Show_sideProductInfo())}>
                                 {loading ? <p className='mx-auto text-5xl font-Alegreya flex items-center'>Loading</p> : error ? <Danger /> :
                                     products.map(product =>
-                                        <tr className="bg-white border-b hover:bg-gray-50" key={product._id}>
+                                        <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer" onClick={() => setId(product._id)} key={product._id}>
                                             <td className="flex items-center py-4 ml-4">
                                                 <img className="w-14 h-14 rounded-full" src={product.images ? product.images[0].url : 'error'} alt="" />
                                                 <div className="pl-3">

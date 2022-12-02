@@ -16,12 +16,16 @@ export { default as Reviews } from './Home/ProductScreen/Reviews';
 export { default as ShowRating } from './Home/ProductScreen/ShowRating';
 
 
-export { default as Sidebar } from './Dashboard/Layouts/Sidebar';
-export { default as CategoryInfo } from './Dashboard/Layouts/CategoryInfo';
+export { default as Sidebar } from './Dashboard/Layouts/Sub_Layouts/Sidebar';
+export { default as CategoryInfo } from './Dashboard/Layouts/Sub_Layouts/CategoryInfo';
+export { default as BrandInfo } from './Dashboard/Layouts/Sub_Layouts/BrandInfo';
+export { default as UserInfo } from './Dashboard/Layouts/Sub_Layouts/UserInfo';
+export { default as ProductsInfo } from './Dashboard/Layouts/Sub_Layouts/ProductsInfo';
+
 export { default as Calender } from './Dashboard/Screens/Calender';
 export { default as Category } from './Dashboard/Layouts/Category';
 export { default as DashHeeder } from './Dashboard/Layouts/DashHeeder';
-export { default as ModalConfirm } from './Dashboard/Layouts/ModalConfirm';
+export { default as ModalConfirm } from './Dashboard/Layouts/Sub_Layouts/ModalConfirm';
 
 
 export { default as AllUsers } from './Dashboard/Screens/All_Users';

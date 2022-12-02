@@ -35,6 +35,16 @@ export const Fetch_All_Brands = async (req, res) => {
         return res.status(500).json({ msg: error.message })
     }
 }
+export const Get_Spicific_Brand = async (req, res) => {
+    try {
+        const BrandDetails = await Brand.findById(req.params.id);
+        if (!BrandDetails) return res.status(400).json({ msg: 'Brand does not exists' });
+        return res.json(BrandDetails)
+    } catch (error) {
+        return res.status(500).json({ msg: error.message })
+    }
+}
+
 export const Delete_Brand = async (req, res) => {
     try {
         const brand = await Brand.findById(req.params.id);

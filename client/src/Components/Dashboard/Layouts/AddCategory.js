@@ -5,11 +5,11 @@ import { HiOutlineCloudUpload } from 'react-icons/hi'
 import { Success, Danger } from './../../Alerts';
 import moment from 'moment';
 import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
-import CategoryInfo from './CategoryInfo';
+import CategoryInfo from './Sub_Layouts/CategoryInfo';
 const AddCategory = () => {
-    let id = [];
     const { error, success, loading, Category } = useSelector((state) => state.Category);
     const dispatch = useDispatch();
+    const [id, setId] = useState('');
     const [inputs, setInputs] = useState({
         category: '', des: '', nameOfSub: []
     });
@@ -31,6 +31,11 @@ const AddCategory = () => {
         const { category, nameOfSub, des } = inputs
         dispatch(Upload_New_Category(category, nameOfSub, image, des));
     }
+    useEffect(() => {
+        dispatch(Fetch_Category());
+        setImage('')
+        setInputs({ category: '', des: '', nameOfSub: '' });
+    }, [dispatch]);
     const PreviewImeges = (props) => {
         return (
             <>
@@ -39,16 +44,11 @@ const AddCategory = () => {
             </>
         )
     }
-    useEffect(() => {
-        dispatch(Fetch_Category());
-        setImage('')
-        setInputs({ category: '', des: '', nameOfSub: '' });
-    }, [dispatch]);
-
     return (
         <>
             {error && <Danger error={error} className={'container'} />}
             {success && <Success error={success} className={'container'} />}
+            <CategoryInfo id={id} />
             <div className='container px-0 max-w-8xl'>
                 <form onSubmit={handleSubmit} className='px-6 rounded-xl py-8'>
                     <div className='grid grid-cols-1 lg:grid-cols-3 lg:gap-8'>
@@ -94,7 +94,7 @@ const AddCategory = () => {
                                         Category?.map(cat => {
                                             return (
                                                 <>
-                                                    <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer" key={cat._id}>
+                                                    <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer" key={cat._id} onClick={() => setId(cat._id)}>
                                                         <td className="flex items-center py-4 justify-start ml-7">
                                                             <img className="w-10 h-10 rounded-full object-cover" src={cat.image && cat?.image.url} alt="" />
                                                         </td>
@@ -111,7 +111,6 @@ const AddCategory = () => {
                         </div>
                     </div>
                 </form>
-                <CategoryInfo Name={id} />
             </div>
         </>
     )

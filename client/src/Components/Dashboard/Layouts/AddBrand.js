@@ -2,14 +2,15 @@ import React, { useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { HiOutlineCloudUpload } from 'react-icons/hi'
 import { Success, Danger } from './../../Alerts';
-import { Upload_New_Brand, Delete_Brand, Fetch_Brand } from './../../../Redux/Actions/BrandAction';
+import { Upload_New_Brand, Fetch_Brand } from './../../../Redux/Actions/BrandAction';
 import { BsTrash } from 'react-icons/bs';
-import ModalConfirm from './ModalConfirm';
+import ModalConfirm from './Sub_Layouts/ModalConfirm';
 import { FeaturesAction } from '../../../Redux/Slices/FeaturesSlice';
+import BrandInfo from './Sub_Layouts/BrandInfo';
 const AddBrand = () => {
   const { error, success, loading, Brand } = useSelector((state) => state.Brand);
   const { IsModalConfirm } = useSelector(state => state.Features)
-
+  const [id, setId] = useState('');
   const dispatch = useDispatch();
   const [inputs, setInputs] = useState({
     brand: '', des: ''
@@ -51,7 +52,8 @@ const AddBrand = () => {
       {error && <Danger error={error} className={'container'} />}
       {success && <Success error={success} className={'container'} />}
       {IsModalConfirm && <ModalConfirm onCancel={() => dispatch(FeaturesAction.Show_ModalConfirm(false))} />}
-      <div className='container px-0 max-w-8xl'>
+      {<BrandInfo id={id} />}
+      <div className='container px-0 max-w-8xl mt-10'>
 
         <div className='grid grid-cols-1 lg:grid-cols-3 lg:gap-8'>
           <div className='rounded-lg lg:border lg:px-10 col-span-1 max-h-[52rem]'>
@@ -81,11 +83,13 @@ const AddBrand = () => {
           <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5 col-span-2">
             <div className='grid grid-cols-4 gap-5 px-5'>
               {Brand?.map((old) => (
-                <div key={old._id} className='border shadow-sm text-center rounded-lg py-5 relative'>
-                  <div className='py-3 px-5'>
-                    <img src={old.image.url} alt='' className='w-full h-36 object-cover py-4 mx-auto' /><hr />
-                    <button className='text-gray-500 font-semibold hover:underline mt-3 ml-auto block absolute top-0 right-0 mx-3 text-xl' onClick={() => dispatch(FeaturesAction.Show_ModalConfirm(true))} ><BsTrash /></button>
-                    <p className='text-lg font-serif font-semibold text-gray-500 mt-3'>{old.brand}</p>
+                <div key={old._id} onClick={() => dispatch(FeaturesAction.Show_SideBrandInfo())}>
+                  <div onClick={() => setId(old._id)} className='border shadow-sm text-center rounded-lg py-5 cursor-pointer relative'>
+                    <div className='py-3 px-5'>
+                      <img src={old.image.url} alt='' className='w-full h-36 object-cover py-4 mx-auto' /><hr />
+                      <button className='text-gray-500 font-semibold hover:underline mt-3 ml-auto block absolute top-0 right-0 mx-3 text-xl' onClick={() => dispatch(FeaturesAction.Show_ModalConfirm(true))} ><BsTrash /></button>
+                      <p className='text-lg font-serif font-semibold text-gray-500 mt-3'>{old.brand}</p>
+                    </div>
                   </div>
                 </div>
               ))}
