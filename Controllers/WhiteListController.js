@@ -5,7 +5,6 @@ export const Add_To_WhiteList = async (req, res) => {
         const productId = await Products.findById(req.params.id);
         const user = await Users.findOne(req.user._id);
         const isfounded = user.whiteList.find(p => p._id == productId);
-        console.log(user)
         if (!productId) {
             return res.status(201).json({ msg: 'Product not founded or may be you not eligable to add a review at this product' });
         };

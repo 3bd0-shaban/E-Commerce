@@ -10,7 +10,6 @@ export const Upload_Banners = async (req, res) => {
 
     try {
         const file = req.body.image;
-        console.log(file)
         // const { banners } = req.boby;
         // if (!banners) return res.status(400).json({ msg: 'Image is required to upload ' })
         // if (!file) return res.status(400).json({ msg: 'Image is required to upload ' })
@@ -30,7 +29,6 @@ export const Upload_Banners = async (req, res) => {
                 return res.status(500).json({ msg: error.message })
             })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ msg: error.message })
 
     }

@@ -112,12 +112,10 @@ export const RefreshToken = (req, res, next) => {
             //     // maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
             //     sameSite: 'lax'
             // })
-            console.log(user.id)
             req.id = user.id
             next();
         });
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ msg: error.message });
     }
 };
@@ -129,7 +127,7 @@ export const UserInfo = async (req, res) => {
         }
         res.json(user);
     } catch (error) {
-        return res.status(500).json({ msg: error.message, user });
+        return res.status(500).json({ msg: error.message });
     }
 }
 export const Get_UserInfo = async (req, res) => {

@@ -46,7 +46,7 @@ const Banners = () => {
         const Fetch_Banners = async () => {
             dispatch(Get_BannersAction.Fetch_Banners_Request());
             try {
-                const result = await axios.get('http://localhost:5000/api/banner/get_banners');
+                const result = await axios.get('/api/banner/get_banners');
                 dispatch(Get_BannersAction.Fetch_Banners_Success(result.data));
             }
             catch (error) {

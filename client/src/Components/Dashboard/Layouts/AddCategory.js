@@ -91,21 +91,17 @@ const AddCategory = () => {
                                 </thead>
                                 <tbody onClick={() => dispatch(FeaturesAction.Show_SideCategoryInfo())}>
                                     {loading ? <p className='mx-auto text-5xl font-Alegreya flex items-center'>Loading</p> :
-                                        Category?.map(cat => {
-                                            return (
-                                                <>
-                                                    <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer" key={cat._id} onClick={() => setId(cat._id)}>
-                                                        <td className="flex items-center py-4 justify-start ml-7">
-                                                            <img className="w-10 h-10 rounded-full object-cover" src={cat.image && cat?.image.url} alt="" />
-                                                        </td>
-                                                        <td className="font-normal text-gray-500 ">{cat.category}</td>
-                                                        {/* <td className="py-4 px-6 w-[20%]">{cat.nameOfSub[0]}</td> */}
-                                                        <td className="py-4"><span className={(`${cat.isActive}` === 'true') ? 'bg-green-200 text-green-500 rounded-full text-base px-8 py-1.5' : 'bg-red-200 text-red-500 rounded-full text-base px-8 py-1.5'}>{cat.isActive.toString()}</span></td>
-                                                        <td className="py-4 px-6">{moment(cat.createdAt).format('Do MMMM YYYY')}</td>
-                                                    </tr>
-                                                </>
-                                            )
-                                        })}
+                                        Category?.map(cat => (
+                                            <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer" key={cat._id} onClick={() => setId(cat._id)}>
+                                                <td className="flex items-center py-4 justify-start ml-7">
+                                                    <img className="w-10 h-10 rounded-full object-cover" src={cat.image && cat?.image.url} alt="" />
+                                                </td>
+                                                <td className="font-normal text-gray-500 ">{cat.category}</td>
+                                                {/* <td className="py-4 px-6 w-[20%]">{cat.nameOfSub[0]}</td> */}
+                                                <td className="py-4"><span className={(`${cat.isActive}` === 'true') ? 'bg-green-200 text-green-500 rounded-full text-base px-8 py-1.5' : 'bg-red-200 text-red-500 rounded-full text-base px-8 py-1.5'}>{cat.isActive.toString()}</span></td>
+                                                <td className="py-4 px-6">{moment(cat.createdAt).format('Do MMMM YYYY')}</td>
+                                            </tr>
+                                        ))}
                                 </tbody>
                             </table>
                         </div>

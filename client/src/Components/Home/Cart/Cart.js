@@ -3,9 +3,7 @@ import { Header, CartItem } from '../../Exports';
 import { FaShoppingBag } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { Dectrement, Fetch_Products_In_Cart } from '../../../Redux/Actions/CartAction';
-import { Increment } from './../../../Redux/Actions/CartAction';
-// eslint-disable-next-line
+import { Dectrement, Increment, Fetch_Products_In_Cart } from '../../../Redux/Actions/CartAction';
 const CartEmpty = () => {
     return (
         <div className='text-center'>
@@ -20,7 +18,7 @@ const CartEmpty = () => {
 }
 const Cart = () => {
     const dispatch = useDispatch();
-    const { cart, loading } = useSelector((state) => state.Cart);
+    const { cart, loading, error } = useSelector((state) => state.Cart);
     useEffect(() => {
         dispatch(Fetch_Products_In_Cart())
     }, [dispatch])
@@ -39,14 +37,18 @@ const Cart = () => {
                             <p className='mx-auto'>you have {cart.numofitems} items in your cart</p>
                         </div>
                         <div>
-                            {loading ? <p className='text-3xl font-bold flex justify-center items-center'>loading</p> :
-                                cart.items?.map((child) => (
-                                    <CartItem Mykey={child.product_Id._id} Name={child.product_Id.name} Src={child.product_Id.images[0].url}
-                                        // Increment={() => { const product_Id = child.product_Id._id; dispatch(Increment(product_Id)) }}
-                                        // Decrement={() => { const product_Id = child.product_Id._id; dispatch(Dectrement(product_Id)) }}
-                                        Quentity={child.quentity} />
-                                ))
+                            {loading ? <p className='text-3xl font-bold flex justify-center items-center'>loading</p> : error ?
+                                <p>Error</p> :
+                                cart.items ?
+                                    cart.items?.map((child) => (
+                                        <CartItem Mykey={child.product_Id._id} Name={child.product_Id.name} Src={child.product_Id.images[0].url}
+                                            Increment={() => { const product_Id = child.product_Id._id; dispatch(Increment(product_Id)) }}
+                                            Decrement={() => { const product_Id = child.product_Id._id; dispatch(Dectrement(product_Id)) }}
+                                            Quentity={child.quentity} />
+                                    ))
+                                    : <CartEmpty />
                             }
+
                         </div>
                     </div>
                 </div>

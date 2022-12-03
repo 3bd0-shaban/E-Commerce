@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Helmet } from 'react-helmet-async';
 import { AiOutlineEye, AiOutlineHeart } from 'react-icons/ai'
 import { MdShoppingBag } from 'react-icons/md'
-import { SKHomeProducts, Header, Banners, HomeCategory } from '../../Exports';
+import { SKHomeProducts, Header, Banners, HomeCategory, Footer } from '../../Exports';
 import { Danger } from '../../Alerts';
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
@@ -164,6 +164,7 @@ const HomeProducts = () => {
                     <ScrollableCategory Category={'Laptops'} />
                     <ScrollableCategory Category={'Storage'} />
                 </div>
+                <Footer />
             </div>
 
         </>

@@ -22,15 +22,7 @@ const usesrSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    avatar: {
-      type: String,
-      default: "https://res.cloudinary.com/abdo9/image/upload/v1667589539/Market/Defaults/istockphoto-1300845620-612x612_bgwhwp.jpg"
-    },
     isAdmin: {
-      type: Boolean,
-      default: false,
-    },
-    isshipper: {
       type: Boolean,
       default: false,
     },

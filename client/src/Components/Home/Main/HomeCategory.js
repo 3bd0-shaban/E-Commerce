@@ -12,11 +12,9 @@ const HomeCategory = () => {
     <div className='rounded-xl bg-[#F8F8F8] hidden lg:block'>
       <div className='text-black mt-5 font-light text-xl font-poppins'>
         {Category?.map((cat) => (
-          <>
             <div key={cat._id} className='py-2 px-6 w-80 font-semibold text-gray-700'>
               <p  className='mb-3' >{cat.category}</p><hr />
             </div>
-          </>
         ))}
         {/* {Category.map((cat) => (
           cat.subcategory.map((child) => (

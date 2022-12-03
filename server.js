@@ -18,27 +18,34 @@ import ReviewsRouter from './Routes/ReviewsRouter.js';
 import WhiteListRouter from './Routes/WhiteListRoter.js';
 import BrandRouter from './Routes/BrandRouter.js';
 const app = express();
-const port = process.env.PORT || 5000
+const port = process.env.PORT || 5000;
 dotenv.config();
-app.use(cors({
-    origin: "http://localhost:3000",
-    credentials: true
-}));
+app.use(
+  cors({
+    origin: [
+      'http://localhost:3000',
+      'https://tech-market.onrender.com',
+    ],
+    credentials: true,
+  })
+);
 app.use(cookieParser());
 app.use(helmet());
 app.use(morgan('common'));
-app.use(fileUpload({ useTempFiles: true }))
-mongoose.connect(process.env.MongoDB_URL)
-    .then(() => {
-        app.listen(port, () => {
-            console.log(`Successfully started at http://localhost:${port}`)
-        })
-    }).catch((err) => {
-        console.log(err)
+// app.use(fileUpload({ useTempFiles: true }));
+mongoose
+  .connect(process.env.MONGODB_URI)
+  .then(() => {
+    app.listen(port, () => {
+      console.log(`Successfully started at http://localhost:${port}`);
     });
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(errorMiddleware)
+app.use(errorMiddleware);
 app.use('/api/auth', UsersRouter);
 app.use('/api/banner', BannersRouter);
 app.use('/api/product', ProductsRouter);

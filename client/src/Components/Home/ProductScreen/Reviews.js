@@ -8,7 +8,6 @@ const Reviews = (props) => {
     const { productDetails } = useSelector((state) => state.products);
     const { Reviews } = useSelector((state) => state.Review);
     const id = productDetails._id
-    console.log(id)
     const dispatch = useDispatch();
     const [inputs, setInputs] = useState({
         comment: '',
@@ -131,20 +130,19 @@ const Reviews = (props) => {
                 </div>
             </div>
             <div>
+                <hr />
+
                 {Reviews.reviews?.map((review) => (
-                    <>
-                        <hr />
-                        <div key={review._id} className='grid grid-cols-1 md:grid-cols-3 gap-5 py-10'>
-                            <div className='col-span-1'>
-                                <p className='text-2xl font-mono font-semibold text-gray-700'>{review.name}</p>
-                                <p className='text-gray-500 font-medium'>{moment(review.time).format(" h:mm Do MMMM  YYYY")}</p>
-                                <ShowRating Rating={review.rating} />
-                            </div>
-                            <div className='col-span-2'>
-                                <p>{review.comment}</p>
-                            </div>
+                    <div key={review._id} className='grid grid-cols-1 md:grid-cols-3 gap-5 py-10'>
+                        <div className='col-span-1'>
+                            <p className='text-2xl font-mono font-semibold text-gray-700'>{review.name}</p>
+                            <p className='text-gray-500 font-medium'>{moment(review.time).format(" h:mm Do MMMM  YYYY")}</p>
+                            <ShowRating Rating={review.rating} />
                         </div>
-                    </>
+                        <div className='col-span-2'>
+                            <p>{review.comment}</p>
+                        </div>
+                    </div>
                 ))}
             </div>
         </>

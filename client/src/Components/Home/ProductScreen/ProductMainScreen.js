@@ -35,7 +35,7 @@ const ProductMainScreen = () => {
                             <div className='col-span-2 flex'>
                                 <div className='w-[25%]'>
                                     {productDetails.images?.map((img) => (
-                                        <img src={img.url} className='border w-[80%] object-cover' alt='' />
+                                        <img src={img.url} key={img._id} className='border w-[80%] object-cover' alt='' />
                                     ))}
                                 </div>
                                 <div className='flex justify-center'>

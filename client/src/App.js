@@ -15,7 +15,7 @@ function App() {
     if (isLogged) {
       const FetchData = async () => {
         try {
-          const result = await axios.get('http://localhost:5000/api/auth/info');
+          const result = await axios.get('/api/auth/info');
           // if(status == 400 || status == 50){
           //   localStorage.removeItem('token')
           // }

@@ -5,7 +5,7 @@ import { CategoryAction } from './../Slices/CategorySlice';
 export const Upload_New_Category = (category, nameOfSub, image, des) => async (dispatch) => {
     dispatch(CategoryAction.Upload_New_Category_Request())
     try {
-        const result = await axios.post('http://localhost:5000/api/category/new', { category, nameOfSub, image, des });
+        const result = await axios.post('/api/category/new', { category, nameOfSub, image, des });
         dispatch(CategoryAction.Upload_New_Category_Success(result.data));
     } catch (error) {
         dispatch(CategoryAction.Upload_New_Category_Fails(getError(error)));
@@ -15,7 +15,7 @@ export const Upload_New_Category = (category, nameOfSub, image, des) => async (d
 export const Fetch_Category = () => async (dispatch) => {
     dispatch(CategoryAction.Fetch_Category_Request())
     try {
-        const result = await axios.get('http://localhost:5000/api/category/get');
+        const result = await axios.get('/api/category/get');
         dispatch(CategoryAction.Fetch_Category_Success(result.data));
     } catch (error) {
         dispatch(CategoryAction.Fetch_Category_Fails(getError(error)));
@@ -24,7 +24,7 @@ export const Fetch_Category = () => async (dispatch) => {
 export const Fetch_Category_Details = (id) => async (dispatch) => {
     dispatch(CategoryAction.Fetch_CategoryDetails_Request())
     try {
-        const result = await axios.get(`http://localhost:5000/api/category/get/${id}`);
+        const result = await axios.get(`/api/category/get/${id}`);
         dispatch(CategoryAction.Fetch_CategoryDetails_Success(result.data));
     } catch (error) {
         dispatch(CategoryAction.Fetch_CategoryDetails_Fails(getError(error)));

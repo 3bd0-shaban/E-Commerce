@@ -24,6 +24,10 @@ const AllProducts = () => {
             <div className='flex'>
                 <Sidebar />
                 <div className='container lg:ml-80 mt-24'>
+                    {loading ? <p className='mx-auto text-5xl font-Alegreya flex items-center'>Loading</p>
+                        : error &&
+                        <Danger error={error} className={'container max-w-7xl mx-auto my-5 w-[50vw]'} />
+                    }
                     <p className='text-5xl font-Rubik '>All Products</p>
                     <div className='flex gap-6 font-light text-xl mt-5'>
                         <Link className='border-b-transparent hover:border-b-black'>Delevred</Link>
@@ -46,24 +50,24 @@ const AllProducts = () => {
                                 </tr>
                             </thead>
                             <tbody onClick={() => dispatch(FeaturesAction.Show_sideProductInfo())}>
-                                {loading ? <p className='mx-auto text-5xl font-Alegreya flex items-center'>Loading</p> : error ? <Danger /> :
-                                    products.map(product =>
-                                        <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer" onClick={() => setId(product._id)} key={product._id}>
-                                            <td className="flex items-center py-4 ml-4">
-                                                <img className="w-14 h-14 rounded-full" src={product.images ? product.images[0].url : 'error'} alt="" />
-                                                <div className="pl-3">
-                                                    <div className="text-base font-semibold  overflow-x-hidden">{product.name}</div>
-                                                    <div className="font-normal text-gray-500">{product.price}$</div>
-                                                </div>
-                                            </td>
-                                            <td className="py-4 px-6"><ShowRating Rating={product.rating} /></td>
-                                            <td className="py-4 px-6">{product.stock}</td>
-                                            <td className="py-4 px-6">{product.numofreviews}</td>
-                                            <td className="py-4 px-6">{product.numofreviews}</td>
-                                            <td className="py-4 px-6">{product.brand}</td>
-                                            <td className="py-4 px-6">{moment(product.createdAt).format("Do MMMM YYYY")}</td>
-                                        </tr>
-                                    )}
+
+                                {products.map(product =>
+                                    <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer" onClick={() => setId(product._id)} key={product._id}>
+                                        <td className="flex items-center py-4 ml-4">
+                                            <img className="w-14 h-14 rounded-full" src={product.images ? product.images[0].url : 'error'} alt="" />
+                                            <div className="pl-3">
+                                                <div className="text-base font-semibold  overflow-x-hidden">{product.name}</div>
+                                                <div className="font-normal text-gray-500">{product.price}$</div>
+                                            </div>
+                                        </td>
+                                        <td className="py-4 px-6"><ShowRating Rating={product.rating} /></td>
+                                        <td className="py-4 px-6">{product.stock}</td>
+                                        <td className="py-4 px-6">{product.numofreviews}</td>
+                                        <td className="py-4 px-6">{product.numofreviews}</td>
+                                        <td className="py-4 px-6">{product.brand}</td>
+                                        <td className="py-4 px-6">{moment(product.createdAt).format("Do MMMM YYYY")}</td>
+                                    </tr>
+                                )}
                             </tbody>
                         </table>
                     </div>

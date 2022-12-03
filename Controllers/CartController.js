@@ -1,15 +1,11 @@
 import Products from "../Models/Products.js";
-import Users from '../Models/Users.js';
 import Cart from "../Models/Cart.js";
 export const Add_New_Cart = async (req, res) => {
     try {
-        if (!req.body.product_Id) {
-            return res.status(201).json({ msg: 'Id is required ', });
-        }
+        if (!req.body.product_Id) return res.status(201).json({ msg: 'Id is required ', });
         let UserCart = await Cart.findOne({ user: req.user._id });
         let price = await Products.findOne({ _id: req.body.product_Id }).select('price');
         const productPrice = price.price;
-        // console.log(productPrice)
         const { product_Id } = req.body
         if (!UserCart) {
             new Cart({
@@ -35,7 +31,6 @@ export const Add_New_Cart = async (req, res) => {
                     return res.status(201).json(Updated_Cart);
                 }
             } else {
-                console.log(productPrice);
                 const Updated_Cart = await Cart.findOneAndUpdate({ user: req.user._id }, {
                     $inc: { numofitems: 1, purchaseprice: productPrice },
                     $push: {
@@ -46,7 +41,6 @@ export const Add_New_Cart = async (req, res) => {
             }
         }
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ msg: error.message });
     }
 };
@@ -72,7 +66,6 @@ export const Increment = async (req, res) => {
         }
         return res.status(201).json({ msg: 'Product not exist in cart' });
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ msg: error.message });
     }
 };
@@ -102,7 +95,8 @@ export const Decrement = async (req, res) => {
 export const Find_Items_In_Cart = async (req, res) => {
     try {
         const User_Cart = await Cart.findOne({ user: req.user.id }).populate('items.product_Id', 'name des price images');
-        return res.status(201).json(User_Cart);
+        if (!User_Cart) return res.status(201).json({ msg: 'Cart is empty' });
+        return res.json(User_Cart);
     } catch (error) {
         return res.status(500).json({ msg: error.message });
     }
@@ -124,8 +118,6 @@ export const Delete_Specific_Item_In_Cart = async (req, res) => {
         const userCart = await Cart.findOne({ user: req.user._id });
         if (!userCart) return res.status(201).json({ msg: 'No cart founded for that user' });
         const cart = userCart.items.find(p => p.product_Id == product_Id);
-        console.log(cart)
-
         if (!cart) {
             return res.status(201).json({ msg: 'No cart founded for with that id' });
         }
@@ -150,5 +142,57 @@ export const Delete_Specific_Item_In_Cart = async (req, res) => {
 //         return res.status(201).json({ msg: 'Items in cart deleted successfully' });
 //     } catch (error) {
 //         res.status(204).send();
+//     }
+// };
+
+
+
+
+
+
+// export const Add_New_Cart = async (req, res) => {
+//     try {
+//         if (!req.body.product_Id) {
+//             return res.status(201).json({ msg: 'Id is required ', });
+//         }
+//         let UserCart = await Cart.findOne({ user: req.user._id });
+//         let price = await Products.findOne({ _id: req.body.product_Id }).select('price');
+//         const productPrice = price.price;
+//         const { product_Id } = req.body
+//         if (!UserCart) {
+//             new Cart({
+//                 user: req.user._id, items: { product_Id: req.body.product_Id, totalprice: productPrice, quentity: 1 }, numofitems: 1, purchaseprice: productPrice
+//             }).save()
+//                 .then(Added_Cart => {
+//                     return res.status(201).json({ msg: 'Added Successfully', Added_Cart });
+//                 }).catch(error => {
+//                     return res.status(500).json({ msg: error.message });
+//                 });
+//         } else {
+//             let isExist = UserCart.items.find(p => p.product_Id == product_Id);
+//             let Product = await Cart.findOne({ user: req.user._id }).populate('items.product_Id', 'stock');
+//             let stockQuentity = Product.items.find(p => p.product_Id._id == product_Id);
+//             if (isExist) {
+//                 // can't increase more than the quentity in stock
+//                 if (isExist.quentity == stockQuentity.product_Id.stock) {
+//                     return res.status(201).json({ msg: 'can not increase more' });
+//                 } else {
+//                     const Updated_Cart = await Cart.findOneAndUpdate({ user: req.user._id, 'items.product_Id': req.body.product_Id }, {
+//                         $inc: { 'items.$.quentity': 1, 'items.$.totalprice': productPrice, purchaseprice: productPrice },
+//                     }, { new: true });
+//                     return res.status(201).json(Updated_Cart);
+//                 }
+//             } else {
+//                 const Updated_Cart = await Cart.findOneAndUpdate({ user: req.user._id }, {
+//                     $inc: { numofitems: 1, purchaseprice: productPrice },
+//                     $push: {
+//                         items: { product_Id: req.body.product_Id, quentity: 1, totalprice: productPrice }
+//                     },
+//                 }, { new: true });
+//                 return res.status(201).json(Updated_Cart);
+//             }
+//         }
+//     } catch (error) {
+//         return res.status(500).json({ msg: error.message });
 //     }
 // };

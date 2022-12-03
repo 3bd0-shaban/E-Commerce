@@ -1,6 +1,7 @@
 import Products from "../Models/Products.js";
 import cloudinary from "../Utils/cloudinary.js";
 import Features from './../Utils/Features.js';
+import Cart from './../Models/Cart.js';
 export const UploadProduct = async (req, res) => {
     try {
 
@@ -46,12 +47,10 @@ export const UploadProduct = async (req, res) => {
                     msg: 'Product uploaded successfully', Uploaded_Product
                 });
             }).catch(error => {
-                console.log(error)
 
                 return res.status(500).json({ msg: error.message })
             })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ msg: error.message })
     }
 }
@@ -69,7 +68,7 @@ export const UploadProduct = async (req, res) => {
 // }
 export const Fetch_Products = async (req, res) => {
     try {
-        const Product = await Products.find().populate('category','category subcategory');
+        const Product = await Products.find().populate('category', 'category subcategory');
         return res.status(200).json(Product);
     } catch (error) {
         return res.status(500).json({ msg: error.message })
@@ -109,10 +108,16 @@ export const Update_Product = async (req, res) => {
 export const Delete_Product = async (req, res) => {
     try {
         const Product = await Products.findById(req.params.id);
+        const productincart = await Cart.find({ 'items.product_Id': Product });
         if (!Product) {
             return res.status(400).json({ msg: 'Product Not Founded with this Id' });
         } else {
-            await Products.deleteOne({ _id: req.params.id });
+            // await Products.deleteOne({ _id: req.params.id });
+            await Cart.findOneAndUpdate({'items.product_Id': Product }, {
+                $pull: {
+                    items :{ product_Id: Product }
+                }
+            }, { new: true })
             return res.status(200).json({ msg: 'Product deleted successfully' });
         }
     } catch (error) {

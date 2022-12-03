@@ -35,14 +35,13 @@ const CartSlice = createSlice({
         FetchCart_Success(state, action) {
             state.cart = action.payload;
             state.loading = false;
-            state.success = action.payload.msg;
             state.error = false
         },
         FetchCart_Fails(state, action) {
             state.cart = [];
             state.loading = false;
             state.success = false;
-            state.error = action.payload.msg
+            state.error = action.payload
         },
         DeleteCart_Request(state) {
             state.loading = true;

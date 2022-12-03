@@ -22,7 +22,6 @@ export const Add_New_Brand = async (req, res) => {
                 return res.status(500).json({ msg: error.message })
             })
     } catch (error) {
-        console.log(error)
         return res.status(500).json({ msg: error.message })
     }
 }

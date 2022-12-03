@@ -22,7 +22,6 @@ export const SetNewAddress = async (req, res) => {
             return res.status(201).json({ msg: 'added', updated_address });
         }
     } catch (error) {
-        console.log(error)
         res.status(500).json({ msg: error.message });
     }
 }

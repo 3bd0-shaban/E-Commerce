@@ -4,11 +4,11 @@ import { Link } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { Sidebar, DashHeeder } from '../../Exports';
 import { Danger } from '../../../Components/Alerts';
-import { RiMoreFill } from 'react-icons/ri'
 import { Helmet } from 'react-helmet-async';
 import { FetchAllUsers } from './../../../Redux/Actions/AuthAction';
 import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
 import UserInfo from './../Layouts/Sub_Layouts/UserInfo';
+import moment from 'moment';
 const Dashboard = () => {
     const [id, setId] = useState('');
     const { AllUsers, loading, error } = useSelector((state) => state.allusers);
@@ -16,16 +16,16 @@ const Dashboard = () => {
     useEffect(() => {
         dispatch(FetchAllUsers());
     }, [dispatch]);
-    const Delete_User = async () => {
-        dispatch(Delete_User(id));
-    };
+    // const Delete_User = async () => {
+    //     dispatch(Delete_User(id));
+    // };
     return (
         <>
             <Helmet>
                 <title>All Users - Dashboard</title>
             </Helmet>
             <DashHeeder />
-            {<UserInfo id={id}/>}
+            {<UserInfo id={id} />}
             <div className='flex'>
                 <Sidebar />
                 <div className='container lg:ml-80 mt-24'>
@@ -48,44 +48,37 @@ const Dashboard = () => {
                         </form>
                     </div>
                     <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
+                        {loading ? <p className='mx-auto text-5xl font-Alegreya flex items-center'>Loading</p>
+                            : error &&
+                            <Danger error={error} className={'container max-w-7xl mx-auto my-5 w-[50vw]'} />
+                        }
                         <table className="w-full text-sm text-left text-gray-500 mt-5">
                             <thead className="text-xs text-gray-700 uppercase border-b-2 py-3">
                                 <tr>
-                                    <th scope="col" className="py-3 w-2"></th>
                                     <th scope="col" className="py-3 px-6 w-[30%] ">user Name</th>
-                                    <th scope="col" className="py-3 px-6">Is Admin</th>
-                                    <th scope="col" className="py-3 px-6">Amoungt</th>
-                                    <th scope="col" className="py-3 px-6">Date</th>
-                                    <th scope="col" className="py-3 px-6"></th>
+                                    <th scope="col" className="py-3 px-6">Email</th>
+                                    <th scope="col" className="py-3 px-6">Admin</th>
+                                    <th scope="col" className="py-3 px-6">Goined At</th>
                                 </tr>
                             </thead>
                             <tbody onClick={() => dispatch(FeaturesAction.Show_sideUserInfo())} >
-                                {loading ? <p className='mx-auto text-5xl font-Alegreya flex items-center'>Loading</p>
-                                    : error ?
-                                        <Danger error={error} className={'container max-w-7xl mx-auto my-5 w-[50vw]'} /> :
-                                        AllUsers.map(user =>
-                                            <tr onClick={() => setId(user._id)} className="bg-white border-b hover:bg-gray-50" key={user._id} >
-                                                <td className="py-4 px-6">
-                                                    <div className="flex items-center">
-                                                        <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500" />
-                                                        <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
-                                                    </div>
-                                                </td>
-                                                <td className="flex items-center py-4 ">
-                                                    <img className="w-10 h-10 rounded-full" src={user.image} alt="" />
-                                                    <div className="pl-3">
-                                                        <div className="text-base font-semibold  overflow-x-hidden">{user.username}</div>
-                                                        <div className="font-normal text-gray-500">{user.email}$</div>
-                                                    </div>
-                                                </td>
-                                                <td className="py-4 px-6 w-[20%]">{user.isAdmin}</td>
-                                                <td className="py-4 px-6">{user.isAdmin}</td>
-                                                <td className="py-4 px-6">{user.createdAt}</td>
-                                                <td className="py-4 px-6 flex items-center">
-                                                    <Link onClick={Delete_User} className="font-medium text-blue-600 text-3xl hover:underline mr-3"><RiMoreFill /></Link>
-                                                </td>
-                                            </tr>
-                                        )}
+                                {AllUsers?.map(user => (
+                                    <tr onClick={() => setId(user._id)} className="bg-white border-b hover:bg-gray-50 cursor-pointer" key={user._id} >
+                                        <td className="flex items-center py-4 ">
+                                            <div className="w-14 h-14 bg-red-400 text-white flex gap-1 items-center justify-center text-2xl font-serif font-bold mx-2 rounded-full">{user.firstname.charAt(0)}
+                                                <span> {user.lastname.charAt(0)}</span>
+                                            </div>
+                                            <div className="pl-3">
+                                                <div className="text-base font-semibold  overflow-x-hidden">{user.firstname}<span> {user.lastname}</span></div>
+                                                <div className="font-normal text-gray-500">{user.email}</div>
+                                            </div>
+                                        </td>
+                                        <td className="py-4 px-6 w-[20%]">{user.email}</td>
+                                        {user.isAdmin ? <td className="py-4 px-6 w-[20%]">Admin</td> :
+                                            <td className="py-4 px-6 w-[20%]">Customer</td>}
+                                        <td className="py-4 px-6">{moment(user.createdAt).format('Do MMMM YYYY')}</td>
+                                    </tr>
+                                ))}
                             </tbody>
                         </table>
                     </div>

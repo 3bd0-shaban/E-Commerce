@@ -22,7 +22,6 @@ const Addbanner = () => {
         e.preventDefault();
         dispatch(Upload_Banner(setImage, image));
     }
-    console.log(image)
     return (
         <>
             <Helmet>

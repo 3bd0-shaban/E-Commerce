@@ -19,7 +19,7 @@ export const AddtoCart = async (event) => {
             credentials: "include"
         };
         dispatch(CartActions.Addtocart_Request());
-        const res = await axios.post('http://localhost:5000/api/cart/new', { userID }, config);
+        const res = await axios.post('/api/cart/new', { userID }, config);
         dispatch(CartActions.Addtocart_Success(res.data));
     } catch (error) {
         dispatch(CartActions.Addtocart_Fails(getError(error)));
