@@ -4,8 +4,7 @@ import Features from './../Utils/Features.js';
 import Cart from './../Models/Cart.js';
 export const UploadProduct = async (req, res) => {
     try {
-
-        const { name, price, stock, des, brand, category, specifications, subcategory } = req.body
+        const { name, price, stock, des, brand, category, title, desOfSpics, subcategory } = req.body
         let images = [...req.body.images];
         if (typeof req.body.images === "string") {
             images.push(req.body.images);
@@ -14,7 +13,10 @@ export const UploadProduct = async (req, res) => {
         }
         const imagesLink = [];
         if (!name || !price || !stock || !des || !brand || !category || !subcategory) {
-            return res.status(400).json({ msg: 'Theses field are required\r\n Product Name\r\n Price\r\n' });
+            return res.status(400).json({ msg: 'Theses field with * are requiured to process your action' });
+        }
+        if (name > 50) {
+            return res.status(400).json({ msg: 'Name can not more than 50 characters' });
         }
         if (images.length == 0) {
             return res.status(400).json({ msg: 'No Images founded Please upload one image at least' });
@@ -35,12 +37,6 @@ export const UploadProduct = async (req, res) => {
             });
         };
         req.body.images = imagesLink;
-        // let specs = [];
-        // req.body.specifications.forEach((s) => {
-        //     specs.push(JSON.parse(s))
-        // });
-        // req.body.specifications = specs;
-
         await Products.create(req.body)
             .then(Uploaded_Product => {
                 return res.status(200).json({
@@ -113,9 +109,9 @@ export const Delete_Product = async (req, res) => {
             return res.status(400).json({ msg: 'Product Not Founded with this Id' });
         } else {
             // await Products.deleteOne({ _id: req.params.id });
-            await Cart.findOneAndUpdate({'items.product_Id': Product }, {
+            await Cart.findOneAndUpdate({ 'items.product_Id': Product }, {
                 $pull: {
-                    items :{ product_Id: Product }
+                    items: { product_Id: Product }
                 }
             }, { new: true })
             return res.status(200).json({ msg: 'Product deleted successfully' });

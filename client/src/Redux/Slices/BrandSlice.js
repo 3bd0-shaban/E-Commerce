@@ -6,66 +6,72 @@ const BrandSlice = createSlice({
         Brand: [],
         UploadBrand: [],
         BrandDetails: {},
-        laoding: false,
+        loading: false,
         success: null,
         error: null
     },
     reducers: {
         Upload_New_Brand_Request(state) {
             state.UploadBrand = [];
-            state.laoding = true;
+            state.loading = true;
             state.error = null
         },
         Upload_New_Brand_Success(state, action) {
             state.UploadBrand = action.payload;
-            state.laoding = false;
+            state.loading = false;
             state.success = 'Brand added successfully';
             state.error = null
         },
         Upload_New_Brand_Fails(state, action) {
             state.UploadBrand = [];
-            state.laoding = false;
+            state.loading = false;
+            state.success = null;
             state.error = action.payload
         },
         Fetch_Brand_Request(state) {
             state.Brand = [];
-            state.laoding = true;
+            state.loading = true;
             state.error = null
         },
         Fetch_Brand_Success(state, action) {
             state.Brand = action.payload;
-            state.laoding = false;
+            state.loading = false;
+            state.success = null;
             state.error = null
         },
         Fetch_Brand_Fails(state, action) {
             state.Brand = [];
-            state.laoding = false;
+            state.loading = false;
+            state.success = null;
             state.error = action.payload
         },
         Fetch_BrandDetails_Request(state) {
             state.BrandDetails = {};
-            state.laoding = true;
+            state.loading = true;
             state.error = null
         },
         Fetch_BrandDetails_Success(state, action) {
             state.BrandDetails = action.payload;
-            state.laoding = false;
+            state.loading = false;
             state.error = null
         },
         Fetch_BrandDetails_Fails(state, action) {
-            state.laoding = false;
+            state.loading = false;
+            state.success = null;
             state.error = action.payload
         },
         Delete_Brand_Request(state) {
-            state.laoding = true;
+            state.loading = true;
             state.error = null
         },
         Delete_Brand_Success(state, action) {
-            state.laoding = false;
-            state.error = null
+            state.loading = false;
+            state.error = null;
+            state.success = action.payload.msg;
         },
         Delete_Brand_Fails(state, action) {
-            state.laoding = false;
+            state.loading = false;
+            state.success = null;
             state.error = action.payload
         },
     }

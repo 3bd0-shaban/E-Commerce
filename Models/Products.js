@@ -2,6 +2,8 @@ import mongoose from "mongoose";
 const ProductSchema = new mongoose.Schema({
     name: {
         type: String,
+        min: 3,
+        max: 50,
         required: [true, 'Product name is Required'],
     },
     des: {
@@ -25,11 +27,12 @@ const ProductSchema = new mongoose.Schema({
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,
-        ref:'Category',
+        ref: 'Category',
         required: [true, 'Category is Required'],
     },
     subcategory: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
         required: [true, 'Sub Category is Required'],
     },
     stock: {
@@ -38,7 +41,8 @@ const ProductSchema = new mongoose.Schema({
         required: [true, 'Number of products in stock is Required'],
     },
     brand: {
-        type: String,
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Category',
         required: [true, 'brand is Required'],
     },
     numofview: {
@@ -67,7 +71,7 @@ const ProductSchema = new mongoose.Schema({
                 type: String,
                 required: true
             },
-            description: {
+            desOfSpics: {
                 type: String,
                 required: true
             }

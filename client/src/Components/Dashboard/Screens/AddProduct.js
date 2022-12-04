@@ -1,8 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { DashHeeder, Sidebar, Category } from '../../Exports'
-import { HiOutlineCloudUpload } from 'react-icons/hi'
-import { BsTrash } from 'react-icons/bs'
+import { DashHeeder, Sidebar, Category, TodoList, PreviewImege, AddImage } from '../../Exports'
 import { Helmet } from 'react-helmet-async';
 import { Success, Danger } from './../../Alerts';
 import { Upload_Product } from './../../../Redux/Actions/ProductsAction';
@@ -33,24 +31,7 @@ const AddProduct = () => {
         const { name, des, stock, price, brand, category, subcategory } = inputs
         dispatch(Upload_Product(images, name, des, stock, price, brand, category, subcategory, setImages, setInputs));
     }
-    const PreviewImeges = (props) => {
-        return (
-            <div className='mb-4'>
-                <div className='border rounded-md  py-3 mt-5 w-full flex justify-between'>
-                    <div className='flex items-center'>
-                        <img className='h-12 w-12 object-cover mx-3' src={props.img} alt='' />
-                        <div>
-                            <p>product name</p>
-                            <p className='text-xs'>product name</p>
-                        </div>
-                    </div>
-                    <button className='mr-2 text-3xl flex items-center' onClick={props.onClick} key={props.mykey}>
-                        <BsTrash />
-                    </button>
-                </div>
-            </div>
-        )
-    }
+
     return (
         <>
             <Helmet>
@@ -62,24 +43,15 @@ const AddProduct = () => {
                 <div className='container px-1 lg:ml-80 mt-24'>
                     {error && <Danger error={error} className={'container'} />}
                     {success && <Success error={success} className={'container'} />}
-                    <div className=' container px-0 max-w-8xl'>
+                    <div className=' container px-0 max-w-8xl '>
                         <p className='text-4xl font-bold font-Roboto ml-8 text-gray-600 py-5'>Add New Product</p>
                         <form onSubmit={handleSubmit} className='px-6 rounded-xl py-8 h-full border lg:border-none'>
                             <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
                                 <div className='rounded-lg lg:border lg:px-10'>
                                     <p className='my-4 font-serif text-lg'>Add Images</p>
-                                    <div className="flex justify-center items-center w-full">
-                                        <label className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border border-slate-400 border-dashed cursor-pointer">
-                                            <div className="flex flex-col justify-center items-center pt-5 pb-6">
-                                                <HiOutlineCloudUpload style={{ fontSize: '3.5rem', color: 'rgb(156 163 175)' }} />
-                                                <p className="mb-2 text-sm text-gray-500 dark:text-gray-400"><span className="font-semibold">Click to upload</span> or drag and drop</p>
-                                                <p className="text-xs text-gray-500 dark:text-gray-400">SVG, PNG, JPG or GIF (MAX. 800x400px)</p>
-                                            </div>
-                                            <input onChange={loadFile} name='image' accept='image/*' id="dropzone-file" multiple type="file" className="hidden" />
-                                        </label>
-                                    </div>
+                                    <AddImage onChange={loadFile} IsMultiple={true} />
                                     {images && images.map((image, index) => (
-                                        <PreviewImeges img={image} mykey={index} onClick={() => setImages(images.filter((e) => e !== image))} />
+                                        <PreviewImege img={image} mykey={index} onClick={() => setImages(images.filter((e) => e !== image))} />
                                     ))}
                                 </div>
                                 <div className='lg:border rounded-lg lg:px-10'>
@@ -108,6 +80,8 @@ const AddProduct = () => {
                                 </div>
                             </div>
                         </form>
+                        <TodoList />
+
                     </div>
                 </div>
             </div>

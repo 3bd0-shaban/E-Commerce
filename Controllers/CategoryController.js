@@ -15,7 +15,7 @@ export const Upload_Category = async (req, res) => {
             folder: "E-Commerce/Category",
         });
         new Category({
-            category,
+            category,des,
             subcategory: {
                 nameOfSub
             },
