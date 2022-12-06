@@ -1,11 +1,12 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux';
-import { Fetch_Product_Details } from '../../../../Redux/Actions/ProductsAction';
+import { useGetProductsDetailsQuery } from '../../../../Redux/APIs/ProductsApi';
 import { FeaturesAction } from '../../../../Redux/Slices/FeaturesSlice';
 import { HiOutlineCloudUpload } from 'react-icons/hi';
 const ProductsInfo = (props) => {
-    const { productDetails } = useSelector((state) => state.products);
-    const { sideProductInfo } = useSelector(state => state.Features)
+    const id = props.id
+    const { sideProductInfo } = useSelector(state => state.Features);
+    const { data: productDetails } = useGetProductsDetailsQuery(id);
     const dispatch = useDispatch();// eslint-disable-next-line
     const [image, setImage] = useState([]);
     const loadFile = (e) => {
@@ -17,9 +18,6 @@ const ProductsInfo = (props) => {
             }
         }
     }
-    useEffect(() => {
-        dispatch(Fetch_Product_Details(props.id));
-    }, [dispatch, props.id]);
     return (
         sideProductInfo &&
         <>

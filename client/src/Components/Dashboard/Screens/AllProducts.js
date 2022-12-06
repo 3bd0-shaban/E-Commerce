@@ -1,19 +1,17 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Danger } from '../../Alerts';
 import { Sidebar, DashHeeder, ShowRating, ProductsInfo } from '../../Exports';
 import { Helmet } from 'react-helmet-async';
-import { Get_AllProducts } from './../../../Redux/Actions/ProductsAction';
+import { useGetProductsQuery } from '../../../Redux/APIs/ProductsApi';
 import moment from 'moment';
 import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
 const AllProducts = () => {
     const dispatch = useDispatch();
     const [id, setId] = useState('');
-    const { loading, error, products } = useSelector((state) => state.products);
-    useEffect(() => {
-        dispatch(Get_AllProducts());
-    }, [dispatch]);
+    const { data: products, isLoading: loading, error } = useGetProductsQuery();
+
     return (
         <>
             <Helmet>
@@ -51,23 +49,24 @@ const AllProducts = () => {
                             </thead>
                             <tbody onClick={() => dispatch(FeaturesAction.Show_sideProductInfo())}>
 
-                                {products.map(product =>
-                                    <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer" onClick={() => setId(product._id)} key={product._id}>
-                                        <td className="flex items-center py-4 ml-4">
-                                            <img className="w-14 h-14 rounded-full" src={product.images ? product.images[0].url : 'error'} alt="" />
-                                            <div className="pl-3">
-                                                <div className="text-base font-semibold  overflow-x-hidden">{product.name}</div>
-                                                <div className="font-normal text-gray-500">{product.price}$</div>
-                                            </div>
-                                        </td>
-                                        <td className="py-4 px-6"><ShowRating Rating={product.rating} /></td>
-                                        <td className="py-4 px-6">{product.stock}</td>
-                                        <td className="py-4 px-6">{product.numofreviews}</td>
-                                        <td className="py-4 px-6">{product.numofreviews}</td>
-                                        <td className="py-4 px-6">{product.brand}</td>
-                                        <td className="py-4 px-6">{moment(product.createdAt).format("Do MMMM YYYY")}</td>
-                                    </tr>
-                                )}
+                                {products &&
+                                    products?.map(product =>
+                                        <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer" onClick={() => setId(product._id)} key={product._id}>
+                                            <td className="flex items-center py-4 ml-4">
+                                                <img className="w-14 h-14 rounded-full" src={product.images ? product.images[0].url : 'error'} alt="" />
+                                                <div className="pl-3">
+                                                    <div className="text-base font-semibold  overflow-x-hidden">{product.name}</div>
+                                                    <div className="font-normal text-gray-500">{product.price}$</div>
+                                                </div>
+                                            </td>
+                                            <td className="py-4 px-6"><ShowRating Rating={product.rating} /></td>
+                                            <td className="py-4 px-6">{product.stock}</td>
+                                            <td className="py-4 px-6">{product.numofreviews}</td>
+                                            <td className="py-4 px-6">{product.numofreviews}</td>
+                                            <td className="py-4 px-6">{product.brand}</td>
+                                            <td className="py-4 px-6">{moment(product.createdAt).format("Do MMMM YYYY")}</td>
+                                        </tr>
+                                    )}
                             </tbody>
                         </table>
                     </div>

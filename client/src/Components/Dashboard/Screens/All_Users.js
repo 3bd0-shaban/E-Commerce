@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { Sidebar, DashHeeder } from '../../Exports';
 import { Danger } from '../../../Components/Alerts';
 import { Helmet } from 'react-helmet-async';
-import { FetchAllUsers } from './../../../Redux/Actions/AuthAction';
+import { FetchAllUsers } from './../../../Redux/APIs/AuthAction';
 import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
 import UserInfo from './../Layouts/Sub_Layouts/UserInfo';
 import moment from 'moment';

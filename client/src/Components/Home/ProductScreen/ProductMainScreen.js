@@ -1,25 +1,27 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Danger } from '../../Alerts';
 import { Rating } from '../../Exports'
 import { Link, useParams } from 'react-router-dom'
-import { Add_to_cart } from '../../../Redux/Actions/CartAction';
-import { useSelector, useDispatch } from 'react-redux'
-import { Fetch_Product_Details } from '../../../Redux/Actions/ProductsAction';
+import { Add_to_cart } from '../../../Redux/APIs/CartAction';
+import { useDispatch } from 'react-redux'
+import { useGetProductsDetailsQuery } from '../../../Redux/APIs/ProductsApi';
 import { HiOutlineTruck } from 'react-icons/hi'
 import { CiHeart } from 'react-icons/ci'
-import { Add_to_Whitelist } from './../../../Redux/Actions/WhiteListAction';
-
+import { useAddToWhitelistMutation } from '../../../Redux/APIs/WhiteListApi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const ProductMainScreen = () => {
-    const { loading, error, productDetails } = useSelector((state) => state.products);
-    // const { user } = useSelector((state) => state.auth)
     const dispatch = useDispatch();
     const params = useParams();
     const { id } = params;
+    const { data: productDetails, isLoading: loading, error } = useGetProductsDetailsQuery(id) || {};
+    const [addToWhitelist] = useAddToWhitelistMutation()
 
-    useEffect(() => {
-        dispatch(Fetch_Product_Details(id))
-    }, [dispatch, id]);
-
+    const HandleToWhiteList = async () => {
+        addToWhitelist(id).unwrap()
+            .then((payload) => toast.success(payload.msg))
+            .catch((error) => toast.error(error.data.msg));
+    }
     const AddtoCart = async () => {
         const product_Id = id
         dispatch(Add_to_cart(product_Id));
@@ -31,12 +33,14 @@ const ProductMainScreen = () => {
                 <p className='mx-auto mt-20 text-3xl font-serif font-semibold'>Loading ....</p>
                 : error ? <Danger error={'No Product Founded'} className={'mx-auto mt-20 text-7xl font-serif font-semibold bg-red-200 py-3 px-5'} /> : productDetails._id &&
                     <>
+                        <ToastContainer position="bottom-center" closeOnClick autoClose={1200} hideProgressBar={true} limit={1} />
                         <div className='grid grid-cols-1 md:grid-cols-5 h-[45rem]'>
                             <div className='col-span-2 flex'>
                                 <div className='w-[25%]'>
-                                    {productDetails.images?.map((img) => (
-                                        <img src={img.url} key={img._id} className='border w-[80%] object-cover' alt='' />
-                                    ))}
+                                    {productDetails &&
+                                        productDetails.images?.map((img) => (
+                                            <img src={img.url} key={img._id} className='border w-[80%] object-cover' alt='' />
+                                        ))}
                                 </div>
                                 <div className='flex justify-center'>
                                     <img src={productDetails.images ? productDetails.images[0].url : 'Can not load images'} className='object-cover h-[35rem] w-full mx-auto' alt='' />
@@ -45,7 +49,7 @@ const ProductMainScreen = () => {
                             <div className='col-span-2 px-10'>
                                 <div className='flex justify-center items-center'>
                                     <p className='text-xl font-semibold py-3 '>{productDetails.name}</p>
-                                    <Link onClick={() => { const id = productDetails._id; dispatch(Add_to_Whitelist(id)); }} className='fill-black'><CiHeart style={{ fontSize: "2.5rem" }} /></Link>
+                                    <Link onClick={HandleToWhiteList} className='fill-black'><CiHeart style={{ fontSize: "2.5rem" }} /></Link>
                                 </div>
                                 <hr />
                                 <div className='my-5'>

@@ -1,16 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Header } from '../../Exports';
-import { useDispatch, useSelector } from 'react-redux';
-import { Fetch_Products_In_WhiteList, Delete_Specific_Item_In_WhiteList } from '../../../Redux/Actions/WhiteListAction';
+import { useDeleteProductInWhitelistMutation, useGetWhitelistQuery } from '../../../Redux/APIs/WhiteListApi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const WhiteList = () => {
-    const dispatch = useDispatch();
-    const { Products, loading } = useSelector((state) => state.WhiteList);
-    useEffect(() => {
-        dispatch(Fetch_Products_In_WhiteList())
-    }, [dispatch])
+    const [id, setId] = useState('');
+    console.log(id)
+    const { data: Products, isLoading: loading } = useGetWhitelistQuery() || {};
+    const [deleteProductInWhitelist] = useDeleteProductInWhitelistMutation();
+    const HandleDelete = () => {
+        deleteProductInWhitelist(id).unwrap()
+            .then((payload) => toast.success(payload.msg))
+            .catch((error) => toast.error(error.data.msg));
+    }
     return (
         <div>
             <Header />
+            <ToastContainer position="bottom-center" closeOnClick autoClose={1200} hideProgressBar={true} limit={1} />
             <div className='col-span-2 bg-[#F6F8F9]'>
                 <div className='container max-w-6xl'>
                     <div className=''>
@@ -20,29 +26,26 @@ const WhiteList = () => {
                     </div>
                     <div>
                         {loading ? <p className='text-3xl font-bold flex justify-center items-center'>loading</p> :
-                            Products.whiteList?.map((child) => (
-                                <div>
-                                    <div key={child._id._id} className='bg-white shadow rounded-xl relative py-2 my-5'>
-                                        <div className='flex'>
-                                            <img className='h-52 m-2 object-cover' src={child._id.images[0].url} alt=''></img>
-                                            <div className=''>
-                                                <p className='py-3 text-lg'>{child._id.Name}</p>
-                                                <div className='absolute bottom-0 mb-10'>
-                                                    <div className='flex items-center gap-3 py-4'>
-                                                        <label>Select Quentity</label>
-                                                    </div>
-                                                    <div className='flex gap-3'>
-                                                        <button onClick={() =>{ const productId = child._id._id; dispatch(Delete_Specific_Item_In_WhiteList(productId))} } className='text-teal-800 font-semibold'>Remove</button>
-                                                        <div className='flex items-center gap-1 text-orange-800 '>
-                                                            <button className='font-semibold'>Add to white list</button>
-                                                        </div>
+                            Products?.whiteList?.map((child,index) => (
+                                <div key={index} className='bg-white shadow rounded-xl relative py-2 my-5'>
+                                    <div className='flex'>
+                                        <img className='h-52 m-2 object-cover' src={child._id.images[0].url} alt=''></img>
+                                        <div className=''>
+                                            <p className='py-3 text-lg'>{child._id.Name}</p>
+                                            <div className='absolute bottom-0 mb-10'>
+                                                <div className='flex items-center gap-3 py-4'>
+                                                    <label>Select Quentity</label>
+                                                </div>
+                                                <div className='flex gap-3'>
+                                                    <button onClick={() => { setId(child._id._id); HandleDelete() }} className='text-teal-800 font-semibold'>Remove</button>
+                                                    <div className='flex items-center gap-1 text-orange-800 '>
+                                                        <button className='font-semibold'>Add to white list</button>
                                                     </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
-
                             ))
                         }
                     </div>

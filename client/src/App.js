@@ -6,7 +6,7 @@ import {
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios'
-import { Fetch_Logged_User } from './Redux/Actions/AuthAction';
+import { Fetch_Logged_User } from './Redux/APIs/AuthAction';
 axios.defaults.withCredentials = true;
 function App() {
   const dispatch = useDispatch();

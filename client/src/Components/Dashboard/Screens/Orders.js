@@ -1,17 +1,12 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import { Sidebar, DashHeeder } from '../../Exports';
 import { RiMoreFill } from 'react-icons/ri'
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
 import { Danger } from '../../Alerts';
 import { Helmet } from 'react-helmet-async';
-import { Get_AllProducts } from './../../../Redux/Actions/ProductsAction';
+import { useGetProductsQuery } from '../../../Redux/APIs/ProductsApi';
 const Orders = () => {
-    const dispatch = useDispatch();
-    const { loading, error, products } = useSelector((state) => state.products);
-    useEffect(() => {
-        dispatch(Get_AllProducts());
-    }, [dispatch]);
+    const { data: products, isLoading: loading, error } = useGetProductsQuery();
     return (
         <>
             <Helmet>
@@ -46,29 +41,30 @@ const Orders = () => {
                                 </tr>
                             </thead>
                             <tbody>
-                                {products?.map(product =>
-                                    <tr className="bg-white border-b hover:bg-gray-50" key={product._id}>
-                                        <td className="py-4 px-6">
-                                            <div className="flex items-center">
-                                                <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500" />
-                                                <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
-                                            </div>
-                                        </td>
-                                        <td className="flex items-center py-4 ">
-                                            <img className="w-10 h-10 rounded-full" src={product.images ? product.images[0].url : 'error'} alt="" />
-                                            <div className="pl-3">
-                                                <div className="text-base font-semibold  overflow-x-hidden">{product.name}</div>
-                                                <div className="font-normal text-gray-500">{product.price}$</div>
-                                            </div>
-                                        </td>
-                                        <td className="py-4 px-6 w-[20%]">{product.price}</td>
-                                        <td className="py-4 px-6">{product.stock}</td>
-                                        <td className="py-4 px-6">{product.createdAt}</td>
-                                        <td className="py-4 px-6 flex items-center">
-                                            <Link to="" className="font-medium text-blue-600 text-3xl hover:underline mr-3"><RiMoreFill /></Link>
-                                        </td>
-                                    </tr>
-                                )}
+                                {products &&
+                                    products?.map(product =>
+                                        <tr className="bg-white border-b hover:bg-gray-50" key={product._id}>
+                                            <td className="py-4 px-6">
+                                                <div className="flex items-center">
+                                                    <input id="checkbox-table-search-1" type="checkbox" className="w-4 h-4 text-blue-600 bg-gray-100 rounded border-gray-300 focus:ring-blue-500" />
+                                                    <label htmlFor="checkbox-table-search-1" className="sr-only">checkbox</label>
+                                                </div>
+                                            </td>
+                                            <td className="flex items-center py-4 ">
+                                                <img className="w-10 h-10 rounded-full" src={product.images ? product.images[0].url : 'error'} alt="" />
+                                                <div className="pl-3">
+                                                    <div className="text-base font-semibold  overflow-x-hidden">{product.name}</div>
+                                                    <div className="font-normal text-gray-500">{product.price}$</div>
+                                                </div>
+                                            </td>
+                                            <td className="py-4 px-6 w-[20%]">{product.price}</td>
+                                            <td className="py-4 px-6">{product.stock}</td>
+                                            <td className="py-4 px-6">{product.createdAt}</td>
+                                            <td className="py-4 px-6 flex items-center">
+                                                <Link to="" className="font-medium text-blue-600 text-3xl hover:underline mr-3"><RiMoreFill /></Link>
+                                            </td>
+                                        </tr>
+                                    )}
                             </tbody>
                         </table>
                     </div>

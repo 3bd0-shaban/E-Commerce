@@ -26,7 +26,7 @@ export const Upload_Category = async (req, res) => {
         })
             .save()
             .then((Uploaded_Category) => {
-                return res.json(Uploaded_Category);
+                return res.json({ msg: 'Category added successfully', Uploaded_Category });
             }).catch(error => {
                 return res.status(500).json({ msg: error.message })
             })
@@ -66,6 +66,7 @@ export const Update_Category = async (req, res) => {
         if (CheckCategory) {
             return res.status(400).json({ msg: 'Category aleardy exists' });
         };
+        if (category == '' || nameOfSub == '' || des == '') return res.status(400).json({ msg: 'Fields can not be empty' });
         if (file) {
             await cloudinary.uploader.destroy(isCategory.image.public_id);
             const result = await cloudinary.uploader.upload(file, {

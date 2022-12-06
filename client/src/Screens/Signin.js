@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { SignIn } from '../Redux/Actions/AuthAction';
+import { SignIn } from '../Redux/APIs/AuthAction';
 const Signin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -22,7 +22,7 @@ const Signin = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     const { email, password } = inputs
-    dispatch(SignIn(email, password,navigate))
+    dispatch(SignIn(email, password, navigate))
   }
 
   return (

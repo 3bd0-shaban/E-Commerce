@@ -21,6 +21,7 @@ export const Brand_Query = createApi({
             query: (data) => ({
                 url: '/api/brand/new',
                 method: 'POST',
+                credentials: 'include',
                 body: data,
             }),
             invalidatesTags: ['Brand'],

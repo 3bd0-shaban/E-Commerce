@@ -1,15 +1,10 @@
-import axios from 'axios';
-import React, { useEffect } from 'react'
-import { Get_BannersAction } from '../../../Redux/Slices/BannersSlice';
-import { useSelector, useDispatch } from 'react-redux'
+import React from 'react'
 import { SKBanners } from '../../Exports';
-import getError from '../../utile';
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
+import { useGetBannerQuery } from '../../../Redux/APIs/BannerApi';
 const Banners = () => {
-    const dispatch = useDispatch();
-
     const settings = {
         dots: true,
         autoplay: true,
@@ -41,21 +36,7 @@ const Banners = () => {
             }
         ]
     };
-    const { loading, Banners } = useSelector((state) => state.Banners);
-    useEffect(() => {
-        const Fetch_Banners = async () => {
-            dispatch(Get_BannersAction.Fetch_Banners_Request());
-            try {
-                const result = await axios.get('/api/banner/get_banners');
-                dispatch(Get_BannersAction.Fetch_Banners_Success(result.data));
-            }
-            catch (error) {
-                dispatch(Get_BannersAction.Fetch_Banners_Fails(getError(error)));
-            }
-        };
-        Fetch_Banners()
-    }, [dispatch]);
-
+    const { data: Banners, isLoading: loading } = useGetBannerQuery()
     return (
 
         loading ?

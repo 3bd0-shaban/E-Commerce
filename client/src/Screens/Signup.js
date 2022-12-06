@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { SignUp } from '../Redux/Actions/AuthAction';
+import { SignUp } from '../Redux/APIs/AuthAction';
 const Signup = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();

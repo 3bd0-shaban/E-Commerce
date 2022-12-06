@@ -1,11 +1,10 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { ImSpinner7 } from 'react-icons/im'
-import { useGetBrandQuery, useCreateBrandMutation } from '../../../Redux/Actions/BrandApi';
+import { useGetBrandQuery, useCreateBrandMutation } from '../../../Redux/APIs/BrandApi';
 import { Success, Danger } from './../../Alerts';
 import { FeaturesAction } from '../../../Redux/Slices/FeaturesSlice';
 import BrandInfo from './Sub_Layouts/BrandInfo';
-import getError from './../../utile';
 import AddImage from './Sub_Layouts/AddImage';
 const AddBrand = () => {
   const [id, setId] = useState('');
@@ -30,7 +29,7 @@ const AddBrand = () => {
   };
   const { data, isFetching, isError: error } = useGetBrandQuery();
 
-  const [createBrand, { result, isLoading, isSuccess, isError }] = useCreateBrandMutation();
+  const [createBrand, { isLoading, isSuccess }] = useCreateBrandMutation();
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!inputs || !image) return {};
@@ -48,9 +47,8 @@ const AddBrand = () => {
   }
   return (
     <>
-      {isError && <Danger error={getError(data)} className={'container my-5'} />}
-      {error && <Danger error={result} className={'container my-5'} />}
-      {isSuccess && <Success error={'success'} className={'container my-5'} />}
+      {error && <Danger error={error.data.msg} className={'container my-5'} />}
+      {isSuccess && <Success error={'Brand Added Successfully'} className={'container my-5'} />}
       {<BrandInfo id={id} />}
       <div className='container px-0 max-w-8xl mt-10'>
         <div className='grid grid-cols-1 lg:grid-cols-3 lg:gap-8'>
@@ -67,13 +65,13 @@ const AddBrand = () => {
 
               {image && <PreviewImeges img={image} onClick={() => setImage()} />}
               <button type='submit' className='btn-success' disabled={isLoading}>
-                {isLoading ? <span className={isLoading && 'flex items-center justify-center text-2xl py-1 animate-spin'}><ImSpinner7 /> </span> : 'Submit'}</button>
+                {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Submit'}</button>
             </form>
 
           </div>
           <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5 col-span-2">
             <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-5 px-5'>
-              {isFetching ? <p>Loading ........</p> :
+              {isFetching ? <p>Loading ........</p> : data &&
                 data?.map((old) => (
                   <div key={old._id} onClick={() => dispatch(FeaturesAction.Show_SideBrandInfo())}>
                     <div onClick={() => setId(old._id)} className='border shadow-sm text-center rounded-lg py-5 cursor-pointer relative'>

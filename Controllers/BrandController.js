@@ -7,7 +7,7 @@ export const Add_New_Brand = async (req, res) => {
         if (!brand || !des) return res.status(400).json({ msg: 'Please Fill all fields' });
         const CheckBrand = await Brand.findOne({ brand });
         if (CheckBrand) {
-            return res.status(400).json({ msg: 'Category aleardy exists' });
+            return res.status(400).json({ msg: 'Brand aleardy exists' });
         }
         const result = await cloudinary.uploader.upload(file, {
             folder: "E-Commerce/Brand",
@@ -74,6 +74,7 @@ export const Update_Brand = async (req, res) => {
         if (CheckBrand) {
             return res.status(400).json({ msg: 'Brand aleardy exists' });
         };
+        if (brand == '' || des == '') return res.status(400).json({ msg: 'Fields can not be empty' });
         if (file) {
             await cloudinary.uploader.destroy(isBrand.image.public_id);
             const result = await cloudinary.uploader.upload(file, {

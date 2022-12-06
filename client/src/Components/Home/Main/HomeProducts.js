@@ -1,6 +1,6 @@
-import React, { useEffect } from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
-import { useSelector, useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux'
 import { Helmet } from 'react-helmet-async';
 import { AiOutlineEye, AiOutlineHeart } from 'react-icons/ai'
 import { MdShoppingBag } from 'react-icons/md'
@@ -9,15 +9,16 @@ import { Danger } from '../../Alerts';
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
-import { Get_AllProducts } from '../../../Redux/Actions/ProductsAction'
-import { Add_to_cart } from '../../../Redux/Actions/CartAction';
-import { Add_to_Whitelist } from '../../../Redux/Actions/WhiteListAction';
+import { useGetProductsQuery } from '../../../Redux/APIs/ProductsApi'
+import { Add_to_cart } from '../../../Redux/APIs/CartAction';
+import { useAddToWhitelistMutation } from '../../../Redux/APIs/WhiteListApi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 const HomeProducts = () => {
     const dispatch = useDispatch();
-    const { loading, error, products } = useSelector((state) => state.products);
-    useEffect(() => {
-        dispatch(Get_AllProducts())
-    }, [dispatch]);
+    const [id, setId] = useState('');
+    const { data: products, isLoading: loading, error } = useGetProductsQuery() || {};
+    const [addToWhitelist] = useAddToWhitelistMutation()
     const settings = {
         infinite: true,
         speed: 500,
@@ -83,12 +84,19 @@ const HomeProducts = () => {
             }
         ]
     };
+    const HandleToWhiteList = async () => {
+        addToWhitelist(id).unwrap()
+            .then((payload) => toast.success(payload.msg))
+            .catch((error) => toast.error(error.data.msg));
+    }
+
     const ScrollableCategory = (props) => {
         return (
             <>
                 <Helmet>
                     <title>Market</title>
                 </Helmet>
+                <ToastContainer position="bottom-center" closeOnClick autoClose={1200} hideProgressBar={true} limit={1} />
                 <div className='flex justify-between mt-8'>
                     <p className='text-3xl font-Alegreya font-bold uppercase'>{props.Category}</p>
                     <Link className='text-xl font-serif font-semibold mb-3 px-3 py-2'>Browser All</Link>
@@ -115,7 +123,7 @@ const HomeProducts = () => {
                                                     <div className='-bottom-20 inset-x-0 hover:block max-h-full absolute text-white items'>
                                                         <div className='flex justify-center gap-4'>
                                                             <Link onClick={() => { const product_Id = product._id; dispatch(Add_to_cart(product_Id)); }} className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><MdShoppingBag /></Link>
-                                                            <Link onClick={() => { const id = product._id; dispatch(Add_to_Whitelist(id)); }} className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><AiOutlineHeart /></Link>
+                                                            <Link onClick={() => { setId(product._id); HandleToWhiteList() }} className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><AiOutlineHeart /></Link>
                                                         </div>
                                                         <p className='text-sm mt-3 mx-auto'>{product.rating}</p>
                                                     </div>

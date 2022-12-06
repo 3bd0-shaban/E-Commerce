@@ -74,7 +74,7 @@ export const SignIn = async (req, res) => {
                 httpOnly: true,
                 path: '/',
                 // secure: true,
-                expires: new Date(Date.now() + 1000 * 60 * 30), // 30 seconds
+                expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 30 seconds
                 sameSite: 'lax'
             })
             if (user) {
@@ -262,7 +262,7 @@ function validateEmail(email) {
     return re.test(email);
 }
 const createToken = (payload) => {
-    return Jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '30m' })
+    return Jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' })
 }
 const createAccessToken = (payload) => {
     return Jwt.sign(payload, process.env.JWT_SCCESS, { expiresIn: '15m' })

@@ -16,7 +16,7 @@ export const Add_To_WhiteList = async (req, res) => {
                 whiteList: productId
             },
         }, { new: true });
-        return res.json(whitelist);
+        return res.json({ msg: 'Product added to white list', whitelist });
     } catch (error) {
         return res.status(500).json({ msg: error.message })
     }
@@ -52,14 +52,14 @@ export const Delete_User_Product_Whitelist = async (req, res) => {
     try {
         const productId = await Products.findById(req.params.id);
         if (!productId) {
-            return res.status(201).json({ msg: 'Product not founded or may be you not eligable to add a review at this product' });
+            return res.status(201).json({ msg: 'Product not founded' });
         }
         await Users.findByIdAndUpdate(req.user._id, {
             $pull: {
                 whiteList: productId
             },
         }, { new: true });
-        return res.json('deleted successuflly');
+        return res.status(200).json({ msg: 'deleted successfully' });
     } catch (error) {
         return res.status(500).json({ msg: error.message })
 

@@ -2,7 +2,7 @@ import moment from 'moment';
 import React, { useEffect } from 'react'
 import { HiOutlineMail } from 'react-icons/hi'
 import { useSelector, useDispatch } from 'react-redux';
-import { Fetch_User_Details } from '../../../../Redux/Actions/AuthAction';
+import { Fetch_User_Details } from '../../../../Redux/APIs/AuthAction';
 import { FeaturesAction } from '../../../../Redux/Slices/FeaturesSlice';
 const UserInfo = (props) => {
     const { UserDetails, isAdmin } = useSelector((state) => state.auth);
@@ -31,7 +31,7 @@ const UserInfo = (props) => {
                     <div className='py-7'>
                         <p className='text-2xl font-medium'>Address</p>
 
-                        <hr className='h-2 '/>
+                        <hr className='h-2 ' />
                     </div>
                 </div>
             </div>

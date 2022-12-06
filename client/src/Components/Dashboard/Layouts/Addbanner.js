@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
-import { useDispatch, useSelector } from 'react-redux';
 import { Danger, Success } from '../../Alerts';
 import { Helmet } from 'react-helmet-async';
-import { Upload_Banner } from '../../../Redux/Actions/BannerAction';
+import { useCreateBannerMutation } from '../../../Redux/APIs/BannerApi';
+import { ImSpinner7 } from 'react-icons/im';
 const Addbanner = () => {
     const [image, setImage] = useState([]);
-    const dispatch = useDispatch();
-    const { error, success, loading } = useSelector((state) => state.Banners);
+    const [CreateBanner, { error, isSuccess, isLoading }] = useCreateBannerMutation();
     const HandleImages = (e) => {
         const files = Array.from(e.target.files);
         setImage([]);
@@ -18,9 +17,12 @@ const Addbanner = () => {
             }
         });
     };
-    const HandleSubmit = async (e) => {
-        e.preventDefault();
-        dispatch(Upload_Banner(setImage, image));
+    const HandleSubmit = async (event) => {
+        event.preventDefault();
+        const data = {image}
+        if (!image) return {};
+        await CreateBanner(data).unwrap();
+        setImage('');
     }
     return (
         <>
@@ -29,8 +31,8 @@ const Addbanner = () => {
             </Helmet>
             <div className='flex'>
                 <div className='container max-w-6xl lg:ml-80 mt-24'>
-                    {error && <Danger error={error} className={'mx-auto mt-5 text-lg text-gray-700 font-serif font-semibold bg-red-200 py-3 px-5'} />}
-                    {success && <Success error={success} />}
+                    {error && <Danger error={error.data.msg} className={'container my-5'} />}
+                    {isSuccess && <Success error={'Banner uploaded Successfully'} className={'container my-5'} />}
                     <form onSubmit={HandleSubmit} className='shadow-lg p-5 mt-10'>
                         <div className="flex justify-center items-center w-full">
                             <label className="flex flex-col justify-center items-center w-full h-64 bg-gray-50 rounded-lg border-2 border-gray-300 border-dashed cursor-pointer dark:hover:bg-bray-800">
@@ -44,7 +46,8 @@ const Addbanner = () => {
                             </label>
                         </div>
                         <div className='flex justify-center'>
-                            <button type='submit' className='bg-green-500 py-2 mx-auto px-3 rounded-lg text-white font-semibold w-1/2 focus:ring focus:ring-green-400 mt-5'>{loading ? 'Uploading .....' : 'Submit'}</button>
+                            <button type='submit' className='btn-success' disabled={isLoading}>
+                                {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Submit'}</button>
                         </div>
                     </form>
                     {image && <img src={image} className='h-80 py-2' alt='' />}
