@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import { DashHeeder, Sidebar, Category, TodoList, PreviewImege, AddImage } from '../../Exports'
+import { DashHeeder, Sidebar, Category, PreviewImege, AddImage, AddSpecs } from '../../Exports'
 import { Helmet } from 'react-helmet-async';
 import { Success, Danger } from './../../Alerts';
 import { Upload_Product } from './../../../Redux/Actions/ProductsAction';
@@ -49,7 +49,7 @@ const AddProduct = () => {
                             <div className='grid grid-cols-1 lg:grid-cols-2 gap-8'>
                                 <div className='rounded-lg lg:border lg:px-10'>
                                     <p className='my-4 font-serif text-lg'>Add Images</p>
-                                    <AddImage onChange={loadFile} IsMultiple={true} />
+                                    <AddImage onChange={loadFile} IsMultiple={true} Hight={'h-64'} />
                                     {images && images.map((image, index) => (
                                         <PreviewImege img={image} mykey={index} onClick={() => setImages(images.filter((e) => e !== image))} />
                                     ))}
@@ -76,12 +76,11 @@ const AddProduct = () => {
                                         <input onChange={handleChange} value={inputs.brand} name='brand' className='inputfield w-full' type='text' placeholder='Brand' />
                                     </div>
                                     <Category onChange={handleChange} valuecat={inputs.category} valuesub={inputs.subcategory} />
+                                    <AddSpecs />
                                     <button type='submit' className='bg-green-500 py-2 my-3 px-3 rounded-lg text-white font-semibold w-1/2 focus:ring focus:ring-green-400 mt-5'>{loading ? 'Uploading ......' : 'Submit'}</button>
                                 </div>
                             </div>
                         </form>
-                        <TodoList />
-
                     </div>
                 </div>
             </div>

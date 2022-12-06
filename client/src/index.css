@@ -4,6 +4,15 @@
 @import url('https://fonts.googleapis.com/css2?family=Amiri:ital@1&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Island+Moments&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
+
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Condensed&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Lato:wght@100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@1,100&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Oswald:wght@300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=PT+Sans&display=swap');
+
+
 @import url('https://fonts.googleapis.com/css2?family=Cinzel&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Alegreya+Sans:ital,wght@1,300&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Gloria+Hallelujah&display=swap');
@@ -147,4 +156,8 @@
 .btn-primary{
     @apply
     bg-blue-500 rounded-md text-base font-bold text-white py-2 mb-3 focus:bg-blue-400 
+}
+.btn-success {
+    @apply
+    bg-green-500 py-2 my-3 px-3 rounded-lg text-white font-semibold w-1/2 focus:ring focus:ring-green-400 mt-5 mb-10
 }

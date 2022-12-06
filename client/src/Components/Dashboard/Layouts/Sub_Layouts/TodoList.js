@@ -14,7 +14,7 @@ const TodoList = () => {
             <form onSubmit={handleSubmit} className='flex gap-5 items-center'>
                 <input className="inputfield w-full" onChange={e => setTitle(e.target.value)}
                     type="text" value={title} name='title' placeholder="Enter a title for a specification …" />
-                    <input className="inputfield w-full" onChange={e => setDesOfSpics(e.target.value)}
+                <input className="inputfield w-full" onChange={e => setDesOfSpics(e.target.value)}
                     type="text" value={desOfSpics} name='desOfSpics' placeholder="Enter specification …" />
                 <button className="border rounded-xl px-5 py-0 h-14 hover:bg-gray-200 focus:bg-gray-300" type="submit">+</button>
             </form>

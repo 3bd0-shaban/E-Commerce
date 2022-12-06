@@ -45,3 +45,14 @@ export const Delete_Category = (id) => async (dispatch) => {
         dispatch(CategoryAction.Delete_Category_Fails(getError(error)));
     }
 };
+export const Update_Category = (id, category, des, image, nameOfSub) => async (dispatch) => {
+    dispatch(CategoryAction.Update_Category_Request());
+    try {
+        const result = await axios.put(`${url}/api/category/update/${id}`, { category, des, image, nameOfSub });
+        dispatch(CategoryAction.Update_Category_Success(result.data));
+        // dispatch(FeaturesAction.Show_ModalConfirm(false));
+        dispatch(FeaturesAction.Show_SideCategoryInfo(false));
+    } catch (error) {
+        dispatch(CategoryAction.Update_Category_Fails(getError(error)));
+    }
+};

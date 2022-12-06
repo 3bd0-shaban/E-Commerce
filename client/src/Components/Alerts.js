@@ -69,3 +69,27 @@ export const Success = (props) => {
 }
 
 
+export const ToastSucces = (props) => {
+  return (
+    <>
+        <div className="absolute left-[43%] bottom-10 bg-green-200 text-green-500 font-semibold text-xl px-10 py-4 border-r-8 border-blue-500 drop-shadow-lg z-50">
+        <p className="text-base">
+          <span className="mr-2 inline-block px-3 rounded-full bg-blue-500 text-white font-extrabold py-1">i</span>
+          {props.Message}
+        </p>
+      </div>
+    </>
+  )
+}
+export const Toasterror = (props) => {
+  return (
+    <>
+      <div className="absolute left-[43%] bottom-10 bg-red-200 text-red-500 font-semibold text-xl px-10 py-4 border-r-8 border-blue-500 drop-shadow-lg z-50">
+        <p className="text-base">
+          <span className="mr-2 inline-block px-3 rounded-full bg-blue-500 text-white font-extrabold py-1">i</span>
+          {props.Message}
+        </p>
+      </div>
+    </>
+  )
+}

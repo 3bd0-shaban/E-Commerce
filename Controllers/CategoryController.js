@@ -15,7 +15,7 @@ export const Upload_Category = async (req, res) => {
             folder: "E-Commerce/Category",
         });
         new Category({
-            category,des,
+            category, des,
             subcategory: {
                 nameOfSub
             },
@@ -55,6 +55,9 @@ export const Get_Spicific_Category = async (req, res) => {
 
 export const Update_Category = async (req, res) => {
     try {
+        let newCategory = {}
+        const { category, des, nameOfSub } = req.body
+        const file = req.body.image;
         const isCategory = await Category.findById(req.params.id);
         if (!isCategory) {
             return res.status(400).json({ msg: 'No Category Founded with this ID Or something happened' });
@@ -63,7 +66,19 @@ export const Update_Category = async (req, res) => {
         if (CheckCategory) {
             return res.status(400).json({ msg: 'Category aleardy exists' });
         };
-        const UpdatedCategory = await Category.findByIdAndUpdate(req.params.id, req.body, {
+        if (file) {
+            await cloudinary.uploader.destroy(isCategory.image.public_id);
+            const result = await cloudinary.uploader.upload(file, {
+                folder: "E-Commerce/Category",
+            });
+            newCategory = {
+                image: {
+                    public_id: result.public_id,
+                    url: result.secure_url,
+                }
+            };
+        }
+        const UpdatedCategory = await Category.findByIdAndUpdate(req.params.id, { category, des, newCategory, nameOfSub }, {
             new: true,
             runValidators: true,
             useFindAndModify: false,
@@ -71,6 +86,7 @@ export const Update_Category = async (req, res) => {
         return res.status(200).json({ msg: 'Category updated successfully', UpdatedCategory })
 
     } catch (error) {
+        console.log(error)
         return res.status(500).json({ msg: error.message })
     }
 }

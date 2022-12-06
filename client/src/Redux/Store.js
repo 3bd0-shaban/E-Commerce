@@ -11,6 +11,7 @@ import WhiteListSlice from "./Slices/WhiteListSlice";
 import IssessSlice from "./Slices/IssessSlice";
 import FeaturesSlice from './Slices/FeaturesSlice';
 import BrandSlice from './Slices/BrandSlice';
+import { Brand_Query } from './Actions/BrandApi';
 export const Store = configureStore({
     reducer: {
         products: ProductsSlice,
@@ -24,9 +25,10 @@ export const Store = configureStore({
         Review: ReviewsSlice,
         WhiteList: WhiteListSlice,
         Issess: IssessSlice,
-        Features: FeaturesSlice
+        Features: FeaturesSlice,
+        [Brand_Query.reducerPath]: Brand_Query.reducer
     },
-
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(Brand_Query.middleware)
 });
 export default Store
 

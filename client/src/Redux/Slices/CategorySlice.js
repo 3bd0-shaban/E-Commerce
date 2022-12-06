@@ -74,6 +74,21 @@ const Get_Category = createSlice({
             state.success = null;
             state.error = action.payload
         },
+        Update_Category_Request(state) {
+            state.loading = true;
+            state.error = null
+        },
+        Update_Category_Success(state, action) {
+            state.CategoryDetails = {};
+            state.loading = false;
+            state.success = action.payload.msg;
+            state.error = null
+        },
+        Update_Category_Fails(state, action) {
+            state.loading = false;
+            state.success = null;
+            state.error = action.payload
+        },
     }
 
 })

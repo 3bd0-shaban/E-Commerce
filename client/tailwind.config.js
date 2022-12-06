@@ -28,7 +28,13 @@ module.exports = {
         Reenie: ["Reenie Beanie"],
         Modak: ["Modak"],
         Roboto: ["Roboto"],
+        Roboto100: ["Roboto+Condensed"],
+        OpenSans: ["Open+Sans:wght"],
+        Lato: ["Lato"],
         Rubik: ["Rubik"],
+        Montserrat: ["Montserrat"],
+        Oswald: ["Oswald"],
+        PTSans: ["PT+Sans"],
       },
     },
     screens: {
