@@ -64,7 +64,7 @@ const AllProducts = () => {
                                             <td className="py-4 px-6">{product.numofreviews}</td>
                                             <td className="py-4 px-6">{product.numofreviews}</td>
                                             <td className="py-4 px-6">{product.brand}</td>
-                                            <td className="py-4 px-6">{moment(product.createdAt).format("Do MMMM YYYY")}</td>
+                                            <td className="py-4 px-6">{moment(product.createdAt).calendar()}</td>
                                         </tr>
                                     )}
                             </tbody>

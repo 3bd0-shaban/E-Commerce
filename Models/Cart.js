@@ -5,10 +5,6 @@ const CartSchema = new mongoose.Schema({
         ref: 'Users',
         required: true
     },
-    purchaseprice: {
-        type: Number,
-        default: 0
-    },
     numofitems: {
         type: Number,
         default: 0
@@ -21,10 +17,6 @@ const CartSchema = new mongoose.Schema({
                 required: true
             },
             quentity: {
-                type: Number,
-                default: 0
-            },
-            totalprice: {
                 type: Number,
                 default: 0
             },

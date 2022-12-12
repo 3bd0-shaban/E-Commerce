@@ -6,7 +6,6 @@ import { useGetProductsDetailsQuery } from '../../../Redux/APIs/ProductsApi'
 const ProductScreen = () => {
   const params = useParams();
   const { id } = params;
-  console.log(id)
   const { data: productDetails } = useGetProductsDetailsQuery(id);
 
   const SpicHeader = () => {

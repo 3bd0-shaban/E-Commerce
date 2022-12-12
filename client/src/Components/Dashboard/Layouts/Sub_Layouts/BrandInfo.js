@@ -39,7 +39,6 @@ const BrandInfo = (props) => {
             .catch((error) => toast.error(error.data.msg));
         dispatch(FeaturesAction.Show_SideBrandInfo(false));
         dispatch(FeaturesAction.Show_ModalConfirm(false));
-
     }
     const HandleUpdate_Submit = async (e) => {
         const data = { des, brand, image }
@@ -55,7 +54,6 @@ const BrandInfo = (props) => {
     return (
         SideBrandInfo &&
         <>
-
             {IsModalConfirm && <ModalConfirm onAgree={Handle_Delete} Message={'Are you sure you want to delete this Brand?'} />}
             <ToastContainer position="bottom-center" closeOnClick autoClose={1200} hideProgressBar={true} limit={1} />
             <div onClick={() => dispatch(FeaturesAction.Show_SideBrandInfo(false))} className="fixed inset-0 bg-gray-800 bg-opacity-80 transition-opacity z-20"></div>

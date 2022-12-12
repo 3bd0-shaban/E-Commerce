@@ -2,31 +2,31 @@ import React from 'react'
 import { Danger } from '../../Alerts';
 import { Rating } from '../../Exports'
 import { Link, useParams } from 'react-router-dom'
-import { Add_to_cart } from '../../../Redux/APIs/CartAction';
-import { useDispatch } from 'react-redux'
 import { useGetProductsDetailsQuery } from '../../../Redux/APIs/ProductsApi';
 import { HiOutlineTruck } from 'react-icons/hi'
 import { CiHeart } from 'react-icons/ci'
 import { useAddToWhitelistMutation } from '../../../Redux/APIs/WhiteListApi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { useAddToCartMutation } from '../../../Redux/APIs/CartApi';
 const ProductMainScreen = () => {
-    const dispatch = useDispatch();
     const params = useParams();
     const { id } = params;
+    const product_Id = id;
     const { data: productDetails, isLoading: loading, error } = useGetProductsDetailsQuery(id) || {};
     const [addToWhitelist] = useAddToWhitelistMutation()
+    const [addToCart] = useAddToCartMutation();
 
     const HandleToWhiteList = async () => {
         addToWhitelist(id).unwrap()
             .then((payload) => toast.success(payload.msg))
             .catch((error) => toast.error(error.data.msg));
     }
-    const AddtoCart = async () => {
-        const product_Id = id
-        dispatch(Add_to_cart(product_Id));
+    const AddToCartHandler = async () => {
+        await addToCart({product_Id}).unwrap()
+            .then((payload) => toast.success(payload.msg))
+            .catch((error) => toast.error(error.data.msg));
     }
-
     return (
         <div className='container max-w-[140rem] mt-5'>
             {loading ?
@@ -87,7 +87,7 @@ const ProductMainScreen = () => {
                                                     </div>
                                                 </div>
                                             </div>
-                                            <Link onClick={AddtoCart} className='col-span-2 text-center border-4 border-blue-500 px-8 py-4 rounded-full font-medium hover:bg-blue-500 focus:ring focus:ring-blue-600 hover:text-white'>Add to Card</Link>
+                                            <Link onClick={AddToCartHandler} className='col-span-2 text-center border-4 border-blue-500 px-8 py-4 rounded-full font-medium hover:bg-blue-500 focus:ring focus:ring-blue-600 hover:text-white'>Add to Card</Link>
                                         </div>
                                     </div>
                                     :

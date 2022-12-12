@@ -7,7 +7,8 @@ const FeaturesSlice = createSlice({
         IsModalConfirm: false,
         SideBrandInfo: false,
         sideUserInfo: false,
-        sideProductInfo: false
+        sideProductInfo: false,
+        sideOrderInfo: false
 
 
     },
@@ -26,6 +27,9 @@ const FeaturesSlice = createSlice({
         },
         Show_sideProductInfo(state) {
             state.sideProductInfo = !state.sideProductInfo;
+        },
+        Show_sideOrderInfo(state) {
+            state.sideOrderInfo = !state.sideOrderInfo;
         },
         Show_ModalConfirm(state) {
             state.IsModalConfirm = !state.IsModalConfirm;

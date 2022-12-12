@@ -62,6 +62,5 @@ export const Delete_User_Product_Whitelist = async (req, res) => {
         return res.status(200).json({ msg: 'deleted successfully' });
     } catch (error) {
         return res.status(500).json({ msg: error.message })
-
     }
 }

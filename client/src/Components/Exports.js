@@ -1,5 +1,3 @@
-
-
 export { default as Header } from './Home/Layouts/Header';
 export { default as Footer } from './Home/Layouts/Footer';
 export { default as Logo } from './Home/Layouts/Logo';
@@ -40,6 +38,15 @@ export { default as Issues } from './Dashboard/Screens/Issues';
 export { default as AddProduct } from './Dashboard/Screens/AddProduct';
 
 
+export { default as Pending } from './Dashboard/Screens/Orders/Pending';
+export { default as Delevered } from './Dashboard/Screens/Orders/Delevered';
+export { default as Shipped } from './Dashboard/Screens/Orders/Shipped';
+export { default as Cancelled } from './Dashboard/Screens/Orders/Cancelled';
+export { default as AllOrders } from './Dashboard/Screens/Orders/AllOrders';
+
+export { default as PendingSideBar } from './Dashboard/Screens/Orders/SubLayouts/PendingSideBar';
+
+
 export { default as SideProfile } from './Profile/SideProfile';
 export { default as Address } from './Profile/Address';
 export { default as Mainprofile } from './Profile/Mainprofile';
@@ -66,7 +73,7 @@ export { default as Cart } from './Home/Cart/Cart';
 export { default as CartItem } from './Home/Cart/CartItem';
 
 export { default as WhiteList } from './Home/WhitList/WhitList';
-export { default as WhiteListItem } from './Home/WhitList/WhiteListI_Item';
+export { default as WhiteListItem } from './Home/WhitList/WhiteList_Item';
 
 
 export { default as ProductScreen } from '../Components/Home/ProductScreen/ProductScreen';

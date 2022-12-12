@@ -1,9 +1,13 @@
-import React, { useEffect } from 'react';
+import React, { useState } from 'react';
 import { Header, CartItem } from '../../Exports';
 import { FaShoppingBag } from 'react-icons/fa';
 import { Link } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import { Dectrement, Increment, Fetch_Products_In_Cart } from '../../../Redux/APIs/CartAction';
+import { useDecrementMutation, useDeleteItemInCartMutation, useGetCartQuery, useIncrementMutation } from '../../../Redux/APIs/CartApi';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+import { useNewOrderMutation } from '../../../Redux/APIs/OrderApi';
+import { Danger, Success } from '../../Alerts';
+import { ImSpinner7 } from 'react-icons/im';
 const CartEmpty = () => {
     return (
         <div className='text-center'>
@@ -17,38 +21,72 @@ const CartEmpty = () => {
     )
 }
 const Cart = () => {
-    const dispatch = useDispatch();
-    const { cart, loading, error } = useSelector((state) => state.Cart);
-    useEffect(() => {
-        dispatch(Fetch_Products_In_Cart())
-    }, [dispatch])
-
-
+    const [id, setID] = useState('');
+    const product_Id = id;
+    const { data: cart, isFetching: loading, error } = useGetCartQuery() || {};
+    const [Increment] = useIncrementMutation();
+    const [Decrement] = useDecrementMutation();
+    const [deleteItemInCart] = useDeleteItemInCartMutation();
+    const [newOrder, { isLoading, error: orderError }] = useNewOrderMutation();
+    const IncrementHandler = async () => {
+        await Increment({ product_Id }).unwrap()
+            .then((payload) => toast.success(payload.msg))
+            .catch((error) => toast.error(error.data.msg));
+    };
+    const DecrementHandler = async () => {
+        await Decrement({ product_Id }).unwrap()
+            .then((payload) => toast.success(payload.msg))
+            .catch((error) => toast.error(error.data.msg));
+    }
+    const DeleteItemHandler = async () => {
+        await deleteItemInCart({ product_Id }).unwrap()
+            .then((payload) => toast.success(payload.msg))
+            .catch((error) => toast.error(error.data.msg));
+    }
+    const [success, setSuccess] = useState('')
+    const NewOrderHandler = async () => {
+        await newOrder().unwrap()
+            .then((payload) => setSuccess(payload.msg))
+    }
+    let purchaseprice = 0;
+    // let totalProductPreice = 0;
+    for (let i = 0; i < cart?.items?.length; i++) {
+        purchaseprice += cart?.items[i].quentity * cart?.items[i].product_Id.price
+        // totalProductPreice = cart?.items[i].quentity * cart?.items[i].product_Id.price;
+    }
     return (
         <div>
             <Header />
+            <ToastContainer position="bottom-center" closeOnClick autoClose={1200} hideProgressBar={true} limit={1} />
             <div className='grid grid-cols-1 lg:grid-cols-3 h-screen'>
                 <div className='col-span-2 bg-[#F6F8F9]'>
                     <div className='container max-w-6xl'>
+                        {orderError && <Danger error={orderError.data.msg} className={'container my-5'} />}
+                        {success && <Success error={success} className={'container my-5'} />}
                         <div className=''>
                             <div className='flex justify-center py-4'>
                                 <p className='text-3xl font-medium font-Permanent'>Shopping Cart</p>
                             </div>
-                            <p className='mx-auto'>you have {cart.numofitems} items in your cart</p>
+                            <p className='mx-auto'>you have  items in your cart</p>
                         </div>
                         <div>
-                            {loading ? <p className='text-3xl font-bold flex justify-center items-center'>loading</p> : error ?
-                                <p>Error</p> :
-                                cart.items ?
-                                    cart.items?.map((child) => (
-                                        <CartItem Mykey={child.product_Id._id} Name={child.product_Id.name} Src={child.product_Id.images[0].url}
-                                            Increment={() => { const product_Id = child.product_Id._id; dispatch(Increment(product_Id)) }}
-                                            Decrement={() => { const product_Id = child.product_Id._id; dispatch(Dectrement(product_Id)) }}
-                                            Quentity={child.quentity} />
-                                    ))
-                                    : <CartEmpty />
+                            {loading ? <p className='text-3xl font-bold flex justify-center items-center'>loading</p> :
+                                error ?
+                                    <p>Error</p> :
+                                    cart.items &&
+                                        cart?.items.length > 0 ?
+                                        cart.items?.map((child, index) => (
+                                            <CartItem Mykey={child.product_Id._id} Name={child.product_Id?.name} Src={child.product_Id?.images[0].url}
+                                                Increment={() => { setID(child.product_Id?._id); IncrementHandler() }}
+                                                Decrement={() => { setID(child.product_Id?._id); DecrementHandler() }}
+                                                DeleteItem={() => { setID(child.product_Id?._id); DeleteItemHandler() }}
+                                                Quentity={child.quentity}
+                                                Price={child.product_Id.price}
+                                            // ProductPrice={totalProductPreice}
+                                            />
+                                        ))
+                                        : <CartEmpty />
                             }
-
                         </div>
                     </div>
                 </div>
@@ -65,11 +103,12 @@ const Cart = () => {
                         </div>
                         <div className='flex justify-between py-2'>
                             <p className='text-xl text-red-700 font-bold'>Order Total</p>
-                            <p className='text-lg text-green-500 font-bold'>{cart.purchaseprice} EGP</p>
+                            <p className='text-lg text-green-500 font-bold'>{purchaseprice} EGP</p>
                         </div>
                     </div>
                     <div className='flex justify-center mt-4'>
-                        <button className='btn-primary w-1/2 bg-green-700'>Checkout</button>
+                        <button onClick={NewOrderHandler} className='btn-success' disabled={isLoading}>
+                            {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Checkout'}</button>
                     </div>
                 </div>
             </div>
