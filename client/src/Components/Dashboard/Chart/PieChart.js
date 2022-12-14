@@ -13,17 +13,17 @@ const PieChart = () => {
             <ResponsivePie
                 data={PieData}
                 margin={{ top: 40, right: 80, bottom: 80, left: 80 }}
-                innerRadius={0.5}
-                padAngle={0.7}
-                cornerRadius={3}
-                activeOuterRadiusOffset={8}
+                innerRadius={.7}
+                padAngle={2}
+                cornerRadius={8}
+                activeOuterRadiusOffset={5}
                 borderWidth={1}
                 borderColor={{
                     from: 'color',
                     modifiers: [
                         [
                             'darker',
-                            0.2
+                            0.1
                         ]
                     ]
                 }}
@@ -47,7 +47,7 @@ const PieChart = () => {
                         type: 'patternDots',
                         background: 'inherit',
                         color: 'rgba(255, 255, 255, 0.3)',
-                        size: 4,
+                        size: 1,
                         padding: 1,
                         stagger: true
                     },
@@ -57,8 +57,8 @@ const PieChart = () => {
                         background: 'inherit',
                         color: 'rgba(255, 255, 255, 0.3)',
                         rotation: -45,
-                        lineWidth: 6,
-                        spacing: 10
+                        lineWidth: 1,
+                        spacing: 2
                     }
                 ]}
                 fill={[
@@ -119,7 +119,7 @@ const PieChart = () => {
                         translateX: 0,
                         translateY: 56,
                         itemsSpacing: 0,
-                        itemWidth: 100,
+                        itemWidth: 70,
                         itemHeight: 18,
                         itemTextColor: '#999',
                         itemDirection: 'left-to-right',

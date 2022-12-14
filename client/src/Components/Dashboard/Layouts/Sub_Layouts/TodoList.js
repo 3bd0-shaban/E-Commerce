@@ -11,17 +11,17 @@ const TodoList = () => {
             setTitle("");
         };
         return (
-            <form onSubmit={handleSubmit} className='flex gap-5 items-center'>
+            <div className='flex gap-5 items-center'>
                 <input className="inputfield w-full" onChange={e => setTitle(e.target.value)}
                     type="text" value={title} name='title' placeholder="Enter a title for a specification …" />
                 <input className="inputfield w-full" onChange={e => setDesOfSpics(e.target.value)}
                     type="text" value={desOfSpics} name='desOfSpics' placeholder="Enter specification …" />
-                <button className="border rounded-xl px-5 py-0 h-14 hover:bg-gray-200 focus:bg-gray-300" type="submit">+</button>
-            </form>
+                <button onClick={handleSubmit} className="border rounded-xl px-5 py-0 h-14 hover:bg-gray-200 focus:bg-gray-300" type="submit">+</button>
+            </div>
         );
     };
     const [tasks, setTasks] = useState([]);
-    const addTask = specsTitle => setTasks([...tasks, { specsTitle }]);
+    const addTask = (specsTitle, spect2) => setTasks([...tasks, { specsTitle }, { spect2 }]);
     const removeTask = index => {
         const newTasks = [...tasks];
         newTasks.splice(index, 1);
@@ -36,9 +36,11 @@ const TodoList = () => {
                         <span className="text-lg font-medium truncate">
                             {task.specsTitle}
                         </span>
+                        <span className="text-lg font-medium truncate">
+                            {task.spect2}
+                        </span>
                         <button onClick={() => removeTask(index)}><BsTrash /></button>
                     </div>
-                    <input className="inputfield w-full" value={task.addTask} />
                 </div>
             ))}
             <AddTaskForm addTask={addTask} />
@@ -46,3 +48,5 @@ const TodoList = () => {
     );
 }
 export default TodoList
+
+

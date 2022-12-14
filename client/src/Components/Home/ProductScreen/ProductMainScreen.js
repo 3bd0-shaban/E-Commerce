@@ -1,12 +1,14 @@
 import React from 'react'
 import { Danger } from '../../Alerts';
-import { Rating } from '../../Exports'
+import { ShowRating } from '../../Exports'
 import { Link, useParams } from 'react-router-dom'
 import { useGetProductsDetailsQuery } from '../../../Redux/APIs/ProductsApi';
-import { HiOutlineTruck } from 'react-icons/hi'
-import { CiHeart } from 'react-icons/ci'
+import { HiOutlineTruck } from 'react-icons/hi';
+import { CiHeart } from 'react-icons/ci';
 import { useAddToWhitelistMutation } from '../../../Redux/APIs/WhiteListApi';
 import { ToastContainer, toast } from 'react-toastify';
+import 'slick-carousel/slick/slick.css';
+import 'slick-carousel/slick/slick-theme.css';
 import 'react-toastify/dist/ReactToastify.css';
 import { useAddToCartMutation } from '../../../Redux/APIs/CartApi';
 const ProductMainScreen = () => {
@@ -23,7 +25,7 @@ const ProductMainScreen = () => {
             .catch((error) => toast.error(error.data.msg));
     }
     const AddToCartHandler = async () => {
-        await addToCart({product_Id}).unwrap()
+        await addToCart({ product_Id }).unwrap()
             .then((payload) => toast.success(payload.msg))
             .catch((error) => toast.error(error.data.msg));
     }
@@ -48,12 +50,13 @@ const ProductMainScreen = () => {
                             </div>
                             <div className='col-span-2 px-10'>
                                 <div className='flex justify-center items-center'>
-                                    <p className='text-xl font-semibold py-3 '>{productDetails.name}</p>
+                                    <p className='text-xl font-semibold py-3 '>{productDetails?.name}</p>
                                     <Link onClick={HandleToWhiteList} className='fill-black'><CiHeart style={{ fontSize: "2.5rem" }} /></Link>
                                 </div>
                                 <hr />
-                                <div className='my-5'>
-                                    <Rating rating={`${productDetails.rating}`} />
+                                <div className='flex items-center gap-3'>
+                                    <ShowRating Rating={productDetails?.rating} className={'!text-lg gap-1 text-[#FDD901]'} />
+                                    <p>( {productDetails?.numofreviews} )</p>
                                 </div>
                                 <div className='text-xl leading-10'>
                                     <li>High-precision lens provides a clearer picture and a better view for D</li>
@@ -77,17 +80,8 @@ const ProductMainScreen = () => {
                                             <p className='text-3xl font-bold mt-auto text-blue-600 py-3'>$ {productDetails.price}</p>
                                             <p className='text-2xl items-center flex text-gray-500 line-through'>$ {productDetails.price}</p>
                                         </div>
-                                        <div className='grid grid-cols-3 gap-6 items-center'>
-                                            <div className='border px-5 rounded-xl col-span-1'>
-                                                <div className='flex justify-between py-4'>
-                                                    <p>1</p>
-                                                    <div className='flex gap-4 font-bold'>
-                                                        <span className='bg-[#F8F8F8] rounded-full px-2'>+</span>
-                                                        <span className='bg-[#F8F8F8] rounded-full px-2'>-</span>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            <Link onClick={AddToCartHandler} className='col-span-2 text-center border-4 border-blue-500 px-8 py-4 rounded-full font-medium hover:bg-blue-500 focus:ring focus:ring-blue-600 hover:text-white'>Add to Card</Link>
+                                        <div className='flex items-center justify-center'>
+                                            <Link onClick={AddToCartHandler} className='px-32 mt-5 text-center border-4 border-blue-500 py-4 rounded-full font-medium hover:bg-blue-500 focus:ring focus:ring-blue-600 hover:text-white'>Add to Card</Link>
                                         </div>
                                     </div>
                                     :

@@ -4,25 +4,25 @@ export const Upload_Category = async (req, res) => {
     const { category, nameOfSub, des } = req.body
     const file = req.body.image;
     try {
-        if (!category || !nameOfSub || !des) {
-            return res.status(400).json({ msg: 'Please enter all fields' });
-        }
-        const CheckCategory = await Category.findOne({ category });
-        if (CheckCategory) {
-            return res.status(400).json({ msg: 'Category aleardy exists' });
-        }
-        const result = await cloudinary.uploader.upload(file, {
-            folder: "E-Commerce/Category",
-        });
+        // if (!category || !nameOfSub || !des) {
+        //     return res.status(400).json({ msg: 'Please enter all fields' });
+        // }
+        // const CheckCategory = await Category.findOne({ category });
+        // if (CheckCategory) {
+        //     return res.status(400).json({ msg: 'Category aleardy exists' });
+        // }
+        // const result = await cloudinary.uploader.upload(file, {
+        //     folder: "E-Commerce/Category",
+        // });
         new Category({
             category, des,
-            subcategory: {
+            subcategory: [{
                 nameOfSub
-            },
-            image: {
-                public_id: result.public_id,
-                url: result.secure_url,
-            }
+            }],
+            // image: {
+            //     public_id: result.public_id,
+            //     url: result.secure_url,
+            // }
         })
             .save()
             .then((Uploaded_Category) => {

@@ -7,8 +7,8 @@ import { ImUsers } from 'react-icons/im';
 import { BiLogInCircle } from 'react-icons/bi';
 import { BsChatRightTextFill } from 'react-icons/bs';
 import { GiShoppingBag, GiShoppingCart } from 'react-icons/gi';
-import { GoIssueReopened } from 'react-icons/go'
-// import { Sidebar } from 'react-pro-sidebar';
+import { GoIssueReopened } from 'react-icons/go';
+import { RiDashboardFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import { FeaturesAction } from '../../../../Redux/Slices/FeaturesSlice';
 import { Logo } from "../../../Exports";
@@ -38,6 +38,7 @@ const SideBar = () => {
                                 <div className="flex items-center py-7 ml-8"><Logo /></div>
                                 <div className="overflow-y-auto overflow-x-hidden flex-grow flex-col">
                                     <ul className="flex flex-col py-4 space-y-1 px-3 content-end">
+                                        <Lilinks Link={"/dashboard"} selected={'/dashboard'} title='Users' icon={<RiDashboardFill />} />
                                         <Lilinks Link={"/dashboard/all_users"} selected={'/dashboard/all_users'} title='Users' icon={<ImUsers />} />
                                         <Lilinks Link={"/dashboard/messages"} selected={'/dashboard/messages'} title='Messegaes' icon={<BsChatRightTextFill />} />
                                         <Lilinks Link={"/dashboard/all_products"} selected={'/dashboard/all_products'} title='Products' icon={<GiShoppingBag />} />
@@ -63,6 +64,7 @@ const SideBar = () => {
                 <div className="flex items-center py-7 ml-8"><Logo /></div>
                 <div className="overflow-y-auto overflow-x-hidden flex-grow flex-col">
                     <ul className="flex flex-col py-4 space-y-1 px-3 content-end">
+                        <Lilinks Link={"/dashboard"} selected={'/dashboard'} title='Dashboard' icon={<RiDashboardFill />} />
                         <Lilinks Link={"/dashboard/all_users"} selected={'/dashboard/all_users'} title='Users' icon={<ImUsers />} />
                         <Lilinks Link={"/dashboard/messages"} selected={'/dashboard/messages'} title='Messegaes' icon={<BsChatRightTextFill />} />
                         <Lilinks Link={"/dashboard/all_products"} selected={'/dashboard/all_products'} title='Products' icon={<GiShoppingBag />} />

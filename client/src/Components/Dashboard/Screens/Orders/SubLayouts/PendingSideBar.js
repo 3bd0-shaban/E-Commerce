@@ -5,13 +5,12 @@ import { BsPerson, BsTelephone } from 'react-icons/bs';
 import { useDispatch, useSelector } from 'react-redux';
 import { useGetOrderDetailsQuery } from '../../../../../Redux/APIs/OrderApi';
 import { FeaturesAction } from './../../../../../Redux/Slices/FeaturesSlice';
-import { ImSpinner7 } from 'react-icons/im';
 import { ModalConfirm } from '../../../../Exports';
 
 const PendingSideBar = (props) => {
     const { sideOrderInfo, IsModalConfirm } = useSelector(state => state.Features);
     const dispatch = useDispatch();
-    const { data: OrderDetails, isLoading: isUpdating } = useGetOrderDetailsQuery(props.id) || {};
+    const { data: OrderDetails } = useGetOrderDetailsQuery(props.id) || {};
     return (
         <>
             {sideOrderInfo &&
@@ -31,7 +30,7 @@ const PendingSideBar = (props) => {
                                 </div>
                                 <div className='flex gap-3 items-center'>
                                     <span><BsTelephone /></span>
-                                    <p className='text-xl font-semibold text-gray-600'>Phone :<span className='text-base ml-3'>{OrderDetails?.phoneNumber}</span></p>
+                                    <p className='text-xl font-semibold text-gray-600'>Phone :<span className='text-base ml-3'>{OrderDetails?.PhoneNumber}</span></p>
                                 </div>
                                 <div className='flex gap-3 items-center'>
                                     <span className='text-xl'><AiOutlineMail /></span>
@@ -60,7 +59,7 @@ const PendingSideBar = (props) => {
                             <div className='py-6'>
                                 <p className='text-2xl font-semibold py-2'>Billing Address</p>
                                 <div className='space-y-2'>
-                                    <p className='font-semibold text-lg text-gray-600'>Address :<span></span></p>
+                                    <p className='font-semibold text-lg text-gray-600'>Address :<span>{OrderDetails?.address?.city}</span></p>
                                     <p className='font-semibold text-lg text-gray-600'>City :<span></span></p>
                                     <p className='font-semibold text-lg text-gray-600'>State :<span></span></p>
                                     <p className='font-semibold text-lg text-gray-600'>ZipCode :<span></span></p>
@@ -71,7 +70,9 @@ const PendingSideBar = (props) => {
                                 <p className='text-2xl font-semibold py-2'>Billing Address</p>
                                 {OrderDetails?.orderitems &&
                                     OrderDetails?.orderitems.map((product) => (
-                                        <p>{product?.product_Id.name}</p>
+                                        <div key={product?.product_Id._id}>
+                                            <p >{product?.product_Id.name}</p>
+                                        </div>
                                     ))}
                             </div>
                             <div className='flex items-center mt-10 mb-5'>

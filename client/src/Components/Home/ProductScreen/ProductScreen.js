@@ -1,6 +1,6 @@
 import React from 'react'
 import { useParams, Link } from 'react-router-dom';
-import { Header, ProductMainScreen, HomeCategory, Reviews, Footer } from '../../Exports'
+import { Header, ProductMainScreen, HomeCategory, Reviews, Footer, HomeProducts2 } from '../../Exports'
 import { Helmet } from 'react-helmet-async';
 import { useGetProductsDetailsQuery } from '../../../Redux/APIs/ProductsApi'
 const ProductScreen = () => {
@@ -28,12 +28,15 @@ const ProductScreen = () => {
       </Helmet>
       <Header />
       <div className='flex container max-w-[144rem] gap-5'>
-        <HomeCategory />
+        <HomeCategory Hight={'h-[54.5rem]'} />
         <div>
           <ProductMainScreen />
           <SpicHeader />
           <Reviews id={id} />
         </div>
+      </div>
+      <div className='container max-w-[145rem]'>
+        <HomeProducts2 Category={'Revently Viewed'} />
       </div>
       <Footer />
     </>

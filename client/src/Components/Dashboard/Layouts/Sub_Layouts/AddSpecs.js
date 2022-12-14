@@ -22,11 +22,11 @@ const AddSpecs = () => {
                     </div>
                 </div>
             ))}
-            <form onSubmit={addTag} className='flex gap-5 items-center'>
+            <div className='flex gap-5 items-center'>
                 <input className="inputfield w-full" onChange={e => setTitle(e.target.value)}
                     type="text" value={title} name='title' placeholder="Enter a title for a specification …" />
-                <button className="border rounded-xl px-5 py-0 h-14 hover:bg-gray-200 focus:bg-gray-300" >+</button>
-            </form>
+                <button onClick={addTag} className="border rounded-xl px-5 py-0 h-14 hover:bg-gray-200 focus:bg-gray-300" >+</button>
+            </div>
         </div>
     )
 }

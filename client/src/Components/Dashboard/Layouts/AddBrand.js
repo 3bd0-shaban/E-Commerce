@@ -76,7 +76,7 @@ const AddBrand = () => {
                   <div key={old._id} onClick={() => dispatch(FeaturesAction.Show_SideBrandInfo())}>
                     <div onClick={() => setId(old._id)} className='border shadow-sm text-center rounded-lg py-5 cursor-pointer relative'>
                       <div className='py-3 px-5'>
-                        <img src={old.image.url} alt='' className='w-full h-36 object-cover py-4 mx-auto' /><hr className='my-3' />
+                        <img src={old.image.url} alt='' className='w-full h-36 object-contain py-4 mx-auto' /><hr className='my-3' />
                         <p className='text-lg font-serif font-semibold text-gray-500 mt-3'>{old.brand}</p>
                       </div>
                     </div>

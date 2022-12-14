@@ -81,7 +81,7 @@ const CategoryInfo = (props) => {
                             </div>
                             <div className='grid grid-cols-2 mt-5 gap-5'>
                                 {CategoryDetails.subcategory?.map(cat => (
-                                    <input defaultValue={cat.nameOfSub} onChange={(e) => setNameOfSub(e.target.value)} key={cat._id} name='category' className='inputfield w-full' type='text' placeholder='Product name' />
+                                    <input defaultValue={cat?.nameOfSub} onChange={(e) => setNameOfSub(e.target.value)} key={cat?._id} name='category' className='inputfield w-full' type='text' placeholder='Product name' />
                                 ))}
                             </div>
                             <div className='flex items-center my-6'>

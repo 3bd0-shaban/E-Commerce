@@ -42,7 +42,7 @@ const LineChart = () => {
                     legendOffset: -40,
                     legendPosition: 'middle'
                 }}
-                pointSize={10}
+                pointSize={5}
                 pointColor={{ theme: 'background' }}
                 pointBorderWidth={2}
                 pointBorderColor={{ from: 'serieColor' }}

@@ -48,7 +48,6 @@ const AllProducts = () => {
                                 </tr>
                             </thead>
                             <tbody onClick={() => dispatch(FeaturesAction.Show_sideProductInfo())}>
-
                                 {products &&
                                     products?.map(product =>
                                         <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer" onClick={() => setId(product._id)} key={product._id}>

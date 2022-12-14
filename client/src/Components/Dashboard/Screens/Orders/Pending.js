@@ -1,12 +1,11 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
-import { RiMoreFill } from 'react-icons/ri';
 import { useGetPendingOrderQuery } from '../../../../Redux/APIs/OrderApi';
 import { Helmet } from 'react-helmet-async';
 import { useDispatch } from 'react-redux';
 import { FeaturesAction } from './../../../../Redux/Slices/FeaturesSlice';
 import PendingSideBar from './SubLayouts/PendingSideBar';
-import moment from 'moment'
+import moment from 'moment';
 const Pending = () => {
   const [id, setID] = useState('');
   const dispatch = useDispatch();
@@ -24,7 +23,7 @@ const Pending = () => {
             <th scope="col" className="py-3 px-6">Baid ?</th>
             <th scope="col" className="py-3 px-6">Price</th>
             <th scope="col" className="py-3 px-6">Date</th>
-            <th scope="col" className="py-3 px-6"></th>
+            <th scope="col" className="py-3 px-6">Id</th>
           </tr>
         </thead>
         <tbody className='cursor-pointer' onClick={() => dispatch(FeaturesAction.Show_sideOrderInfo(true))}>
@@ -39,7 +38,7 @@ const Pending = () => {
                 <td className="py-4 px-6 text-base font-semibold">{product.totalPrice} EGP</td>
                 <td className="py-4 px-6">{moment(product.createdAt).calendar()}</td>
                 <td className="py-4 px-6 flex items-center">
-                  <Link to="" className="font-medium text-blue-600 text-3xl hover:underline mr-3"><RiMoreFill /></Link>
+                  <Link to="" className="font-medium">{product?._id}</Link>
                 </td>
               </tr>
             )}

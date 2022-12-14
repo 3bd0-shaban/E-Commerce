@@ -3,7 +3,7 @@ import { BsStarHalf } from 'react-icons/bs';
 
 const ShowRating = (props) => {
     return (
-        <div className='flex items-center gap-3 text-3xl text-yellow-300 py-5'>
+        <div className={`${props.className} flex items-center gap-3 text-yellow-300 text-3xl py-5`}>
             {parseFloat((Math.round(props.Rating * 2) / 2).toFixed(1)) === 0 &&
                 <>
                     <BsStar />

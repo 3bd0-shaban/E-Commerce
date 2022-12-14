@@ -1,6 +1,6 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
-import { HiOutlineShoppingBag } from 'react-icons/hi'
+import { SlHandbag } from 'react-icons/sl'
 import { CgDetailsMore } from 'react-icons/cg'
 import { CiHeart } from 'react-icons/ci'
 import { SecNavbar, Logo } from '../../Exports';
@@ -26,7 +26,7 @@ const Header = () => {
         </Link>
         <Link to='/cart' className="flex gap-3 relative items-center px-3 text-sm font-medium text-center text-black rounded-lg focus:outline-none">
           <div className='text-3xl'>
-            <HiOutlineShoppingBag style={{ 'fontSize': '2.5rem', 'hight': '2.5rem' }} />
+            <SlHandbag style={{ 'fontSize': '2.5rem', 'hight': '2.5rem' }} />
           </div>
           <span className="sr-only">Notifications</span>
           <div className="flex absolute left-[3.2rem] justify-center items-center w-6 h-6 text-[10px] font-bold  bg-[#E9EFF2] text-gray-600 rounded-full">20</div>

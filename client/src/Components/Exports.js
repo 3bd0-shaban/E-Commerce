@@ -5,8 +5,11 @@ export { default as SecNavbar } from './Home/Layouts/SecNavbar';
 
 
 export { default as HomeCategory } from './Home/Main/HomeCategory';
+export { default as HomeBrands } from './Home/Main/HomeBrands';
 export { default as Banners } from './Home/Main/Banners';
 export { default as HomeProducts } from './Home/Main/HomeProducts';
+export { default as HomeProducts2 } from './Home/Main/HomeProducts2';
+export { default as Home } from './Home/Main/Home';
 
 
 export { default as Rating } from './Home/ProductScreen/Rating';
@@ -43,6 +46,7 @@ export { default as Delevered } from './Dashboard/Screens/Orders/Delevered';
 export { default as Shipped } from './Dashboard/Screens/Orders/Shipped';
 export { default as Cancelled } from './Dashboard/Screens/Orders/Cancelled';
 export { default as AllOrders } from './Dashboard/Screens/Orders/AllOrders';
+export { default as Dashboard } from './Dashboard/Screens/Dashboard';
 
 export { default as PendingSideBar } from './Dashboard/Screens/Orders/SubLayouts/PendingSideBar';
 

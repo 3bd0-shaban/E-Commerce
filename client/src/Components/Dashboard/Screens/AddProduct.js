@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { DashHeeder, Sidebar, Category, PreviewImege, AddImage, AddSpecs } from '../../Exports'
+import { DashHeeder, Sidebar, Category, PreviewImege, AddImage, AddSpecs, TodoList } from '../../Exports'
 import { Helmet } from 'react-helmet-async';
 import { Success, Danger } from './../../Alerts';
 import { useCreateProductsMutation } from '../../../Redux/APIs/ProductsApi';
@@ -22,6 +22,7 @@ const AddProduct = () => {
             };
         }
     }
+    console.log(inputs)
     const handleChange = ({ currentTarget: input }) => {
         setInputs({ ...inputs, [input.name]: input.value });
     };
@@ -78,6 +79,7 @@ const AddProduct = () => {
                                         <input onChange={handleChange} value={inputs.brand} name='brand' className='inputfield w-full' type='text' placeholder='Brand' />
                                     </div>
                                     <Category onChange={handleChange} valuecat={inputs.category} valuesub={inputs.subcategory} />
+                                    <TodoList />
                                     <AddSpecs />
                                     <button type='submit' className='btn-success' disabled={isLoading}>
                                         {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Submit'}</button>                                   </div>

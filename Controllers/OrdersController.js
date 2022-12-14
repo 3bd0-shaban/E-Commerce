@@ -37,7 +37,7 @@ export const Fetch_Users_Orders = async (req, res) => {
         const userOrder = await Orders.find({ user: req.user._id })
             .populate('orderitems.product_Id', 'name des price images')
             .populate('user', 'firstname lastname')
-        // .populate('address');
+            .populate('address');
         return res.status(200).json(userOrder);
     } catch (error) {
         return res.status(500).json({ msg: error.message });
@@ -47,8 +47,8 @@ export const Fetch_All_Orders = async (req, res) => {
     try {
         const userOrder = await Orders.find()
             .populate('orderitems.product_Id', 'name des price images')
-            .populate('user', 'firstname lastname')
-        // .populate('address');
+            .populate('user')
+            .populate('address');
         return res.status(200).json(userOrder);
     } catch (error) {
         return res.status(500).json({ msg: error.message });
@@ -59,7 +59,7 @@ export const Fetch_Order_Details = async (req, res) => {
         const userOrder = await Orders.findById(req.params.id)
             .populate('orderitems.product_Id', 'name des price images')
             .populate('user', 'firstname lastname email')
-        .populate('address');
+            .populate('address');
         return res.status(200).json(userOrder);
     } catch (error) {
         return res.status(500).json({ msg: error.message });
@@ -81,7 +81,7 @@ export const Fetch_Shipped_Orders = async (req, res) => {
         const userOrder = await Orders.find({ status: 'Shipped' })
             .populate('orderitems.product_Id', 'name des price images')
             .populate('user', 'firstname lastname')
-        // .populate('address');
+            .populate('address');
         return res.status(200).json(userOrder);
     } catch (error) {
         return res.status(500).json({ msg: error.message });
@@ -92,7 +92,7 @@ export const Fetch_Delivered_Orders = async (req, res) => {
         const userOrder = await Orders.find({ status: 'Delivered' })
             .populate('orderitems.product_Id', 'name des price images')
             .populate('user', 'firstname lastname')
-        // .populate('address');
+            .populate('address');
         return res.status(200).json(userOrder);
     } catch (error) {
         return res.status(500).json({ msg: error.message });
@@ -103,7 +103,7 @@ export const Fetch_Cancelled_Orders = async (req, res) => {
         const userOrder = await Orders.find({ status: 'Cancelled' })
             .populate('orderitems.product_Id', 'name des price images')
             .populate('user', 'firstname lastname')
-        // .populate('address');
+            .populate('address');
         return res.status(200).json(userOrder);
     } catch (error) {
         return res.status(500).json({ msg: error.message });

@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 const UserSlice = createSlice({
-    name: 'user',
+    name: 'auth',
     initialState: {
         user: '',
         UserDetails: {},
@@ -11,6 +11,18 @@ const UserSlice = createSlice({
         isAdmin: localStorage.getItem('isAdmin?') ? true : false
     },
     reducers: {
+        setCredentials(state, action) {
+            const { user, AccessToken } = action.payload;
+            state.user = user;
+            state.token = AccessToken;
+        },
+        LogOut(state) {
+            state.user = [];
+            state.isLogged = false;
+            state.isAdmin = false;
+            state.error = '';
+            state.success = '';
+        },
         LoggedIn(state, action) {
             state.isLogged = localStorage.getItem('Logged?') ? true : false;
             state.isAdmin = localStorage.getItem('isAdmin?') ? true : false;
@@ -33,13 +45,6 @@ const UserSlice = createSlice({
             state.user = action.payload;
             state.error = '';
             state.success = action.payload.msg;
-        },
-        LogOut(state) {
-            state.user = [];
-            state.isLogged = false;
-            state.isAdmin = false;
-            state.error = '';
-            state.success = '';
         },
         AccessToken(state, action) {
             state.token = action.payload;
@@ -71,4 +76,8 @@ const UserSlice = createSlice({
     }
 })
 export const UserAction = UserSlice.actions;
+export const { setCredentials, LogOut } = UserSlice.actions;
 export default UserSlice.reducer
+
+export const selectCurrentUser = (state) => state.auth.user
+export const selectCurrentToken = (state) => state.auth.token

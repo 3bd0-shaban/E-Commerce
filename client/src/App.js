@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react'
 import {
-  HomeProducts, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, AddFeatures,
-  Mainprofile, Charts, Calender, Orders, Chat, Issues, Cart, WhiteList
+  Home, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, AddFeatures,
+  Mainprofile, Charts, Calender, Orders, Chat, Issues, Cart, WhiteList, Dashboard
 } from './Components/Exports';
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
@@ -20,7 +20,7 @@ function App() {
     <div>
       <BrowserRouter>
         <Routes>
-          <Route path='/' exact element={<HomeProducts />} />
+          <Route path='/' exact element={<Home />} />
           <Route path='/product/:id' element={<ProductScreen />} />
           <Route path='/dashboard/all_users' element={<AllUsers />} />
           <Route path='/signin' element={<Signin />} />
@@ -28,6 +28,7 @@ function App() {
           <Route path='/profile' element={<Mainprofile />} />
           <Route path='/cart' element={<Cart />} />
           <Route path='/whitelist' element={<WhiteList />} />
+          <Route path='/dashboard' element={<Dashboard />} />
           <Route path='/dashboard/addproduct' element={<AddProduct />} />
           <Route path='/dashboard/addfeatures' element={<AddFeatures />} />
           <Route path='/dashboard/all_products' element={<AllProducts />} />

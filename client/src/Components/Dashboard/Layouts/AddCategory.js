@@ -4,15 +4,27 @@ import { useCreateCategoryMutation, useGetCategoryQuery } from '../../../Redux/A
 import { Success, Danger } from './../../Alerts';
 import { ImSpinner7 } from 'react-icons/im'
 import moment from 'moment';
+import { BsTrash } from 'react-icons/bs'
 import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
 import CategoryInfo from './Sub_Layouts/CategoryInfo';
-import { AddImage } from '../../Exports'
+import { AddImage, TodoList, AddSpecs } from '../../Exports'
 const AddCategory = () => {
     const [id, setId] = useState('');
     const dispatch = useDispatch();
     const [inputs, setInputs] = useState({
-        category: '', des: '', nameOfSub: []
+        category: '', des: ''
     });
+    const [title, setTitle] = useState();
+    const [nameOfSub, setnameOfSub] = useState([]);
+    console.log(nameOfSub)
+    const addTag = e => {
+        e.preventDefault();
+        e.stopPropagation();
+        const tag = title;
+        setTitle('');
+        if (nameOfSub.includes(tag)) return;
+        setnameOfSub(nameOfSub => ([...nameOfSub, tag]));
+    };
     const [image, setImage] = useState([]);
     const loadFile = (e) => {
         for (const file of e.target.files) {
@@ -30,16 +42,15 @@ const AddCategory = () => {
     const [createCategory, { isLoading, isSuccess, error }] = useCreateCategoryMutation();
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const { category, nameOfSub, des } = inputs;
+        const { category, des } = inputs;
         const data = { category, nameOfSub, des, image }
-        if (!category || !image || !nameOfSub || !des) return {};
+        // if (!category || !image || !nameOfSub || !des) return {};
         createCategory(data).unwrap()
             .then((payload) => console.log('fulfilled', payload))
             .catch((error) => console.error('rejected', error.data.msg));
         setImage('')
         setInputs({ category: '', des: '', nameOfSub: '' });
         console.log(error.data.msg);
-        console.log('jjjjjj', isSuccess)
     }
     const PreviewImeges = (props) => {
         return (
@@ -65,9 +76,19 @@ const AddCategory = () => {
                                     <label className='text-sm py-3 font-light font-serif text-gray-500'>Discription</label>
                                     <input onChange={handleChange} value={inputs.des} name='des' min='0' className='inputfield w-full !placeholder:text-xs' type='text' placeholder='Add Some Words discribing the category' />
                                     <label className='text-sm py-3 font-light font-serif text-gray-500'>Sub Categoreies</label>
-                                    <div>
-                                        <input onChange={handleChange} value={inputs.nameOfSub} className='inputfield w-full !placeholder:text-xs' type="text" name="nameOfSub" placeholder="Enter Sub Categoreies" />
-                                        <small className='text-gray-400 text-sm '>Separate keywords with a comma, space bar, or enter key</small>
+
+                                    <div className="mt-5">
+                                        {nameOfSub?.map((tag, index) => (
+                                            <div key={index} className="flex justify-between items-center">
+                                                <span className="text-lg font-medium truncate">{tag}</span>
+                                                <button onClick={() => setnameOfSub(nameOfSub => nameOfSub.filter(t => t !== tag))}><BsTrash /></button>
+                                            </div>
+                                        ))}
+                                        <div className='flex gap-5 items-center'>
+                                            <input className="inputfield w-full" onChange={e => setTitle(e.target.value)}
+                                                type="text" value={title} name='title' placeholder="Enter Sub Categoreies" />
+                                            <button onClick={addTag} className="border rounded-xl px-5 py-0 h-14 hover:bg-gray-200 focus:bg-gray-300" >+</button>
+                                        </div>
                                     </div>
                                 </div>
                                 <p className='my-4 font-serif text-lg'>Add Image</p>
