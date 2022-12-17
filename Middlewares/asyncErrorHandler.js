@@ -1,3 +1,3 @@
-export default errorFunction => (req, res, next) => {
-    Promise.resolve(errorFunction(req, res, next)).catch(next);
-}
+export const asyncHandler = (theFunc) => (req, res, next) => {
+    Promise.resolve(theFunc(req, res, next)).catch(next);
+};

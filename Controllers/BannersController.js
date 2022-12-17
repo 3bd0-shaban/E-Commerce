@@ -1,4 +1,6 @@
 import Banners from "../Models/Banners.js";
+import { asyncHandler } from './../Middlewares/asyncErrorHandler.js';
+import ErrorHandler from './../Utils/ErrorHandler.js';
 import { v2 as cloudinary } from 'cloudinary'
 cloudinary.config({
     cloud_name: 'abdo9',
@@ -6,40 +8,30 @@ cloudinary.config({
     api_secret: 'Sbv2ng6sVzLNNLLxA9T6rmvKdtU',
     secure: true
 });
-export const Upload_Banners = async (req, res) => {
+export const Upload_Banners = asyncHandler(async (req, res, next) => {
 
-    try {
-        const file = req.body.image;
-        // const { banners } = req.boby;
-        // if (!banners) return res.status(400).json({ msg: 'Image is required to upload ' })
-        // if (!file) return res.status(400).json({ msg: 'Image is required to upload ' })
-        const result = await cloudinary.uploader.upload(file, {
-            folder: "E-Commerce/Banners",
-        });
-        new Banners({
-            banners: {
-                public_id: result.public_id,
-                url: result.secure_url,
-            }
+    const file = req.body.image;
+    // const { banners } = req.boby;
+    // if (!banners) return res.status(400).json({ msg: 'Image is required to upload ' })
+    // if (!file) return res.status(400).json({ msg: 'Image is required to upload ' })
+    const result = await cloudinary.uploader.upload(file, {
+        folder: "E-Commerce/Banners",
+    });
+    new Banners({
+        banners: {
+            public_id: result.public_id,
+            url: result.secure_url,
+        }
+    })
+        .save()
+        .then(Uploaded_Banners => {
+            return res.status(200).json({ msg: 'Banner uploaded successfully', Uploaded_Banners });
+        }).catch(error => {
+            return next(new ErrorHandler(error.message, 500));
         })
-            .save()
-            .then(Uploaded_Banners => {
-                return res.status(200).json({ msg: 'Banner uploaded successfully',Uploaded_Banners });
-            }).catch(error => {
-                return res.status(500).json({ msg: error.message })
-            })
-    } catch (error) {
-        return res.status(500).json({ msg: error.message })
+})
 
-    }
-}
-
-export const Get_Banners = async (req, res) => {
-    try {
-        const banners = await Banners.find()
-        return res.json(banners)
-    } catch (error) {
-        return res.status(500).json({ msg: error.message })
-
-    }
-}
+export const Get_Banners = asyncHandler(async (req, res, next) => {
+    const banners = await Banners.find()
+    return res.json(banners)
+})

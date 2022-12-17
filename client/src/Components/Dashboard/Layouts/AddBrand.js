@@ -4,8 +4,7 @@ import { ImSpinner7 } from 'react-icons/im'
 import { useGetBrandQuery, useCreateBrandMutation } from '../../../Redux/APIs/BrandApi';
 import { Success, Danger } from './../../Alerts';
 import { FeaturesAction } from '../../../Redux/Slices/FeaturesSlice';
-import BrandInfo from './Sub_Layouts/BrandInfo';
-import AddImage from './Sub_Layouts/AddImage';
+import { BrandInfo, AddImage } from '../../Exports';
 const AddBrand = () => {
   const [id, setId] = useState('');
   const dispatch = useDispatch();

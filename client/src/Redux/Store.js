@@ -11,6 +11,7 @@ import { Reviews_Query } from './APIs/ReviewsApi';
 import { Whitelist_Query } from './APIs/WhiteListApi';
 import { Cart_Query } from './APIs/CartApi';
 import { Order_Query } from './APIs/OrderApi';
+import { Auth_Query } from './APIs/AuthApi';
 export const Store = configureStore({
     reducer: {
         auth: UserSlice,
@@ -25,6 +26,7 @@ export const Store = configureStore({
         [Whitelist_Query.reducerPath]: Whitelist_Query.reducer,
         [Cart_Query.reducerPath]: Cart_Query.reducer,
         [Order_Query.reducerPath]: Order_Query.reducer,
+        [Auth_Query.reducerPath]: Auth_Query.reducer,
 
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
@@ -36,7 +38,10 @@ export const Store = configureStore({
         Reviews_Query.middleware,
         Whitelist_Query.middleware,
         Cart_Query.middleware,
-        Order_Query.middleware)
+        Auth_Query.middleware,
+        Order_Query.middleware),
+    // devTools: false
+
 });
 export default Store
 

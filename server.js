@@ -45,7 +45,6 @@ mongoose
   });
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
-app.use(errorMiddleware);
 app.use('/api/auth', UsersRouter);
 app.use('/api/banner', BannersRouter);
 app.use('/api/product', ProductsRouter);
@@ -56,3 +55,4 @@ app.use('/api/issess', IsssesRouter);
 app.use('/api/review', ReviewsRouter);
 app.use('/api/whitelist', WhiteListRouter);
 app.use('/api/brand', BrandRouter);
+app.use(errorMiddleware);

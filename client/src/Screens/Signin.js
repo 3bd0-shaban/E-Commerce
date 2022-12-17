@@ -1,29 +1,64 @@
-import React, { useState } from 'react'
+import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-import { SignIn } from '../Redux/APIs/AuthAction';
+// import { SignIn } from '../Redux/APIs/AuthAction';
+import { useSigninMutation } from '../Redux/APIs/AuthApi';
+import { setCredentials } from '../Redux/Slices/UserSlice';
+import { ImSpinner7 } from 'react-icons/im';
 const Signin = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const userRef = useRef();
+  const errRef = useRef();
   // useEffect(() => {
   //   if (localStorage.getItem("Logedin ?")) {
   //     navigate("/");
   //   }
   // })
-  const { error, success } = useSelector((state) => state.auth)
+  // const { error, success } = useSelector((state) => state.auth)
   const [inputs, setInputs] = useState({
     email: '',
     password: ''
-  })
+  });
+  const [errMsg, setErrMsg] = useState('')
+
   const handleChange = ({ currentTarget: input }) => {
     setInputs({ ...inputs, [input.name]: input.value });
   };
-
+  const [signin, { isLoading }] = useSigninMutation();
+  useEffect(() => {
+    userRef.current.focus()
+  }, []);
+  useEffect(() => {
+    userRef.current.focus()
+  }, []);
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { email, password } = inputs
-    dispatch(SignIn(email, password, navigate))
+    const { email, password } = inputs;
+    const data = { email, password }
+    try {
+      await signin(data).unwrap()
+      setInputs({ email: '', password: '' })
+      // navigate('/');
+      // dispatch(setCredentials({ ...userDate, email }));
+    } catch (err) {
+      if (!err?.originalStatus) {
+        // isLoading: true until timeout occurs
+        setErrMsg('No Server Response');
+      } else if (err.originalStatus === 400) {
+        setErrMsg('Missing Username or Password');
+      } else if (err.originalStatus === 401) {
+        setErrMsg('Unauthorized');
+      } else {
+        setErrMsg('Login Failed');
+      }
+      errRef.current.focus();
+    }
+    // dispatch(SignIn(email, password, navigate))
   }
+  // useEffect(() => {
+  //   setErrMsg('')
+  // }, [setErrMsg])
 
   return (
     <>
@@ -34,12 +69,13 @@ const Signin = () => {
           </div>
           <div className='container  max-w-md md:mt-20'>
             <div className='md:border border-gray-300 px-12 items-center text-center md:bg-white'>
-              {success && <span className="text-green-500 pt-4 pb-3 font-poppins font-medium">{success.msg}</span>}
+              {/* {success && <span className="text-green-500 pt-4 pb-3 font-poppins font-medium">{success.msg}</span>} */}
               <Link to="/"><p className="py-10 instalogo">Market</p></Link>
               <form className='flex flex-col' onSubmit={handleSubmit}>
-                <input type='email' onChange={handleChange} value={inputs.email} name='email' className='inputfield' placeholder='Phone number username,or email' />
+                <input type='email' ref={userRef} onChange={handleChange} value={inputs.email} name='email' className='inputfield' placeholder='Phone number username,or email' />
                 <input type='password' onChange={handleChange} value={inputs.password} name='password' className='inputfield' placeholder='Password' />
-                <button className='btn-primary'>Log In</button>
+                <button type='submit' className='btn-success' disabled={isLoading}>
+                  {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Submit'}</button>
                 <div className='flex justify-center mt-4'>
                   <hr className='w-[40%] mt-3'></hr>
                   <p className='mx-3 font-semibold text-gray-500'>OR</p>
@@ -52,7 +88,7 @@ const Signin = () => {
                   <p className=' focus:text-blue-300 ml-2 text-base text-blue-900 font-medium'>Log in with facebook</p>
                 </button>
                 <Link to='forgetpassword' className='text-blue-800 focus:text-blue-300 md:mb-7 text-sm mt-2'>Forgot password ?</Link>
-                {error && <span className="text-red-500 pb-3 font-poppins font-medium">{error}</span>}
+                {errMsg && <span className="text-red-500 pb-3 font-poppins font-medium">{errMsg}</span>}
               </form>
             </div>
             <div className='md:border border-gray-300 justify-center flex mt-5 md:bg-white'>

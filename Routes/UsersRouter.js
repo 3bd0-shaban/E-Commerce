@@ -11,16 +11,16 @@ router.post('/signup', SignUp);
 router.post('/signin', SignIn);
 // router.get('/verifytoken', VerifyToken,UserInfo);
 router.get('/userinfo', RefreshToken, UserInfo);
+router.get('/info', auth, UserInfo);
 router.get('/get/:id', auth, Get_UserInfo);
 router.delete('/deleteuser/:id', auth, isAdmin, Delete_UserInfo);
 router.put('/updateuserrole/:id', auth, isAdmin, Update_UserRole);
 router.put('/updateuser/:id', auth, Update_UserInfo);
-router.get('/refresh_token', RefreshToken, UserInfo);
+router.get('/refresh', RefreshToken, UserInfo);
 router.post("/logout", auth, LogOut);
 router.post('/forgot', ForgotPassword);
 router.post('/resetpassword:', ResetPassword);
-router.get('/info', auth, UserInfo);
-router.get('/users', auth, isAdmin, AllUsers);
+router.get('/get/all', auth, isAdmin, AllUsers);
 
 
 router.post('/newaddress', auth, SetNewAddress);
