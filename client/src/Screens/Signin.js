@@ -1,7 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
-// import { SignIn } from '../Redux/APIs/AuthAction';
+import { SignIn } from '../Redux/APIs/AuthAction';
 import { useSigninMutation } from '../Redux/APIs/AuthApi';
 import { setCredentials } from '../Redux/Slices/UserSlice';
 import { ImSpinner7 } from 'react-icons/im';
@@ -54,7 +54,7 @@ const Signin = () => {
       }
       errRef.current.focus();
     }
-    // dispatch(SignIn(email, password, navigate))
+    dispatch(Signin(email, password, navigate))
   }
   // useEffect(() => {
   //   setErrMsg('')

@@ -76,7 +76,7 @@ export const SignIn = asyncHandler(async (req, res, next) => {
         })
         if (user) {
             const auth = await Users.find({ email }).select('-password');
-            return res.json({ msg: 'successfully Logged In', auth });
+            return res.json({ msg: 'successfully Logged In', auth, token });
         }
     }
 })

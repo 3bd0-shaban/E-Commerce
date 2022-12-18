@@ -58,16 +58,16 @@ const Cart = () => {
         <div>
             <Header />
             <ToastContainer position="bottom-center" closeOnClick autoClose={1200} hideProgressBar={true} limit={1} />
-            <div className='grid grid-cols-1 lg:grid-cols-3 h-screen'>
-                <div className='col-span-2 bg-[#F6F8F9]'>
-                    <div className='container max-w-6xl'>
+            <div className='grid grid-cols-1 xl:grid-cols-4 h-screen'>
+                <div className='col-span-3 bg-white'>
+                    <div className='container max-w-[100rem]'>
                         {orderError && <Danger error={orderError.data.msg} className={'container my-5'} />}
                         {success && <Success error={success} className={'container my-5'} />}
-                        <div className=''>
-                            <div className='flex justify-center py-4'>
-                                <p className='text-3xl font-medium font-Permanent'>Shopping Cart</p>
+                        <div className='py-5'>
+                            <div className='flex justify-center py-2'>
+                                <p className='text-5xl font-medium font-Oswald'>Shopping Cart</p>
                             </div>
-                            <p className='mx-auto'>you have  items in your cart</p>
+                            <p className='px-2 text-2xl font-semibold'>Product Details :</p>
                         </div>
                         <div>
                             {loading ? <p className='text-3xl font-bold flex justify-center items-center'>loading</p> :
@@ -75,7 +75,7 @@ const Cart = () => {
                                     <p>Error</p> :
                                     cart.items &&
                                         cart?.items.length > 0 ?
-                                        cart.items?.map((child, index) => (
+                                        cart.items?.map((child) => (
                                             <CartItem Mykey={child.product_Id._id} Name={child.product_Id?.name} Src={child.product_Id?.images[0].url}
                                                 Increment={() => { setID(child.product_Id?._id); IncrementHandler() }}
                                                 Decrement={() => { setID(child.product_Id?._id); DecrementHandler() }}
@@ -90,26 +90,27 @@ const Cart = () => {
                         </div>
                     </div>
                 </div>
-                <div className='container max-w-md'>
-                    <p className='text-3xl'>Order Summary</p>
-                    <div>
+                <div className=' px-10 container  max-w-full bg-[#F9F9F9] max-h-full -mt-6 py-8'>
+                    <p className='text-3xl font-semibold py-3'>Order Summary</p> <hr className='my-2'/>
+                    <div className='space-y-5'>
                         <div className='flex justify-between py-2'>
-                            <p>item :</p>
+                            <p>Subtotal :</p>
                             <p className='text-lg text-green-500 font-bold'>500 EGP</p>
                         </div>
                         <div className='flex justify-between py-2'>
                             <p>Shipping :</p>
                             <p className='text-lg text-green-500 font-bold'>50 EGP</p>
-                        </div>
+                        </div><hr className='my-4'/>
                         <div className='flex justify-between py-2'>
                             <p className='text-xl text-red-700 font-bold'>Order Total</p>
                             <p className='text-lg text-green-500 font-bold'>{purchaseprice} EGP</p>
                         </div>
                     </div>
                     <div className='flex justify-center mt-4'>
-                        <button onClick={NewOrderHandler} className='btn-success' disabled={isLoading}>
+                        <button onClick={NewOrderHandler} className='btn-success !mb-2 !block !w-3/4 !py-4 !rounded-3xl' disabled={isLoading}>
                             {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Checkout'}</button>
                     </div>
+                    <Link to='/' className='text-lg flex justify-center my-2 font-thin font-serif text-gray-500 hover:underline hover:text-blue-700'>Back to shoping</Link>
                 </div>
             </div>
         </div>
