@@ -25,8 +25,8 @@ const Header = () => {
           <p className='text-xl'>5</p>
         </Link>
         <Link to='/cart' className="flex gap-3 relative items-center px-3 text-sm font-medium text-center text-black rounded-lg focus:outline-none">
-          <div className='text-3xl'>
-            <SlHandbag style={{ 'fontSize': '2.5rem', 'hight': '2.5rem' }} />
+          <div className='text-3xl lg:text-4xl'>
+            <SlHandbag />
           </div>
           <span className="sr-only">Notifications</span>
           <div className="flex absolute left-[3.2rem] justify-center items-center w-6 h-6 text-[10px] font-bold  bg-[#E9EFF2] text-gray-600 rounded-full">20</div>
@@ -56,10 +56,12 @@ const Header = () => {
         <div className='mb-4 bg-white fixed z-20 w-screen top-0 block transition-all' id='navbar'>
           <SecNavbar />
           <div className='border-b shadow'>
-            <div className='container max-w-[140rem] my-3 px-2 flex items-center justify-between md:px-5'>
-              <div className='flex'>
+            <div className='container max-w-[140rem] my-3 px-4 flex items-center justify-between md:px-5'>
+              <div className='hidden xl:flex'>
                 <Logo />
-                <CgDetailsMore style={{ 'fontSize': '2rem','marginLeft':'3.7rem' }} />
+                <div className='text-4xl ml-14'>
+                  <CgDetailsMore />
+                </div>
               </div>
               <Search />
               <Rightnav />

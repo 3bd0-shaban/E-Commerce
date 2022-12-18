@@ -11,7 +11,7 @@ export const SetNewAddress = asyncHandler(async (req, res, next) => {
         });
         return res.status(201).json({ updated_address });
     } else {
-        const updated_address = await Users.findByIdAndUpdate({ _id: req.user._id }, {
+        await Users.findByIdAndUpdate({ _id: req.user._id }, {
             $push: {
                 address: req.body
             }
@@ -20,7 +20,7 @@ export const SetNewAddress = asyncHandler(async (req, res, next) => {
             runValidators: true,
             useFindAndModify: false,
         });
-        return res.json({ msg: 'added', updated_address });
+        return res.json({ msg: 'Added New Address' });
     }
 });
 
@@ -34,17 +34,17 @@ export const Delete_All_Address = asyncHandler(async (req, res, next) => {
         runValidators: true,
         useFindAndModify: false,
     });
-    return res.status(201).json({ msg: 'All Address deleted successfully' });
+    return res.json({ msg: 'All Address deleted successfully' });
 });
 
 export const Delete_Spacific_Address = asyncHandler(async (req, res, next) => {
     const { _id } = req.body;
-    let user = await Users.findOne({ _id: req.user._id });
-    let AddressId = user.address.find(p => p._id == _id);
+    const user = await Users.findOne({ _id: req.user._id });
+    user.address.find(p => p._id == _id);
     await Users.findOneAndUpdate({ _id: req.user._id, AddressId: req.body._id }, {
         $pull: {
             address: req.body._id
         }
     }, { new: true, });
-    return res.status(201).json({ msg: ' Address deleted ' });
+    return res.json({ msg: ' Address deleted ' });
 })

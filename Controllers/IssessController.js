@@ -3,7 +3,7 @@ import { asyncHandler } from './../Middlewares/asyncErrorHandler.js';
 import ErrorHandler from './../Utils/ErrorHandler.js';
 export const Send_Issess_Report = asyncHandler(async (req, res, next) => {
     const { content } = req.body
-    if (!content) return res.status(200).json({ msg: 'Please type you issess before sending' });
+    if (!content) return next(new ErrorHandler('Please type your issess before sending', 400));
     await new Issess({
         user: req.user._id, content
     }).save()
@@ -20,9 +20,9 @@ export const Fetch_Issess_Report = asyncHandler(async (req, res, next) => {
 export const Delete_Issess_Report = asyncHandler(async (req, res, next) => {
     const issess = await Issess.findById(req.params.id);
     if (!issess) {
-        return res.status(400).json({ msg: 'ropert Not Founded with this Id' });
+        return next(new ErrorHandler('No reports founded with that ID', 400));
     } else {
         await Issess.deleteOne({ _id: req.params.id });
-        return res.status(200).json({ msg: 'Report deleted successfully' });
+        return res.json({ msg: 'Report deleted successfully' });
     }
 })

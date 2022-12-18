@@ -1,6 +1,7 @@
 export { default as Header } from './Home/Layouts/Header';
 export { default as Footer } from './Home/Layouts/Footer';
 export { default as Logo } from './Home/Layouts/Logo';
+export { default as SideBarMain } from './Home/Layouts/HomeSideBar';
 export { default as SecNavbar } from './Home/Layouts/SecNavbar';
 
 

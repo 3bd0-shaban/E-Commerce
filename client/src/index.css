@@ -24,6 +24,9 @@
 .dropdown:hover .dropdwon-content{
     display: block;
 }
+.parent:hover .drop{
+    top: 55px;
+}
 /* .rate {
     float: left;
     height: 46px;

@@ -4,21 +4,21 @@ import ErrorHandler from './../Utils/ErrorHandler.js';
 import Cart from "../Models/Cart.js";
 export const Add_New_Cart = asyncHandler(async (req, res, next) => {
     const { product_Id } = req.body
-    if (!req.body.product_Id) return res.status(201).json({ msg: 'No product founded to add to cart ', });
+    if (!req.body.product_Id) return next(new ErrorHandler('No product founded to add to cart', 400));
     let UserCart = await Cart.findOne({ user: req.user._id });
     if (!UserCart) {
         new Cart({
             user: req.user._id, items: { product_Id: req.body.product_Id, quentity: 1 }, numofitems: 1,
         }).save()
             .then(Added_Cart => {
-                return res.status(201).json({ msg: 'Product Added To Cart Successfully', Added_Cart });
+                return res.json({ msg: 'Product Added To Cart Successfully' });
             }).catch(error => {
                 return next(new ErrorHandler(error.message, 500));
             });
     } else {
         let isExist = UserCart.items.find(p => p.product_Id == product_Id);
         if (isExist) {
-            return res.status(400).json({ msg: 'Product Aleady Exist In Your Cart' })
+            return next(new ErrorHandler('Product Already Exist In our Cart', 400));
         } else {
             await Cart.findOneAndUpdate({ user: req.user._id }, {
                 $inc: { numofitems: 1 },
@@ -26,7 +26,7 @@ export const Add_New_Cart = asyncHandler(async (req, res, next) => {
                     items: { product_Id: req.body.product_Id, quentity: 1 }
                 },
             }, { new: true });
-            return res.status(201).json({ msg: 'Product Added To Cart Successfully' });
+            return next(new ErrorHandler('Product Added To Your Cart', 400));
         }
     }
 })
@@ -39,14 +39,14 @@ export const Increment = asyncHandler(async (req, res, next) => {
     let stockQuentity = Product.items.find(p => p.product_Id._id == product_Id);
     if (ProductInCart) {
         if (ProductInCart.quentity == stockQuentity.product_Id.stock) {
-            return res.status(400).json({ msg: 'Can not increase more' });
+            return next(new ErrorHandler('Can not increase more', 400));
         }
         const Updated_Cart = await Cart.findOneAndUpdate({ user: req.user._id, 'items.product_Id': req.body.product_Id }, {
             $inc: { 'items.$.quentity': 1 }
         }, { new: true });
-        return res.status(201).json(Updated_Cart);
+        return res.json(Updated_Cart);
     }
-    return res.status(400).json({ msg: 'Product not exist in cart' });
+    return next(new ErrorHandler('Product not exist in your cart', 400));
 })
 
 export const Decrement = asyncHandler(async (req, res, next) => {
@@ -55,33 +55,33 @@ export const Decrement = asyncHandler(async (req, res, next) => {
     let isExist = UserCart.items.find(p => p.product_Id == product_Id);
     if (isExist) {
         if (isExist.quentity < 2) {
-            return res.status(400).json({ msg: 'Can not decrease more' });
+            return next(new ErrorHandler('Can not decrease more', 400));
         }
         const Updated_Cart = await Cart.findOneAndUpdate({ user: req.user._id, 'items.product_Id': req.body.product_Id }, {
             $inc: { 'items.$.quentity': -1, }
         }, { new: true });
         return res.status(201).json(Updated_Cart);
     }
-    return res.status(400).json({ msg: 'Product not exist in cart' });
+    return next(new ErrorHandler('Product not exist in your cart', 400));
 })
 
 export const Find_Items_In_Cart = asyncHandler(async (req, res, next) => {
     const User_Cart = await Cart.findOne({ user: req.user.id }).populate('items.product_Id', 'name des price images');
-    if (!User_Cart) return res.status(201).json({ msg: 'Cart is empty' });
+    if (!User_Cart) return next(new ErrorHandler('Cart is empty', 400));
     return res.json(User_Cart);
 })
 export const Delete_All_Items_In_Cart = asyncHandler(async (req, res, next) => {
     const userCart = await Cart.findOne({ user: req.user._id });
-    if (!userCart) return res.status(201).json({ msg: 'No cart founded for that user' });
+    if (!userCart) return next(new ErrorHandler('No cart founded for that user', 400));
     await Cart.findOneAndUpdate({ user: req.user._id }, {
         $set: { numofitems: 0, items: [] },
     }, { new: true });
-    return res.status(201).json({ msg: 'All Items in cart deleted successfully' });
+    return res.json({ msg: 'All Items in cart deleted successfully' });
 })
 export const Delete_Specific_Item_In_Cart = asyncHandler(async (req, res, next) => {
     const { product_Id } = req.body
     const userCart = await Cart.findOne({ user: req.user._id });
-    if (!userCart) return res.status(400).json({ msg: 'No cart founded for that user' });
+    if (!userCart) return next(new ErrorHandler('No cart founded for that user', 400));
     const cart = userCart.items.find(p => p.product_Id == product_Id);
     if (!cart) {
         return res.status(400).json({ msg: 'No cart founded for with that id' });
@@ -89,5 +89,5 @@ export const Delete_Specific_Item_In_Cart = asyncHandler(async (req, res, next) 
         $inc: { numofitems: -1 },
         $pull: { 'items': { 'product_Id._id': req.body.product_Id } }
     }, { new: true });
-    return res.status(201).json({ msg: 'Product Deleted from cart' });
+    return res.json({ msg: 'Product Deleted from cart' });
 })

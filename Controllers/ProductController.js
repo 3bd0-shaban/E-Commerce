@@ -14,19 +14,19 @@ export const UploadProduct = asyncHandler(async (req, res, next) => {
     }
     const imagesLink = [];
     if (!name || !price || !stock || !des || !brand || !category || !subcategory) {
-        return res.status(400).json({ msg: 'Theses field with * are requiured to process your action' });
+        return next(new ErrorHandler('Theses field with * are requiured to process your action', 400));
     }
     if (name > 50) {
-        return res.status(400).json({ msg: 'Name can not more than 50 characters' });
+        return next(new ErrorHandler('Name can not more than 50 characters', 400));
     }
     if (images.length == 0) {
-        return res.status(400).json({ msg: 'No Images founded Please upload one image at least' });
+        return next(new ErrorHandler('No Images founded Please upload one image at least', 400));
     }
     if (price < 0) {
-        return res.status(400).json({ msg: 'Invailed price value' });
+        return next(new ErrorHandler('Invailed price value', 400));
     }
     if (stock < 0) {
-        return res.status(400).json({ msg: 'Invailed Product quentity value' });
+        return next(new ErrorHandler('Invailed Product quentity value', 400));
     }
     for (let i = 0; i < images.length; i++) {
         const result = await cloudinary.uploader.upload(images[i], {
@@ -40,12 +40,11 @@ export const UploadProduct = asyncHandler(async (req, res, next) => {
     req.body.images = imagesLink;
     await Products.create(req.body)
         .then(Uploaded_Product => {
-            return res.status(200).json({
+            return res.json({
                 msg: 'Product uploaded successfully', Uploaded_Product
             });
         }).catch(error => {
-
-            return res.status(500).json({ msg: error.message })
+            return next(new ErrorHandler(error.message, 500));
         })
 })
 
@@ -62,12 +61,12 @@ export const UploadProduct = asyncHandler(async (req, res, next) => {
 // }
 export const Fetch_Products = asyncHandler(async (req, res, next) => {
     const Product = await Products.find().populate('category', 'category subcategory');
-    return res.status(200).json(Product);
+    return res.json(Product);
 })
 export const Fetch_ProductDetails = asyncHandler(async (req, res, next) => {
     const Product = await Products.findById(req.params.id);
     if (!Product) {
-        return res.status(400).json({ msg: 'Product Not Founded' });
+        return next(new ErrorHandler('Product Not Founded', 400));
     } else {
         return res.json(Product);
     }
@@ -75,7 +74,7 @@ export const Fetch_ProductDetails = asyncHandler(async (req, res, next) => {
 export const Update_Product = asyncHandler(async (req, res, next) => {
     const Product = await Products.findById(req.params.id);
     if (!Product) {
-        return res.status(400).json({ msg: 'Product Not Founded with this Id' });
+        return next(new ErrorHandler('Product Not Founded with this Id', 400));
     } else {
         const Product = await Products.findByIdAndUpdate(req.params.id, req.body, {
             new: true,
@@ -89,7 +88,7 @@ export const Delete_Product = asyncHandler(async (req, res, next) => {
     const Product = await Products.findById(req.params.id);
     const productincart = await Cart.find({ 'items.product_Id': Product });
     if (!Product) {
-        return res.status(400).json({ msg: 'Product Not Founded with this Id' });
+        return next(new ErrorHandler('Product Not Founded with this Id', 400));
     } else {
         // await Products.deleteOne({ _id: req.params.id });
         await Cart.findOneAndUpdate({ 'items.product_Id': Product }, {
@@ -97,6 +96,6 @@ export const Delete_Product = asyncHandler(async (req, res, next) => {
                 items: { product_Id: Product }
             }
         }, { new: true })
-        return res.status(200).json({ msg: 'Product deleted successfully' });
+        return res.json({ msg: 'Product deleted successfully' });
     }
 })

@@ -25,7 +25,7 @@ export const Upload_Banners = asyncHandler(async (req, res, next) => {
     })
         .save()
         .then(Uploaded_Banners => {
-            return res.status(200).json({ msg: 'Banner uploaded successfully', Uploaded_Banners });
+            return res.json({ msg: 'Banner uploaded successfully' });
         }).catch(error => {
             return next(new ErrorHandler(error.message, 500));
         })
