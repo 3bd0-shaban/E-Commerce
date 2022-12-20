@@ -5,8 +5,9 @@ import Cart from './../Models/Cart.js';
 import { asyncHandler } from './../Middlewares/asyncErrorHandler.js';
 import ErrorHandler from './../Utils/ErrorHandler.js';
 export const UploadProduct = asyncHandler(async (req, res, next) => {
-    const { name, price, stock, des, brand, category, title, desOfSpics, subcategory } = req.body
+    const { name, price, stock, des, brand, category, desOfSpics, subcategory } = req.body
     let images = [...req.body.images];
+    let specifications = [...req.body.specs];
     if (typeof req.body.images === "string") {
         images.push(req.body.images);
     } else {
@@ -38,10 +39,11 @@ export const UploadProduct = asyncHandler(async (req, res, next) => {
         });
     };
     req.body.images = imagesLink;
+    req.body.specs = specifications
     await Products.create(req.body)
-        .then(Uploaded_Product => {
+        .then(saved => {
             return res.json({
-                msg: 'Product uploaded successfully', Uploaded_Product
+                msg: 'Product uploaded successfully', saved
             });
         }).catch(error => {
             return next(new ErrorHandler(error.message, 500));
@@ -60,7 +62,9 @@ export const UploadProduct = asyncHandler(async (req, res, next) => {
 //     }
 // }
 export const Fetch_Products = asyncHandler(async (req, res, next) => {
-    const Product = await Products.find().populate('category', 'category subcategory');
+    const Product = await Products.find().populate('category', 'category')
+    .populate('brand','brand')
+    .populate('subcategory', 'nameOfSub');
     return res.json(Product);
 })
 export const Fetch_ProductDetails = asyncHandler(async (req, res, next) => {

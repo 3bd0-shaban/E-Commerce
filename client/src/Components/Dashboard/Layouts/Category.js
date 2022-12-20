@@ -26,7 +26,7 @@ const Category = (props) => {
                             Category?.map((cat) => (
                                 //subcategory === cat._id &&
                                 cat.subcategory?.map((child) => (
-                                    <option key={child._id} value={child.nameOfSub}>{child.nameOfSub}</option>
+                                    <option key={child._id} value={child._id}>{child.nameOfSub}</option>
                                 ))
                             ))}
                     </select>

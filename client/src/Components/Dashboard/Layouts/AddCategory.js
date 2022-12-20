@@ -7,24 +7,26 @@ import moment from 'moment';
 import { BsTrash } from 'react-icons/bs'
 import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
 import CategoryInfo from './Sub_Layouts/CategoryInfo';
-import { AddImage, TodoList, AddSpecs } from '../../Exports'
+import { AddImage } from '../../Exports'
 const AddCategory = () => {
     const [id, setId] = useState('');
     const dispatch = useDispatch();
     const [inputs, setInputs] = useState({
         category: '', des: ''
     });
-    const [title, setTitle] = useState();
-    const [nameOfSub, setnameOfSub] = useState([]);
-    console.log(nameOfSub)
-    const addTag = e => {
-        e.preventDefault();
-        e.stopPropagation();
-        const tag = title;
-        setTitle('');
-        if (nameOfSub.includes(tag)) return;
-        setnameOfSub(nameOfSub => ([...nameOfSub, tag]));
-    };
+    const [subcategory, setSubCategory] = useState([]);
+    const [subInputs, setsubInputs] = useState({
+        nameOfSub: '',
+    });
+
+    const handleSpecsChange = (e) => {
+        setsubInputs({ ...subInputs, [e.target.name]: e.target.value });
+    }
+    const addSpecs = () => {
+        if (!subInputs.nameOfSub.trim()) return;
+        setSubCategory([...subcategory, subInputs]);
+        setsubInputs({ nameOfSub: '' });
+    }
     const [image, setImage] = useState([]);
     const loadFile = (e) => {
         for (const file of e.target.files) {
@@ -43,14 +45,15 @@ const AddCategory = () => {
     const handleSubmit = async (event) => {
         event.preventDefault();
         const { category, des } = inputs;
-        const data = { category, nameOfSub, des, image }
-        // if (!category || !image || !nameOfSub || !des) return {};
+        const data = { category, des, image, subcategory }
+        if (!category || !image || !setSubCategory || !des) return {};
         createCategory(data).unwrap()
-            .then((payload) => console.log('fulfilled', payload))
-            .catch((error) => console.error('rejected', error.data.msg));
-        setImage('')
-        setInputs({ category: '', des: '', nameOfSub: '' });
-        console.log(error.data.msg);
+            .then((payload) => {
+                setImage('')
+                setInputs({ category: '', des: '', nameOfSub: '' });
+                setSubCategory([]);
+            })
+            .catch((error) => console.log(error.data.msg));
     }
     const PreviewImeges = (props) => {
         return (
@@ -69,7 +72,7 @@ const AddCategory = () => {
                 <div className='container px-0 max-w-8xl'>
                     <form onSubmit={handleSubmit} className='px-6 rounded-xl py-8'>
                         <div className='grid grid-cols-1 lg:grid-cols-3 lg:gap-8'>
-                            <div className='rounded-lg lg:border lg:px-10 col-span-1 max-h-[52rem]'>
+                            <div className='rounded-lg lg:border lg:px-10 col-span-1'>
                                 <div className='mt-4'>
                                     <label className='text-sm py-3 font-light font-serif text-gray-500'>Category Name</label>
                                     <input onChange={handleChange} value={inputs.category} name='category' className='inputfield w-full !placeholder:text-xs' type='text' placeholder='Product name' />
@@ -77,30 +80,30 @@ const AddCategory = () => {
                                     <input onChange={handleChange} value={inputs.des} name='des' min='0' className='inputfield w-full !placeholder:text-xs' type='text' placeholder='Add Some Words discribing the category' />
                                     <label className='text-sm py-3 font-light font-serif text-gray-500'>Sub Categoreies</label>
 
-                                    <div className="mt-5">
-                                        {nameOfSub?.map((tag, index) => (
-                                            <div key={index} className="flex justify-between items-center">
-                                                <span className="text-lg font-medium truncate">{tag}</span>
-                                                <button onClick={() => setnameOfSub(nameOfSub => nameOfSub.filter(t => t !== tag))}><BsTrash /></button>
-                                            </div>
-                                        ))}
-                                        <div className='flex gap-5 items-center'>
-                                            <input className="inputfield w-full" onChange={e => setTitle(e.target.value)}
-                                                type="text" value={title} name='title' placeholder="Enter Sub Categoreies" />
-                                            <button onClick={addTag} className="border rounded-xl px-5 py-0 h-14 hover:bg-gray-200 focus:bg-gray-300" >+</button>
+                                    {subcategory?.map((spic, index) => (
+                                        <div key={index} className='flex gap-5'>
+                                            <input className="inputfield w-full" defaultValue={spic.nameOfSub} disabled />
+                                            <button onClick={() => setSubCategory(subcategory => subcategory.filter(t => t !== spic))}><BsTrash /></button>
                                         </div>
+                                    ))}
+                                    <div className='flex gap-5 items-center'>
+                                        <input className="inputfield w-full" onChange={handleSpecsChange} value={subInputs.nameOfSub}
+                                            type="text" name='nameOfSub' placeholder="Enter sub categories …" />
+                                        <button type='button' onClick={() => addSpecs()} className="border rounded-xl px-5 py-0 h-14 hover:bg-gray-200 focus:bg-gray-300" >+</button>
                                     </div>
+
                                 </div>
                                 <p className='my-4 font-serif text-lg'>Add Image</p>
                                 <AddImage onChange={loadFile} />
                                 {image && <PreviewImeges img={image} onClick={() => setImage()} />}
                                 <button type='submit' className='btn-success' disabled={isLoading}>
                                     {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Submit'}</button>                            </div>
-                            <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5 col-span-2">
-                                {isFetching ? <p>Loading ........</p> : isError ? <p>Error</p> :
+                            {isFetching ? <p>Loading ........</p> : isError ?
+                                <Danger error={error?.data.msg || 'Can not display Category'} className={'container px-0 my-5'} /> :
+                                <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5 col-span-2">
                                     <table className="w-full text-sm text-left text-gray-500 mt-5">
                                         <thead className="text-xs text-gray-700 uppercase border-b-2 py-3">
-                                            <tr className=''>
+                                            <tr className='whitespace-nowrap'>
                                                 <th scope="col" className="py-3 pl-5">Image</th>
                                                 <th scope="col" className="py-3">Category</th>
                                                 <th scope="col" className="py-3">Active ?</th>
@@ -123,8 +126,8 @@ const AddCategory = () => {
                                                 ))}
                                         </tbody>
                                     </table>
-                                }
-                            </div>
+                                </div>
+                            }
                         </div>
                     </form>
                 </div>

@@ -19,7 +19,7 @@ const SideBar = () => {
     const Lilinks = (props) => {
         return (
             <li className={(pathname === `${props.selected}`) ? 'bg-[#D7EDFF] rounded-lg text-[#4060ee]' : 'hover:bg-[#D7EDFF] hover:rounded-lg hover:text-[#4060ee] text-gray-600'}>
-                <Link to={props.Link} className="relative flex flex-row items-center h-11 focus:outline-none border-l-4 border-transparent pr-6">
+                <Link to={props.Link} className="relative flex flex-row items-center h-11 focus:outline-none border-l-4 border-transparent pr-6" onClick={() => dispatch(FeaturesAction.ShowSideBar(false))}>
                     <span className="inline-flex justify-center items-center text-2xl ml-4">{props.icon}
                     </span>
                     <span className="ml-4 text-base tracking-wide truncate font-medium">{props.title}</span>
@@ -33,12 +33,12 @@ const SideBar = () => {
                 <>
                     <div onClick={() => dispatch(FeaturesAction.ShowSideBar(false))} className="w-screen h-screen bg-gray-800 fixed bg-opacity-80 transition-opacity block lg:hidden z-10"></div>
                     <div className="bg-gray-700 bg-opacity-60 transition-opacity">
-                        <div className="lg:hidden flex h-screen fixed z-20 w-80 border-r shadow-2xl bg-[#F6F8F9]">
+                        <div className="lg:hidden flex h-screen fixed z-20 w-[18rem] sm:w-80 border-r shadow-2xl bg-[#F6F8F9]">
                             <div className="w-full">
                                 <div className="flex items-center py-7 ml-8"><Logo /></div>
                                 <div className="overflow-y-auto overflow-x-hidden flex-grow flex-col">
                                     <ul className="flex flex-col py-4 space-y-1 px-3 content-end">
-                                        <Lilinks Link={"/dashboard"} selected={'/dashboard'} title='Users' icon={<RiDashboardFill />} />
+                                        <Lilinks Link={"/dashboard"} selected={'/dashboard'} title='Dashboard' icon={<RiDashboardFill />} />
                                         <Lilinks Link={"/dashboard/all_users"} selected={'/dashboard/all_users'} title='Users' icon={<ImUsers />} />
                                         <Lilinks Link={"/dashboard/messages"} selected={'/dashboard/messages'} title='Messegaes' icon={<BsChatRightTextFill />} />
                                         <Lilinks Link={"/dashboard/all_products"} selected={'/dashboard/all_products'} title='Products' icon={<GiShoppingBag />} />

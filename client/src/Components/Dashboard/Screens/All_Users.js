@@ -56,7 +56,7 @@ const Dashboard = () => {
 
                                     <table className="w-full text-sm text-left text-gray-500 mt-5">
                                         <thead className="text-xs text-gray-700 uppercase border-b-2 py-3">
-                                            <tr>
+                                            <tr className='whitespace-nowrap'>
                                                 <th scope="col" className="py-3 px-6 w-[30%] ">user Name</th>
                                                 <th scope="col" className="py-3 px-6">Email</th>
                                                 <th scope="col" className="py-3 px-6">Admin</th>

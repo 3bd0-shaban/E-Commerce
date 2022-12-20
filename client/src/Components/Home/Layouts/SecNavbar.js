@@ -17,6 +17,7 @@ const SecNavbar = () => {
                 <Link className="block" >Hot Products</Link>
                 <Link className="block" >Features Brand</Link>
                 <Link className="block" >Top Sells</Link>
+                <Link to='/dashboard' className="block" >Dashboard</Link>
             </div>
         )
     }
@@ -44,6 +45,7 @@ const SecNavbar = () => {
                         <Link >Hot Products</Link>
                         <Link >Features Brand</Link>
                         <Link >Top Sells</Link>
+                        <Link to='/dashboard' >Dashboard</Link>
                     </div>
                     <div className='text-gray-500 font-light text-center divide-x-2 flex gap-4'>
                         <Link className="flex gap-1 items-center">Track Your Order</Link>

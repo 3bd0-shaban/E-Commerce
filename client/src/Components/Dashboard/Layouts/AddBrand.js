@@ -32,9 +32,13 @@ const AddBrand = () => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     if (!inputs || !image) return {};
-    await createBrand(values).unwrap();
-    setInputs({ brand: '', des: '' });
-    setImage('');
+    await createBrand(values).unwrap()
+      .then((payload) => {
+        setInputs({ brand: '', des: '' });
+        setImage('');
+      })
+      .catch((error) => console.log(error.data.msg));
+
   }
   const PreviewImeges = (props) => {
     return (
@@ -46,7 +50,7 @@ const AddBrand = () => {
   }
   return (
     <>
-      {error && <Danger error={error.data.msg} className={'container my-5'} />}
+      {error && <Danger error={error?.data?.msg || 'An error accured'} className={'container my-5'} />}
       {isSuccess && <Success error={'Brand Added Successfully'} className={'container my-5'} />}
       {<BrandInfo id={id} />}
       <div className='container px-0 max-w-8xl mt-10'>
@@ -69,18 +73,20 @@ const AddBrand = () => {
 
           </div>
           <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5 col-span-2">
-            <div className='grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-5 px-5'>
-              {isFetching ? <p>Loading ........</p> : data &&
-                data?.map((old) => (
-                  <div key={old._id} onClick={() => dispatch(FeaturesAction.Show_SideBrandInfo())}>
-                    <div onClick={() => setId(old._id)} className='border shadow-sm text-center rounded-lg py-5 cursor-pointer relative'>
-                      <div className='py-3 px-5'>
-                        <img src={old.image.url} alt='' className='w-full h-36 object-contain py-4 mx-auto' /><hr className='my-3' />
-                        <p className='text-lg font-serif font-semibold text-gray-500 mt-3'>{old.brand}</p>
+            <div className={error ? 'px-0' : 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-5 px-5'}>
+              {isFetching ? <p>Loading ........</p> :
+                error ? <Danger error={error?.data?.msg || 'Can not display Brands'} className={'container my-5'} /> :
+                  data &&
+                  data?.map((old) => (
+                    <div key={old?._id} onClick={() => dispatch(FeaturesAction.Show_SideBrandInfo())}>
+                      <div onClick={() => setId(old?._id)} className='border shadow-sm text-center rounded-lg py-5 cursor-pointer relative'>
+                        <div className='py-3 px-5'>
+                          <img src={old?.image.url} alt='' className='w-full h-36 object-contain py-4 mx-auto' /><hr className='my-3' />
+                          <p className='text-lg font-serif font-semibold text-gray-500 mt-3'>{old?.brand}</p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
+                  ))}
             </div>
           </div>
         </div>

@@ -3,9 +3,9 @@ import { asyncHandler } from './../Middlewares/asyncErrorHandler.js';
 import ErrorHandler from './../Utils/ErrorHandler.js';
 import cloudinary from "../Utils/cloudinary.js";
 export const Upload_Category = asyncHandler(async (req, res, next) => {
-    const { category, nameOfSub, des } = req.body
+    const { category, des, subcategory } = req.body
     const file = req.body.image;
-    if (!category || !nameOfSub || !des) {
+    if (!category || !des || !subcategory) {
         return next(new ErrorHandler('Please Enter All Fields', 400));
     }
     const CheckCategory = await Category.findOne({ category });
@@ -15,22 +15,21 @@ export const Upload_Category = asyncHandler(async (req, res, next) => {
     const result = await cloudinary.uploader.upload(file, {
         folder: "E-Commerce/Category",
     });
-    new Category({
+    await new Category({
         category, des,
-        subcategory: [{
-            nameOfSub
-        }],
+        subcategory,
         image: {
             public_id: result.public_id,
             url: result.secure_url,
         }
     })
         .save()
-        .then((Uploaded_Category) => {
+        .then((saved) => {
             return res.json({ msg: 'Category added successfully' });
         }).catch(error => {
             return next(new ErrorHandler(error.message, 400));
         })
+
 })
 
 export const Get_All_Category = asyncHandler(async (req, res, next) => {

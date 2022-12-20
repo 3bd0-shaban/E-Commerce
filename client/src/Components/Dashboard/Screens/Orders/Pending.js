@@ -18,7 +18,7 @@ const Pending = () => {
       <PendingSideBar id={id} />
       <table className="w-full text-sm text-left text-gray-500 mt-5">
         <thead className="text-xs text-gray-700 uppercase border-b-2 py-3">
-          <tr>
+          <tr className='whitespace-nowrap'>
             <th scope="col" className="py-3 px-6">Customer</th>
             <th scope="col" className="py-3 px-6">Baid ?</th>
             <th scope="col" className="py-3 px-6">Price</th>

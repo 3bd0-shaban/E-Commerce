@@ -97,7 +97,7 @@ const HomeProducts = (props) => {
         <>
             <ToastContainer position="bottom-center" closeOnClick autoClose={1200} hideProgressBar={true} limit={1} />
             <div className='flex items-center mt-10 mb-5 gap-3'>
-                <label className='lg:text-3xl  whitespace-nowrap font-medium text-gray-800'>{props.Category}</label>
+                <label className='lg:text-3xl whitespace-nowrap font-medium text-gray-800'>{props.Category}</label>
                 <hr className='w-full bg-gray-300'></hr>
             </div>
             {loading ?

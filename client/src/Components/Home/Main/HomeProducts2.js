@@ -79,7 +79,7 @@ const HomeProducts2 = (props) => {
     return (
         <>
             <div className='flex items-center mt-16 gap-3'>
-                <label className='lg:text-3xl  whitespace-nowrap font-medium text-gray-800'>{props.Category}</label>
+                <label className='lg:text-3xl whitespace-nowrap font-medium text-gray-800'>{props.Category}</label>
                 <hr className='w-full bg-gray-300'></hr>
             </div>
             {loading ?

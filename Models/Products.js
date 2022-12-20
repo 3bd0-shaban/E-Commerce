@@ -10,7 +10,9 @@ const ProductSchema = new mongoose.Schema({
         type: String,
         required: [true, 'Description is Required'],
         maxLenght: [4000, 'Description must be less than 4000 chartacter']
-
+    },
+    fulldes: {
+        type: Number,
     },
     price: {
         type: Number,
@@ -42,7 +44,7 @@ const ProductSchema = new mongoose.Schema({
     },
     brand: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Category',
+        ref: 'Brand',
         required: [true, 'brand is Required'],
     },
     numofview: {
@@ -62,16 +64,16 @@ const ProductSchema = new mongoose.Schema({
         default: 0,
     },
     warranty: {
-        type: Number,
-        default: 1
+        type: Boolean,
+        default: false
     },
-    specifications: [
+    specs: [
         {
             title: {
                 type: String,
                 required: true
             },
-            desOfSpics: {
+            description: {
                 type: String,
                 required: true
             }

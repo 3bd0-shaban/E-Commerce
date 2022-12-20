@@ -4,7 +4,7 @@ import { UploadProduct,Fetch_Products,Fetch_ProductDetails,Update_Product,Delete
 import { auth, isAdmin } from '../Middlewares/Auth.js'
 
 
-ProductsRouter.post('/upload',auth,isAdmin, UploadProduct);
+ProductsRouter.post('/new',auth,isAdmin, UploadProduct);
 ProductsRouter.put('/update/:id',auth,isAdmin, Update_Product);
 ProductsRouter.delete('/delete/:id',auth,isAdmin, Delete_Product);
 ProductsRouter.get('/get', Fetch_Products);
