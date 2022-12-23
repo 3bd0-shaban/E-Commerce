@@ -1,24 +1,18 @@
-import React, { useEffect, useState } from 'react'
+import React, { useState } from 'react'
 import { MdOutlineSearch } from 'react-icons/md'
 import { Link } from 'react-router-dom';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Sidebar, DashHeeder } from '../../Exports';
 import { Danger } from '../../../Components/Alerts';
 import { Helmet } from 'react-helmet-async';
-import { FetchAllUsers } from './../../../Redux/APIs/AuthAction';
 import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
 import UserInfo from './../Layouts/Sub_Layouts/UserInfo';
 import moment from 'moment';
+import { useGetAllUsersQuery } from '../../../Redux/APIs/AuthApi';
 const Dashboard = () => {
     const [id, setId] = useState('');
-    const { AllUsers, loading, error } = useSelector((state) => state.allusers);
+    const { data: AllUsers, isFetching, error } = useGetAllUsersQuery() || {};
     const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(FetchAllUsers());
-    }, [dispatch]);
-    // const Delete_User = async () => {
-    //     dispatch(Delete_User(id));
-    // };
     return (
         <>
             <Helmet>
@@ -28,10 +22,10 @@ const Dashboard = () => {
             {<UserInfo id={id} />}
             <div className='flex'>
                 <Sidebar />
-                <div className='container lg:ml-80 mt-24'>
-                    {loading ? <p className='mx-auto text-5xl font-Alegreya flex items-center'>Loading</p>
+                <div className='container max-w-full lg:ml-80 mt-24'>
+                    {isFetching ? <p className='mx-auto text-5xl font-Alegreya flex items-center'>Loading</p>
                         : error ?
-                            <Danger error={error} className={'container max-w-7xl mx-auto my-5 w-[50vw]'} />
+                            <Danger error={error.data.msg || 'error hanpened while featching users'} className={'container max-w-full my-5 xl:w-[50vw]'} />
                             :
                             <>
                                 <p className='text-5xl font-Rubik '>All Users</p>

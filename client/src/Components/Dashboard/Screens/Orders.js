@@ -32,7 +32,7 @@ const Orders = () => {
             <DashHeeder />
             <div className='flex'>
                 <Sidebar />
-                <div className='container lg:ml-80 mt-24'>
+                <div className='container max-w-full lg:ml-80 mt-24'>
                     <p className='text-5xl font-Rubik '>Orders</p>
                     <div className='flex gap-6 font-light text-xl mt-5'>
                         <Link onClick={OpenPending} className='border-b-transparent hover:border-b-black'>Beneding</Link>

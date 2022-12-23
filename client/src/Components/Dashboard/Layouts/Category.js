@@ -1,10 +1,9 @@
 import React, { useState } from 'react'
 import { useGetCategoryQuery } from '../../../Redux/APIs/CategoryApi';
 const Category = (props) => {
-    // eslint-disable-next-line
-    const [subcategory, setSubCategory] = useState('')
-    const { data: Category } = useGetCategoryQuery();
-
+    const [SubCat, setSubCat] = useState();
+    const { data: Category } = useGetCategoryQuery() || {};
+    console.log(SubCat)
     return (
         <>
             <div className='grid grid-cols-2 gap-4'>
@@ -14,7 +13,7 @@ const Category = (props) => {
                         <option value=''> --- Choose One --- </option>
                         {Category &&
                             Category?.map((cat) => (
-                                <option key={cat._id} value={cat._id} onClick={() => setSubCategory(cat._id)}>{cat.category}</option>
+                                <option key={cat._id} value={cat._id} onChange={() => setSubCat(cat.subcategory)}>{cat.category}</option>
                             ))}
                     </select>
                 </div>

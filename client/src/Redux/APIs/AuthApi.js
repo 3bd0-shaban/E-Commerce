@@ -1,36 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-import { setCredentials, LogOut } from '../Slices/UserSlice';
-const url = process.env.REACT_APP_API_KEY;
-
-const base_Query = fetchBaseQuery({
-    baseUrl: url,
-    credentials: 'include',
-    prepareHeaders: (headers, { getState }) => {
-        const token = getState().auth.token
-        if (token) {
-            headers.set('authorization', `Bearer ${token}`)
-        }
-    }
-})
-const baseQueryWithReauth = async (args, api, extraOptions) => {
-    let result = await base_Query(args, api, extraOptions);
-    if (result?.error?.originalStatus === 403) {
-        console.log('Sending Refresh Token ...');
-        const refreshToken = await base_Query('/api/auth/refresh', api, extraOptions);
-        console.log(refreshToken);
-        if (refreshToken?.data) {
-            const user = api.getState().auth.user
-            api.dipatch(setCredentials({ ...refreshToken.data, user }));
-            result = await base_Query(args, api, extraOptions)
-        } else {
-            api.dispatch(LogOut())
-        }
-    }
-    return result
-}
-export const Auth_Query = createApi({
-    reducerPath:'AuthApi',
-    baseQuery: baseQueryWithReauth,
+import { apiSlice } from './ApiSlice';
+export const Auth_Query = apiSlice.injectEndpoints({
     tagTypes: ['Auth'],
     endpoints: builder => ({
         getUserById: builder.query({
@@ -58,9 +27,9 @@ export const Auth_Query = createApi({
         }),
         signup: builder.mutation({
             query: (data) => ({
-                url: '/api/auth/sinup',
+                url: '/api/auth/signup',
                 method: 'POST',
-                credentials: 'include',
+                // credentials: 'include',
                 body: data,
             }),
             invalidatesTags: ['Auth'],
@@ -73,12 +42,11 @@ export const Auth_Query = createApi({
             }),
             invalidatesTags: ['Auth'],
         }),
-        getAllUsers: builder.mutation({
-            query: (data) => ({
-                url: '/api/auth/get/all',
-                method: 'POST',
+        getAllUsers: builder.query({
+            query: () => ({
+                url: '/api/auth/getall',
+                method: 'GET',
                 credentials: 'include',
-                body: data,
             }),
             invalidatesTags: ['Auth'],
         }),
@@ -111,7 +79,7 @@ export const Auth_Query = createApi({
 });
 export const {
     useGetUserByIdQuery,
-    useGetAllUsersMutation,
+    useGetAllUsersQuery,
     useDeleteUserMutation,
     useUpdateUserInfoMutation,
     useUpdateUserRoleMutation,

@@ -1,6 +1,5 @@
 import { configureStore } from '@reduxjs/toolkit'
 import UserSlice from "./Slices/UserSlice";
-import AllUsers from "./Slices/AllUsers";
 import FeaturesSlice from './Slices/FeaturesSlice';
 import { Brand_Query } from './APIs/BrandApi';
 import { Category_Query } from './APIs/CategoryApi';
@@ -15,7 +14,6 @@ import { Auth_Query } from './APIs/AuthApi';
 export const Store = configureStore({
     reducer: {
         auth: UserSlice,
-        allusers: AllUsers,
         Features: FeaturesSlice,
         [Brand_Query.reducerPath]: Brand_Query.reducer,
         [Category_Query.reducerPath]: Category_Query.reducer,
@@ -40,8 +38,7 @@ export const Store = configureStore({
         Cart_Query.middleware,
         Auth_Query.middleware,
         Order_Query.middleware),
-    // devTools: false
-
+    devTools: process.env.NODE_ENV !== 'production',
 });
 export default Store
 

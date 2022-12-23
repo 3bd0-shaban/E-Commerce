@@ -166,3 +166,26 @@
     @apply
     bg-green-500 py-2 my-3 px-3 rounded-lg text-white font-semibold w-1/2 focus:ring focus:ring-green-400 mt-5 mb-10 
 }
+.backdrop {
+    @apply
+    w-screen h-screen bg-gray-800 fixed bg-opacity-80 transition-opacity block xl:hidden z-10
+}
+.sidebar {
+    transition: all .3s ease-out;
+    @apply
+    xl:hidden h-screen fixed z-20 w-80 border-r shadow-2xl bg-[#F6F8F9]
+}
+.opened {
+    transform: translateX(0);
+    opacity: 1;
+    @apply
+    opacity-100 
+
+}
+.closed {
+    transform: translateX(100%);
+    opacity: 0;
+    @apply
+    opacity-0 
+
+}

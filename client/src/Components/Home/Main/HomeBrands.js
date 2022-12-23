@@ -1,7 +1,7 @@
 import React from 'react'
 import { useGetBrandQuery } from '../../../Redux/APIs/BrandApi';
 const HomeBrand = () => {
-    const { data: Brand, isFetching, isError } = useGetBrandQuery();
+    const { data: Brand, isFetching, isError } = useGetBrandQuery() || {};
 
     return (
         <div className=' bg-white'>

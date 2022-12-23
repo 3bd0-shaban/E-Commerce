@@ -1,12 +1,16 @@
-import React from 'react'
-import { useParams, Link } from 'react-router-dom';
+import React, { useEffect } from 'react'
+import { useParams, Link, useLocation } from 'react-router-dom';
 import { Header, ProductMainScreen, HomeCategory, Reviews, Footer, HomeProducts2 } from '../../Exports'
 import { Helmet } from 'react-helmet-async';
 import { useGetProductsDetailsQuery } from '../../../Redux/APIs/ProductsApi'
 const ProductScreen = () => {
   const params = useParams();
   const { id } = params;
-  const { data: productDetails } = useGetProductsDetailsQuery(id);
+  const { data: productDetails } = useGetProductsDetailsQuery(id) || {};
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   const SpicHeader = () => {
     return (

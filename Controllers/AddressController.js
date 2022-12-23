@@ -4,30 +4,22 @@ import ErrorHandler from './../Utils/ErrorHandler.js';
 export const SetNewAddress = asyncHandler(async (req, res, next) => {
     let UserAddress = await Users.findOne({ _id: req.user._id });
     if (UserAddress.address.length < 1) {
-        const updated_address = await Users.findByIdAndUpdate({ _id: req.user._id }, { address: req.body }, {
-            new: true,
-            runValidators: true,
-            useFindAndModify: false,
-        });
-        return res.status(201).json({ updated_address });
+        const updated_address = await Users.findByIdAndUpdate({ _id: req.user._id }, { address: req.body }, { new: true });
+        return res.json({ updated_address });
     } else {
         await Users.findByIdAndUpdate({ _id: req.user._id }, {
             $push: {
                 address: req.body
             }
-        }, {
-            new: true,
-            runValidators: true,
-            useFindAndModify: false,
-        });
+        }, { new: true });
         return res.json({ msg: 'Added New Address' });
     }
 });
 
 export const Delete_All_Address = asyncHandler(async (req, res, next) => {
     await Users.findByIdAndUpdate({ _id: req.user._id }, {
-        $unset: {
-            address: req.user
+        $set: {
+            address: []
         }
     }, {
         new: true,

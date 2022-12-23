@@ -8,6 +8,7 @@ export const Products_Query = createApi({
     endpoints: (builder) => ({
         getProducts: builder.query({
             query: () => '/api/product/get',
+            keepUnusedDataFor: 5,
             providesTags: (result, error, arg) =>
                 result
                     ? [...result.map(({ id }) => ({ type: 'Products', id })), 'Products']

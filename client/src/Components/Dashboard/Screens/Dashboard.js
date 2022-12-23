@@ -14,7 +14,6 @@ const Dashboard = () => {
             </div>
         )
     }
-
     return (
         <>
             <Helmet>
@@ -36,7 +35,7 @@ const Dashboard = () => {
                         </div>
                         <div className='text-7xl h-[25rem]'><PieChart /></div>
                     </div>
-                    <div className='h-[35rem] w-[70%]'><LineChart /></div>
+                    <div className='h-[25rem] lg:h-[35rem] lg:w-[70%]'><LineChart /></div>
                 </div>
             </div>
         </>

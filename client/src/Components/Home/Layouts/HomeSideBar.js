@@ -10,8 +10,8 @@ const SideBarMain = () => {
         <>
             {HomeSideBar &&
                 <>
-                    <div onClick={() => dispatch(FeaturesAction.Show_HomeSideBar(false))} className="w-screen h-screen bg-gray-800 fixed bg-opacity-80 transition-opacity block xl:hidden z-10"></div>
-                    <div className="xl:hidden flex h-screen fixed z-20 w-80 border-r shadow-2xl bg-[#F6F8F9]">
+                    <div onClick={() => dispatch(FeaturesAction.Show_HomeSideBar(false))} className={HomeSideBar ? "backdrop opened" : 'backdrop closed'}></div>
+                    <div className={HomeSideBar ? "sidebar opened" : 'sidebar closed'}>
                     </div>
                 </>
             }

@@ -123,8 +123,10 @@ const HomeProducts = (props) => {
                                     {product.stock > 0 &&
                                         <div className='-bottom-20 inset-x-0 hover:block max-h-full absolute text-white items'>
                                             <div className='flex justify-center gap-4'>
-                                                <Link onClick={() => { setId(product._id); AddToCartHandler() }} className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><MdShoppingBag /></Link>
-                                                <Link onClick={() => { setId(product._id); HandleToWhiteList() }} className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><AiOutlineHeart /></Link>
+                                                <Link onClick={() => { setId(product._id); AddToCartHandler() }}
+                                                    className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><MdShoppingBag /></Link>
+                                                <Link onClick={() => { setId(product._id); HandleToWhiteList() }}
+                                                    className='rounded-full flex items-center font-medium text-orange-300 hover:text-white p-2 text-xl border border-orange-300 hover:bg-orange-300 focus:ring focus:ring-orange-200'><AiOutlineHeart /></Link>
                                             </div>
                                             <p className='text-sm mt-3 mx-auto'>{product.rating}</p>
                                         </div>

@@ -7,7 +7,8 @@ import { FeaturesAction } from "../../../Redux/Slices/FeaturesSlice"
 import { useDispatch, useSelector } from 'react-redux';
 const SecNavbar = () => {
     const dispatch = useDispatch();
-    const { HomeSideBar } = useSelector(state => state.Features)
+    const { HomeSideBar } = useSelector(state => state.Features);
+    const { isLogged } = useSelector(state => state.auth);
     const [open, setOpen] = useState(false);
     const MoblieView = () => {
         return (
@@ -46,6 +47,7 @@ const SecNavbar = () => {
                         <Link >Features Brand</Link>
                         <Link >Top Sells</Link>
                         <Link to='/dashboard' >Dashboard</Link>
+                        {isLogged && <Link to='/dashboard' >Logged</Link>}
                     </div>
                     <div className='text-gray-500 font-light text-center divide-x-2 flex gap-4'>
                         <Link className="flex gap-1 items-center">Track Your Order</Link>

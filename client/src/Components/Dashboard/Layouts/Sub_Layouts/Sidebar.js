@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { AiOutlineBarChart } from 'react-icons/ai';
 import { IoCalendarNumber, IoSettingsOutline } from 'react-icons/io5';
 import { MdOutlineAddToPhotos } from 'react-icons/md';
@@ -12,18 +12,35 @@ import { RiDashboardFill } from 'react-icons/ri';
 import { useDispatch, useSelector } from 'react-redux';
 import { FeaturesAction } from '../../../../Redux/Slices/FeaturesSlice';
 import { Logo } from "../../../Exports";
+import { useLogOutMutation } from "../../../../Redux/APIs/AuthApi";
+import { LogOut } from "../../../../Redux/Slices/UserSlice";
 const SideBar = () => {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const { pathname } = useLocation();
-    const { SideBar } = useSelector(state => state.Features)
+    const { SideBar } = useSelector(state => state.Features);
+    const [logOut] = useLogOutMutation();
+    const HandleLogOut = async () => {
+        await logOut().unwrap()
+            .then((payload) => {
+                localStorage.setItem('Logged?', true);
+                dispatch(LogOut(payload));
+                navigate('/signin')
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    }
+
     const Lilinks = (props) => {
         return (
             <li className={(pathname === `${props.selected}`) ? 'bg-[#D7EDFF] rounded-lg text-[#4060ee]' : 'hover:bg-[#D7EDFF] hover:rounded-lg hover:text-[#4060ee] text-gray-600'}>
-                <Link to={props.Link} className="relative flex flex-row items-center h-11 focus:outline-none border-l-4 border-transparent pr-6" onClick={() => dispatch(FeaturesAction.ShowSideBar(false))}>
-                    <span className="inline-flex justify-center items-center text-2xl ml-4">{props.icon}
-                    </span>
-                    <span className="ml-4 text-base tracking-wide truncate font-medium">{props.title}</span>
-                </Link>
+                <div onClick={props.onClick}>
+                    <Link to={props.Link} className="relative flex flex-row items-center h-11 focus:outline-none border-l-4 border-transparent pr-6" onClick={() => { dispatch(FeaturesAction.ShowSideBar(false)) }}>
+                        <span className="inline-flex justify-center items-center text-2xl ml-4">{props.icon}</span>
+                        <span className="ml-4 text-base tracking-wide truncate font-medium">{props.title}</span>
+                    </Link>
+                </div>
             </li>
         )
     }
@@ -48,9 +65,9 @@ const SideBar = () => {
                                         <Lilinks Link={"/dashboard/stats"} selected={'/dashboard/stats'} title='Stats' icon={<AiOutlineBarChart />} />
                                         <Lilinks Link={"/dashboard/calender"} selected={'/dashboard/calender'} title='Calender' icon={<IoCalendarNumber />} />
                                         <Lilinks Link={"/dashboard/issues"} selected={'/dashboard/issues'} title='Isseues' icon={<GoIssueReopened />} />
-                                        <div className="bottom-0 absolute">
-                                            <Lilinks Link={"/dashboard"} selected={'/settings'} title='Settings' icon={<IoSettingsOutline />} />
-                                            <Lilinks Link={"/signin"} selected={''} title='Log Out' icon={<BiLogInCircle />} />
+                                        <div className="bottom-0 absolute w-[90%]">
+                                            <Lilinks Link={"/settings"} selected={'/settings'} title='Settings' icon={<IoSettingsOutline />} />
+                                            <Lilinks selected={''} onClick={HandleLogOut} title='Log Out' icon={<BiLogInCircle />} />
                                         </div>
                                     </ul>
                                 </div>
@@ -74,9 +91,9 @@ const SideBar = () => {
                         <Lilinks Link={"/dashboard/stats"} selected={'/dashboard/stats'} title='Stats' icon={<AiOutlineBarChart />} />
                         <Lilinks Link={"/dashboard/calender"} selected={'/dashboard/calender'} title='Calender' icon={<IoCalendarNumber />} />
                         <Lilinks Link={"/dashboard/issues"} selected={'/dashboard/issues'} title='Isseues' icon={<GoIssueReopened />} />
-                        <div className="bottom-0 absolute">
-                            <Lilinks Link={"/dashboard"} selected={'/settings'} title='Settings' icon={<IoSettingsOutline />} />
-                            <Lilinks Link={"/signin"} selected={''} title='Log Out' icon={<BiLogInCircle />} />
+                        <div className="bottom-0 absolute w-[93%]">
+                            <Lilinks Link={"/settings"} selected={'/settings'} title='Settings' icon={<IoSettingsOutline />} />
+                            <Lilinks selected={''} onClick={HandleLogOut} title='Log Out' icon={<BiLogInCircle />} />
                         </div>
                     </ul>
                 </div>

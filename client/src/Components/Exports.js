@@ -10,6 +10,7 @@ export { default as HomeBrands } from './Home/Main/HomeBrands';
 export { default as Banners } from './Home/Main/Banners';
 export { default as HomeProducts } from './Home/Main/HomeProducts';
 export { default as HomeProducts2 } from './Home/Main/HomeProducts2';
+export { default as FeaturesCategory } from './Home/Main/FeaturesCategory';
 export { default as Home } from './Home/Main/Home';
 
 
@@ -88,3 +89,7 @@ export { default as SKHomeProducts } from './Skiliton/SK_HomeProducts';
 export { default as SKBanners } from './Skiliton/SK_Banners';
 
 export { default as getError } from './utile';
+export { default as RequireAuth } from './RequiredAuth';
+export { default as RequiredAdmin } from './RequiredAdmin';
+export { default as NotFounded } from './NotFounded';
+export { default as Layout } from './Layout';

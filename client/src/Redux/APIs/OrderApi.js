@@ -72,7 +72,7 @@ export const Order_Query = createApi({
         }),
         newOrder: builder.mutation({
             query: () => ({
-                url: `/api/order/new`,
+                url: '/api/order/new',
                 method: 'POST',
                 credentials: 'include',
             }),

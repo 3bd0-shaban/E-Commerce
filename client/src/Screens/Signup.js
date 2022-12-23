@@ -1,16 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch, useSelector } from 'react-redux';
-import { SignUp } from '../Redux/APIs/AuthAction';
+import { useSignupMutation } from '../Redux/APIs/AuthApi';
+import { ImSpinner7 } from 'react-icons/im';
 const Signup = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
+  const userRef = useRef();
   useEffect(() => {
     if (localStorage.getItem("Logedin ?")) {
       navigate("/");
     }
   })
-  const { error } = useSelector((state) => state.auth)
   const [inputs, setInputs] = useState({
     email: '',
     password: '',
@@ -22,10 +21,23 @@ const Signup = () => {
   const handleChange = ({ currentTarget: input }) => {
     setInputs({ ...inputs, [input.name]: input.value });
   };
+  useEffect(() => {
+    userRef.current.focus()
+  }, []);
+  const [signup, { isError, error, isLoading }] = useSignupMutation();
   const handleSubmit = async (event) => {
     event.preventDefault();
-    const { email, password, username, firstname, lastname, confirmpassword } = inputs
-    dispatch(SignUp(email, password, username, lastname, firstname, confirmpassword, navigate))
+    const { email, password, username, lastname, firstname, confirmpassword } = inputs;
+    const data = { email, password, username, lastname, firstname, confirmpassword }
+    await signup(data).unwrap()
+      .then((payload) => {
+        localStorage.setItem('Logged?', true);
+        setInputs({ email: '', password: '' })
+        navigate('/signin')
+      })
+      .catch((err) => {
+        console.log(err.data.msg);
+      });
   }
 
   return (
@@ -47,7 +59,7 @@ const Signup = () => {
               <hr className='w-[40%] mt-3'></hr>
             </div>
             <form onSubmit={handleSubmit} className='flex flex-col'>
-              <input onChange={handleChange} value={inputs.email} name='email' type='email' className='inputfield' placeholder='Mobile Number Or Email' />
+              <input onChange={handleChange} value={inputs.email} ref={userRef} name='email' type='email' className='inputfield' placeholder='Mobile Number Or Email' />
               <input onChange={handleChange} value={inputs.firstname} name='firstname' type='text' className='inputfield' placeholder='Full Name' />
               <input onChange={handleChange} value={inputs.lastname} name='lastname' type='text' className='inputfield' placeholder='Full Name' />
               <input onChange={handleChange} value={inputs.username} name='username' type='text' className='inputfield' placeholder='Username' />
@@ -55,9 +67,9 @@ const Signup = () => {
               <input onChange={handleChange} value={inputs.confirmpassword} name='confirmpassword' type='password' className='inputfield' placeholder='Confirm Password' />
               <p className='text-sm font-normal text-gray-500'>People who use our service may have uploaded your contact information to Instagram. <Link to='/more' className='font-semibold text-gray-500'>Learn More</Link></p>
               <p className='text-sm font-normal text-gray-500 mt-5'>By signing up, you agree to our Terms , <Link to='/privacy' className='font-semibold text-gray-500'>Privacy Policy </Link>and<Link to='/cookies' className='font-semibold text-gray-500'> Cookies Policy .</Link></p>
-              <button className='btn-primary mt-4 !mb-8'>Sign up</button>
-              {error && <span className="text-red-500 pb-3 font-poppins font-medium">{error}</span>}
-
+              <button type='submit' className='btn-primary' disabled={isLoading}>
+                {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Sign up'}</button>
+              {isError && <span className="text-red-500 pb-3 font-poppins font-medium">{error.data.msg}</span>}
             </form>
           </div>
           <div className='lg:border border-gray-300 justify-center flex mt-5 lg:bg-white'>

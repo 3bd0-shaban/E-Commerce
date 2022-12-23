@@ -1,6 +1,5 @@
 import React, { useState, useRef } from 'react';
 import JoditEditor from "jodit-react";
-// import "./styles.css";
 import { DashHeeder, Sidebar, Category, PreviewImege, AddImage } from '../../Exports'
 import { Helmet } from 'react-helmet-async';
 import { Success, Danger } from './../../Alerts';
@@ -20,7 +19,7 @@ const AddProduct = () => {
         const editorContent = event.target.innerHTML;
         setContent(editorContent);
     };
-    console.log(area)
+    // console.log(area)
     const [createProducts, { isLoading, isSuccess, error }] = useCreateProductsMutation();
     const { data: Brand } = useGetBrandQuery();
     const [inputs, setInputs] = useState({

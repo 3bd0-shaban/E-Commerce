@@ -29,7 +29,7 @@ const Pending = () => {
         <tbody className='cursor-pointer' onClick={() => dispatch(FeaturesAction.Show_sideOrderInfo(true))}>
           {products &&
             products?.map(product =>
-              <tr className="bg-white border-b hover:bg-gray-50" key={product._id} onClick={() => setID(product._id)}>
+              <tr className="bg-white border-b hover:bg-gray-50 whitespace-nowrap" key={product._id} onClick={() => setID(product._id)}>
                 <td className="py-4 px-6 w-[20%] text-lg font-semibold">{`${product.user.firstname} ${product.user.lastname}`}</td>
                 {product.CashOnDelivery ?
                   <td className="py-4 px-6"><span className='text-green-500 bg-green-200 rounded-lg font-semibold text-base px-5 py-2'>True</span></td>

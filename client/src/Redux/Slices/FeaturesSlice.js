@@ -9,7 +9,7 @@ const FeaturesSlice = createSlice({
         sideUserInfo: false,
         sideProductInfo: false,
         sideOrderInfo: false,
-        HomeSideBar: false
+        HomeSideBar: false,
     },
     reducers: {
         ShowSideBar(state) {

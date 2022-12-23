@@ -31,14 +31,14 @@ const AllOrders = () => {
         <tbody className='cursor-pointer' onClick={() => dispatch(FeaturesAction.Show_sideOrderInfo(true))}>
           {products &&
             products?.map(product =>
-              <tr className="bg-white border-b hover:bg-gray-50" key={product._id} onClick={() => setID(product._id)}>
+              <tr className="bg-white border-b hover:bg-gray-50 whitespace-nowrap" key={product._id} onClick={() => setID(product._id)}>
                 <td className="py-4 px-6 w-[20%]">{`${product.user.firstname} ${product.user.lastname}`}</td>
                 {product.CashOnDelivery ?
                   <td className="py-4 px-6"><span className='text-green-500 bg-green-200 rounded-lg font-semibold text-base px-5 py-2'>True</span></td>
                   :
                   <td className="py-4 px-6"><span className='text-red-500 bg-red-200 rounded-lg font-semibold text-base px-5 py-2'>False</span></td>}
                 <td className="py-4 px-6 text-base font-semibold">{product.totalPrice} EGP</td>
-                <td className="py-4 px-6">{moment(product.createdAt).calendar()}</td>
+                <td className="py-4 px-6 whitespace-nowrap">{moment(product.createdAt).calendar()}</td>
                 <td className="py-4 px-6 flex items-center">
                   <Link to="" className="font-medium text-blue-600 text-3xl hover:underline mr-3"><RiMoreFill /></Link>
                 </td>
