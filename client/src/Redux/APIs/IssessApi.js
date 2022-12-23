@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const url = process.env.REACT_APP_API_KEY;
 
-export const Issess_Query = createApi({
+export const IssessApi = createApi({
     reducerPath: 'IssessApi',
     baseQuery: fetchBaseQuery({ baseUrl: url }),
     tagTypes: ['Issess'],
@@ -38,4 +38,4 @@ export const {
     useGetIssessQuery,
     useGetIssessDetailsQuery,
     useDeleteIssessMutation,
-} = Issess_Query;
+} = IssessApi;

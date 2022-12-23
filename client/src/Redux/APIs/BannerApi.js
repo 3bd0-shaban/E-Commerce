@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const url = process.env.REACT_APP_API_KEY;
 
-export const Banner_Query = createApi({
+export const BannerApi = createApi({
     reducerPath: 'BannerApi',
     baseQuery: fetchBaseQuery({ baseUrl: url }),
     tagTypes: ['Banner'],
@@ -52,5 +52,5 @@ export const {
     useGetBannerDetailsQuery,
     useUpdateBannerMutation,
     useDeleteBannerMutation,
-} = Banner_Query;
+} = BannerApi;
 

@@ -26,7 +26,7 @@ const PendingSideBar = (props) => {
                             <div className='space-y-4 py-5 '>
                                 <div className='flex gap-3 items-center'>
                                     <span><BsPerson /></span>
-                                    <p className='text-xl font-semibold text-gray-600'>Name :<span className='text-base ml-3'>{`${OrderDetails?.user.firstname} ${OrderDetails?.user.lastname}`}</span></p>
+                                    <p className='text-xl font-semibold text-gray-600'>Name :<span className='text-base ml-3'>{`${OrderDetails?.user?.firstname} ${OrderDetails?.user?.lastname}`}</span></p>
                                 </div>
                                 <div className='flex gap-3 items-center'>
                                     <span><BsTelephone /></span>
@@ -34,7 +34,7 @@ const PendingSideBar = (props) => {
                                 </div>
                                 <div className='flex gap-3 items-center'>
                                     <span className='text-xl'><AiOutlineMail /></span>
-                                    <p className='text-xl font-semibold text-gray-600'>Email :<span className='text-base ml-3'>{OrderDetails?.user.email}</span></p>
+                                    <p className='text-xl font-semibold text-gray-600'>Email :<span className='text-base ml-3'>{OrderDetails?.user?.email}</span></p>
                                 </div>
                             </div>
                         </div><hr />
@@ -70,8 +70,8 @@ const PendingSideBar = (props) => {
                                 <p className='text-2xl font-semibold py-2'>Billing Address</p>
                                 {OrderDetails?.orderitems &&
                                     OrderDetails?.orderitems.map((product) => (
-                                        <div key={product?.product_Id._id}>
-                                            <p >{product?.product_Id.name}</p>
+                                        <div key={product?.product_Id?._id}>
+                                            <p >{product?.product_Id?.name}</p>
                                         </div>
                                     ))}
                             </div>

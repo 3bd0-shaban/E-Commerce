@@ -75,12 +75,7 @@ export const SignIn = asyncHandler(async (req, res, next) => {
             sameSite: 'lax'
         });
         if (user) {
-            const auth = await Users.find({ email }).select('-password');
-            res.cookie('Logged_in', String(user._id), {
-                path: '/',
-                expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 1d
-                sameSite: 'lax'
-            });
+            const auth = await Users.find({ email }).select('firstname lastname role email');
             if (user.isAdmin) {
                 res.cookie('Admin', String(user._id), {
                     path: '/',
@@ -217,8 +212,8 @@ export const AllUsers = asyncHandler(async (req, res, next) => {
     return res.json(user);
 })
 export const LogOut = asyncHandler(async (req, res, next) => {
-    res.clearCookie('token', { path: '/' });
-    res.clearCookie('Logged_in', { path: '/' });
+    res.clearCookie('token', { path: '/', maxAge: 1 });
+    res.clearCookie('Logged_in', { path: '/', maxAge: 1 });
     res.clearCookie('Admin', { path: '/' });
     return res.json({ msg: 'Loged Out' });
 })

@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const url = process.env.REACT_APP_API_KEY;
 
-export const Whitelist_Query = createApi({
+export const WhitelistApi = createApi({
     reducerPath: 'WhitelistApi',
     baseQuery: fetchBaseQuery({ baseUrl: url }),
     tagTypes: ['Whitelist'],
@@ -46,4 +46,4 @@ export const {
     useGetWhitelistQuery,
     useDeleteWhitelistMutation,
     useDeleteProductInWhitelistMutation
-} = Whitelist_Query;
+} = WhitelistApi;

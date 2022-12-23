@@ -59,20 +59,19 @@ const Dashboard = () => {
                                         </thead>
                                         <tbody onClick={() => dispatch(FeaturesAction.Show_sideUserInfo())} >
                                             {AllUsers?.map(user => (
-                                                <tr onClick={() => setId(user._id)} className="bg-white border-b hover:bg-gray-50 cursor-pointer" key={user._id} >
+                                                <tr onClick={() => setId(user?._id)} className="bg-white border-b hover:bg-gray-50 cursor-pointer" key={user?._id} >
                                                     <td className="flex items-center py-4 ">
                                                         <div className="w-14 h-14 bg-red-400 text-white flex gap-1 items-center justify-center text-2xl font-serif font-bold mx-2 rounded-full">{user.firstname.charAt(0)}
-                                                            <span> {user.lastname.charAt(0)}</span>
+                                                            <span> {user?.lastname.charAt(0)}</span>
                                                         </div>
                                                         <div className="pl-3">
-                                                            <div className="text-base font-semibold  overflow-x-hidden">{user.firstname}<span> {user.lastname}</span></div>
-                                                            <div className="font-normal text-gray-500">{user.email}</div>
+                                                            <div className="text-base font-semibold  overflow-x-hidden">{user?.firstname}<span> {user?.lastname}</span></div>
+                                                            <div className="font-normal text-gray-500">{user?.email}</div>
                                                         </div>
                                                     </td>
-                                                    <td className="py-4 px-6 w-[20%]">{user.email}</td>
-                                                    {user.isAdmin ? <td className="py-4 px-6 w-[20%]">Admin</td> :
-                                                        <td className="py-4 px-6 w-[20%]">Customer</td>}
-                                                    <td className="py-4 px-6">{moment(user.createdAt).format('Do MMMM YYYY')}</td>
+                                                    <td className="py-4 px-6 w-[20%]">{user?.email}</td>
+                                                    <td className="py-4 px-6 w-[20%]">{user?.role}</td> 
+                                                    <td className="py-4 px-6">{moment(user?.createdAt).format('Do MMMM YYYY')}</td>
                                                 </tr>
                                             ))}
                                         </tbody>

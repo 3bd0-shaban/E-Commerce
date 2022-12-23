@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const url = process.env.REACT_APP_API_KEY;
 
-export const Order_Query = createApi({
+export const OrderApi = createApi({
     reducerPath: 'OrderApi',
     baseQuery: fetchBaseQuery({ baseUrl: url }),
     tagTypes: ['Order'],
@@ -93,4 +93,4 @@ export const {
     useChangeOrderStatusMutation,
     useCancelOrderQuery,
     useNewOrderMutation,
-} = Order_Query;
+} = OrderApi;

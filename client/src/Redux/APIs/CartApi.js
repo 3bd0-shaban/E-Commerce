@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const url = process.env.REACT_APP_API_KEY;
 
-export const Cart_Query = createApi({
+export const CartApi = createApi({
     reducerPath: 'CartApi',
     baseQuery: fetchBaseQuery({ baseUrl: url }),
     tagTypes: ['Cart'],
@@ -70,4 +70,4 @@ export const {
     useDecrementMutation,
     useDeleteCartMutation,
     useDeleteItemInCartMutation,
-} = Cart_Query;
+} = CartApi;

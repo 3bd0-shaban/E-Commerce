@@ -26,7 +26,7 @@ export const Add_New_Cart = asyncHandler(async (req, res, next) => {
                     items: { product_Id: req.body.product_Id, quentity: 1 }
                 },
             }, { new: true });
-            return next(new ErrorHandler('Product Added To Your Cart', 400));
+            return res.json({msg:'Product Added To Your Cart'})
         }
     }
 })

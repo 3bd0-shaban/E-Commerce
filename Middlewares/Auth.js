@@ -1,28 +1,28 @@
 import jwt from "jsonwebtoken";
 import Users from '../Models/Users.js';
+import ErrorHandler from './../Utils/ErrorHandler.js';
 export const auth = async (req, res, next) => {
     try {
         const { token } = req.cookies;
         if (!token) {
-            return res.status(500).json({ msg: 'not authorized' });
+            return next(
+                new ErrorHandler('You are not authorized you need to log in first', 403)
+            );
         }
         const verify = jwt.verify(token, process.env.JWT_SECRET);
         req.user = await Users.findById(verify.id);
         next();
     } catch (error) {
-        return res.status(500).json({ msg: error.message });
-
+        return next(new ErrorHandler(error.message, 500))
     }
 }
-export const isAdmin = async (req, res, next) => {
-    try {
-        const admin = req.user && req.user.isAdmin;
-        if (!admin) {
-            return res.status(401).json({ msg: 'Resourses not founded or it may changed to anthor url' });
+export const authorizeRoles = (...roles) => {
+    return (req, res, next) => {
+        if (!roles.includes(req.user.role)) {
+            return next(
+                new ErrorHandler(`Role: ${req.user.role} is not allowed to access this resouce `, 403)
+            );
         }
         next();
-
-    } catch (error) {
-        return res.status(500).json(error)
-    }
-}
+    };
+};

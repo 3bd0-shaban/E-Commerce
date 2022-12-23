@@ -1,8 +1,8 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const url = process.env.REACT_APP_API_KEY;
 
-export const Reviews_Query = createApi({
-    reducerPath: 'ReviewsApi',
+export const ReviewApi = createApi({
+    reducerPath: 'ReviewApi',
     baseQuery: fetchBaseQuery({ baseUrl: url }),
     tagTypes: ['Reviews'],
     endpoints: (builder) => ({
@@ -44,4 +44,4 @@ export const {
     useGetReviewsQuery,
     useUpdateReviewMutation,
     useDeleteReviewMutation,
-} = Reviews_Query;
+} = ReviewApi;

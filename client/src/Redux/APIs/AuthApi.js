@@ -1,5 +1,5 @@
 import { apiSlice } from './ApiSlice';
-export const Auth_Query = apiSlice.injectEndpoints({
+export const AuthApi = apiSlice.injectEndpoints({
     reducerPath: 'AuthApi',
     tagTypes: ['Auth'],
     endpoints: builder => ({
@@ -89,4 +89,4 @@ export const {
     useLogOutMutation,
     useSigninMutation,
     useSignupMutation,
-} = Auth_Query;
+} = AuthApi;

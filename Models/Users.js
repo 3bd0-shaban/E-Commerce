@@ -52,9 +52,9 @@ const usesrSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    isAdmin: {
-      type: Boolean,
-      default: false,
+    role: {
+      type: String,
+      default: "user",
     },
     address: [AddressSchema],
     whiteList: [

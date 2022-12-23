@@ -173,7 +173,7 @@
 .sidebar {
     transition: all .3s ease-out;
     @apply
-    xl:hidden h-screen fixed z-20 w-80 border-r shadow-2xl bg-[#F6F8F9]
+    xl:hidden h-screen fixed z-20 w-80 border-r shadow-2xl bg-[#F6F8F9] overflow-y-scroll
 }
 .opened {
     transform: translateX(0);

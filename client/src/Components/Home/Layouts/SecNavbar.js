@@ -6,7 +6,7 @@ import { useState } from "react"
 import { FeaturesAction } from "../../../Redux/Slices/FeaturesSlice"
 import { useDispatch, useSelector } from 'react-redux';
 import { LogOut } from "../../../Redux/Slices/UserSlice";
-import { Auth_Query, useLogOutMutation } from "../../../Redux/APIs/AuthApi"
+import { AuthApi, useLogOutMutation } from "../../../Redux/APIs/AuthApi"
 const SecNavbar = () => {
     const dispatch = useDispatch();
     const { HomeSideBar } = useSelector(state => state.Features);

@@ -1,6 +1,6 @@
 import express from 'express';
 const Router = express.Router();
-import { auth, isAdmin } from '../Middlewares/Auth.js'
+import { auth, authorizeRoles } from '../Middlewares/Auth.js'
 import { Add_To_WhiteList, Fetch_Product_In_WhiteList,Delete_All_User_Whitelist,Delete_User_Product_Whitelist } from './../Controllers/WhiteListController.js';
 
 Router.post('/new/:id', auth, Add_To_WhiteList);

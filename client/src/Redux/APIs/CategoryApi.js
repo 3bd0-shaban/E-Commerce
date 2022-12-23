@@ -1,7 +1,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
 const url = process.env.REACT_APP_API_KEY;
 
-export const Category_Query = createApi({
+export const CategoryApi = createApi({
     reducerPath: 'CategoryApi',
     baseQuery: fetchBaseQuery({ baseUrl: url }),
     tagTypes: ['Category'],
@@ -52,4 +52,4 @@ export const {
     useGetCategoryDetailsQuery,
     useUpdateCategoryMutation,
     useDeleteCategoryMutation,
-} = Category_Query;
+} = CategoryApi;
