@@ -22,7 +22,6 @@ router.post('/forgot', ForgotPassword);
 router.post('/resetpassword:', ResetPassword);
 router.get('/getall', auth, isAdmin, AllUsers);
 
-
 router.post('/newaddress', auth, SetNewAddress);
 router.post('/deleteall', auth, Delete_All_Address);
 router.post('/delete', auth, Delete_Spacific_Address);

@@ -1,13 +1,15 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom"
-import { useSelector } from "react-redux"
-// import { selectCurrentToken } from "../Redux/Slices/UserSlice"
+import { useCookies } from 'react-cookie';
+import { useSelector } from 'react-redux';
 
 const RequiredAdmin = () => {
-    const { isAdmin } = useSelector(state => state.auth);
-    // const token = useSelector(selectCurrentToken);
+    const [cookies] = useCookies(['Admin']);
+    const { user } = useSelector(state => state.auth)
+    const admin = user[0]._id;
     const location = useLocation();
+    console.log(cookies.Admin, admin)
     return (
-        isAdmin
+        cookies.Admin === admin
             ? <Outlet />
             : <Navigate to="/notfound" state={{ from: location }} replace />
     )

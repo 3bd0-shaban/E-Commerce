@@ -16,7 +16,7 @@ const UserSlice = createSlice({
             state.isAdmin = localStorage.getItem('Admin?') ? true : false;
         },
         LogOut(state) {
-            state.user = [];
+            state.user = {};
             state.token = null;
             state.isLogged = false;
             state.isAdmin = false;

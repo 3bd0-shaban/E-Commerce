@@ -1,13 +1,14 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom"
-import { useSelector } from "react-redux"
-import { selectCurrentToken } from "../Redux/Slices/UserSlice"
+import { useCookies } from 'react-cookie';
+import { useSelector } from 'react-redux';
 
 const RequireAuth = () => {
-    // const { isLogged } = useSelector(state => state.auth);
-    const token = useSelector(selectCurrentToken);
+    const [cookies] = useCookies(['Logged_in']);
+    const { user } = useSelector(state => state.auth)
+    const isUser = user[0]._id;
     const location = useLocation();
     return (
-        token
+        cookies.Logged_in === isUser
             ? <Outlet />
             : <Navigate to="/signin" state={{ from: location }} replace />
     )

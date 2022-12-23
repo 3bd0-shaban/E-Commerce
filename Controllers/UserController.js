@@ -71,11 +71,23 @@ export const SignIn = asyncHandler(async (req, res, next) => {
             httpOnly: true,
             path: '/',
             // secure: true,
-            expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 30 seconds
+            expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 1d
             sameSite: 'lax'
-        })
+        });
         if (user) {
             const auth = await Users.find({ email }).select('-password');
+            res.cookie('Logged_in', String(user._id), {
+                path: '/',
+                expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 1d
+                sameSite: 'lax'
+            });
+            if (user.isAdmin) {
+                res.cookie('Admin', String(user._id), {
+                    path: '/',
+                    expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 1d
+                    sameSite: 'lax'
+                });
+            }
             return res.json({ msg: 'successfully Logged In', auth, token });
         }
     }
@@ -110,7 +122,7 @@ export const RefreshToken = asyncHandler((req, res, next) => {
     });
 })
 export const UserInfo = asyncHandler(async (req, res, next) => {
-    const user = await Users.findById(req.params.id);
+    const user = await Users.find({ _id: req.user._id });
     if (!user) {
         return next(new ErrorHandler('User Not Founded', 400));
     }
@@ -205,7 +217,9 @@ export const AllUsers = asyncHandler(async (req, res, next) => {
     return res.json(user);
 })
 export const LogOut = asyncHandler(async (req, res, next) => {
-    res.clearCookie('token', { path: '/', })
+    res.clearCookie('token', { path: '/' });
+    res.clearCookie('Logged_in', { path: '/' });
+    res.clearCookie('Admin', { path: '/' });
     return res.json({ msg: 'Loged Out' });
 })
 function validateEmail(email) {

@@ -5,7 +5,6 @@ import { CgDetailsMore } from 'react-icons/cg'
 import { CiHeart } from 'react-icons/ci'
 import { SecNavbar, Logo } from '../../Exports';
 const Header = () => {
-
   const Search = () => {
     return (
       <form className='w-[52%] hidden xl:flex justify-center '>

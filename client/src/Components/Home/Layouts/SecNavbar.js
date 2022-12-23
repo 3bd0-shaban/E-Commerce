@@ -1,15 +1,30 @@
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { IoPersonOutline } from 'react-icons/io5'
 import { BsList } from "react-icons/bs"
 import { Logo, SideBarMain } from '../../Exports'
 import { useState } from "react"
 import { FeaturesAction } from "../../../Redux/Slices/FeaturesSlice"
 import { useDispatch, useSelector } from 'react-redux';
+import { LogOut } from "../../../Redux/Slices/UserSlice";
+import { Auth_Query, useLogOutMutation } from "../../../Redux/APIs/AuthApi"
 const SecNavbar = () => {
     const dispatch = useDispatch();
     const { HomeSideBar } = useSelector(state => state.Features);
     const { isLogged } = useSelector(state => state.auth);
     const [open, setOpen] = useState(false);
+    const [logOut] = useLogOutMutation();
+    const navigate = useNavigate();
+    const HandleLogOut = async () => {
+        await logOut().unwrap()
+            .then((payload) => {
+                localStorage.setItem('Logged?', true);
+                dispatch(LogOut(payload));
+                navigate('/signin')
+            })
+            .catch((err) => {
+                console.log(err)
+            });
+    }
     const MoblieView = () => {
         return (
             <div className="w-screen block px-4 py-5 z-10 bg-gray-50 space-y-4 font-semibold text-gray-500 uppercase text-lg drop">
@@ -47,7 +62,7 @@ const SecNavbar = () => {
                         <Link >Features Brand</Link>
                         <Link >Top Sells</Link>
                         <Link to='/dashboard' >Dashboard</Link>
-                        {isLogged && <Link to='/dashboard' >Logged</Link>}
+                        {isLogged && <Link onClick={HandleLogOut} >Logged</Link>}
                     </div>
                     <div className='text-gray-500 font-light text-center divide-x-2 flex gap-4'>
                         <Link className="flex gap-1 items-center">Track Your Order</Link>

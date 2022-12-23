@@ -1,5 +1,6 @@
 import { apiSlice } from './ApiSlice';
 export const Auth_Query = apiSlice.injectEndpoints({
+    reducerPath: 'AuthApi',
     tagTypes: ['Auth'],
     endpoints: builder => ({
         getUserById: builder.query({
@@ -9,12 +10,21 @@ export const Auth_Query = apiSlice.injectEndpoints({
             }),
             providesTags: ['Auth'],
         }),
-        userInfo: builder.query({
+        getUser: builder.query({
             query: () => ({
-                url: '/api/auth/userinfo',
+                url: '/api/auth/info',
+                method: 'GET',
                 credentials: 'include',
             }),
-            providesTags: ['Auth'],
+            invalidatesTags: ['Auth'],
+        }),
+        getAllUsers: builder.query({
+            query: () => ({
+                url: '/api/auth/getall',
+                method: 'GET',
+                credentials: 'include',
+            }),
+            invalidatesTags: ['Auth'],
         }),
         signin: builder.mutation({
             query: (data) => ({
@@ -38,14 +48,6 @@ export const Auth_Query = apiSlice.injectEndpoints({
             query: () => ({
                 url: '/api/auth/logout',
                 method: 'POST',
-                credentials: 'include',
-            }),
-            invalidatesTags: ['Auth'],
-        }),
-        getAllUsers: builder.query({
-            query: () => ({
-                url: '/api/auth/getall',
-                method: 'GET',
                 credentials: 'include',
             }),
             invalidatesTags: ['Auth'],
@@ -80,11 +82,11 @@ export const Auth_Query = apiSlice.injectEndpoints({
 export const {
     useGetUserByIdQuery,
     useGetAllUsersQuery,
+    useGetUserQuery,
     useDeleteUserMutation,
     useUpdateUserInfoMutation,
     useUpdateUserRoleMutation,
     useLogOutMutation,
     useSigninMutation,
     useSignupMutation,
-    useUserInfoQuery
 } = Auth_Query;

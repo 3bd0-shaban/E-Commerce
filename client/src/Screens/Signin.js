@@ -36,7 +36,7 @@ const Signin = () => {
       .then((payload) => {
         localStorage.setItem('Logged?', true);
         dispatch(setCredentials(payload));
-        setInputs({ email: '', password: '' })
+        setInputs({ email: '', password: '' });
         navigate('/')
       })
       .catch((err) => {

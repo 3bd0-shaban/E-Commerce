@@ -5,8 +5,10 @@ import { SiContactlesspayment } from 'react-icons/si'
 import { HiOutlineChatBubbleOvalLeft, HiOutlineTruck } from 'react-icons/hi2'
 import { HomeProducts, HomeProducts2, Banners, Header, Footer, HomeCategory, HomeBrands, FeaturesCategory } from '../../Exports'
 import { Helmet } from 'react-helmet-async'
+// import { useGetUserQuery } from '../../../Redux/APIs/AuthApi'
 const Home = () => {
     const FeaturesHeader = () => {
+        // const { data } = useGetUserQuery() || {};
         const Item = (props) => {
             return (
                 <div className='grid grid-cols-4 text-start border-t py-14 px-8'>

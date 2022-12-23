@@ -119,7 +119,7 @@ const HomeProducts = (props) => {
                         <div key={product._id} className=' product px-3'>
                             <div className='mt-2'>
                                 <div className='h-72 flex items-center relative overflow-hidden justify-center w-[85%] mx-auto'>
-                                    <Link to={`/product/${product._id}`}><img src={product.images ? product.images[0].url : 'Can not load images'} className='rounded-2xl object-fill mx-auto' alt={product.name}></img></Link>
+                                    <Link to={`/product/${product._id}`}><img src={product.images ? product.images[0].url : 'Can not load images'} className='rounded-2xl max-h-44 object-cover mx-auto' alt={product.name}></img></Link>
                                     {product.stock > 0 &&
                                         <div className='-bottom-20 inset-x-0 hover:block max-h-full absolute text-white items'>
                                             <div className='flex justify-center gap-4'>
