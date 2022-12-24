@@ -10,6 +10,7 @@ export const CartApi = createApi({
             query: () => ({
                 url: '/api/cart/get',
                 credentials: 'include',
+                keepUnusedDataFor: 5,
             }),
             providesTags: ['Cart'],
         }),

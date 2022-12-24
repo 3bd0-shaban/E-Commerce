@@ -93,18 +93,20 @@ const HomeProducts2 = (props) => {
                     <SKHomeProducts />
                 </div>
                 : error &&
-                <Danger />
+                <Danger error={error?.data?.msg || 'Can not load products'}/>
             }
             <Slider {...settings}>
                 {products
                     && products?.map((product) => (
                         <div key={product._id} className=' product px-3'>
                             <div className='py-5'>
-                                <div className='flex items-center relative overflow-hidden justify-center mx-auto'>
-                                    <Link to={`/product/${product._id}`}><img src={product.images ? product.images[0].url : 'Can not load images'} className='rounded-2xl object-contain h-32 w-96 mx-auto' alt={product.name}></img></Link>
+                                <div className='grid grid-cols-3 items-center relative overflow-hidden justify-center mx-auto'>
+                                    <Link to={`/product/${product._id}`}>
+                                        <img src={product.images ? product.images[0].url : 'Can not load images'} className='rounded-2xl p-1 object-contain h-32 mx-auto' alt={product.name}></img>
+                                    </Link>
                                     {product.stock > 0 &&
                                         <>
-                                            <div className='block'>
+                                            <div className='block col-span-2'>
                                                 <Link to={`/product/${product._id}`} className='text-xl hover:text-orange-300 font-semibold ellipse-2'>{product.name}</Link>
                                                 <p className='text-xl mt-4 font-semibold text-cyan-600'>{product.price}$</p>
                                                 <div className='flex items-center gap-3'>

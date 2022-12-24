@@ -6,7 +6,7 @@ import { useState } from "react"
 import { FeaturesAction } from "../../../Redux/Slices/FeaturesSlice"
 import { useDispatch, useSelector } from 'react-redux';
 import { LogOut } from "../../../Redux/Slices/UserSlice";
-import { AuthApi, useLogOutMutation } from "../../../Redux/APIs/AuthApi"
+import { useLogOutMutation } from "../../../Redux/APIs/AuthApi"
 const SecNavbar = () => {
     const dispatch = useDispatch();
     const { HomeSideBar } = useSelector(state => state.Features);
@@ -27,7 +27,7 @@ const SecNavbar = () => {
     }
     const MoblieView = () => {
         return (
-            <div className="w-screen block px-4 py-5 z-10 bg-gray-50 space-y-4 font-semibold text-gray-500 uppercase text-lg drop">
+            <div className="w-screen block px-4 py-5 z-10 bg-gray-50 space-y-4 font-semibold text-gray-500 uppercase whitespace-nowrap text-lg drop">
                 <Link className="block" >Super Deals</Link>
                 <Link className="block" >New Arrival</Link>
                 <Link className="block" >Hot Products</Link>
@@ -55,7 +55,7 @@ const SecNavbar = () => {
             </div>
             <div className='container max-w-[140rem] px-8 hidden xl:block'>
                 <div className='flex justify-between items-center py-3'>
-                    <div className="flex gap-14 font-semibold text-gray-500 uppercase text-lg">
+                    <div className="flex xl:gap-8 xxl:gap-14 font-semibold text-gray-500 uppercase whitespace-nowrap xl:text-base xxl:text-lg">
                         <Link >Super Deals</Link>
                         <Link >New Arrival</Link>
                         <Link >Hot Products</Link>

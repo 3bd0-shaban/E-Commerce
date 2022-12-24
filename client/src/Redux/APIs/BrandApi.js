@@ -8,6 +8,7 @@ export const BrandApi = createApi({
     endpoints: (builder) => ({
         getBrand: builder.query({
             query: () => '/api/brand/get',
+            keepUnusedDataFor: 5,
             providesTags: (result, error, arg) =>
                 result
                     ? [...result.map(({ id }) => ({ type: 'Brand', id })), 'Brand']
@@ -15,6 +16,7 @@ export const BrandApi = createApi({
         }),
         getBrandDetails: builder.query({
             query: (id) => `/api/brand/get/${id}`,
+            keepUnusedDataFor: 5,
             // providesTags: ['Brand'],
         }),
         createBrand: builder.mutation({

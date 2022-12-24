@@ -43,7 +43,7 @@ export const Get_Spicific_Category = asyncHandler(async (req, res, next) => {
 })
 
 export const Update_Category = asyncHandler(async (req, res, next) => {
-    let newCategory = {}
+    let newCategory = {};
     const { category, des, nameOfSub } = req.body
     const file = req.body.image;
     const isCategory = await Category.findById(req.params.id);
@@ -61,17 +61,11 @@ export const Update_Category = asyncHandler(async (req, res, next) => {
             folder: "E-Commerce/Category",
         });
         newCategory = {
-            image: {
-                public_id: result.public_id,
-                url: result.secure_url,
-            }
+            public_id: result.public_id,
+            url: result.secure_url,
         };
     }
-    const UpdatedCategory = await Category.findByIdAndUpdate(req.params.id, { category, des, newCategory, nameOfSub }, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false,
-    })
+    await Category.findByIdAndUpdate(req.params.id, { category, des, image: newCategory, nameOfSub }, { new: true })
     return res.json({ msg: 'Category updated successfully' })
 })
 export const Delete_Category = asyncHandler(async (req, res, next) => {

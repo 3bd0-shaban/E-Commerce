@@ -8,6 +8,8 @@ export { default as SecNavbar } from './Home/Layouts/SecNavbar';
 export { default as HomeCategory } from './Home/Main/HomeCategory';
 export { default as HomeBrands } from './Home/Main/HomeBrands';
 export { default as Banners } from './Home/Main/Banners';
+export { default as SideBanner } from './Home/Main/SideBanner';
+export { default as SideImages } from './Home/Main/SideImages';
 export { default as HomeProducts } from './Home/Main/HomeProducts';
 export { default as HomeProducts2 } from './Home/Main/HomeProducts2';
 export { default as FeaturesCategory } from './Home/Main/FeaturesCategory';

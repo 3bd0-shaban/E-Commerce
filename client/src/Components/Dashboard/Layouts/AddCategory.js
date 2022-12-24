@@ -69,9 +69,9 @@ const AddCategory = () => {
             {isSuccess && <Success error={'Category added Succeefully'} className={'container my-5'} />}
             <>
                 <CategoryInfo id={id} />
-                <div className='container px-0 max-w-8xl'>
+                <div className='container px-0 max-w-full'>
                     <form onSubmit={handleSubmit} className='px-6 rounded-xl py-8'>
-                        <div className='grid grid-cols-1 lg:grid-cols-3 lg:gap-8'>
+                        <div className='grid grid-cols-1 lg:grid-cols-4 lg:gap-8'>
                             <div className='rounded-lg lg:border lg:px-10 col-span-1'>
                                 <div className='mt-4'>
                                     <label className='text-sm py-3 font-light font-serif text-gray-500'>Category Name</label>
@@ -100,7 +100,7 @@ const AddCategory = () => {
                                     {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Submit'}</button>                            </div>
                             {isFetching ? <p>Loading ........</p> : isError ?
                                 <Danger error={error?.data.msg || 'Can not display Category'} className={'container px-0 my-5'} /> :
-                                <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5 col-span-2">
+                                <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5 col-span-3">
                                     <table className="w-full text-sm text-left text-gray-500 mt-5">
                                         <thead className="text-xs text-gray-700 uppercase border-b-2 py-3">
                                             <tr className='whitespace-nowrap'>
@@ -121,7 +121,7 @@ const AddCategory = () => {
                                                         </td>
                                                         <td className="font-normal text-gray-500 ">{cat.category}</td>
                                                         <td className="py-4"><span className={(`${cat.isActive}` === 'true') ? 'bg-green-200 text-green-500 rounded-full text-base px-8 py-1.5' : 'bg-red-200 text-red-500 rounded-full text-base px-8 py-1.5'}>{cat.isActive.toString()}</span></td>
-                                                        <td className="py-4 px-6">{moment(cat.createdAt).format('Do MMMM YYYY')}</td>
+                                                        <td className="py-4">{moment(cat.createdAt).format('Do MMMM YYYY')}</td>
                                                     </tr>
                                                 ))}
                                         </tbody>

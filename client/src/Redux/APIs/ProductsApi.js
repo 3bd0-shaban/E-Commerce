@@ -16,6 +16,7 @@ export const ProductApi = createApi({
         }),
         getProductsDetails: builder.query({
             query: (id) => `/api/product/get/${id}`,
+            keepUnusedDataFor: 5,
             // providesTags: ['Products'],
         }),
         createProducts: builder.mutation({

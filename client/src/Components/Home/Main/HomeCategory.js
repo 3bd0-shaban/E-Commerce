@@ -1,16 +1,17 @@
 import React, { useState } from 'react';
 import { BiChevronRight } from 'react-icons/bi';
 import { useGetCategoryQuery } from '../../../Redux/APIs/CategoryApi';
+import { Danger } from '../../Alerts';
 const HomeCategory = (props) => {
-  const { data: Category, isFetching, isError } = useGetCategoryQuery();
+  const { data: Category, isFetching, isError, error } = useGetCategoryQuery();
   const [SubCat, setSubCat] = useState();
   const [show, setShow] = useState(false);
   return (
     <>
       {isFetching ?
-        <div><div className="animate-pulse p-2 w-80 h-full bg-gray-300 rounded"></div></div>
+        <div><div className="animate-pulse p-2 w-80 h-full bg-gray-300 rounded hidden lg:block"></div></div>
         : isError ?
-          <>Error while fetching category</>
+          <Danger error={error?.data?.msg || 'Can not load products'} className={'hidden lg:block'} />
           : (
             <div
               className={

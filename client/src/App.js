@@ -4,18 +4,12 @@ import {
   Mainprofile, Charts, Calender, Orders, Chat, Issues, Cart, WhiteList, Dashboard, RequireAuth, Layout, NotFounded, RequiredAdmin
 } from './Components/Exports';
 import { Route, Routes } from 'react-router-dom'
-// import { useDispatch, useSelector } from 'react-redux';
-// import axios from 'axios'
-// import { Fetch_Logged_User } from './Redux/APIs/AuthAction';
-// axios.defaults.withCredentials = true;
+import { useGetUserQuery } from './Redux/APIs/AuthApi';
+// import { useSelector } from 'react-redux';
 function App() {
-  // const dispatch = useDispatch();
   // const { isLogged } = useSelector((state) => state.auth);
-  // useEffect(() => {
-  //   if (isLogged) {
-  //     dispatch(Fetch_Logged_User())
-  //   }
-  // }, [dispatch, isLogged]);
+  const {data} = useGetUserQuery() || {};
+  console.log(data)
   return (
     <Routes>
       <Route path='/' element={<Layout />}>

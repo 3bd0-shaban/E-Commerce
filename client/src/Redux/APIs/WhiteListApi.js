@@ -9,6 +9,7 @@ export const WhitelistApi = createApi({
         getWhitelist: builder.query({
             query: () => ({
                 url: '/api/whitelist/get',
+                keepUnusedDataFor: 5,
                 credentials: 'include',
             }),
             providesTags: ['Whitelist'],

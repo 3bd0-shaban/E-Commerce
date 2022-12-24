@@ -15,7 +15,7 @@ import { useAddToCartMutation } from '../../../Redux/APIs/CartApi';
 const HomeProducts = (props) => {
     const [id, setId] = useState('');
     const product_Id = id;
-    const { data: products, isLoading: loading, error } = useGetProductsQuery() || {};
+    const { data: products, isLoading: loading,isError, error } = useGetProductsQuery() || {};
     const [addToWhitelist] = useAddToWhitelistMutation();
     const [addToCart] = useAddToCartMutation();
     const settings = {
@@ -110,15 +110,15 @@ const HomeProducts = (props) => {
                     <SKHomeProducts />
                     <SKHomeProducts />
                 </div>
-                : error &&
-                <Danger />
+                : isError &&
+                <Danger error={error?.data?.msg || 'Can not load products'}/>
             }
             <Slider {...settings}>
                 {products &&
                     products?.map((product) => (
                         <div key={product._id} className=' product px-3'>
                             <div className='mt-2'>
-                                <div className='h-72 flex items-center relative overflow-hidden justify-center w-[85%] mx-auto'>
+                                <div className=' flex items-center relative overflow-hidden justify-center w-[85%] mx-auto'>
                                     <Link to={`/product/${product._id}`}><img src={product.images ? product.images[0].url : 'Can not load images'} className='rounded-2xl max-h-44 object-cover mx-auto' alt={product.name}></img></Link>
                                     {product.stock > 0 &&
                                         <div className='-bottom-20 inset-x-0 hover:block max-h-full absolute text-white items'>

@@ -15,7 +15,7 @@ const ProductScreen = () => {
   const SpicHeader = () => {
     return (
       <div className='w-full py-12 bg-[#F5F5F5]'>
-        <div className='text-2xl font-semibold flex gap-16 text-gray-600 items-center px-32 uppercase'>
+        <div className='text-lg xl:text-2xl font-semibold flex gap-5 xl:gap-16 text-gray-600 items-center whitespace-nowrap px-4 xl:px-32 uppercase'>
           <Link>related</Link>
           <Link>DESCRIPTION</Link>
           <Link>specification</Link>
@@ -31,7 +31,7 @@ const ProductScreen = () => {
         <title>{productDetails?.name}</title>
       </Helmet>
       <Header />
-      <div className='flex container max-w-[144rem] gap-5'>
+      <div className='flex container max-w-full xl:max-w-[144rem] gap-5'>
         <HomeCategory Hight={'h-[54.5rem]'} />
         <div>
           <ProductMainScreen />

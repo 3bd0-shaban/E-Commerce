@@ -1,9 +1,9 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Danger } from '../../Alerts';
 import { ShowRating } from '../../Exports'
 import { Link, useParams } from 'react-router-dom'
 import { useGetProductsDetailsQuery } from '../../../Redux/APIs/ProductsApi';
-import { HiOutlineTruck } from 'react-icons/hi';
+// import { HiOutlineTruck } from 'react-icons/hi';
 import { CiHeart } from 'react-icons/ci';
 import { useAddToWhitelistMutation } from '../../../Redux/APIs/WhiteListApi';
 import { ToastContainer, toast } from 'react-toastify';
@@ -15,7 +15,11 @@ const ProductMainScreen = () => {
     const params = useParams();
     const { id } = params;
     const product_Id = id;
+    const [image, setImage] = useState('');
     const { data: productDetails, isLoading: loading, error } = useGetProductsDetailsQuery(id) || {};
+    useEffect(() => {
+        setImage(productDetails?.images && productDetails?.images[0].url);
+    }, [setImage, productDetails]);
     const [addToWhitelist] = useAddToWhitelistMutation()
     const [addToCart] = useAddToCartMutation();
 
@@ -30,25 +34,25 @@ const ProductMainScreen = () => {
             .catch((error) => toast.error(error.data.msg));
     }
     return (
-        <div className='container max-w-[140rem] mt-5'>
+        <div className='container px-0 xl:px-2 max-w-[140rem] mt-5'>
             {loading ?
                 <p className='mx-auto mt-20 text-3xl font-serif font-semibold'>Loading ....</p>
                 : error ? <Danger error={'No Product Founded'} className={'mx-auto mt-20 text-7xl font-serif font-semibold bg-red-200 py-3 px-5'} /> : productDetails._id &&
                     <>
                         <ToastContainer position="bottom-center" closeOnClick autoClose={1200} hideProgressBar={true} limit={1} />
-                        <div className='grid grid-cols-1 md:grid-cols-5 h-[45rem]'>
-                            <div className='col-span-2 flex'>
-                                <div className='w-[25%]'>
+                        <div className='grid grid-cols-1 xl:grid-cols-5 min-h-[45rem]'>
+                            <div className='xl:col-span-2 flex'>
+                                <div className='w-[25%] hidden xl:block'>
                                     {productDetails &&
-                                        productDetails.images?.map((img) => (
-                                            <img src={img.url} key={img._id} className='border w-[80%] object-cover' alt='' />
+                                        productDetails?.images?.map((img) => (
+                                            <div key={img._id} onClick={() => setImage(img.url)}><img src={img.url} className={'border w-[80%] object-cover cursor-pointer hover:border-slate-900'} alt='' /></div>
                                         ))}
                                 </div>
                                 <div className='flex justify-center'>
-                                    <img src={productDetails.images ? productDetails.images[0].url : 'Can not load images'} className='object-cover h-[35rem] w-full mx-auto' alt='' />
+                                    <img src={image} className='object-cover h-[35rem] w-full mx-auto' alt='' />
                                 </div>
                             </div>
-                            <div className='col-span-2 px-10'>
+                            <div className='xl:col-span-2 '>
                                 <div className='flex justify-center items-center'>
                                     <p className='text-xl font-semibold py-3 '>{productDetails?.name}</p>
                                     <Link onClick={HandleToWhiteList} className='fill-black'><CiHeart style={{ fontSize: "2.5rem" }} /></Link>
@@ -70,12 +74,12 @@ const ProductMainScreen = () => {
                                 {productDetails.stock > 0 ?
                                     <div className='py-5'>
                                         <p className='mb-4 text-lg font-extralight'>Avability : <span className='font-semibold text-green-600'>In Stock</span></p>
-                                        {productDetails.stock < 5 && productDetails.stock > 0 && <p>Only {productDetails.stock} is available</p>}
+                                        {productDetails.stock < 5 && productDetails.stock > 0 && <p className='my-3'>Only {productDetails.stock} is available</p>}
                                         <hr />
-                                        <div className='mt-4 py-3 bg-[#F5F5F5] flex items-center px-4 gap-3'>
+                                        {/* <div className='mt-4 py-3 bg-[#F5F5F5] flex items-center px-4 gap-3'>
                                             <div className='text-gray-500'><HiOutlineTruck /></div>
                                             <p className='text-gray-500'>Item with <span className='text-gray-700 font-serif font-semibold'>Free Dilivary</span></p>
-                                        </div>
+                                        </div> */}
                                         <div className='flex gap-5'>
                                             <p className='text-3xl font-bold mt-auto text-blue-600 py-3'>$ {productDetails.price}</p>
                                             <p className='text-2xl items-center flex text-gray-500 line-through'>$ {productDetails.price}</p>

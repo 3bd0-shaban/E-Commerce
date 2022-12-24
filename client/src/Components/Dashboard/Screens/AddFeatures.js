@@ -14,7 +14,7 @@ const AddFeatures = () => {
             <DashHeeder />
             <div className='flex'>
                 <Sidebar />
-                <div className='container px-1 lg:ml-[21.8rem] max-w-[105rem] mt-24'>
+                <div className='container px-1 lg:ml-[21.8rem] max-w-full mt-24'>
                     <p className='text-4xl xl:text-5xl font-Rubik '>Features</p>
                     <div className='flex gap-6 font-light text-xl mt-5'>
                         <Link onClick={() => { setCategory(true); setBrand(false); setBanner(false) }} className='border-b-transparent hover:border-b-black'>Categores</Link>

@@ -9,6 +9,7 @@ export const ReviewApi = createApi({
         getReviews: builder.query({
             query: (id) => `/api/review/get/${id}`,
             providesTags: ['Reviews'],
+            keepUnusedDataFor: 5,
         }),
         createReview: builder.mutation({
             query: ({ data, id }) => ({

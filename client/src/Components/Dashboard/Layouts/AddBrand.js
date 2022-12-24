@@ -51,10 +51,10 @@ const AddBrand = () => {
   return (
     <>
       {error && <Danger error={error?.data?.msg || 'An error accured'} className={'container my-5'} />}
-      {isSuccess && <Success error={'Brand Added Successfully'} className={'container my-5'} />}
+      {isSuccess && <Success error={'Brand Added Successfully'} className={'container max-w-full px-0 xl:pr-10 my-5'} />}
       {<BrandInfo id={id} />}
-      <div className='container px-0 max-w-8xl mt-10'>
-        <div className='grid grid-cols-1 lg:grid-cols-3 lg:gap-8'>
+      <div className='container px-0 max-w-full mt-10'>
+        <div className='grid grid-cols-1 lg:grid-cols-4 lg:gap-8'>
           <div className='rounded-lg lg:border lg:px-10 col-span-1 max-h-[52rem]'>
             <form onSubmit={handleSubmit} className='px-6 rounded-xl py-8'>
               <div className='mt-4'>
@@ -72,7 +72,7 @@ const AddBrand = () => {
             </form>
 
           </div>
-          <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5 col-span-2">
+          <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5 col-span-3 xl:mx-10 xl:px-10">
             <div className={error ? 'px-0' : 'grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 xl:grid-cols-3 xxl:grid-cols-4 gap-5 px-5'}>
               {isFetching ? <p>Loading ........</p> :
                 error ? <Danger error={error?.data?.msg || 'Can not display Brands'} className={'container my-5'} /> :

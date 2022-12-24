@@ -21,8 +21,8 @@ export const Add_New_Brand = asyncHandler(async (req, res, next) => {
         }
     })
         .save()
-        .then(New_Brand => {
-            return res.json({ msg: 'Banner uploaded successfully' });
+        .then(brand => {
+            return res.json({ msg: 'Banner uploaded successfully', brand });
         }).catch(error => {
             return next(new ErrorHandler(error.message, 500));
         })
@@ -47,8 +47,8 @@ export const Delete_Brand = asyncHandler(async (req, res, next) => {
     return res.json({ msg: 'Brand Deleted Successfully' });
 })
 export const Update_Brand = asyncHandler(async (req, res, next) => {
-    let newBrand = {};
-    const { brand, des } = req.body
+    const { brand, des } = req.body;
+    let newImage = {};
     const file = req.body.image;
     const isBrand = await Brand.findById(req.params.id);
     if (!isBrand) {
@@ -64,17 +64,13 @@ export const Update_Brand = asyncHandler(async (req, res, next) => {
         const result = await cloudinary.uploader.upload(file, {
             folder: "E-Commerce/Brand",
         });
-        newBrand = {
-            image: {
-                public_id: result.public_id,
-                url: result.secure_url,
-            }
-        };
-    };
-    const UdatedBrand = await Brand.findByIdAndUpdate(req.params.id, { brand, des, newBrand }, {
-        new: true,
-        runValidators: true,
-        useFindAndModify: false,
-    })
+        newImage = {
+            public_id: result.public_id,
+            url: result.secure_url,
+        }
+    }
+    await Brand.findByIdAndUpdate(req.params.id, {
+        brand, des, image: newImage
+    }, { new: true, });
     return res.json({ msg: 'Brand updated successfully' });
 })
