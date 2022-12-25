@@ -1,14 +1,11 @@
 import { useLocation, Navigate, Outlet } from "react-router-dom"
-// import { useCookies } from 'react-cookie';
-import { useSelector } from 'react-redux';
-
-const RequireAuth = () => {
-    // const [cookies] = useCookies(['Logged_in']);
-    const { user } = useSelector(state => state.auth)
-    const isUser = user[0].role === "user";
+import { useAuth } from '../Components/Exports';
+const RequireAuth = ({ allowedRoles }) => {
+    const { roles } = useAuth();
     const location = useLocation();
+    // console.log(roles)
     return (
-        isUser
+        roles.some(role => allowedRoles.includes(role))
             ? <Outlet />
             : <Navigate to="/signin" state={{ from: location }} replace />
     )

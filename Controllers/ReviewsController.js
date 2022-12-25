@@ -5,12 +5,12 @@ export const Send_New_Review = asyncHandler(async (req, res, next) => {
     const { comment, rating } = req.body
     const product = await Products.findById(req.params.id).populate('reviews.user');
     if (!product) return next(new ErrorHandler('Product not founded or may be you not eligable to add a review at this product', 400));
+    if (!comment || !rating) return next(new ErrorHandler('Please add a comment and review to prosses your review', 400));
     const AlreadyCommented = product.reviews.find((p) => p.user._id == req.user.id);
     if (AlreadyCommented) return next(new ErrorHandler('You already submitted a review', 400));
-    if (!comment || !rating) return next(new ErrorHandler('Please add a comment and review to prosses your review', 400));
     await Products.findByIdAndUpdate(req.params.id, {
         $push: {
-            reviews: { user: req.user._id, name: req.user.firstname + ' ' + req.user.lastname, rating, comment }
+            reviews: { user: req.user.id, name: req.user.firstname + ' ' + req.user.lastname, rating, comment }
         },
         $inc: { numofreviews: 1, sumOfRating: rating },
     }, { new: true });

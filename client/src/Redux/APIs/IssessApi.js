@@ -1,5 +1,5 @@
 
-import { apiSlice } from './ApiSlice';
+import { apiSlice } from '../ApiSlice';
 export const IssessApi = apiSlice.injectEndpoints({
     tagTypes: ['Issess'],
     endpoints: (builder) => ({

@@ -5,7 +5,7 @@ import Cart from "../Models/Cart.js";
 export const Add_New_Cart = asyncHandler(async (req, res, next) => {
     const { product_Id } = req.body
     if (!req.body.product_Id) return next(new ErrorHandler('No product founded to add to cart', 400));
-    let UserCart = await Cart.findOne({ user: req.user._id });
+    let UserCart = await Cart.findOne({ user: req.user.id });
     if (!UserCart) {
         new Cart({
             user: req.user._id, items: { product_Id: req.body.product_Id, quentity: 1 }, numofitems: 1,
@@ -20,22 +20,22 @@ export const Add_New_Cart = asyncHandler(async (req, res, next) => {
         if (isExist) {
             return next(new ErrorHandler('Product Already Exist In our Cart', 400));
         } else {
-            await Cart.findOneAndUpdate({ user: req.user._id }, {
+            await Cart.findOneAndUpdate({ user: req.user.id }, {
                 $inc: { numofitems: 1 },
                 $push: {
                     items: { product_Id: req.body.product_Id, quentity: 1 }
                 },
             }, { new: true });
-            return res.json({msg:'Product Added To Your Cart'})
+            return res.json({ msg: 'Product Added To Your Cart' })
         }
     }
 })
 
 export const Increment = asyncHandler(async (req, res, next) => {
     const { product_Id } = req.body
-    let UserCart = await Cart.findOne({ user: req.user._id });
+    let UserCart = await Cart.findOne({ user: req.user.id });
     let ProductInCart = UserCart.items.find(p => p.product_Id == product_Id);
-    let Product = await Cart.findOne({ user: req.user._id }).populate('items.product_Id', 'stock');
+    let Product = await Cart.findOne({ user: req.user.id }).populate('items.product_Id', 'stock');
     let stockQuentity = Product.items.find(p => p.product_Id._id == product_Id);
     if (ProductInCart) {
         if (ProductInCart.quentity == stockQuentity.product_Id.stock) {
@@ -51,7 +51,7 @@ export const Increment = asyncHandler(async (req, res, next) => {
 
 export const Decrement = asyncHandler(async (req, res, next) => {
     const { product_Id } = req.body
-    let UserCart = await Cart.findOne({ user: req.user._id });
+    let UserCart = await Cart.findOne({ user: req.user.id });
     let isExist = UserCart.items.find(p => p.product_Id == product_Id);
     if (isExist) {
         if (isExist.quentity < 2) {
@@ -71,16 +71,16 @@ export const Find_Items_In_Cart = asyncHandler(async (req, res, next) => {
     return res.json(User_Cart);
 })
 export const Delete_All_Items_In_Cart = asyncHandler(async (req, res, next) => {
-    const userCart = await Cart.findOne({ user: req.user._id });
+    const userCart = await Cart.findOne({ user: req.user.id });
     if (!userCart) return next(new ErrorHandler('No cart founded for that user', 400));
-    await Cart.findOneAndUpdate({ user: req.user._id }, {
+    await Cart.findOneAndUpdate({ user: req.user.id }, {
         $set: { numofitems: 0, items: [] },
     }, { new: true });
     return res.json({ msg: 'All Items in cart deleted successfully' });
 })
 export const Delete_Specific_Item_In_Cart = asyncHandler(async (req, res, next) => {
     const { product_Id } = req.body
-    const userCart = await Cart.findOne({ user: req.user._id });
+    const userCart = await Cart.findOne({ user: req.user.id });
     if (!userCart) return next(new ErrorHandler('No cart founded for that user', 400));
     const cart = userCart.items.find(p => p.product_Id == product_Id);
     if (!cart) {

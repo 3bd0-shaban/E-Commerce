@@ -92,9 +92,10 @@ export { default as SKBanners } from './Skiliton/SK_Banners';
 
 // export { default as getError } from './utile';
 export { default as RequireAuth } from './RequiredAuth';
-export { default as RequiredAdmin } from './RequiredAdmin';
+export { default as PersistLogin } from './PersistLogin';
 export { default as NotFounded } from './NotFounded';
 export { default as Layout } from './Layout';
 
-export {default as useTitle } from '../Hooks/useTitle'
-export {default as usePersist } from '../Hooks/usePersist'
+export { default as useTitle } from '../Hooks/useTitle'
+export { default as usePersist } from '../Hooks/usePersist'
+export { default as useAuth } from '../Hooks/useAuth'

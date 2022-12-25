@@ -52,9 +52,9 @@ const usesrSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    role: {
-      type: String,
-      default: "user",
+    roles: {
+      type: [String],
+      default: ["user"],
     },
     address: [AddressSchema],
     whiteList: [

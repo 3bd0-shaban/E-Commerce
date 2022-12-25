@@ -1,4 +1,4 @@
-import { apiSlice } from './ApiSlice';
+import { apiSlice } from '../ApiSlice';
 
 export const BrandApi = apiSlice.injectEndpoints({
     tagTypes: ['Brand'],

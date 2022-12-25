@@ -2,12 +2,12 @@ import Users from '../Models/Users.js';
 import { asyncHandler } from './../Middlewares/asyncErrorHandler.js';
 import ErrorHandler from './../Utils/ErrorHandler.js';
 export const SetNewAddress = asyncHandler(async (req, res, next) => {
-    let UserAddress = await Users.findOne({ _id: req.user._id });
+    let UserAddress = await Users.findOne({ _id: req.user.id });
     if (UserAddress.address.length < 1) {
-        const updated_address = await Users.findByIdAndUpdate({ _id: req.user._id }, { address: req.body }, { new: true });
+        const updated_address = await Users.findByIdAndUpdate({ _id: req.user.id }, { address: req.body }, { new: true });
         return res.json({ updated_address });
     } else {
-        await Users.findByIdAndUpdate({ _id: req.user._id }, {
+        await Users.findByIdAndUpdate({ _id: req.user.id }, {
             $push: {
                 address: req.body
             }
@@ -17,7 +17,7 @@ export const SetNewAddress = asyncHandler(async (req, res, next) => {
 });
 
 export const Delete_All_Address = asyncHandler(async (req, res, next) => {
-    await Users.findByIdAndUpdate({ _id: req.user._id }, {
+    await Users.findByIdAndUpdate({ _id: req.user.id }, {
         $set: {
             address: []
         }
@@ -31,7 +31,7 @@ export const Delete_All_Address = asyncHandler(async (req, res, next) => {
 
 export const Delete_Spacific_Address = asyncHandler(async (req, res, next) => {
     const { _id } = req.body;
-    const user = await Users.findOne({ _id: req.user._id });
+    const user = await Users.findOne({ _id: req.user.id });
     user.address.find(p => p._id == _id);
     await Users.findOneAndUpdate({ _id: req.user._id, AddressId: req.body._id }, {
         $pull: {

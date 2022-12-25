@@ -4,9 +4,9 @@ import Cart from "../Models/Cart.js";
 import { asyncHandler } from './../Middlewares/asyncErrorHandler.js';
 import ErrorHandler from './../Utils/ErrorHandler.js';
 export const Add_NEW_Order = asyncHandler(async (req, res, next) => {
-    let userAddress = await Users.findOne({ _id: req.user._id }).select('address');
+    let userAddress = await Users.findOne({ _id: req.user.id }).select('address');
     if (userAddress.address.length < 1 || !userAddress.address) return next(new ErrorHandler('Please Add Address First', 400));
-    let Products = await Cart.findOne({ user: req.user._id }).select('items').populate('items.product_Id', 'price');
+    let Products = await Cart.findOne({ user: req.user.id }).select('items').populate('items.product_Id', 'price');
     if (!Products) return next(new ErrorHandler('No products founded in cart for this user', 400));
     let defaultAddress = userAddress.address.find(p => p.isDefault);
     if (!defaultAddress) next(new ErrorHandler('No Default user founded please add an address as default', 400));
@@ -19,7 +19,7 @@ export const Add_NEW_Order = asyncHandler(async (req, res, next) => {
         totalPrice: purchaseprice
     }).save()
         .then((Saved_Order) => {
-            Cart.findOneAndUpdate({ user: req.user._id }, {
+            Cart.findOneAndUpdate({ user: req.user.id }, {
                 $set: { numofitems: 0 },
                 // $inc: { 'items': { 'product_Id.stock': -1 } }
             }, { new: true });
@@ -29,7 +29,7 @@ export const Add_NEW_Order = asyncHandler(async (req, res, next) => {
         });
 });
 export const Fetch_Users_Orders = asyncHandler(async (req, res, next) => {
-    const userOrder = await Orders.find({ user: req.user._id })
+    const userOrder = await Orders.find({ user: req.user.id })
         .populate('orderitems.product_Id', 'name des price images')
         .populate('user', 'firstname lastname')
         .populate('address'); //return null ? why

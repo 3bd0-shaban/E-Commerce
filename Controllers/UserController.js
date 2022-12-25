@@ -57,6 +57,8 @@ export const SignIn = asyncHandler(async (req, res, next) => {
         return next(new ErrorHandler('Invalid Email', 400));
     } else {
         const user = await Users.findOne({ email }).select('+password');
+
+
         if (!user) {
             return res.status(400).json({ msg: 'wrong Email' });
         } else {
@@ -66,8 +68,8 @@ export const SignIn = asyncHandler(async (req, res, next) => {
                 return next(new ErrorHandler('Invalid Email Or Password', 400));;
             }
         }
-        const accessToken = createAccessToken({ id: user.id });
-        const refresh_Token = createRefreshToken({ id: user._id });
+        const accessToken = createAccessToken({ id: user.id, roles: user.roles });
+        const refresh_Token = createRefreshToken({ id: user._id, roles: user.roles });
         res.cookie('Jwt', refresh_Token, {
             httpOnly: true,
             path: '/',
@@ -87,12 +89,12 @@ export const RefreshToken = asyncHandler((req, res, next) => {
         if (err) {
             return next(new ErrorHandler('Authorization Failed, Please Log In Again', 400));
         }
-        const accessToken = createAccessToken({ id: user.id });
+        const accessToken = createAccessToken({ id: user.id, roles: user.roles });
         return res.json({ accessToken })
     });
 });
 export const UserInfo = asyncHandler(async (req, res, next) => {
-    const user = await Users.find({ _id: req.user._id });
+    const user = await Users.find({ _id: req.user.id });
     if (!user) {
         return next(new ErrorHandler('User Not Founded', 400));
     }

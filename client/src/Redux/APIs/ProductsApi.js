@@ -1,4 +1,4 @@
-import { apiSlice } from './ApiSlice';
+import { apiSlice } from '../ApiSlice';
 export const ProductApi = apiSlice.injectEndpoints({
     tagTypes: ['Products'],
     endpoints: (builder) => ({

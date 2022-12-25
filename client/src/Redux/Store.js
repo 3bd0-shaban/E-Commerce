@@ -1,7 +1,8 @@
+import { setupListeners } from "@reduxjs/toolkit/query"
 import { configureStore } from '@reduxjs/toolkit'
 import UserSlice from "./Slices/UserSlice";
 import FeaturesSlice from './Slices/FeaturesSlice';
-import { apiSlice } from './APIs/ApiSlice';
+import { apiSlice } from './ApiSlice';
 export const Store = configureStore({
     reducer: {
         auth: UserSlice,
@@ -13,5 +14,5 @@ export const Store = configureStore({
         apiSlice.middleware),
     devTools: process.env.NODE_ENV !== 'production',
 });
-export default Store
+setupListeners(Store.dispatch)
 
