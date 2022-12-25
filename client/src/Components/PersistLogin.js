@@ -8,7 +8,9 @@ import usePersist from "../Hooks/usePersist";
 const PersistLogin = () => {
     const { persist } = usePersist();
     const token = useSelector(selectCurrentToken);
+    console.log('token is :', token)
     const effectRan = useRef(false);
+    console.log(effectRan)
     const [trueSuccess, setTrueSuccess] = useState(false)
 
     const [refresh, { isUninitialized, isLoading, isSuccess, isError, error }] = useRefreshMutation();

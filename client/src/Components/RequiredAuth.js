@@ -3,7 +3,6 @@ import { useAuth } from '../Components/Exports';
 const RequireAuth = ({ allowedRoles }) => {
     const { roles } = useAuth();
     const location = useLocation();
-    // console.log(roles)
     return (
         roles.some(role => allowedRoles.includes(role))
             ? <Outlet />

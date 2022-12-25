@@ -61,7 +61,6 @@ export { default as Mainprofile } from './Profile/Mainprofile';
 export { default as PersonalInfo } from './Profile/PersonalInfo';
 
 export { default as LineChart } from './Dashboard/Chart/LineChart';
-export { default as GeoChart } from './Dashboard/Chart/GeoChart';
 export { default as PieChart } from './Dashboard/Chart/PieChart';
 
 export { default as AllProducts } from './Dashboard/Screens/AllProducts';

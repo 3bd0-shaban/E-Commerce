@@ -7,7 +7,6 @@ const baseQuery = fetchBaseQuery({
     credentials: 'include',
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token
-        console.log(token)
         if (token) {
             headers.set("authorization", `Bearer ${token}`)
         }
@@ -16,12 +15,10 @@ const baseQuery = fetchBaseQuery({
 })
 
 const baseQueryWithReauth = async (args, api, extraOptions) => {
-    console.log('args is :', args)
-    console.log('api is ', api)
-    console.log('extra is :', extraOptions)
+
     let result = await baseQuery(args, api, extraOptions)
     if (result?.error?.originalStatus === 403 || result?.error?.status === 500 || result?.error?.status === 403) {
-        console.log('sending refresh token')
+
         // send refresh token to get new access token 
         const refreshResult = await baseQuery('/api/auth/refresh', api, extraOptions)
         if (refreshResult?.data) {
