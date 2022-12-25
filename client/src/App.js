@@ -22,7 +22,7 @@ function App() {
               <Route path='profile' element={<Mainprofile />} />
               <Route path='whitelist' element={<WhiteList />} />
             </Route>
-            <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Customer]} />}>
+            <Route element={<RequireAuth allowedRoles={[ROLES.Admin]} />}>
               <Route path='dashboard' element={<Dashboard />} />
               <Route path='dashboard/all_users' element={<AllUsers />} />
               <Route path='dashboard/addproduct' element={<AddProduct />} />

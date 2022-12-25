@@ -20,7 +20,7 @@ router.get('/refresh', RefreshToken, UserInfo);
 router.post("/logout", auth, LogOut);
 router.post('/forgot', ForgotPassword);
 router.post('/resetpassword:', ResetPassword);
-router.get('/getall', auth, authorizeRoles("admin","user"), AllUsers);
+router.get('/getall', auth, authorizeRoles("admin"), AllUsers);
 
 router.post('/newaddress', auth, SetNewAddress);
 router.post('/deleteall', auth, Delete_All_Address);

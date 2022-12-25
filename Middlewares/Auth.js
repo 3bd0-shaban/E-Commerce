@@ -18,8 +18,8 @@ export const auth = asyncHandler(async (req, res, next) => {
 
 export const authorizeRoles = (...roles) => {
     return (req, res, next) => {
-        if (!roles.includes(req.user.roles)) {
-            console.log(roles)
+
+        if (!roles.some(role => req.user.roles.includes(role))) {
             return next(
                 new ErrorHandler(`Role: ${roles.includes(req.user)} is not allowed to access this resouce `, 403)
             );

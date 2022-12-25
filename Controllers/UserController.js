@@ -199,7 +199,7 @@ function validateEmail(email) {
     return re.test(email);
 }
 const createAccessToken = (payload) => {
-    return Jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '15m' })
+    return Jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '5s' })
 }
 const createRefreshToken = (payload) => {
     return Jwt.sign(payload, process.env.JWT_REFRESH, { expiresIn: '7d' })

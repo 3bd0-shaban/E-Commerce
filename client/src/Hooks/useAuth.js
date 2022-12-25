@@ -11,8 +11,7 @@ const useAuth = () => {
     if (token) {
         const decoded = jwtDecode(token)
         const { roles } = decoded
-
-        console.log(roles)
+        
         isShipper = roles.includes('shipper');
         isAdmin = roles.includes('admin');
 
