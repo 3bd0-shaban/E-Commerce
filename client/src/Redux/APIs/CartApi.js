@@ -1,9 +1,5 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const url = process.env.REACT_APP_API_KEY;
-
-export const CartApi = createApi({
-    reducerPath: 'CartApi',
-    baseQuery: fetchBaseQuery({ baseUrl: url }),
+import { apiSlice } from './ApiSlice';
+export const CartApi = apiSlice.injectEndpoints({
     tagTypes: ['Cart'],
     endpoints: (builder) => ({
         getCart: builder.query({

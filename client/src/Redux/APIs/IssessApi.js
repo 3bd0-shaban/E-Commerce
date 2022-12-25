@@ -1,9 +1,6 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const url = process.env.REACT_APP_API_KEY;
 
-export const IssessApi = createApi({
-    reducerPath: 'IssessApi',
-    baseQuery: fetchBaseQuery({ baseUrl: url }),
+import { apiSlice } from './ApiSlice';
+export const IssessApi = apiSlice.injectEndpoints({
     tagTypes: ['Issess'],
     endpoints: (builder) => ({
         getIssess: builder.query({

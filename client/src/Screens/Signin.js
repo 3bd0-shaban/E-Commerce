@@ -11,11 +11,6 @@ const Signin = () => {
   const dispatch = useDispatch();
   const [persist, setPersist] = usePersist()
   const userRef = useRef();
-  // useEffect(() => {
-  //   if (localStorage.getItem("Logedin ?")) {
-  //     navigate("/");
-  //   }
-  // })
   const [inputs, setInputs] = useState({
     email: '',
     password: ''
@@ -39,18 +34,15 @@ const Signin = () => {
     event.preventDefault();
     const { email, password } = inputs;
     const data = { email, password }
-    await signin(data).unwrap()
-      .then((payload) => {
-        localStorage.setItem('Logged?', true);
-        dispatch(setCredentials(payload));
-        setInputs({ email: '', password: '' });
-        navigate('/')
-      })
-      .catch((err) => {
-        console.log(err.data.msg)
-      });
+    try {
+      const { accessToken } = await signin(data).unwrap()
+      dispatch(setCredentials({ accessToken }));
+      setInputs({ email: '', password: '' });
+      navigate('/')
+    } catch (error) {
+      console.log(error)
+    }
   }
-
   return (
     <>
       <div>

@@ -1,9 +1,6 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const url = process.env.REACT_APP_API_KEY;
+import { apiSlice } from './ApiSlice';
 
-export const BrandApi = createApi({
-    reducerPath: 'BrandApi',
-    baseQuery: fetchBaseQuery({ baseUrl: url }),
+export const BrandApi = apiSlice.injectEndpoints({
     tagTypes: ['Brand'],
     endpoints: (builder) => ({
         getBrand: builder.query({

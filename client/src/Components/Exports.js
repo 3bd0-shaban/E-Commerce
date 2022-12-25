@@ -90,7 +90,7 @@ export { default as ProductMainScreen } from '../Components/Home/ProductScreen/P
 export { default as SKHomeProducts } from './Skiliton/SK_HomeProducts';
 export { default as SKBanners } from './Skiliton/SK_Banners';
 
-export { default as getError } from './utile';
+// export { default as getError } from './utile';
 export { default as RequireAuth } from './RequiredAuth';
 export { default as RequiredAdmin } from './RequiredAdmin';
 export { default as NotFounded } from './NotFounded';

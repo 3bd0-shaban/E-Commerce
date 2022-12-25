@@ -1,7 +1,6 @@
 import { LogOut, setCredentials } from '../Slices/UserSlice';
 import { apiSlice } from './ApiSlice';
 export const AuthApi = apiSlice.injectEndpoints({
-    reducerPath: 'AuthApi',
     tagTypes: ['Auth'],
     endpoints: builder => ({
         getUserById: builder.query({

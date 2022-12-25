@@ -1,9 +1,6 @@
-import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
-const url = process.env.REACT_APP_API_KEY;
+import { apiSlice } from './ApiSlice';
+export const WhitelistApi = apiSlice.injectEndpoints({
 
-export const WhitelistApi = createApi({
-    reducerPath: 'WhitelistApi',
-    baseQuery: fetchBaseQuery({ baseUrl: url }),
     tagTypes: ['Whitelist'],
     endpoints: (builder) => ({
         getWhitelist: builder.query({

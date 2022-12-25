@@ -4,11 +4,11 @@ import {
   Mainprofile, Charts, Calender, Orders, Chat, Issues, Cart, WhiteList, Dashboard, RequireAuth, Layout, NotFounded, RequiredAdmin
 } from './Components/Exports';
 import { Route, Routes } from 'react-router-dom'
-import { useGetUserQuery } from './Redux/APIs/AuthApi';
+// import { useGetUserQuery } from './Redux/APIs/AuthApi';
 import PersistLogin from './Components/PersistLogin';
 function App() {
-  const { data } = useGetUserQuery(undefined) || {};
-  console.log(data)
+  // const { data } = useGetUserQuery('User Information') || {};
+  // console.log(data)
   return (
     <Routes>
       <Route path='/' element={<Layout />}>
