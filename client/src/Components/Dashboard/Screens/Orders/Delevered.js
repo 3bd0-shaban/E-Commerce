@@ -2,21 +2,20 @@ import React, { useState } from 'react'
 import { FeaturesAction } from './../../../../Redux/Slices/FeaturesSlice';
 import { RiMoreFill } from 'react-icons/ri';
 import PendingSideBar from './SubLayouts/PendingSideBar';
-import { Helmet } from 'react-helmet-async';
+import { useTitle } from '../../../Exports';
 import { useDispatch } from 'react-redux';
 import { useGetDeliveredOrderQuery } from '../../../../Redux/APIs/OrderApi';
 import { Link } from 'react-router-dom';
 import moment from 'moment'
 
 const Delevered = () => {
+  useTitle('Delevred Orders - Dashboard');
   const [id, setID] = useState('');
   const dispatch = useDispatch();
   const { data: products } = useGetDeliveredOrderQuery();
   return (
     <>
-      <Helmet>
-        <title>Delevered Orders - Dashboard</title>
-      </Helmet>
+
       <PendingSideBar id={id} />
       <table className="w-full text-sm text-left text-gray-500 mt-5">
         <thead className="text-xs text-gray-700 uppercase border-b-2 py-3">

@@ -66,56 +66,31 @@ export const SignIn = asyncHandler(async (req, res, next) => {
                 return next(new ErrorHandler('Invalid Email Or Password', 400));;
             }
         }
-        const token = createToken({ id: user._id })
-        res.cookie('token', token, {
+        const accessToken = createAccessToken({ id: user.id });
+        const refresh_Token = createRefreshToken({ id: user._id });
+        res.cookie('Jwt', refresh_Token, {
             httpOnly: true,
             path: '/',
             // secure: true,
-            expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 1d
+            expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7d
             sameSite: 'lax'
         });
-        if (user) {
-            const auth = await Users.find({ email }).select('firstname lastname role email');
-            if (user.isAdmin) {
-                res.cookie('Admin', String(user._id), {
-                    path: '/',
-                    expires: new Date(Date.now() + 1000 * 60 * 60 * 24), // 1d
-                    sameSite: 'lax'
-                });
-            }
-            return res.json({ msg: 'successfully Logged In', auth, token });
-        }
+        return res.json({ msg: 'successfully Logged In', accessToken, refresh_Token });
     }
 })
 export const RefreshToken = asyncHandler((req, res, next) => {
-    const UserId = req.id;
-    const cookie = req.headers.cookie;
-    if (!cookie) {
+    const refreshToken = req.cookies.Jwt
+    if (!refreshToken) {
         return next(new ErrorHandler('Sign In First', 400));
     }
-    const oldtoken = cookie.split("=")[1];
-    if (!oldtoken) {
-        return next(new ErrorHandler('No Token Founded', 400));
-    }
-    Jwt.verify(oldtoken, process.env.JWT_SECRET, (err, user) => {
+    Jwt.verify(refreshToken, process.env.JWT_REFRESH, (err, user) => {
         if (err) {
             return next(new ErrorHandler('Authorization Failed, Please Log In Again', 400));
         }
-        // res.clearCookie(`${user.id}`);
-        // // req.cookie[`${user.id}`] = '';
-        // const token = Jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: "5s", });
-        // res.cookie(String(user.id), token, {
-        //     httpOnly: true,
-        //     path: '/',
-        //     secure: true,
-        //     expires: new Date(Date.now() + 1000 * 5), // 30 seconds
-        //     // maxAge: 7 * 24 * 60 * 60 * 1000, // 7 days
-        //     sameSite: 'lax'
-        // })
-        req.id = user.id
-        next();
+        const accessToken = createAccessToken({ id: user.id });
+        return res.json({ accessToken })
     });
-})
+});
 export const UserInfo = asyncHandler(async (req, res, next) => {
     const user = await Users.find({ _id: req.user._id });
     if (!user) {
@@ -221,13 +196,13 @@ function validateEmail(email) {
     var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     return re.test(email);
 }
-const createToken = (payload) => {
-    return Jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '1d' })
-}
 const createAccessToken = (payload) => {
-    return Jwt.sign(payload, process.env.JWT_SCCESS, { expiresIn: '15m' })
+    return Jwt.sign(payload, process.env.JWT_SECRET, { expiresIn: '15m' })
 }
 const createRefreshToken = (payload) => {
     return Jwt.sign(payload, process.env.JWT_REFRESH, { expiresIn: '7d' })
 }
+// const createAccessToken = (payload) => {
+//     return Jwt.sign(payload, process.env.JWT_SCCESS, { expiresIn: '15m' })
+// }
 

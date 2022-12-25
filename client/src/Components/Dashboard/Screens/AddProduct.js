@@ -1,13 +1,13 @@
 import React, { useState, useRef } from 'react';
 import JoditEditor from "jodit-react";
-import { DashHeeder, Sidebar, Category, PreviewImege, AddImage } from '../../Exports'
-import { Helmet } from 'react-helmet-async';
+import { DashHeeder, Sidebar, Category, PreviewImege, AddImage, useTitle } from '../../Exports'
 import { Success, Danger } from './../../Alerts';
 import { useCreateProductsMutation } from '../../../Redux/APIs/ProductsApi';
 import { ImSpinner7 } from 'react-icons/im';
 import { useGetBrandQuery } from '../../../Redux/APIs/BrandApi';
 import { BsTrash } from 'react-icons/bs';
 const AddProduct = () => {
+    useTitle('Add New Product - Dashboard')
     const editor = useRef(null);
     const [content, setContent] = useState("Start writing");
     const config = {
@@ -75,9 +75,6 @@ const AddProduct = () => {
     };
     return (
         <>
-            <Helmet>
-                <title>Add New Product - Dashboard</title>
-            </Helmet>
             <DashHeeder />
             <div className='flex'>
                 <Sidebar />

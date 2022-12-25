@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Sidebar, DashHeeder, Pending, Shipped, Delevered, AllOrders, Cancelled } from '../../Exports';
+import { Sidebar, DashHeeder, Pending, Shipped, Delevered, AllOrders, Cancelled, useTitle } from '../../Exports';
 import { Link } from 'react-router-dom';
 const Orders = () => {
+    useTitle('All Orders -Dashboard');
     const [pending, setPending] = useState(true);
     const [shipped, setShipped] = useState(false);
     const [delevered, setDelvered] = useState(false);

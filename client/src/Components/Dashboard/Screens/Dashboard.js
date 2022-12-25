@@ -1,8 +1,8 @@
 import React from 'react'
-import { Helmet } from 'react-helmet-async'
 import { IoIosPeople } from 'react-icons/io'
-import { DashHeeder, Sidebar, Pending, PieChart, LineChart } from '../../Exports'
+import { DashHeeder, Sidebar, Pending, PieChart, LineChart,useTitle } from '../../Exports'
 const Dashboard = () => {
+    useTitle('Dashboard');
     const State = (props) => {
         return (
             <div className='bg-white rounded-lg py-5 border-[.1px] space-y-4 xl:space-y-10'>
@@ -16,9 +16,6 @@ const Dashboard = () => {
     }
     return (
         <>
-            <Helmet>
-                <title>Add Features - Dashboard</title>
-            </Helmet>
             <DashHeeder />
             <div className='flex bg-[#F9FBFC] min-h-screen'>
                 <Sidebar />

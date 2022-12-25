@@ -10,7 +10,7 @@ const router = express.Router();
 router.post('/signup', SignUp);
 router.post('/signin', SignIn);
 // router.get('/verifytoken', VerifyToken,UserInfo);
-router.get('/userinfo', RefreshToken, UserInfo);
+// router.get('/userinfo', RefreshToken, UserInfo);
 router.get('/info', auth, UserInfo);
 router.get('/get/:id', auth, Get_UserInfo);
 router.delete('/deleteuser/:id', auth, authorizeRoles("admin"), Delete_UserInfo);

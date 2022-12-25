@@ -5,7 +5,6 @@ import { Logo, SideBarMain } from '../../Exports'
 import { useState } from "react"
 import { FeaturesAction } from "../../../Redux/Slices/FeaturesSlice"
 import { useDispatch, useSelector } from 'react-redux';
-import { LogOut } from "../../../Redux/Slices/UserSlice";
 import { useLogOutMutation } from "../../../Redux/APIs/AuthApi"
 const SecNavbar = () => {
     const dispatch = useDispatch();
@@ -17,8 +16,7 @@ const SecNavbar = () => {
     const HandleLogOut = async () => {
         await logOut().unwrap()
             .then((payload) => {
-                localStorage.setItem('Logged?', true);
-                dispatch(LogOut(payload));
+                localStorage.removeItem('Logged?', true);
                 navigate('/signin')
             })
             .catch((err) => {

@@ -1,15 +1,16 @@
 import React from 'react'
-import { CiShoppingTag } from 'react-icons/ci'
+import { IoPricetagsOutline } from 'react-icons/io5'
 import { TfiReload } from 'react-icons/tfi'
 import { SiContactlesspayment } from 'react-icons/si'
-import { HiOutlineChatBubbleOvalLeft, HiOutlineTruck } from 'react-icons/hi2'
 import { HomeProducts, HomeProducts2, Banners, Header, Footer, HomeCategory, HomeBrands, FeaturesCategory, SideBanner, SideImages } from '../../Exports'
-import { Helmet } from 'react-helmet-async'
+import { useTitle } from '../../Exports'
+import { BsChat, BsTruck } from 'react-icons/bs';
 const Home = () => {
+    useTitle('Market')
     const FeaturesHeader = () => {
         const Item = (props) => {
             return (
-                <div className='xl:grid grid-cols-4 text-start border-t py-14 px-8 hidden '>
+                <div className='xl:grid grid-cols-4 justify-center items-center text-start border-t py-14 px-8 hidden '>
                     <div className='text-5xl text-blue-500 col-span-1'>{props.Icon}</div>
                     <div className='text-center col-span-3'>
                         <p className='text-2xl font-semibold text-gray-700'>{props.Title}</p>
@@ -19,20 +20,19 @@ const Home = () => {
             )
         }
         return (
-            <div className='border rounded-xl'>
-                <Item Icon={<HiOutlineTruck style={{ fontSize: '4rem' }} />} Title={'Free Delivary'} SubTitle={'From 50$'} />
-                <Item Icon={<HiOutlineChatBubbleOvalLeft style={{ fontSize: '3rem' }} />} Title={'99% Customer'} SubTitle={'Feedbacks'} />
-                <Item Icon={<TfiReload style={{ fontSize: '2.5rem' }} />} Title={'365 Days'} SubTitle={'For Free Return'} />
-                <Item Icon={<SiContactlesspayment style={{ fontSize: '4.5rem' }} />} Title={'Payment'} SubTitle={'Secure System'} />
-                <Item Icon={<CiShoppingTag style={{ fontSize: '3.5rem' }} />} Title={'Only Best'} SubTitle={'Brands'} />
+            <div className='border rounded-xl flex items-center justify-center'>
+                <div>
+                    <Item Icon={<BsTruck style={{ fontSize: '3.rem' }} />} Title={'Free Delivary'} SubTitle={'From 50$'} />
+                    <Item Icon={<BsChat style={{ fontSize: '2.7rem' }} />} Title={'99% Customer'} SubTitle={'Feedbacks'} />
+                    <Item Icon={<TfiReload style={{ fontSize: '2.5rem' }} />} Title={'365 Days'} SubTitle={'For Free Return'} />
+                    <Item Icon={<SiContactlesspayment style={{ fontSize: '4.5rem' }} />} Title={'Payment'} SubTitle={'Secure System'} />
+                    <Item Icon={<IoPricetagsOutline style={{ fontSize: '3rem' }} />} Title={'Only Best'} SubTitle={'Brands'} />
+                </div>
             </div>
         )
     }
     return (
         <>
-            <Helmet>
-                <title>Market</title>
-            </Helmet>
             <div>
                 <Header />
                 <div className='container max-w-full px-0 xl:max-w-[142rem] gap-3'>

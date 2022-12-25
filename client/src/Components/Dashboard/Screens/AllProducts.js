@@ -2,21 +2,18 @@ import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { Danger } from '../../Alerts';
-import { Sidebar, DashHeeder, ShowRating, ProductsInfo } from '../../Exports';
-import { Helmet } from 'react-helmet-async';
+import { Sidebar, DashHeeder, ShowRating, ProductsInfo, useTitle } from '../../Exports';
 import { useGetProductsQuery } from '../../../Redux/APIs/ProductsApi';
 import moment from 'moment';
 import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
 const AllProducts = () => {
+    useTitle('All Products - Dashboard');
     const dispatch = useDispatch();
     const [id, setId] = useState('');
     const { data: products, isLoading: loading, error } = useGetProductsQuery();
 
     return (
         <>
-            <Helmet>
-                <title>All Products - Dashboard</title>
-            </Helmet>
             {<ProductsInfo id={id} />}
             <DashHeeder />
             <div className='flex'>
@@ -59,7 +56,7 @@ const AllProducts = () => {
                                                     <div className="font-normal text-gray-500">{product?.price}$</div>
                                                 </div>
                                             </td>
-                                            <td className="py-4 px-6"><ShowRating Rating={product?.rating} className={'text-[1.3rem] xl:text-[2rem] gap-1'}/></td>
+                                            <td className="py-4 px-6"><ShowRating Rating={product?.rating} className={'text-[1.3rem] xl:text-[2rem] gap-1'} /></td>
                                             <td className="py-4 px-6">{product?.numofreviews}</td>
                                             <td className="py-4 px-6">{product?.stock}</td>
                                             <td className="py-4 px-6">{product?.category?.category}</td>

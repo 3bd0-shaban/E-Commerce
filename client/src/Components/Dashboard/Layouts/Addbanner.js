@@ -1,11 +1,11 @@
 import React, { useState } from 'react'
 import { Danger, Success } from '../../Alerts';
-import { Helmet } from 'react-helmet-async';
 import { useCreateBannerMutation } from '../../../Redux/APIs/BannerApi';
 import { ImSpinner7 } from 'react-icons/im';
 import AddImage from './Sub_Layouts/AddImage';
-import { Banners } from '../../Exports';
+import { Banners,useTitle } from '../../Exports';
 const Addbanner = () => {
+    useTitle('Add Banner - Dashboard')
     const [image, setImage] = useState([]);
     const [CreateBanner, { error, isSuccess, isLoading }] = useCreateBannerMutation();
     const HandleImages = (e) => {
@@ -45,9 +45,6 @@ const Addbanner = () => {
 
     return (
         <>
-            <Helmet>
-                <title>Add Banner</title>
-            </Helmet>
             <div className='flex'>
                 {error && <Danger error={error.data.msg} className={'container my-5'} />}
                 {isSuccess && <Success error={'Banner uploaded Successfully'} className={'container my-5'} />}

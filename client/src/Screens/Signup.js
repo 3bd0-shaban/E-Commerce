@@ -2,7 +2,9 @@ import React, { useEffect, useRef, useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useSignupMutation } from '../Redux/APIs/AuthApi';
 import { ImSpinner7 } from 'react-icons/im';
+import { useTitle } from '../Components/Exports'
 const Signup = () => {
+  useTitle('Sign Up');
   const navigate = useNavigate();
   const userRef = useRef();
   useEffect(() => {

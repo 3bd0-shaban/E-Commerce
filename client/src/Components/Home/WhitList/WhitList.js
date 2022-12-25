@@ -2,10 +2,12 @@ import React, { useState } from 'react';
 import { Header } from '../../Exports';
 import { useDeleteProductInWhitelistMutation, useGetWhitelistQuery } from '../../../Redux/APIs/WhiteListApi';
 import { ToastContainer, toast } from 'react-toastify';
+import { useTitle } from '../../Exports'
+
 import 'react-toastify/dist/ReactToastify.css';
 const WhiteList = () => {
     const [id, setId] = useState('');
-    console.log(id)
+    useTitle('White List')
     const { data: Products, isLoading: loading } = useGetWhitelistQuery() || {};
     const [deleteProductInWhitelist] = useDeleteProductInWhitelistMutation();
     const HandleDelete = () => {

@@ -2,22 +2,19 @@ import React, { useState } from 'react'
 import { MdOutlineSearch } from 'react-icons/md'
 import { Link } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Sidebar, DashHeeder } from '../../Exports';
+import { Sidebar, DashHeeder, useTitle } from '../../Exports';
 import { Danger } from '../../../Components/Alerts';
-import { Helmet } from 'react-helmet-async';
 import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
 import UserInfo from './../Layouts/Sub_Layouts/UserInfo';
 import moment from 'moment';
 import { useGetAllUsersQuery } from '../../../Redux/APIs/AuthApi';
 const Dashboard = () => {
     const [id, setId] = useState('');
+    useTitle('All Users - Dashboard')
     const { data: AllUsers, isFetching, error } = useGetAllUsersQuery() || {};
     const dispatch = useDispatch();
     return (
         <>
-            <Helmet>
-                <title>All Users - Dashboard</title>
-            </Helmet>
             <DashHeeder />
             {<UserInfo id={id} />}
             <div className='flex'>
@@ -70,7 +67,7 @@ const Dashboard = () => {
                                                         </div>
                                                     </td>
                                                     <td className="py-4 px-6 w-[20%]">{user?.email}</td>
-                                                    <td className="py-4 px-6 w-[20%]">{user?.role}</td> 
+                                                    <td className="py-4 px-6 w-[20%]">{user?.role}</td>
                                                     <td className="py-4 px-6">{moment(user?.createdAt).format('Do MMMM YYYY')}</td>
                                                 </tr>
                                             ))}

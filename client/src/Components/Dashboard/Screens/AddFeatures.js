@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { DashHeeder, Sidebar, AddCategory, AddBrand, Addbanner } from '../../Exports'
-import { Helmet } from 'react-helmet-async';
 import { Link } from 'react-router-dom';
 const AddFeatures = () => {
     const [category, setCategory] = useState(true)
@@ -8,9 +7,6 @@ const AddFeatures = () => {
     const [banner, setBanner] = useState(false)
     return (
         <>
-            <Helmet>
-                <title>Add Features - Dashboard</title>
-            </Helmet>
             <DashHeeder />
             <div className='flex'>
                 <Sidebar />

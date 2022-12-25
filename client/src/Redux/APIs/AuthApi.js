@@ -1,3 +1,4 @@
+import { LogOut, setCredentials } from '../Slices/UserSlice';
 import { apiSlice } from './ApiSlice';
 export const AuthApi = apiSlice.injectEndpoints({
     reducerPath: 'AuthApi',
@@ -50,7 +51,35 @@ export const AuthApi = apiSlice.injectEndpoints({
                 method: 'POST',
                 credentials: 'include',
             }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled
+                    console.log(data)
+                    dispatch(LogOut())
+                    setTimeout(() => {
+                        dispatch(apiSlice.util.resetApiState())
+                    }, 1000)
+                } catch (err) {
+                    console.log(err)
+                }
+            },
             invalidatesTags: ['Auth'],
+        }),
+        refresh: builder.mutation({
+            query: () => ({
+                url: '/api/auth/refresh',
+                method: 'GET',
+            }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled
+                    console.log(data)
+                    const { accessToken } = data
+                    dispatch(setCredentials({ accessToken }))
+                } catch (err) {
+                    console.log(err)
+                }
+            }
         }),
         DeleteUser: builder.mutation({
             query: (id) => ({
@@ -87,6 +116,7 @@ export const {
     useUpdateUserInfoMutation,
     useUpdateUserRoleMutation,
     useLogOutMutation,
+    useRefreshMutation,
     useSigninMutation,
     useSignupMutation,
 } = AuthApi;

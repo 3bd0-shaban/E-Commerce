@@ -4,9 +4,12 @@ import { useDispatch } from 'react-redux';
 import { useSigninMutation } from '../Redux/APIs/AuthApi';
 import { setCredentials } from '../Redux/Slices/UserSlice';
 import { ImSpinner7 } from 'react-icons/im';
+import { useTitle, usePersist } from '../Components/Exports'
 const Signin = () => {
+  useTitle('Login')
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [persist, setPersist] = usePersist()
   const userRef = useRef();
   // useEffect(() => {
   //   if (localStorage.getItem("Logedin ?")) {
@@ -21,6 +24,10 @@ const Signin = () => {
   const handleChange = ({ currentTarget: input }) => {
     setInputs({ ...inputs, [input.name]: input.value });
   };
+  const HandleToggle = () => {
+    setPersist(prev => !prev)
+  }
+
   const [signin, { isLoading, isError, error }] = useSigninMutation();
   useEffect(() => {
     userRef.current.focus()
@@ -72,6 +79,10 @@ const Signin = () => {
                   <p className=' focus:text-blue-300 ml-2 text-base text-blue-900 font-medium'>Log in with facebook</p>
                 </button>
                 <Link to='forgetpassword' className='text-blue-800 focus:text-blue-300 md:mb-7 text-sm mt-2'>Forgot password ?</Link>
+                <div className='flex gap-4'>
+                  <input type='checkbox' onChange={HandleToggle} checked={persist} />
+                  <p>Remmber ME</p>
+                </div>
                 {isError && <span className="text-red-500 pb-3 font-poppins font-medium">{error.data.msg}</span>}
               </form>
             </div>

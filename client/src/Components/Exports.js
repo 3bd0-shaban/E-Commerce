@@ -95,3 +95,6 @@ export { default as RequireAuth } from './RequiredAuth';
 export { default as RequiredAdmin } from './RequiredAdmin';
 export { default as NotFounded } from './NotFounded';
 export { default as Layout } from './Layout';
+
+export {default as useTitle } from '../Hooks/useTitle'
+export {default as usePersist } from '../Hooks/usePersist'

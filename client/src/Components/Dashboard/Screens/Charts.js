@@ -1,12 +1,9 @@
 import React from 'react'
-import { Helmet } from 'react-helmet-async';
-import { Sidebar, DashHeeder, LineChart, PieChart } from '../../Exports';
+import { Sidebar, DashHeeder, LineChart, PieChart, useTitle } from '../../Exports';
 const Charts = () => {
+    useTitle('Anaylazes - Dashboard');
     return (
         <>
-            <Helmet>
-                <title>Anaylazes - Dashboard</title>
-            </Helmet>
             <DashHeeder />
             <div className='flex'>
                 <Sidebar />

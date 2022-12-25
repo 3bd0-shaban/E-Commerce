@@ -10,7 +10,8 @@ import { ReviewApi } from './APIs/ReviewsApi';
 import { WhitelistApi } from './APIs/WhiteListApi';
 import { CartApi } from './APIs/CartApi';
 import { OrderApi } from './APIs/OrderApi';
-import { AuthApi } from './APIs/AuthApi';
+// import { AuthApi } from './APIs/AuthApi';
+import { apiSlice } from './APIs/ApiSlice';
 export const Store = configureStore({
     reducer: {
         auth: UserSlice,
@@ -24,7 +25,7 @@ export const Store = configureStore({
         [WhitelistApi.reducerPath]: WhitelistApi.reducer,
         [CartApi.reducerPath]: CartApi.reducer,
         [OrderApi.reducerPath]: OrderApi.reducer,
-        [AuthApi.reducerPath]: AuthApi.reducer,
+        [apiSlice.reducerPath]: apiSlice.reducer,
 
     },
     middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(
@@ -36,7 +37,7 @@ export const Store = configureStore({
         ReviewApi.middleware,
         WhitelistApi.middleware,
         CartApi.middleware,
-        AuthApi.middleware,
+        apiSlice.middleware,
         OrderApi.middleware),
     devTools: process.env.NODE_ENV !== 'production',
 });

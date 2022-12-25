@@ -1,13 +1,10 @@
 import React from 'react'
-import { Helmet } from 'react-helmet-async';
-import { Sidebar, DashHeeder } from '../../Exports';
+import { Sidebar, DashHeeder, useTitle } from '../../Exports';
 
 const Chat = () => {
+    useTitle('Messsages - Dashbord');
     return (
         <>
-            <Helmet>
-                <title>Messsages - Dashbord</title>
-            </Helmet>
             <DashHeeder />
             <div className='flex'>
                 <Sidebar />

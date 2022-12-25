@@ -1,5 +1,4 @@
 import React, { useState } from 'react'
-import { Helmet } from 'react-helmet-async';
 import PendingSideBar from './SubLayouts/PendingSideBar';
 import { FeaturesAction } from './../../../../Redux/Slices/FeaturesSlice';
 import { Link } from 'react-router-dom';
@@ -7,16 +6,14 @@ import { RiMoreFill } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
 import { useGetcancelledOrderQuery } from '../../../../Redux/APIs/OrderApi';
 import moment from 'moment'
-
+import { useTitle } from '../../../Exports';
 const Cancelled = () => {
+  useTitle('Cancelled Orders - Dashboard')
   const [id, setID] = useState('');
   const dispatch = useDispatch();
   const { data: products } = useGetcancelledOrderQuery();
   return (
     <>
-      <Helmet>
-        <title>Cancelled Orders - Dashboard</title>
-      </Helmet>
       <PendingSideBar id={id} />
       <table className="w-full text-sm text-left text-gray-500 mt-5">
         <thead className="text-xs text-gray-700 uppercase border-b-2 py-3">

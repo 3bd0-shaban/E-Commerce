@@ -1,13 +1,10 @@
 import React from 'react'
-import { Helmet } from 'react-helmet-async'
-import { Footer, Header } from './Exports'
+import { Footer, Header,useTitle } from './Exports'
 
 const NotFounded = () => {
+    useTitle('Not Founded !')
     return (
         <>
-            <Helmet>
-                <title>Market</title>
-            </Helmet>
             <div>
                 <Header />
                 <div className='container max-w-[142rem] gap-3'>

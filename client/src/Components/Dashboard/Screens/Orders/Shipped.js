@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PendingSideBar from './SubLayouts/PendingSideBar';
-import { Helmet } from 'react-helmet-async';
+import { useTitle } from '../../../Exports';
 import { FeaturesAction } from './../../../../Redux/Slices/FeaturesSlice';
 import { useDispatch } from 'react-redux';
 import { useGetShipppedOrderQuery } from '../../../../Redux/APIs/OrderApi';
@@ -9,14 +9,12 @@ import { RiMoreFill } from 'react-icons/ri';
 import moment from 'moment'
 
 const Shipped = () => {
+  useTitle('Shipped Orders - Dashboard');
   const [id, setID] = useState('');
   const dispatch = useDispatch();
   const { data: products } = useGetShipppedOrderQuery();
   return (
     <>
-      <Helmet>
-        <title>Shipped Orders - Dashboard</title>
-      </Helmet>
       <PendingSideBar />
       <PendingSideBar id={id} />
       <table className="w-full text-sm text-left text-gray-500 mt-5">

@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useParams, Link, useLocation } from 'react-router-dom';
 import { Header, ProductMainScreen, HomeCategory, Reviews, Footer, HomeProducts2 } from '../../Exports'
-import { Helmet } from 'react-helmet-async';
 import { useGetProductsDetailsQuery } from '../../../Redux/APIs/ProductsApi'
+import { useTitle } from '../../Exports'
+
 const ProductScreen = () => {
   const params = useParams();
   const { id } = params;
@@ -11,6 +12,7 @@ const ProductScreen = () => {
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
+  useTitle(productDetails?.name);
 
   const SpicHeader = () => {
     return (
@@ -27,9 +29,6 @@ const ProductScreen = () => {
 
   return (
     <>
-      <Helmet>
-        <title>{productDetails?.name}</title>
-      </Helmet>
       <Header />
       <div className='flex container max-w-full xl:max-w-[144rem] gap-5'>
         <HomeCategory Hight={'h-[54.5rem]'} />

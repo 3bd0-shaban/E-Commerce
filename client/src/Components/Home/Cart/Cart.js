@@ -8,6 +8,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import { useNewOrderMutation } from '../../../Redux/APIs/OrderApi';
 import { Danger, Success } from '../../Alerts';
 import { ImSpinner7 } from 'react-icons/im';
+import { useTitle } from '../../Exports'
 const CartEmpty = () => {
     return (
         <div className='text-center'>
@@ -22,6 +23,7 @@ const CartEmpty = () => {
 }
 const Cart = () => {
     const [id, setID] = useState('');
+    useTitle('Cart')
     const product_Id = id;
     const { data: cart, isFetching: loading, error } = useGetCartQuery() || {};
     const [Increment] = useIncrementMutation();
