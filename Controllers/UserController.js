@@ -70,7 +70,7 @@ export const SignIn = asyncHandler(async (req, res, next) => {
         }
         const accessToken = createAccessToken({ id: user.id, roles: user.roles });
         const refresh_Token = createRefreshToken({ id: user._id, roles: user.roles });
-        res.clea('Jwt', refresh_Token, {
+        res.cookie('Jwt', refresh_Token, {
             httpOnly: true,
             path: '/',
             // secure: true,
