@@ -39,6 +39,9 @@ const ProductScreen = () => {
         </div>
       </div>
       <div className='container max-w-[145rem]'>
+        <div className='conatiner max-w-full xl:max-w-[144rem]'>
+          <div dangerouslySetInnerHTML={{ __html: productDetails.fulldes }} />
+        </div>
         <HomeProducts2 Category={'Revently Viewed'} />
       </div>
       <Footer />

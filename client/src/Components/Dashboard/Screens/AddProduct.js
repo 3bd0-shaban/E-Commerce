@@ -13,7 +13,6 @@ const AddProduct = () => {
         name: '', des: '', stock: '', price: '', brand: '', category: '', subcategory: '', discountprice: ''
     });
     const [fulldes, setFullDes] = useState('');
-    console.log(fulldes)
     const [warranty, setWarranty] = useState(false)
     const [images, setImages] = useState([]);
     const [more, setMore] = useState(false);
@@ -34,11 +33,11 @@ const AddProduct = () => {
         title: '',
         description: ''
     });
-    if (more === false) {
-        // setInputs({ fulldes: '', discountprice: '' });
-        setSpecs([]);
-        // setWarranty(false);
-    }
+    // if (more === false) {
+    //     // setInputs({ fulldes: '', discountprice: '' });
+    //     setSpecs([]);
+    //     // setWarranty(false);
+    // }
     const handleSpecsChange = (e) => {
         setSpecsInput({ ...specsInput, [e.target.name]: e.target.value });
     }
@@ -81,8 +80,6 @@ const AddProduct = () => {
                                 <div className='rounded-lg xl:border xl:py-5 lg:px-5 xl:px-6 xxl:px-10'>
                                     <p className='my-4 font-serif text-lg'>Add Images</p>
                                     <AddImage onChange={loadFile} IsMultiple={true} Hight={'h-64'} />
-                                    {/* <div dangerouslySetInnerHTML={{__html:fulldes}}/> */}
-
                                     {images && images.map((image, index) => (
                                         <PreviewImege img={image} mykey={index} onClick={() => setImages(images.filter((e) => e !== image))} />
                                     ))}

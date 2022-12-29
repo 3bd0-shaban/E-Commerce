@@ -57,7 +57,8 @@ const PersistLogin = () => {
             </>
     } else if (isError) { //persist: yes, token: no
         console.log('error')
-        // content = <Outlet />
+        console.log(error)
+        content = <Outlet />
     } else if (isSuccess && trueSuccess) { //persist: yes, token: yes
         console.log('success')
         content = <Outlet />
