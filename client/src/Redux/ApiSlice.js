@@ -5,6 +5,10 @@ const url = process.env.REACT_APP_API_KEY;
 const baseQuery = fetchBaseQuery({
     baseUrl: url,
     credentials: 'include',
+    headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Credentials': true
+    },
     prepareHeaders: (headers, { getState }) => {
         const token = getState().auth.token
         if (token) {

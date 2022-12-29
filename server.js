@@ -27,6 +27,7 @@ app.use(
       'https://tech-market.onrender.com',
     ],
     credentials: true,
+    origin: true
   })
 );
 app.use(cookieParser());

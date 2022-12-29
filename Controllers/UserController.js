@@ -70,12 +70,12 @@ export const SignIn = asyncHandler(async (req, res, next) => {
         }
         const accessToken = createAccessToken({ id: user.id, roles: user.roles });
         const refresh_Token = createRefreshToken({ id: user._id, roles: user.roles });
-        res.cookie('Jwt', refresh_Token, {
-            // httpOnly: true,
-            // path: '/',
-            // // secure: true,
-            // expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7d
-            // sameSite: 'lax'
+        res.clea('Jwt', refresh_Token, {
+            httpOnly: true,
+            path: '/',
+            // secure: true,
+            expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7d
+            sameSite: 'lax'
         });
         return res.json({ msg: 'successfully Logged In', accessToken, refresh_Token });
     }
