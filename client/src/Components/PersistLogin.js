@@ -4,13 +4,12 @@ import { useRefreshMutation } from "../Redux/APIs/AuthApi";
 import { useSelector } from "react-redux";
 import { selectCurrentToken } from "../Redux/Slices/UserSlice";
 import usePersist from "../Hooks/usePersist";
-
+import Logo from './Home/Layouts/Logo';
+import { ImSpinner7 } from 'react-icons/im';
 const PersistLogin = () => {
-    const { persist } = usePersist();
+    const [persist] = usePersist();
     const token = useSelector(selectCurrentToken);
-    console.log('token is :', token)
     const effectRan = useRef(false);
-    console.log(effectRan)
     const [trueSuccess, setTrueSuccess] = useState(false)
 
     const [refresh, { isUninitialized, isLoading, isSuccess, isError, error }] = useRefreshMutation();
@@ -22,9 +21,7 @@ const PersistLogin = () => {
             const verifyRefreshToken = async () => {
                 console.log('verifying refresh token')
                 try {
-                    //const response = 
                     await refresh()
-                    //const { accessToken } = response.data
                     setTrueSuccess(true)
                 }
                 catch (err) {
@@ -44,28 +41,31 @@ const PersistLogin = () => {
 
     let content
     if (!persist) { // persist: no
-        console.log('no persist')
+        // console.log('no persist')
         content = <Outlet />
     } else if (isLoading) { //persist: yes, token: no
-        console.log('loading')
-        content = <p>Loading...</p>
+        // console.log('loading')
+
+        content =
+            <>
+                <div className="h-screen flex justify-center items-center text-7xl">
+                    <div className="">
+                        <Logo />
+                        <div className="text-blue-600 text-5xl py-8 animate-spin flex items-center justify-center"><ImSpinner7/></div>
+                    </div>
+                </div>
+            </>
     } else if (isError) { //persist: yes, token: no
         console.log('error')
-        content = (
-            <p className='errmsg'>
-                {error.data?.message}
-                <Link to="/login">Please login again</Link>.
-            </p>
-        )
+        // content = <Outlet />
     } else if (isSuccess && trueSuccess) { //persist: yes, token: yes
         console.log('success')
         content = <Outlet />
     } else if (token && isUninitialized) { //persist: yes, token: yes
-        console.log('token and uninit')
-        console.log(isUninitialized)
+        // console.log('token and uninit')
+        // console.log(isUninitialized)
         content = <Outlet />
     }
-
     return content
 }
 

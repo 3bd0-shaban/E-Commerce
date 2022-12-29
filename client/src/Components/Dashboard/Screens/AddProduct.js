@@ -1,6 +1,5 @@
-import React, { useState, useRef } from 'react';
-import JoditEditor from "jodit-react";
-import { DashHeeder, Sidebar, Category, PreviewImege, AddImage, useTitle } from '../../Exports'
+import React, { useState } from 'react';
+import { DashHeeder, Sidebar, Category, PreviewImege, AddImage, useTitle, Editor } from '../../Exports'
 import { Success, Danger } from './../../Alerts';
 import { useCreateProductsMutation } from '../../../Redux/APIs/ProductsApi';
 import { ImSpinner7 } from 'react-icons/im';
@@ -8,24 +7,13 @@ import { useGetBrandQuery } from '../../../Redux/APIs/BrandApi';
 import { BsTrash } from 'react-icons/bs';
 const AddProduct = () => {
     useTitle('Add New Product - Dashboard')
-    const editor = useRef(null);
-    const [content, setContent] = useState("Start writing");
-    const config = {
-        readonly: false,
-        height: 400
-    };
-    const [area, setArea] = useState();
-    const handleUpdate = (event) => {
-        const editorContent = event.target.innerHTML;
-        setContent(editorContent);
-    };
-    // console.log(area)
     const [createProducts, { isLoading, isSuccess, error }] = useCreateProductsMutation();
     const { data: Brand } = useGetBrandQuery();
     const [inputs, setInputs] = useState({
-        name: '', des: '', stock: '', price: '', brand: '', category: '', subcategory: '', fulldes: '', discountprice: ''
+        name: '', des: '', stock: '', price: '', brand: '', category: '', subcategory: '', discountprice: ''
     });
-
+    const [fulldes, setFullDes] = useState('');
+    console.log(fulldes)
     const [warranty, setWarranty] = useState(false)
     const [images, setImages] = useState([]);
     const [more, setMore] = useState(false);
@@ -46,6 +34,11 @@ const AddProduct = () => {
         title: '',
         description: ''
     });
+    if (more === false) {
+        // setInputs({ fulldes: '', discountprice: '' });
+        setSpecs([]);
+        // setWarranty(false);
+    }
     const handleSpecsChange = (e) => {
         setSpecsInput({ ...specsInput, [e.target.name]: e.target.value });
     }
@@ -60,7 +53,7 @@ const AddProduct = () => {
 
     const handleSubmit = async (event) => {
         event.preventDefault();
-        const { name, des, stock, price, brand, category, subcategory, fulldes, discountprice } = inputs;
+        const { name, des, stock, price, brand, category, subcategory, discountprice } = inputs;
         const data = { name, des, stock, price, brand, category, subcategory, images, specs, fulldes, discountprice, warranty };
         if (!name || !des || !stock || !price || !brand || !category || !subcategory || !images || !specs) return {};
         createProducts(data).unwrap()
@@ -81,13 +74,15 @@ const AddProduct = () => {
                 <div className='container max-w-full px-1 lg:ml-80 mt-24'>
                     {error && <Danger error={error.data.msg} className={'container my-5'} />}
                     {isSuccess && <Success error={'Product Upload Successfully'} className={'container max-w-full my-5'} />}
-                    <div className=' container px-0 max-w-full'>
+                    <div className=' container px-0 max-w-[90rem]'>
                         <p className='text-xl xl:text-4xl font-bold font-Roboto ml-3 xl:ml-8 text-gray-600 py-5'>Add New Product</p>
                         <form onSubmit={handleSubmit} id='submit' className='px-5 xl:px-6 rounded-xl py-8 h-full border xl:border-none'>
-                            <div className='grid grid-cols-1 xl:grid-cols-3 xl:gap-8'>
-                                <div className='rounded-lg xl:border lg:px-5 xl:px-6 xxl:px-10'>
+                            <div className='grid grid-cols-1 xl:gap-8'>
+                                <div className='rounded-lg xl:border xl:py-5 lg:px-5 xl:px-6 xxl:px-10'>
                                     <p className='my-4 font-serif text-lg'>Add Images</p>
                                     <AddImage onChange={loadFile} IsMultiple={true} Hight={'h-64'} />
+                                    {/* <div dangerouslySetInnerHTML={{__html:fulldes}}/> */}
+
                                     {images && images.map((image, index) => (
                                         <PreviewImege img={image} mykey={index} onClick={() => setImages(images.filter((e) => e !== image))} />
                                     ))}
@@ -135,15 +130,11 @@ const AddProduct = () => {
                                         <label className='text-sm py-3 font-light font-serif text-gray-500'>Set Old Price </label>
                                         <input onChange={handleChange} value={inputs.discountprice} name='discountprice' min='0' className='inputfield w-full' type='number' placeholder='Price in EG' />
                                         <label className='text-sm py-3 font-light font-serif text-gray-500'>Full Description</label>
-                                        <JoditEditor
-                                            ref={editor}
-                                            value={area}
-                                            config={config}
-                                            name='fulldes'
-                                            onBlur={handleUpdate}
-                                            onChange={(e) => setArea(e.target.value)}
-                                        />
-                                        <textarea onChange={handleChange} value={inputs.fulldes} name='fulldes' className='inputfield w-full h-52 resize-none' cols='10' />
+                                        <div className='my-4'>
+                                            <Editor
+                                                value={fulldes}
+                                                onChange={(fulldes) => setFullDes(fulldes)} />
+                                        </div>
                                         <label className='text-sm mb-2 font-light font-serif text-gray-500 py-4'>Specifications</label>
                                         <div className='border px-4 rounded-xl py-3 mt-3'>
                                             {specs?.map(spic => (

@@ -12,7 +12,7 @@ const PreviewImege = (props) => {
                         <p className='text-xs'>product name</p>
                     </div>
                 </div>
-                <button className='mr-2 text-3xl flex items-center' onClick={props.onClick} key={props.mykey}>
+                <button type='button' className='mr-2 text-3xl flex items-center' onClick={props.onClick} key={props.mykey}>
                     <BsTrash />
                 </button>
             </div>

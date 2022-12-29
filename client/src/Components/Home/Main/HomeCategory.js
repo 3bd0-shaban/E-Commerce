@@ -29,7 +29,7 @@ const HomeCategory = (props) => {
                       onMouseEnter={() => { setSubCat(cat.subcategory); setShow(true); }}
                       onMouseLeave={() => setShow(false)} className="py-2 px-6 w-80 font-semibold text-gray-700 cursor-pointer">
                       <div className="flex justify-between">
-                        <p className="mb-3 relative">{cat.category}</p>
+                        <p className="mb-3 relative hover:ml-3 duration-300">{cat.category}</p>
                         <BiChevronRight />
                       </div><hr />
                     </div>

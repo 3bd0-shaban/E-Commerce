@@ -34,6 +34,7 @@ export { default as AddImage } from './Dashboard/Layouts/Sub_Layouts/AddImage';
 export { default as Calender } from './Dashboard/Screens/Calender';
 export { default as Category } from './Dashboard/Layouts/Category';
 export { default as DashHeeder } from './Dashboard/Layouts/DashHeeder';
+export { default as Editor } from './Dashboard/Layouts/Editor';
 export { default as ModalConfirm } from './Dashboard/Layouts/Sub_Layouts/ModalConfirm';
 
 

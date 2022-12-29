@@ -2,8 +2,9 @@ import { AiOutlineHeart } from 'react-icons/ai';
 
 const CartItem = (props) => {
     return (
-        <><hr />
-            <div key={props.Mykey} className=' rounded-xl relative py-2 mt-5'>
+        <div key={props.Mykey}>
+            <hr />
+            <div className=' rounded-xl relative py-2 mt-5'>
                 <div className='flex'>
                     <img className='h-52 m-2 object-cover' src={props.Src} alt=''></img>
                     <div className=''>
@@ -31,7 +32,7 @@ const CartItem = (props) => {
                     </div>
                 </div>
             </div>
-        </>
+        </div>
     )
 }
 

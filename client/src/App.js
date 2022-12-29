@@ -9,14 +9,14 @@ function App() {
 
   return (
     <Routes>
-      <Route path='/' element={<Layout />}>
-        <Route path='signin' element={<Signin />} />
-        <Route path='signup' element={<Signup />} />
-        <Route element={<PersistLogin />}>
+      <Route element={<PersistLogin />}>
+        <Route path='/' element={<Layout />}>
+          <Route path='signin' element={<Signin />} />
+          <Route path='signup' element={<Signup />} />
+          <Route path='product/:id' element={<ProductScreen />} />
+          <Route path='notfound' element={<NotFounded />} />
+          <Route index element={<Home />} />
           <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>
-            <Route index element={<Home />} />
-            <Route path='notfound' element={<NotFounded />} />
-            <Route path='product/:id' element={<ProductScreen />} />
             <Route element={<RequireAuth allowedRoles={[ROLES.Admin, ROLES.Customer]} />}>
               <Route path='cart' element={<Cart />} />
               <Route path='profile' element={<Mainprofile />} />
