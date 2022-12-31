@@ -24,7 +24,7 @@ app.use(
   cors({
     origin: [
       'http://localhost:3000',
-      'https://tech-market.onrender.com',
+      'https://market-gcww.onrender.com/',
     ],
     credentials: true,
     origin: true
