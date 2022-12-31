@@ -48,8 +48,8 @@ const ProductMainScreen = () => {
                                             <div key={img._id} onClick={() => setImage(img.url)}><img src={img.url} className={'border w-[80%] object-cover cursor-pointer hover:border-slate-900'} alt='' /></div>
                                         ))}
                                 </div>
-                                <div className='flex justify-center'>
-                                    <img src={image} className='object-cover h-[35rem] w-full mx-auto' alt='' />
+                                <div className='flex justify-center mr-5'>
+                                    <img src={image} className='h-[35rem] min-w-full mx-auto' alt='' />
                                 </div>
                             </div>
                             <div className='xl:col-span-2 '>
@@ -63,11 +63,12 @@ const ProductMainScreen = () => {
                                     <p>( {productDetails?.numofreviews} )</p>
                                 </div>
                                 <div className='text-xl leading-10'>
-                                    <li>High-precision lens provides a clearer picture and a better view for D</li>
-                                    <li>55" class screen full array LED TV</li>
-                                    <li>55" class screen full array LED TV</li>
-                                    <li>55" class screen full array LED TV</li>
-                                    <li>55" class screen full array LED TV</li>
+                                    {productDetails?.specs?.map(item => (
+                                        <div className='grid grid-cols-4'>
+                                            <div className='col-span-1'><li className='block'>{item.title} :</li></div>
+                                            <div className='col-span-3'><li>{item.description}</li></div>
+                                        </div>
+                                    ))}
                                 </div>
                                 {/* <p className='text-xl mt-auto'>{productDetails.des}</p> */}
 
@@ -82,7 +83,7 @@ const ProductMainScreen = () => {
                                         </div> */}
                                         <div className='flex gap-5'>
                                             <p className='text-3xl font-bold mt-auto text-blue-600 py-3'>$ {productDetails.price}</p>
-                                            <p className='text-2xl items-center flex text-gray-500 line-through'>$ {productDetails.price}</p>
+                                            <p className='text-2xl items-center flex text-gray-500 line-through'>$ {productDetails.discountprice}</p>
                                         </div>
                                         <div className='flex items-center justify-center'>
                                             <Link onClick={AddToCartHandler} className='px-32 mt-5 text-center border-4 border-blue-500 py-4 rounded-full font-medium hover:bg-blue-500 focus:ring focus:ring-blue-600 hover:text-white'>Add to Card</Link>

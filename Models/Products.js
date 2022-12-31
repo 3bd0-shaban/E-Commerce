@@ -12,7 +12,7 @@ const ProductSchema = new mongoose.Schema({
         maxLenght: [4000, 'Description must be less than 4000 chartacter']
     },
     fulldes: {
-        type: Number,
+        type: String,
     },
     price: {
         type: Number,
@@ -20,12 +20,6 @@ const ProductSchema = new mongoose.Schema({
     },
     discountprice: {
         type: Number,
-    },
-    color: {
-        type: String,
-    },
-    size: {
-        type: String,
     },
     category: {
         type: mongoose.Schema.Types.ObjectId,

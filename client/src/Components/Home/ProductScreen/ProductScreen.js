@@ -16,7 +16,7 @@ const ProductScreen = () => {
 
   const SpicHeader = () => {
     return (
-      <div className='w-full py-12 bg-[#F5F5F5]'>
+      <div className='w-full my-5 py-12 bg-[#F5F5F5]'>
         <div className='text-lg xl:text-2xl font-semibold flex gap-5 xl:gap-16 text-gray-600 items-center whitespace-nowrap px-4 xl:px-32 uppercase'>
           <Link>related</Link>
           <Link>DESCRIPTION</Link>
@@ -35,12 +35,12 @@ const ProductScreen = () => {
         <div>
           <ProductMainScreen />
           <SpicHeader />
+          <div className='conatiner max-w-full my-7' dangerouslySetInnerHTML={{ __html: productDetails?.fulldes }} />
           <Reviews id={id} />
         </div>
       </div>
       <div className='container max-w-[145rem]'>
         <div className='conatiner max-w-full xl:max-w-[144rem]'>
-          <div dangerouslySetInnerHTML={{ __html: productDetails.fulldes }} />
         </div>
         <HomeProducts2 Category={'Revently Viewed'} />
       </div>
