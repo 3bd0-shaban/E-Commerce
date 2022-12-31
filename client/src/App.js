@@ -6,8 +6,6 @@ import {
 import { Route, Routes } from 'react-router-dom'
 import { ROLES } from './Config/Roles';
 function App() {
-  // const h = document.cookie = "jwt=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjYzYThiMzkyYjJhN2Y1MWY0YjhmM2E3ZiIsInJvbGVzIjpbInVzZXIiLCJhZG1pbiJdLCJpYXQiOjE2NzIzMjY1OTgsImV4cCI6MTY3MjkzMTM5OH0.mgNYVo2UiRS6lnaiV7NOM7lTtbUaAtt6WhrQI-Ufqg4";
-  // console.log(h)
   return (
     <Routes>
       <Route element={<PersistLogin />}>
