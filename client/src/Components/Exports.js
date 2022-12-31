@@ -61,8 +61,8 @@ export { default as Address } from './Profile/Address';
 export { default as Mainprofile } from './Profile/Mainprofile';
 export { default as PersonalInfo } from './Profile/PersonalInfo';
 
-export { default as LineChart } from './Dashboard/Chart/LineChart';
-export { default as PieChart } from './Dashboard/Chart/PieChart';
+// export { default as LineChart } from './Dashboard/Chart/LineChart';
+// export { default as PieChart } from './Dashboard/Chart/PieChart';
 
 export { default as AllProducts } from './Dashboard/Screens/AllProducts';
 export { default as AddFeatures } from './Dashboard/Screens/AddFeatures';
