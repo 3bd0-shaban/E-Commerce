@@ -9,9 +9,9 @@ const Charts = () => {
                 <Sidebar />
                 <div className='container lg:ml-80 mt-24 grid grid-cols-3 h-[40rem]'>
                     <div className='col-span-2'>
-                        <LineChart />
+                        {/* <LineChart /> */}
                     </div>
-                    <PieChart />
+                    {/* <PieChart /> */}
                     {/* <GeoChart /> */}
                 </div>
             </div>

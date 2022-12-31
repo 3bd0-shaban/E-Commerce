@@ -30,9 +30,9 @@ const Dashboard = () => {
                         <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5 col-span-2">
                             <Pending />
                         </div>
-                        <div className='text-7xl h-[25rem]'><PieChart /></div>
+                        {/* <div className='text-7xl h-[25rem]'><PieChart /></div> */}
                     </div>
-                    <div className='h-[25rem] lg:h-[35rem] lg:w-[70%]'><LineChart /></div>
+                    {/* <div className='h-[25rem] lg:h-[35rem] lg:w-[70%]'><LineChart /></div> */}
                 </div>
             </div>
         </>
