@@ -11,7 +11,7 @@ const SecNavbar = () => {
     const { roles } = useAuth();
     const dispatch = useDispatch();
     const { HomeSideBar } = useSelector(state => state.Features);
-    const { isLogged } = useSelector(state => state.auth);
+    // const { isLogged } = useSelector(state => state.auth);
     const [open, setOpen] = useState(false);
     const [logOut] = useLogOutMutation();
     const navigate = useNavigate();

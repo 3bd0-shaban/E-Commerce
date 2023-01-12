@@ -12,6 +12,7 @@ const AddProduct = () => {
     const [inputs, setInputs] = useState({
         name: '', des: '', stock: '', price: '', brand: '', category: '', subcategory: '', discountprice: ''
     });
+    console.log(inputs.category)
     const [fulldes, setFullDes] = useState('');
     const [warranty, setWarranty] = useState(false)
     const [images, setImages] = useState([]);
