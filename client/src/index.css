@@ -187,5 +187,22 @@
     opacity: 0;
     @apply
     opacity-0 
-
 }
+
+
+.slide-right-enter{
+    @apply
+    translate-x-[100%]
+}
+.slide-right-enter-active{
+    @apply
+    translate-x-[0%] transition-transform ease-in-out duration-500
+}
+.slide-right-exit{
+    @apply
+    translate-x-[0%]
+}
+.slide-right-exit-active{
+    @apply
+    -translate-x-[100%] transition-transform ease-in-out duration-500
+} 
