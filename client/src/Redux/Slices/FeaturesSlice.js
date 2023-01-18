@@ -10,6 +10,8 @@ const FeaturesSlice = createSlice({
         sideProductInfo: false,
         sideOrderInfo: false,
         HomeSideBar: false,
+        ConfirmModal:false
+        
     },
     reducers: {
         ShowSideBar(state) {
@@ -36,6 +38,9 @@ const FeaturesSlice = createSlice({
         Show_HomeSideBar(state) {
             state.HomeSideBar = !state.HomeSideBar;
         },
+        Show_Confirm(state){
+            state.ConfirmModal = !state.ConfirmModal;
+        }
     },
 
 })

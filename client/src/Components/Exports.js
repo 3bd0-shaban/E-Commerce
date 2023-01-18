@@ -28,6 +28,7 @@ export { default as UserInfo } from './Dashboard/Layouts/Sub_Layouts/UserInfo';
 export { default as ProductsInfo } from './Dashboard/Layouts/Sub_Layouts/ProductsInfo';
 export { default as TodoList } from './Dashboard/Layouts/Sub_Layouts/TodoList';
 export { default as AddSpecs } from './Dashboard/Layouts/Sub_Layouts/AddSpecs';
+export { default as Confirm } from './Dashboard/Layouts/Sub_Layouts/Confirm';
 export { default as PreviewImege } from './Dashboard/Layouts/Sub_Layouts/PreviewImege';
 export { default as AddImage } from './Dashboard/Layouts/Sub_Layouts/AddImage';
 

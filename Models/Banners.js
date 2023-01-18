@@ -8,6 +8,14 @@ const BannersSchema = new mongoose.Schema({
         url: {
             type: String,
         }
+    },
+    isSide:{
+        type:Boolean,
+        default:false
+    },
+    istop:{
+        type:Boolean,
+        default:false
     }
 
 },

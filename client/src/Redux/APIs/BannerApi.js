@@ -4,15 +4,32 @@ export const BannerApi = apiSlice.injectEndpoints({
     tagTypes: ['Banner'],
     endpoints: (builder) => ({
         getBanner: builder.query({
-            query: () => '/api/banner/get',
-            providesTags: (result, error, arg) =>
-                result
-                    ? [...result.map(({ id }) => ({ type: 'Banner', id })), 'Banner']
-                    : ['Banner'],
+            query: () => ({
+                url: '/api/banner/get',
+                credentials: 'include',
+                keepUnusedDataFor: 5,
+            }),
+            providesTags: ['Banner'],
+        }),
+        getBannerTop: builder.query({
+            query: () => ({
+                url: '/api/banner/get/top',
+                credentials: 'include',
+                keepUnusedDataFor: 5,
+            }),
+            providesTags: ['Banner'],
+        }),
+        getBannerSide: builder.query({
+            query: () => ({
+                url: '/api/banner/get/side',
+                credentials: 'include',
+                keepUnusedDataFor: 5,
+            }),
+            providesTags: ['Banner'],
         }),
         getBannerDetails: builder.query({
             query: (id) => `/api/banner/get/${id}`,
-            // providesTags: ['Banner'],
+            providesTags: ['Banner'],
         }),
         createBanner: builder.mutation({
             query: (data) => ({
@@ -23,14 +40,23 @@ export const BannerApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['Banner'],
         }),
-        updateBanner: builder.mutation({
-            query: ({ data, id }) => ({
-                url: `/api/Banner/update/${id}`,
-                method: 'PUT',
+        createTopBanner: builder.mutation({
+            query: (data) => ({
+                url: '/api/banner/new/top',
+                method: 'POST',
                 credentials: 'include',
                 body: data,
             }),
-            invalidatesTags: ['banner'],
+            invalidatesTags: ['Banner'],
+        }),
+        createSideBanner: builder.mutation({
+            query: (data) => ({
+                url: '/api/banner/new/side',
+                method: 'POST',
+                credentials: 'include',
+                body: data,
+            }),
+            invalidatesTags: ['Banner'],
         }),
         deleteBanner: builder.mutation({
             query: (id) => ({
@@ -45,7 +71,11 @@ export const BannerApi = apiSlice.injectEndpoints({
 
 export const {
     useCreateBannerMutation,
+    useCreateTopBannerMutation,
+    useCreateSideBannerMutation,
     useGetBannerQuery,
+    useGetBannerTopQuery,
+    useGetBannerSideQuery,
     useGetBannerDetailsQuery,
     useUpdateBannerMutation,
     useDeleteBannerMutation,
