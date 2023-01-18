@@ -17,7 +17,7 @@ const Category = (props) => {
                         <option value=''> --- Choose One --- </option>
                         {Category &&
                             Category?.map((cat) => (
-                                <option key={cat._id} id={cat._id} value={cat._id} onChange={() => setSubCat(cat.subcategory)}>{cat.category}</option>
+                                <option key={cat._id} id={cat._id} value={cat._id}>{cat.category}</option>
                             ))}
                     </select>
                 </div>

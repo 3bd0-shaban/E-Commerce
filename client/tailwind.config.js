@@ -36,6 +36,11 @@ module.exports = {
         Oswald: ["Oswald"],
         PTSans: ["PT+Sans"],
       },
+      animation:{
+        'slide-right':'slide-right 1s ease-in-out',
+        'slide-left':'slide-left 1s ease-in-out',
+        'fade':'fadeIn 1s ease-in-out',
+      }
     },
     screens: {
       xs: '370px',
@@ -49,5 +54,8 @@ module.exports = {
   },
   plugins: [
     // require('flowbite/plugin'),
-  ]
+  ],
+  corePlugins: {
+    keyframes: true
+  }
 };

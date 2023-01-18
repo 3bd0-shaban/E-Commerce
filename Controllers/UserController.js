@@ -94,7 +94,7 @@ export const RefreshToken = asyncHandler((req, res, next) => {
     });
 });
 export const UserInfo = asyncHandler(async (req, res, next) => {
-    const user = await Users.find({ _id: req.user.id });
+    const user = await Users.findOne({ _id: req.user.id });
     if (!user) {
         return next(new ErrorHandler('User Not Founded', 400));
     }
