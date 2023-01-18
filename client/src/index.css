@@ -27,6 +27,9 @@
 .parent:hover .drop{
     top: 55px;
 }
+html {
+    -webkit-tap-highlight-color:transparent;
+}
 /* width */
 ::-webkit-scrollbar {
     @apply
