@@ -6,11 +6,15 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon server"
+    "start": "node server",
+    "dev":"nodemon server"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/AbdElra7man9/E-Commerce.git"
+  },
+  "engines": {
+    "node": "18.x"
   },
   "keywords": [],
   "author": "",
