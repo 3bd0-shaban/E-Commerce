@@ -1,7 +1,6 @@
 import { apiSlice } from '../ApiSlice';
 
 export const BrandApi = apiSlice.injectEndpoints({
-    tagTypes: ['Brand'],
     endpoints: (builder) => ({
         getBrand: builder.query({
             query: () => '/api/brand/get',

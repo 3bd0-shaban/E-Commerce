@@ -1,7 +1,5 @@
 import { apiSlice } from '../ApiSlice';
 export const WhitelistApi = apiSlice.injectEndpoints({
-
-    tagTypes: ['Whitelist'],
     endpoints: (builder) => ({
         getWhitelist: builder.query({
             query: () => ({

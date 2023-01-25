@@ -2,8 +2,6 @@
 import { apiSlice } from '../ApiSlice';
 
 export const ReviewApi = apiSlice.injectEndpoints({
-
-    tagTypes: ['Reviews'],
     endpoints: (builder) => ({
         getReviews: builder.query({
             query: (id) => `/api/review/get/${id}`,

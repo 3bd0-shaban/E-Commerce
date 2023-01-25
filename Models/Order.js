@@ -6,9 +6,7 @@ const OrderSchema = new mongoose.Schema({
         required: true,
     },
     address: {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Address',
-        required: true,
+        type: Object
     },
     orderitems: [],
     totalPrice: {

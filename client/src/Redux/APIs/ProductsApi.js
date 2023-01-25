@@ -1,6 +1,5 @@
 import { apiSlice } from '../ApiSlice';
 export const ProductApi = apiSlice.injectEndpoints({
-    tagTypes: ['Products'],
     endpoints: (builder) => ({
         getProducts: builder.query({
             query: () => '/api/product/get',

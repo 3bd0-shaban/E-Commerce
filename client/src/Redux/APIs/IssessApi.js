@@ -1,7 +1,6 @@
 
 import { apiSlice } from '../ApiSlice';
 export const IssessApi = apiSlice.injectEndpoints({
-    tagTypes: ['Issess'],
     endpoints: (builder) => ({
         getIssess: builder.query({
             query: () => '/api/Issess/get',

@@ -1,6 +1,5 @@
 import { apiSlice } from '../ApiSlice';
 export const CartApi = apiSlice.injectEndpoints({
-    tagTypes: ['Cart'],
     endpoints: (builder) => ({
         getCart: builder.query({
             query: () => ({
@@ -8,7 +7,7 @@ export const CartApi = apiSlice.injectEndpoints({
                 credentials: 'include',
                 keepUnusedDataFor: 5,
             }),
-            providesTags: ['Cart'],
+            providesTags: ['Cart','Order'],
         }),
         addToCart: builder.mutation({
             query: (product_Id) => ({

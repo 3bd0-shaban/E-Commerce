@@ -1,7 +1,5 @@
 import { apiSlice } from '../ApiSlice';
 export const BannerApi = apiSlice.injectEndpoints({
-
-    tagTypes: ['Banner'],
     endpoints: (builder) => ({
         getBanner: builder.query({
             query: () => ({

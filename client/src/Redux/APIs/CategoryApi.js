@@ -1,7 +1,6 @@
 import { apiSlice } from '../ApiSlice';
 
 export const CategoryApi = apiSlice.injectEndpoints({
-    tagTypes: ['Category'],
     endpoints: (builder) => ({
         getCategory: builder.query({
             query: () => '/api/category/get',

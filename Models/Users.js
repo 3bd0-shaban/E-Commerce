@@ -1,34 +1,4 @@
 import mongoose from 'mongoose';
-const AddressSchema = new mongoose.Schema(
-  {
-    PhoneNumber: {
-      type: Number,
-      required: true
-    },
-    city: {
-      type: String
-    },
-    state: {
-      type: String
-    },
-    country: {
-      type: String
-    },
-    zipCode: {
-      type: String
-    },
-    isDefault: {
-      type: Boolean,
-      default: false
-    },
-    updated: Date,
-    created: {
-      type: Date,
-      default: Date.now
-    }
-  }
-)
-mongoose.model('Address', AddressSchema);
 const usesrSchema = new mongoose.Schema(
   {
     email: {
@@ -56,7 +26,35 @@ const usesrSchema = new mongoose.Schema(
       type: [String],
       default: ["user"],
     },
-    address: [AddressSchema],
+    address: [
+      {
+        PhoneNumber: {
+          type: Number,
+          required: true
+        },
+        city: {
+          type: String
+        },
+        state: {
+          type: String
+        },
+        country: {
+          type: String
+        },
+        zipCode: {
+          type: String
+        },
+        isDefault: {
+          type: Boolean,
+          default: false
+        },
+        updated: Date,
+        created: {
+          type: Date,
+          default: Date.now
+        }
+      }
+    ],
     whiteList: [
       {
         _id: {
@@ -68,6 +66,6 @@ const usesrSchema = new mongoose.Schema(
   },
   { timestamps: true, minimize: false }
 );
-mongoose.model('Address', AddressSchema);
+
 const Users = mongoose.model('Users', usesrSchema);
 export default Users;

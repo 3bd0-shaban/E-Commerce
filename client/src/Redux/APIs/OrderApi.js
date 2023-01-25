@@ -2,8 +2,6 @@
 import { apiSlice } from '../ApiSlice';
 
 export const OrderApi = apiSlice.injectEndpoints({
-
-    tagTypes: ['Order'],
     endpoints: (builder) => ({
         getUserOrder: builder.query({
             query: () => ({
