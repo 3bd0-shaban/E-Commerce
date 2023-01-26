@@ -53,7 +53,7 @@ const ProductMainScreen = () => {
                                 </div>
                             </div>
                             <div className='xl:col-span-2 '>
-                                <div className='flex justify-center items-center'>
+                                <div className='flex justify-between items-start'>
                                     <p className='text-xl font-semibold py-3 '>{productDetails?.name}</p>
                                     <Link onClick={HandleToWhiteList} className='fill-black'><CiHeart style={{ fontSize: "2.5rem" }} /></Link>
                                 </div>

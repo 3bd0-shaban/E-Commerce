@@ -49,22 +49,41 @@ export const UploadProduct = asyncHandler(async (req, res, next) => {
             return next(new ErrorHandler(error.message, 500));
         })
 })
-
-// export const Fetch_Products = async (req, res,next) => {
-//     try {
-//         const resultperpage = 10;
-//         // const productCount = await Products.countDocuments();
-//         const features = new Features(Products.find(), req.query).search().Filter().Pagination(resultperpage)
-//         const Product = await features.query;
-//         return res.status(200).json(Product);
-//     } catch (error) {
-//         return res.status(500).json({ msg: error.message })
-//     }
-// }
+export const Search = async (req, res, next) => {
+    try {
+        const resultperpage = 10;
+        const features = new Features(Products.find(), req.query).search().Pagination(resultperpage)
+        const Product = await features.query;
+        return res.status(200).json(Product);
+    } catch (error) {
+        return res.status(500).json({ msg: error.message })
+    }
+}
+export const Filter = async (req, res, next) => {
+    try {
+        const resultperpage = 10;
+        const features = new Features(Products.find(), req.query).Filter().Pagination(resultperpage)
+        const Product = await features.query;
+        return res.status(200).json(Product);
+    } catch (error) {
+        return res.status(500).json({ msg: error.message })
+    }
+}
+export const Fetch_Paginated_Products = async (req, res, next) => {
+    try {
+        const resultperpage = 10;
+        // const productCount = await Products.countDocuments();
+        const features = new Features(Products.find(), req.query).Pagination(resultperpage)
+        const Product = await features.query;
+        return res.status(200).json(Product);
+    } catch (error) {
+        return res.status(500).json({ msg: error.message })
+    }
+}
 export const Fetch_Products = asyncHandler(async (req, res, next) => {
     const Product = await Products.find().populate('category', 'category')
-    .populate('brand','brand')
-    .populate('subcategory', 'nameOfSub');
+        .populate('brand', 'brand')
+        .populate('subcategory', 'nameOfSub');
     return res.json(Product);
 })
 export const Fetch_ProductDetails = asyncHandler(async (req, res, next) => {

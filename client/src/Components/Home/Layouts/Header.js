@@ -1,10 +1,14 @@
-import React from 'react'
+import React, { useState } from 'react'
 import { Link } from 'react-router-dom'
 import { SlHandbag } from 'react-icons/sl'
 import { CgDetailsMore } from 'react-icons/cg'
 import { CiHeart } from 'react-icons/ci'
 import { SecNavbar, Logo } from '../../Exports';
+import { useSearchQuery } from '../../../Redux/APIs/ProductsApi'
 const Header = () => {
+  const [keyword, setKeyword] = useState();
+  const { data: result } = useSearchQuery() || {};
+  
   const Search = () => {
     return (
       <form className='w-[52%] hidden xl:flex justify-center '>

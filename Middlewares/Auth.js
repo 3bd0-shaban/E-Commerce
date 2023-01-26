@@ -18,7 +18,6 @@ export const auth = asyncHandler(async (req, res, next) => {
 
 export const authorizeRoles = (...roles) => {
     return (req, res, next) => {
-
         if (!roles.some(role => req.user.roles.includes(role))) {
             return next(
                 new ErrorHandler(`Role: ${roles.includes(req.user)} is not allowed to access this resouce `, 403)
@@ -27,3 +26,24 @@ export const authorizeRoles = (...roles) => {
         next();
     };
 };
+export const LocalVariable = (req, res, next) => {
+    req.app.locals = {
+        OTP: null,
+        resetsession: false
+    }
+    next();
+};
+
+export const CheckUser = asyncHandler(async (req, res, next) => {
+    const { email } = req.method == "GET" ? req.query : req.body;
+
+    // check the user existance
+    let exist = await Users.findOne({ email });
+    if (!exist) {
+        return next(
+            new ErrorHandler('User not Founded', 403)
+        );
+    }
+    next();
+
+})

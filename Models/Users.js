@@ -26,6 +26,7 @@ const usesrSchema = new mongoose.Schema(
       type: [String],
       default: ["user"],
     },
+    otp: Number,
     address: [
       {
         PhoneNumber: {

@@ -1,6 +1,6 @@
 import express from 'express';
 const ProductsRouter = express.Router();
-import { UploadProduct,Fetch_Products,Fetch_ProductDetails,Update_Product,Delete_Product } from '../Controllers/ProductController.js';
+import { UploadProduct,Fetch_Products,Fetch_ProductDetails,Update_Product,Delete_Product, Search, Fetch_Paginated_Products, Filter } from '../Controllers/ProductController.js';
 import { auth, authorizeRoles} from '../Middlewares/Auth.js'
 
 
@@ -9,5 +9,8 @@ ProductsRouter.put('/update/:id',auth,authorizeRoles("admin"), Update_Product);
 ProductsRouter.delete('/delete/:id',auth,authorizeRoles("admin"), Delete_Product);
 ProductsRouter.get('/get', Fetch_Products);
 ProductsRouter.get('/get/:id', Fetch_ProductDetails);
+ProductsRouter.get('/paginated', Fetch_Paginated_Products);
+ProductsRouter.get('/search', Search);
+ProductsRouter.get('/filter', Filter);
 
 export default ProductsRouter

@@ -1,13 +1,11 @@
 import Users from '../Models/Users.js';
 import { asyncHandler } from './../Middlewares/asyncErrorHandler.js';
 import ErrorHandler from './../Utils/ErrorHandler.js';
+import otpGenerator from 'otp-generator'
 import bcrypt from 'bcrypt';
 import Jwt from 'jsonwebtoken';
-import { google } from 'googleapis';
-const { OAuth2 } = google.auth;
-import send_Email from './sendEmail.js';
-const { Client_URL } = process.env
-const client = new OAuth2(process.env.MAILING_SERVICE_CLIENT_ID)
+import send_Email from '../Utils/sendEmail.js';
+
 
 export const SignUp = asyncHandler(async (req, res, next) => {
     const { email, password, confirmpassword, firstname, lastname } = req.body;
@@ -160,40 +158,80 @@ export const logout = asyncHandler((req, res, next) => {
             })
         }
     });
-})
+});
 
-export const ForgotPassword = asyncHandler(async (req, res, next) => {
-    const { email } = req.body;
-    if (!email) {
-        return next(new ErrorHandler('Please Enter Vailed Email', 400));
+export const GenerateOtp = asyncHandler(async (req, res, next) => {
+    const { email } = req.query
+    req.app.locals.OTP = await otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
+    const user = await Users.findOneAndUpdate({ email }, { otp: req.app.locals.OTP }, { new: true });
+    const to = user.email
+    send_Email(to, 'Here is the OTP to recover your account, please do not share it with anyone', req.app.locals.OTP)
+    res.status(201).send({ code: req.app.locals.OTP });
+
+});
+
+
+export const VerifyOtp = asyncHandler(async (req, res, next) => {
+    const { code, email } = req.query;
+    const user = await Users.findOne({ email })
+    if (parseInt(req.app.locals.OTP) === parseInt(code) && user.otp == parseInt(code)) {
+        req.app.locals.OTP = null;
+        req.app.locals.resetsession = true
+        return res.json({ msg: 'Verified Successflly' })
     }
-    const user = await Users.findOne({ email });
-    if (!user) {
-        return next(new ErrorHandler('Invailed Email', 400));
+    return next(new ErrorHandler('Invalid OTP !', 400));
+});
+
+export const CreateResetSession = asyncHandler(async (req, res, next) => {
+    const { code } = req.query;
+    if (req.app.locals.resetsession) {
+        req.app.locals.resetsession = true
+        return res.json({ msg: "Access Granted !" })
     }
-    const access_Token = createAccessToken({ id: user._id });
-    const url = `${Client_URL}` / user / `${access_Token}`;
-    send_Email(email, url, "reset Your Password");
-    return res.json({ msg: 'Email Send Successfully' });
-})
+    return next(new ErrorHandler('OTP Expired !', 400));
+});
+
+
 export const ResetPassword = asyncHandler(async (req, res, next) => {
-    const { password } = req.body;
-    const slat = await bcrypt.genSalt();
-    const HashedPassword = await bcrypt.hash(password, slat);
-    await Users.findByIdAndUpdate({ _id: req.user.id });
-    password: HashedPassword;
-    return res.json({ msg: 'Password Cahnged Successfully' });
-})
+
+    if (!req.app.locals.resetsession) {
+        return next(new ErrorHandler('Session Expired !', 400));
+    }
+    const { email, password } = req.body;
+
+    Users.findOne({ email })
+        .then(user => {
+            bcrypt.hash(password, 10)
+                .then(hashedPassword => {
+                    Users.updateOne({ email: user.email },
+                        { password: hashedPassword }, function (err, data) {
+                            if (err) throw err;
+                            req.app.locals.resetsession = false; // reset session
+                            return res.json({ msg: "Record Updated...!" })
+                        });
+                })
+                .catch(e => {
+                    return next(new ErrorHandler('Enable to hashed password', e.message, 400));
+                })
+        })
+        .catch(error => {
+            return next(new ErrorHandler('Email not founded', 400));
+        })
+});
+
 export const AllUsers = asyncHandler(async (req, res, next) => {
     const user = await Users.find().select('-password');
     return res.json(user);
-})
+});
 export const LogOut = asyncHandler(async (req, res, next) => {
     res.clearCookie('token', { path: '/', maxAge: 1 });
     res.clearCookie('Logged_in', { path: '/', maxAge: 1 });
     res.clearCookie('Admin', { path: '/' });
     return res.json({ msg: 'Loged Out' });
-})
+});
+
+
+
 function validateEmail(email) {
     var re = /^(([^<>()[\]\.,;:\s@\"]+(\.[^<>()[\]\.,;:\s@\"]+)*)|(\".+\"))@(([^<>()[\]\.,;:\s@\"]+\.)+[^<>()[\]\.,;:\s@\"]{2,})$/i;
     return re.test(email);
@@ -204,7 +242,3 @@ const createAccessToken = (payload) => {
 const createRefreshToken = (payload) => {
     return Jwt.sign(payload, process.env.JWT_REFRESH, { expiresIn: '7d' })
 }
-// const createAccessToken = (payload) => {
-//     return Jwt.sign(payload, process.env.JWT_SCCESS, { expiresIn: '15m' })
-// }
-

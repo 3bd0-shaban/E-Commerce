@@ -1,7 +1,7 @@
 import React from 'react'
 import {
   Home, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, AddFeatures,
-  Mainprofile, Charts, Calender, Orders, Chat, Issues, Cart, WhiteList, Dashboard, RequireAuth, Layout, NotFounded, PersistLogin
+  Mainprofile, Charts, Calender, Orders, Chat, Issues, Cart, WhiteList, Dashboard, RequireAuth, Layout, NotFounded, PersistLogin, Search
 } from './Components/Exports';
 import { Route, Routes } from 'react-router-dom'
 import { ROLES } from './Config/Roles';
@@ -13,6 +13,7 @@ function App() {
           <Route path='signin' element={<Signin />} />
           <Route path='signup' element={<Signup />} />
           <Route path='product/:id' element={<ProductScreen />} />
+          <Route path='search?keyword=:keyword' element={<Search />} />
           <Route path='notfound' element={<NotFounded />} />
           <Route index element={<Home />} />
           <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>

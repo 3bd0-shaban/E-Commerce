@@ -14,6 +14,7 @@ export { default as HomeProducts } from './Home/Main/HomeProducts';
 export { default as HomeProducts2 } from './Home/Main/HomeProducts2';
 export { default as FeaturesCategory } from './Home/Main/FeaturesCategory';
 export { default as Home } from './Home/Main/Home';
+export { default as Search } from './Home/Main/Search';
 
 
 export { default as Rating } from './Home/ProductScreen/Rating';

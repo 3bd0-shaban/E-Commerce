@@ -1,10 +1,8 @@
 import express from 'express';
-import dotenv from 'dotenv';
 import helmet from 'helmet';
 import morgan from 'morgan';
 import cors from 'cors';
 import mongoose from 'mongoose';
-import fileUpload from 'express-fileupload';
 import cookieParser from 'cookie-parser';
 import errorMiddleware from './Middlewares/Error.js';
 import UsersRouter from './Routes/UsersRouter.js';
@@ -17,9 +15,10 @@ import IsssesRouter from './Routes/IssessRouter.js';
 import ReviewsRouter from './Routes/ReviewsRouter.js';
 import WhiteListRouter from './Routes/WhiteListRoter.js';
 import BrandRouter from './Routes/BrandRouter.js';
+import config from './config.js';
 const app = express();
-const port = process.env.PORT || 5000;
-dotenv.config();
+
+const port = config.PORT || 5000;
 app.use(
   cors({
     origin: [
@@ -29,13 +28,13 @@ app.use(
     credentials: true,
     origin: true
   })
-);
-app.use(cookieParser());
-app.use(helmet());
-app.use(morgan('common'));
-// app.use(fileUpload({ useTempFiles: true }));
+  );
+  app.use(cookieParser());
+  app.use(helmet());
+  app.use(morgan('common'));
+  // app.use(fileUpload({ useTempFiles: true }));
 mongoose
-  .connect(process.env.MONGODB_URI)
+  .connect(config.MONGODB_URI)
   .then(() => {
     app.listen(port, () => {
       console.log(`Successfully started at http://localhost:${port}`);
@@ -44,6 +43,7 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use('/api/auth', UsersRouter);
