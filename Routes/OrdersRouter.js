@@ -5,11 +5,11 @@ import {
     Fetch_Delivered_Orders, Fetch_Cancelled_Orders,
     CancelOrder, ChangeStatus, Fetch_Order_Details
 } from '../Controllers/OrdersController.js';
-import { auth, authorizeRoles} from './../Middlewares/Auth.js';
+import { auth, authorizeRoles, CheckVerification } from './../Middlewares/Auth.js';
 const Router = express.Router();
 
 
-Router.post('/new', auth, Add_NEW_Order);
+Router.post('/new', auth, CheckVerification, Add_NEW_Order);
 Router.get('/get/user', auth, Fetch_Users_Orders);
 Router.get('/get/all', auth, authorizeRoles("admin"), Fetch_All_Orders);
 Router.get('/:id', auth, Fetch_Order_Details);

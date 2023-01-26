@@ -26,6 +26,10 @@ const usesrSchema = new mongoose.Schema(
       type: [String],
       default: ["user"],
     },
+    isVerified: {
+      type: Boolean,
+      default: false,
+    },
     otp: Number,
     address: [
       {

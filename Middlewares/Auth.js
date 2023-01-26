@@ -46,4 +46,15 @@ export const CheckUser = asyncHandler(async (req, res, next) => {
     }
     next();
 
+});
+
+export const CheckVerification = asyncHandler(async (req, res, next) => {
+    let user = await Users.findOne({ _id: req.user.id });
+    if (!user.isVerified) {
+        return next(
+            new ErrorHandler('Your Email not verified, please verify email first', 403)
+        );
+    }
+    next();
+
 })
