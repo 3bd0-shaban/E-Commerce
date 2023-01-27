@@ -39,7 +39,7 @@ const Signup = () => {
         localStorage.setItem('Logged?', true);
         setInputs({ email: '', password: '' });
         dispatch(DataAction.setEmail({ email }))
-        navigate(`/verify?email=${email}&code=`)
+        navigate(`/verify?email=${email}&activate=${true}&code=`)
       })
       .catch((err) => {
         console.log(err.data.msg);
@@ -50,7 +50,7 @@ const Signup = () => {
     <>
       <Header />
       <div className='container px-0 mt-8'>
-        <div className='grid grid-cols-1 lg:grid-cols-2'>
+        <div className='container grid grid-cols-1 lg:grid-cols-2'>
           <div className='container px-0 lg:max-w-[60%]'>
             <p className="text-2xl font-semibold text-gray-700 my-3">Log in to your account</p><hr />
             <form onSubmit={handleSubmit} className='flex flex-col py-5'>
@@ -87,12 +87,7 @@ const Signup = () => {
               <p className='text-2xl font-semibold text-gray-700 my-3'>New Customer</p><hr />
               <div className='my-6'>
                 <p className='font-medium text-lg text-gray-700'>Creating an acount today  yo reap the beneits of personalized shopping experince </p>
-                {/* <div className='my-4'>
-                  <label className='text-lg py-3 font-light font-serif text-gray-500'>Email Address :</label>
-                  <input type='email' onChange={(e) => setEmailRegister(e.target.value)} value={emailregister} name='email' className='inputfield !py-4 !w-full' placeholder='Phone number username,or email' />
-                </div> */}
-                <button type='submit' className='btn-primary my-3 !w-1/2 !py-3 !rounded-3xl !mt-8' disabled={isLoading}>
-                  {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Next'}</button>
+
               </div>
               <div>
                 <p className='text-2xl font-medium text-gray-600'>Sign Up today and you will be able to :</p>

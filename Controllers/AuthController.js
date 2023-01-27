@@ -45,37 +45,41 @@ export const SignUp = asyncHandler(async (req, res, next) => {
             })
     }
 });
-export const verification = asyncHandler(async (req, res, next) => {
+export const activateEmail = asyncHandler(async (req, res, next) => {
 
-    // if (!req.app.locals.resetsession) {
-    //     return next(new ErrorHandler('Session Expired !', 400));
-    // }
-    const { email } = req.query;
+    const { email, code } = req.query;
+    const user = await Users.findOne({ email })
+    if (user) {
+        if (user.otp == parseInt(code)) {
+            req.app.locals.OTP = null;
+            await Users.updateOne({ email: user.email },
+                { isVerified: true }, { new: true });
+            const accessToken = createAccessToken({ id: user.id, roles: user.roles });
+            const refresh_Token = createRefreshToken({ id: user._id, roles: user.roles });
+            res.cookie('Jwt', refresh_Token, {
+                httpOnly: true,
+                path: '/',
+                secure: process.env.NODE_ENV === "production" ? true : false,
+                expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7d
+                sameSite: 'none'
+            });
+            return res.json({ msg: "Your email verified successfully", accessToken })
+        }
+        return next(new ErrorHandler('Invalid OTP !', 400));
 
-    Users.findOne({ email })
-        .then(user => {
-            Users.updateOne({ email: user.email },
-                { isVerified: true }, function (err, data) {
-                    if (err) throw err;
-                    req.app.locals.resetsession = false; // reset session
-                    const accessToken = createAccessToken({ id: user.id, roles: user.roles });
-                    const refresh_Token = createRefreshToken({ id: user._id, roles: user.roles });
-                    res.cookie('Jwt', refresh_Token, {
-                        httpOnly: true,
-                        path: '/',
-                        secure: process.env.NODE_ENV === "production" ? true : false,
-                        expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7d
-                        sameSite: 'none'
-                    });
-                    return res.json({ msg: "Your email verified successfully", accessToken })
-                });
+    }
+    return next(new ErrorHandler('Email not founded !', 400));
 
-        })
-        .catch(error => {
-            console.log(error)
-            return next(new ErrorHandler('Email not founded', 400));
-        })
 });
+
+export const Request2OTPActivate = asyncHandler(async (req, res, next) => {
+    const { email } = req.body;
+    req.app.locals.OTP = await otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
+    send_Email(email, 'Here is the OTP to recover your account, please do not share it with anyone', req.app.locals.OTP)
+    await Users.updateOne({ email }, { otp: req.app.locals.OTP }, { new: true });
+    return res.json({ msg: "Access Granted !" })
+});
+
 export const SignIn = asyncHandler(async (req, res, next) => {
     const { email, password } = req.body;
     if (!email || !password) {
@@ -178,8 +182,16 @@ export const ResetPassword = asyncHandler(async (req, res, next) => {
     if (!req.app.locals.resetsession) {
         return next(new ErrorHandler('Session Expired !', 400));
     }
-    const { email, password } = req.body;
-
+    const { password, confirmpassword, email } = req.body;
+    if (!password || !confirmpassword) {
+        return next(new ErrorHandler('Fill all fields'), 400)
+    }
+    if (password !== confirmpassword) {
+        return next(new ErrorHandler('Passwords do not match'), 400);
+    }
+    if (password.lenght <= 6) {
+        return next(new ErrorHandler('Passowrd must be more than 6 characters', 400));
+    }
     Users.findOne({ email })
         .then(user => {
             bcrypt.hash(password, 10)

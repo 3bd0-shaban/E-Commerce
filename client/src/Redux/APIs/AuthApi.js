@@ -15,7 +15,7 @@ export const AuthApi = apiSlice.injectEndpoints({
                 method: 'GET',
                 credentials: 'include',
             }),
-            invalidatesTags: ['Auth'],
+            providesTags: ['Auth'],
         }),
         getAllUsers: builder.query({
             query: () => ({
@@ -23,7 +23,7 @@ export const AuthApi = apiSlice.injectEndpoints({
                 method: 'GET',
                 credentials: 'include',
             }),
-            invalidatesTags: ['Auth'],
+            providesTags: ['Auth'],
         }),
         signin: builder.mutation({
             query: (data) => ({
@@ -79,8 +79,47 @@ export const AuthApi = apiSlice.injectEndpoints({
         }),
         VerifyEmail: builder.mutation({
             query: ({ email, code }) => ({
-                url: `/api/auth/verifyemail?email=${email}&code=${code}`,
+                url: `/api/auth/activateEmail?email=${email}&code=${code}`,
                 method: 'PUT',
+            }),
+            invalidatesTags: ['Auth'],
+        }),
+        VerifyEmailtoResest: builder.mutation({
+            query: ({ email, code }) => ({
+                url: `/api/auth/verifyOtp?email=${email}&code=${code}`,
+                method: 'GET',
+            }),
+            invalidatesTags: ['Auth'],
+        }),
+        RequestOTP2: builder.mutation({
+            query: (data) => ({
+                url: '/api/auth/request2otpactivate',
+                method: 'PUT',
+                body: data
+            }),
+            invalidatesTags: ['Auth'],
+        }),
+        ActivateLoggedEmail: builder.mutation({
+            query: (data) => ({
+                url: `/api/auth/request2otpactivate`,
+                method: 'PUT',
+                body: data
+            }),
+            invalidatesTags: ['Auth'],
+        }),
+        ForgetPassword: builder.mutation({
+            query: (email) => ({
+                url: `/api/auth/generateOtp?email=${email}&code=`,
+                method: 'GET',
+                // body: data
+            }),
+            invalidatesTags: ['Auth'],
+        }),
+        ResetPassword: builder.mutation({
+            query: (data) => ({
+                url: '/api/auth/resetpassword',
+                method: 'PUT',
+                body: data
             }),
             invalidatesTags: ['Auth'],
         }),
@@ -118,9 +157,14 @@ export const {
     useDeleteUserMutation,
     useUpdateUserInfoMutation,
     useUpdateUserRoleMutation,
+    useForgetPasswordMutation,
+    useResetPasswordMutation,
     useLogOutMutation,
     useRefreshMutation,
     useSigninMutation,
     useSignupMutation,
     useVerifyEmailMutation,
+    useRequestOTP2Mutation,
+    useActivateLoggedEmailMutation,
+    useVerifyEmailtoResestMutation,
 } = AuthApi;

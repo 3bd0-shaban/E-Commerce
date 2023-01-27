@@ -36,7 +36,6 @@ export const LocalVariable = (req, res, next) => {
 
 export const CheckUser = asyncHandler(async (req, res, next) => {
     const { email } = req.method == "GET" ? req.query : req.body;
-
     // check the user existance
     let exist = await Users.findOne({ email });
     if (!exist) {

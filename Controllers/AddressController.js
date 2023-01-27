@@ -2,10 +2,18 @@ import Users from '../Models/Users.js';
 import { asyncHandler } from './../Middlewares/asyncErrorHandler.js';
 import ErrorHandler from './../Utils/ErrorHandler.js';
 export const SetNewAddress = asyncHandler(async (req, res, next) => {
+    const { city, state, zipCode, PhoneNumber, area, nearestlandmark, street, floor } = req.body
+    if (!city || !state || !zipCode || !PhoneNumber || !area || !street || !floor) {
+        return next(new ErrorHandler('Please Fill all fields', 400))
+    }
     let UserAddress = await Users.findOne({ _id: req.user.id });
     if (UserAddress.address.length < 1) {
-        const updated_address = await Users.findByIdAndUpdate({ _id: req.user.id }, { address: req.body }, { new: true });
-        return res.json({ updated_address });
+        await Users.findByIdAndUpdate({ _id: req.user.id },
+            {
+                address: {city, state, zipCode, PhoneNumber, area, nearestlandmark, street, floor, isDefault: true}
+            },
+            { new: true });
+        return res.json({ msg: 'Added New Address' });
     } else {
         await Users.findByIdAndUpdate({ _id: req.user.id }, {
             $push: {

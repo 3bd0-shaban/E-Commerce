@@ -73,6 +73,9 @@ export { default as DashboardNavBar } from './Dashboard/Layouts/DashboardNavBar'
 export { default as Signin } from '../Screens/Signin';
 export { default as Signup } from '../Screens/Signup';
 export { default as EmailVerify } from '../Screens/EmailVerify';
+export { default as SetAddress } from '../Screens/SetAddress';
+export { default as ResetPassword } from '../Screens/ResetPassword';
+export { default as ForgetPassword } from '../Screens/ForgetPassword';
 
 
 export { default as Addbanner } from './Dashboard/Layouts/Addbanner';

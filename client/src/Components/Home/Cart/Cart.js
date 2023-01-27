@@ -6,7 +6,7 @@ import { useDecrementMutation, useDeleteItemInCartMutation, useGetCartQuery, use
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useNewOrderMutation } from '../../../Redux/APIs/OrderApi';
-import { Danger, Success } from '../../Alerts';
+import { Danger, MessageErrorActivate, Success } from '../../Alerts';
 import { ImSpinner7 } from 'react-icons/im';
 import { useTitle } from '../../Exports'
 import { useGetUserQuery } from '../../../Redux/APIs/AuthApi';
@@ -25,7 +25,8 @@ const CartEmpty = () => {
 const Cart = () => {
     useTitle('Cart')
     const [id, setID] = useState('');
-    const [addessPage, setAddressPage] = useState(false)
+    const [addessPage, setAddressPage] = useState(false);
+    const [activateMSG, setActivateMSG] = useState(false);
     const product_Id = id;
     const { data: cart, isFetching: loading, error } = useGetCartQuery() || {};
     const [Increment] = useIncrementMutation();
@@ -50,6 +51,10 @@ const Cart = () => {
     }
     const [success, setSuccess] = useState('')
     const NewOrderHandler = async () => {
+        if (!user?.isVerified) {
+            setActivateMSG(true)
+            return
+        }
         // eslint-disable-next-line
         if (user?.address == 0) {
             setAddressPage(true)
@@ -71,7 +76,8 @@ const Cart = () => {
                 <div className='container px-0 xl:px-4 max-w-[140rem]'>
                     <div className='grid grid-cols-1 xl:grid-cols-4'>
                         <div className='conatiner px-0 max-w-full col-span-3'>
-                            {orderError && <Danger error={orderError.data.msg} className={'container my-5 px-0'} />}
+                            {orderError && <Danger error={orderError?.data?.msg} className={'container my-5 px-0'} />}
+                            {activateMSG && <MessageErrorActivate error={'Your email is not verified ,please verify it first before you continue to checkout'} className={'container my-5 px-0'} />}
                             {success && <Success error={success} className={'container my-5 px-0'} />}
                             <div className='conatiner px-0 max-w-full col-span-3 grid grid-cols-6'>
                                 {addessPage ?

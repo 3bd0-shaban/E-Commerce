@@ -43,7 +43,10 @@ const usesrSchema = new mongoose.Schema(
         state: {
           type: String
         },
-        country: {
+        street: {
+          type: String
+        },
+        floor: {
           type: String
         },
         zipCode: {

@@ -39,7 +39,6 @@ const Signin = () => {
       const { accessToken } = await signin(data).unwrap()
       dispatch(setCredentials({ accessToken }));
       setInputs({ email: '', password: '' });
-      setPersist(prev => !prev)
       navigate('/')
     } catch (error) {
       console.log(error)
@@ -50,7 +49,7 @@ const Signin = () => {
     <>
       <Header />
       <div className='container px-0 mt-8'>
-        <div className='grid grid-cols-1 lg:grid-cols-2'>
+        <div className='container grid grid-cols-1 lg:grid-cols-2'>
           <div className='container px-0 lg:max-w-[60%]'>
             <p className="text-2xl font-semibold text-gray-700 my-3">Log in to your account</p><hr />
             <form className='flex flex-col my-4' onSubmit={handleSubmit}>
@@ -63,7 +62,7 @@ const Signin = () => {
                   <input type='checkbox' id='persist' onChange={HandleToggle} checked={persist} />
                   Remmber ME
                 </label>
-                <Link to='forgetpassword' className='text-blue-800 focus:text-blue-300 text-sm'>Forgot password ?</Link>
+                <Link to='/forgetpassword' className='text-blue-800 focus:text-blue-300 text-sm'>Forgot password ?</Link>
               </div>
               <button type='submit' className='btn-primary my-3 !w-1/2 !py-3 !rounded-3xl !mt-8' disabled={isLoading}>
                 {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Submit'}</button>
