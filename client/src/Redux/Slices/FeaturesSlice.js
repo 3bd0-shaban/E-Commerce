@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit"
 const FeaturesSlice = createSlice({
-    name: "Upload_Product",
+    name: "Features",
     initialState: {
         SideBar: false,
         SideCategoryInfo: false,

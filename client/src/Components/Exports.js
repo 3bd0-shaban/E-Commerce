@@ -72,6 +72,7 @@ export { default as DashboardNavBar } from './Dashboard/Layouts/DashboardNavBar'
 
 export { default as Signin } from '../Screens/Signin';
 export { default as Signup } from '../Screens/Signup';
+export { default as EmailVerify } from '../Screens/EmailVerify';
 
 
 export { default as Addbanner } from './Dashboard/Layouts/Addbanner';

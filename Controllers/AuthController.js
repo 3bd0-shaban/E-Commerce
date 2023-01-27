@@ -28,9 +28,10 @@ export const SignUp = asyncHandler(async (req, res, next) => {
         const slat = await bcrypt.genSalt();
         const HashedPassword = await bcrypt.hash(password, slat)
 
-
+        req.app.locals.OTP = await otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
+        // console.log(req.app.locals.OTP)
         new Users({
-            email, password: HashedPassword, firstname, lastname
+            email, password: HashedPassword, firstname, lastname, otp: req.app.locals.OTP
         }).save()
             .then(newuser => {
 
@@ -46,23 +47,32 @@ export const SignUp = asyncHandler(async (req, res, next) => {
 });
 export const verification = asyncHandler(async (req, res, next) => {
 
-    if (!req.app.locals.resetsession) {
-        return next(new ErrorHandler('Session Expired !', 400));
-    }
-    const { email } = req.body;
+    // if (!req.app.locals.resetsession) {
+    //     return next(new ErrorHandler('Session Expired !', 400));
+    // }
+    const { email } = req.query;
 
     Users.findOne({ email })
         .then(user => {
-
             Users.updateOne({ email: user.email },
                 { isVerified: true }, function (err, data) {
                     if (err) throw err;
                     req.app.locals.resetsession = false; // reset session
-                    return res.json({ msg: "Your email verified successfully" })
+                    const accessToken = createAccessToken({ id: user.id, roles: user.roles });
+                    const refresh_Token = createRefreshToken({ id: user._id, roles: user.roles });
+                    res.cookie('Jwt', refresh_Token, {
+                        httpOnly: true,
+                        path: '/',
+                        secure: process.env.NODE_ENV === "production" ? true : false,
+                        expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7d
+                        sameSite: 'none'
+                    });
+                    return res.json({ msg: "Your email verified successfully", accessToken })
                 });
 
         })
         .catch(error => {
+            console.log(error)
             return next(new ErrorHandler('Email not founded', 400));
         })
 });
@@ -95,7 +105,7 @@ export const SignIn = asyncHandler(async (req, res, next) => {
             expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7d
             sameSite: 'none'
         });
-        return res.json({ msg: 'successfully Logged In', accessToken, refresh_Token });
+        return res.json({ msg: 'successfully Logged In', accessToken });
     }
 })
 export const RefreshToken = asyncHandler((req, res, next) => {

@@ -39,6 +39,7 @@ const Signin = () => {
       const { accessToken } = await signin(data).unwrap()
       dispatch(setCredentials({ accessToken }));
       setInputs({ email: '', password: '' });
+      setPersist(prev => !prev)
       navigate('/')
     } catch (error) {
       console.log(error)
@@ -51,7 +52,7 @@ const Signin = () => {
       <div className='container px-0 mt-8'>
         <div className='grid grid-cols-1 lg:grid-cols-2'>
           <div className='container px-0 lg:max-w-[60%]'>
-            <Link to="/"><p className="text-2xl font-semibold text-gray-700 my-3">Log in to your account</p></Link><hr />
+            <p className="text-2xl font-semibold text-gray-700 my-3">Log in to your account</p><hr />
             <form className='flex flex-col my-4' onSubmit={handleSubmit}>
               <label className='text-lg py-2 font-light font-serif text-gray-500'>Email Address :</label>
               <input type='email' ref={userRef} onChange={handleChange} value={inputs.email} name='email' className='inputfield' placeholder='Phone number username,or email' />

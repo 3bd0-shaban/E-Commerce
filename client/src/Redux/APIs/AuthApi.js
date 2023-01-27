@@ -77,6 +77,13 @@ export const AuthApi = apiSlice.injectEndpoints({
                 }
             }
         }),
+        VerifyEmail: builder.mutation({
+            query: ({ email, code }) => ({
+                url: `/api/auth/verifyemail?email=${email}&code=${code}`,
+                method: 'PUT',
+            }),
+            invalidatesTags: ['Auth'],
+        }),
         DeleteUser: builder.mutation({
             query: (id) => ({
                 url: `/api/auth/get/deleteuser/${id}`,
@@ -115,4 +122,5 @@ export const {
     useRefreshMutation,
     useSigninMutation,
     useSignupMutation,
+    useVerifyEmailMutation,
 } = AuthApi;

@@ -22,7 +22,7 @@ router.get('/refresh', RefreshToken, UserInfo);
 router.post("/logout", auth, LogOut);
 router.delete('/deleteuser/:id', auth, authorizeRoles("admin"), Delete_UserInfo);
 router.put('/updateuserrole/:id', auth, authorizeRoles("admin"), Update_UserRole);
-router.get('/verifyemail', verification);
+router.put('/verifyemail', verification);
 
 router.get('/generateOtp', CheckUser, LocalVariable, GenerateOtp);
 router.get('/verifyOtp', CheckUser, VerifyOtp);

@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Home, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, AddFeatures,
+  Home, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, AddFeatures, EmailVerify,
   Mainprofile, Charts, Calender, Orders, Chat, Issues, Cart, WhiteList, Dashboard, RequireAuth, Layout, NotFounded, PersistLogin, Search
 } from './Components/Exports';
 import { Route, Routes } from 'react-router-dom'
@@ -12,6 +12,7 @@ function App() {
         <Route path='/' element={<Layout />}>
           <Route path='signin' element={<Signin />} />
           <Route path='signup' element={<Signup />} />
+          <Route path='verify' element={<EmailVerify />} />
           <Route path='product/:id' element={<ProductScreen />} />
           <Route path='search?keyword=:keyword' element={<Search />} />
           <Route path='notfound' element={<NotFounded />} />

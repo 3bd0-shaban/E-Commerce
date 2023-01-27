@@ -4,9 +4,12 @@ import { useSignupMutation } from '../Redux/APIs/AuthApi';
 import { ImSpinner7 } from 'react-icons/im';
 import { Footer, Header, useTitle } from '../Components/Exports'
 import { BsCheck2 } from 'react-icons/bs';
+import { DataAction } from '../Redux/Slices/DataSlice';
+import { useDispatch } from 'react-redux';
 const Signup = () => {
   useTitle('Sign Up');
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const userRef = useRef();
   useEffect(() => {
     if (localStorage.getItem("Logedin ?")) {
@@ -34,8 +37,9 @@ const Signup = () => {
     await signup(data).unwrap()
       .then((payload) => {
         localStorage.setItem('Logged?', true);
-        setInputs({ email: '', password: '' })
-        navigate('/signin')
+        setInputs({ email: '', password: '' });
+        dispatch(DataAction.setEmail({ email }))
+        navigate(`/verify?email=${email}&code=`)
       })
       .catch((err) => {
         console.log(err.data.msg);
