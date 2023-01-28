@@ -8,7 +8,7 @@ const SideBanner = () => {
         <div className='hidden xl:flex max-w-full'>
             <div className='grid grid-cols-1 gap-2'>
                 {topbanner?.map(banner => (
-                    <img className='w-full object-cover h-[17rem]' src={banner?.banners?.url} alt='' />
+                    <img key={banner?._id} className='w-full object-cover h-[17rem]' src={banner?.banners?.url} alt='' />
                 ))}
             </div>
         </div>

@@ -6,7 +6,6 @@ import { CgPushLeft } from 'react-icons/cg';
 import { AddImage, ModalConfirm } from '../../../Exports';
 import { ImSpinner7 } from 'react-icons/im'
 import { ToastContainer, toast } from 'react-toastify';
-import { animated, useSpring } from '@react-spring/web'
 import 'react-toastify/dist/ReactToastify.css';
 import PreviewImege from './PreviewImege';
 const BrandInfo = (props) => {
@@ -52,24 +51,14 @@ const BrandInfo = (props) => {
     useEffect(() => {
         setOldImage(BrandDetails?.image && BrandDetails?.image.url);
     }, [setOldImage, BrandDetails]);
-    const springs = useSpring({
-        from: { x: 0 },
-        to: { x: 100 },
-    })
+
     return (
         SideBrandInfo &&
         <>
             {IsModalConfirm && <ModalConfirm onAgree={Handle_Delete} Message={'Are you sure you want to delete this Brand?'} />}
             <ToastContainer position="bottom-center" closeOnClick autoClose={1200} hideProgressBar={true} limit={1} />
-            <div onClick={() => dispatch(FeaturesAction.Show_SideBrandInfo(false))} className="fixed inset-0 bg-gray-800 bg-opacity-80 transition-opacity z-20"></div>
-            <animated.div style={{
-                width: 80,
-                height: 80,
-                background: '#ff6d6d',
-                borderRadius: 8,
-                // ...springs
-            }}>
-                <div style={{ ...springs }} className='h-screen w-full sm:w-[70%] md:w-[60%] lg:w-[50%] xl:w-[40%] xxl:w-[30%] z-30 bg-white shadow-xl fixed right-0 top-0  '>
+            <div onClick={() => dispatch(FeaturesAction.Show_SideBrandInfo(false))} className="fixed inset-0 bg-black/20 z-20"></div>
+                <div className='h-screen w-full sm:w-[70%] md:w-[60%] lg:w-[50%] xl:w-[40%] xxl:w-[30%] z-30 bg-white shadow-xl fixed right-0 top-0  '>
                     <div className='overflow-y-auto'>
                         <div className='py-2 pt-3 bg-[#F6F8F9] px-16 flex items-center justify-between relative'>
                             <button className='text-gray-600 hover:bg-gray-200 focus:bg-gray-300 p-3 px-3.5 duration-200 rounded-full'
@@ -105,7 +94,6 @@ const BrandInfo = (props) => {
                         </div>}
                     </div>
                 </div>
-            </animated.div>
 
         </>
     )

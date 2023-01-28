@@ -14,7 +14,8 @@ import { FeaturesAction } from '../../../../Redux/Slices/FeaturesSlice';
 import { Logo } from "../../../Exports";
 import { useLogOutMutation } from "../../../../Redux/APIs/AuthApi";
 import { LogOut } from "../../../../Redux/Slices/UserSlice";
-import { animated, useSpring } from "@react-spring/web";
+import { motion } from 'framer-motion';
+
 const SideBar = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -32,12 +33,6 @@ const SideBar = () => {
                 console.log(err)
             });
     }
-    const springs = useSpring({
-        from: { transform: 'translateX(-100%)', opacity: 0 },
-        enter: { transform: 'translateX(0%)', opacity: 0 },
-
-        to: { transform: 'translateX(0%)', opacity: 1 },
-    });
     const Lilinks = (props) => {
         return (
             <li className={(pathname === `${props.selected}`) ? 'bg-[#D7EDFF] rounded-lg text-[#4060ee]' : 'hover:bg-[#D7EDFF] hover:rounded-lg hover:text-[#4060ee] text-gray-600'}>
@@ -54,8 +49,12 @@ const SideBar = () => {
         <>
             {SideBar &&
                 <>
-                    <div onClick={() => dispatch(FeaturesAction.ShowSideBar(false))} className="fixed w-screen h-screen bg-black/30 block lg:hidden z-10"></div>
-                    <animated.div style={{ ...springs }} className='lg:hidden flex duration-200 h-screen fixed z-20 w-[18rem] sm:w-80 border-r shadow-2xl bg-[#F6F8F9]'>
+                    <div onClick={() => dispatch(FeaturesAction.ShowSideBar(false))} className="fixed w-screen h-screen bg-black/20 block lg:hidden z-10"></div>
+                    <motion.div className='lg:hidden flex h-screen fixed z-20 w-[18rem] sm:w-80 border-r shadow-2xl bg-[#F6F8F9]'
+                        initial={{ x: -250 }}
+                        animate={{ x: 0 }}
+                        transition={{ duration: .1 }}
+                    >
                         <div className="w-full">
                             <div className="flex items-center py-7 ml-8"><Logo /></div>
                             <div className="overflow-y-auto overflow-x-hidden flex-grow flex-col">
@@ -77,7 +76,7 @@ const SideBar = () => {
                                 </ul>
                             </div>
                         </div>
-                    </animated.div>
+                    </motion.div>
                 </>
             }
 

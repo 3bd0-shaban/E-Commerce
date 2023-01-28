@@ -6,7 +6,7 @@ const ModalConfirm = (props) => {
     const dispatch = useDispatch();
     return (
         <>
-            <div className="fixed inset-0 bg-gray-800 bg-opacity-80 transition-opacity z-40"></div>
+            <div className="fixed inset-0 bg-black/20 z-40"></div>
                 <div className="flex fixed z-50 inset-0 justify-center items-center">
                     <div className="relative p-4  max-w-md ">
                         <div className="relative bg-white rounded-lg shadow-[0_0px_100px_10px_rgba(0,0,0,0.3)]">

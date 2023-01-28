@@ -1,8 +1,9 @@
 import React, { useEffect } from 'react'
 import { useParams, Link, useLocation } from 'react-router-dom';
-import { Header, ProductMainScreen, HomeCategory, Reviews, Footer, HomeProducts2 } from '../../Exports'
+import { Header, ProductMainScreen, HomeCategory, Reviews, Footer, HomeProducts2,AnimRoutes } from '../../Exports'
 import { useGetProductsDetailsQuery } from '../../../Redux/APIs/ProductsApi'
 import { useTitle } from '../../Exports'
+import { motion } from 'framer-motion';
 
 const ProductScreen = () => {
   const params = useParams();
@@ -30,7 +31,10 @@ const ProductScreen = () => {
   return (
     <>
       <Header />
-      <div className='flex container max-w-full xl:max-w-[144rem] gap-5'>
+      <motion.div variants={AnimRoutes}
+        initial="initial"
+        animate="shown"
+        exit="exit" className='flex container max-w-full xl:max-w-[144rem] gap-5'>
         <HomeCategory Hight={'h-[54.5rem]'} />
         <div>
           <ProductMainScreen />
@@ -38,7 +42,7 @@ const ProductScreen = () => {
           <div className='conatiner max-w-full my-7' dangerouslySetInnerHTML={{ __html: productDetails?.fulldes }} />
           <Reviews id={id} />
         </div>
-      </div>
+      </motion.div>
       <div className='container max-w-[145rem]'>
         <div className='conatiner max-w-full xl:max-w-[144rem]'>
         </div>

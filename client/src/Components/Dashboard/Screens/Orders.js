@@ -1,7 +1,8 @@
 import React, { useState } from 'react'
-import { Sidebar, DashHeeder, Pending, Shipped, Delevered, AllOrders, Cancelled, useTitle } from '../../Exports';
+import { Sidebar, DashHeeder, Pending, Shipped, Delevered, AllOrders, Cancelled, useTitle, AnimSlideLeft } from '../../Exports';
 import { Link } from 'react-router-dom';
 import { MdOutlineSearch } from 'react-icons/md';
+import { motion, AnimatePresence } from 'framer-motion';
 const Orders = () => {
     useTitle('All Orders -Dashboard');
     const [pending, setPending] = useState(true);
@@ -54,13 +55,37 @@ const Orders = () => {
                             </div>
                         </form>
                     </div>
-                    <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
+                    <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5 hideScrollBare">
 
-                        {pending && <Pending />}
-                        {shipped && <Shipped />}
-                        {delevered && <Delevered />}
-                        {cancelled && <Cancelled />}
-                        {allOrders && <AllOrders />}
+                        <AnimatePresence>
+                            {pending &&
+                                <Pending />}
+                        </AnimatePresence>
+                        <AnimatePresence>
+                            {
+                                shipped &&
+                                <Shipped />
+                            }
+                        </AnimatePresence>
+                        <AnimatePresence>
+                            {
+                                delevered &&
+                                <Delevered />
+
+                            }
+                        </AnimatePresence>
+                        <AnimatePresence>
+                            {
+                                cancelled &&
+                                <Cancelled />
+                            }
+                        </AnimatePresence>
+                        <AnimatePresence>
+                            {
+                                allOrders &&
+                                <AllOrders />
+                            }
+                        </AnimatePresence>
                     </div>
                 </div>
             </div>

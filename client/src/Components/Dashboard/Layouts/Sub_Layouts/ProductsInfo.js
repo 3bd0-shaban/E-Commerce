@@ -21,7 +21,7 @@ const ProductsInfo = (props) => {
     return (
         sideProductInfo &&
         <>
-            <div onClick={() => dispatch(FeaturesAction.Show_sideProductInfo(false))} className="fixed inset-0 bg-gray-800 bg-opacity-80 transition-opacity z-20"></div>
+            <div onClick={() => dispatch(FeaturesAction.Show_sideProductInfo(false))} className="fixed inset-0 bg-black/20 z-20"></div>
             <div className='h-screen w-full sm:w-[70%] md:w-[60%] lg:w-[60%] xl:w-[50%] xxl:w-[35%] z-30 bg-white shadow-xl fixed right-0 top-0 overflowy-y-auto'>
                 <div className='px-16'>
                     <p className='mt-8 text-xl font-bold text-gray-900'>{productDetails.name}</p>

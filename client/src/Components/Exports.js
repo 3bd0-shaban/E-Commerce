@@ -106,4 +106,11 @@ export { default as Layout } from './Layout';
 
 export { default as useTitle } from '../Hooks/useTitle'
 export { default as usePersist } from '../Hooks/usePersist'
-export { default as useAuth } from '../Hooks/useAuth'
+export { default as useAuth } from '../Hooks/useAuth';
+export { default as useBreakpoint } from '../Hooks/useBreakpoint';
+
+
+export { default as AnimSideBar } from '../Animation/AnimSideBar';
+export { default as AnimRoutes } from '../Animation/AnimRoutes';
+export { default as AnimSlideRight } from '../Animation/AnimSlideRight';
+export { default as AnimSlideLeft } from '../Animation/AnimSlideLeft';

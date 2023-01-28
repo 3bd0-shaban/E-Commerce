@@ -2,8 +2,8 @@ import React, { useState } from 'react'
 import { FeaturesAction } from './../../../../Redux/Slices/FeaturesSlice';
 import { RiMoreFill } from 'react-icons/ri';
 import PendingSideBar from './SubLayouts/PendingSideBar';
-import { useTitle, Pagination } from '../../../Exports';
-import { useDispatch } from 'react-redux';
+import { useTitle, Pagination, AnimSlideLeft } from '../../../Exports';
+import { motion } from 'framer-motion';import { useDispatch } from 'react-redux';
 import { useGetDeliveredOrderQuery } from '../../../../Redux/APIs/OrderApi';
 import { Link } from 'react-router-dom';
 import moment from 'moment'
@@ -16,8 +16,12 @@ const Delevered = () => {
   return (
     <>
 
-      <PendingSideBar id={id} />
-      <table className="w-full text-sm text-left text-gray-500 mt-5">
+<PendingSideBar id={id} />
+      <motion.div variants={AnimSlideLeft}
+        initial="hidden"
+        animate="visible"
+        exit="exit">
+        <table className="w-full text-sm text-left text-gray-500 mt-5">
         <thead className="text-xs text-gray-700 uppercase border-b-2 py-3">
           <tr className='whitespace-nowrap'>
             <th scope="col" className="py-3 px-6">Customer</th>
@@ -44,10 +48,11 @@ const Delevered = () => {
               </tr>
             )}
         </tbody>
-      </table>
-      <div className='flex justify-center items-center my-10'>
-        <Pagination />
-      </div>
+        </table>
+        <div className='flex justify-center items-center my-10'>
+          <Pagination />
+        </div>
+      </motion.div>
     </>
   )
 }

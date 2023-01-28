@@ -30,10 +30,10 @@ const Dashboard = () => {
                             <>
                                 <p className='text-5xl font-Rubik '>All Users</p>
                                 <div className='flex gap-6 font-light text-xl mt-5'>
-                                    <Link className='border-b-transparent hover:border-b-black'>Customers</Link>
-                                    <Link className='border-b-transparent hover:border-b-black'>Admins</Link>
-                                    <Link className='border-b-transparent hover:border-b-black'>Deliveler</Link>
-                                    <Link className='border-b-transparent hover:border-b-black'>All</Link>
+                                    <Link to='?page=1' className='border-b-transparent hover:border-b-black'>Customers</Link>
+                                    <Link to='?page=1' className='border-b-transparent hover:border-b-black'>Admins</Link>
+                                    <Link to='?page=1' className='border-b-transparent hover:border-b-black'>Deliveler</Link>
+                                    <Link to='?page=1' className='border-b-transparent hover:border-b-black'>All</Link>
                                 </div>
                                 <hr className='mt-3 h-[2px] bg-gray-400 rounded' />
                                 <div className='flex justify-end pr-2 md:pr-10 mt-5'>

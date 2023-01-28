@@ -16,7 +16,7 @@ const PendingSideBar = (props) => {
             {sideOrderInfo &&
                 <>
                     {IsModalConfirm && <ModalConfirm onAgree={'Handle_Delete'} Message={'Are you sure you want to delete this Brand?'} />}
-                    <div onClick={() => dispatch(FeaturesAction.Show_sideOrderInfo(false))} className="fixed inset-0 bg-gray-800 bg-opacity-80 transition-opacity z-20"></div>
+                    <div onClick={() => dispatch(FeaturesAction.Show_sideOrderInfo(false))} className="fixed inset-0 bg-black/20 z-30"></div>
                     <div className='h-screen w-full sm:w-[70%] md:w-[60%] lg:w-[50%] xl:w-[40%] xxl:w-[30%] z-30 bg-white shadow-xl fixed right-0 top-0  '>
                         <div className='px-10 py-10'>
                             <div className='flex justify-between items-center'>

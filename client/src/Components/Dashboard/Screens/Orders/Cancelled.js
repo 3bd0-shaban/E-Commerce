@@ -6,8 +6,8 @@ import { RiMoreFill } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
 import { useGetcancelledOrderQuery } from '../../../../Redux/APIs/OrderApi';
 import moment from 'moment'
-import { useTitle, Pagination } from '../../../Exports';
-const Cancelled = () => {
+import { useTitle, Pagination, AnimSlideLeft } from '../../../Exports';
+import { motion } from 'framer-motion';const Cancelled = () => {
   useTitle('Cancelled Orders - Dashboard')
   const [id, setID] = useState('');
   const dispatch = useDispatch();
@@ -15,7 +15,11 @@ const Cancelled = () => {
   return (
     <>
       <PendingSideBar id={id} />
-      <table className="w-full text-sm text-left text-gray-500 mt-5">
+      <motion.div variants={AnimSlideLeft}
+        initial="hidden"
+        animate="visible"
+        exit="exit">
+        <table className="w-full text-sm text-left text-gray-500 mt-5">
         <thead className="text-xs text-gray-700 uppercase border-b-2 py-3">
           <tr className='whitespace-nowrap'>
             <th scope="col" className="py-3 px-6">Customer</th>
@@ -42,10 +46,11 @@ const Cancelled = () => {
               </tr>
             )}
         </tbody>
-      </table>
-      <div className='flex justify-center items-center my-10'>
-        <Pagination />
-      </div>
+        </table>
+        <div className='flex justify-center items-center my-10'>
+          <Pagination />
+        </div>
+      </motion.div>
     </>
   )
 }
