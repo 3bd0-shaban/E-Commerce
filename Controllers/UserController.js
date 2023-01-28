@@ -1,7 +1,7 @@
 import Users from '../Models/Users.js';
 import { asyncHandler } from './../Middlewares/asyncErrorHandler.js';
 import ErrorHandler from './../Utils/ErrorHandler.js';
-
+import Features from './../Utils/Features.js';
 export const UserInfo = asyncHandler(async (req, res, next) => {
     const user = await Users.findOne({ _id: req.user.id });
     if (!user) {
@@ -53,6 +53,8 @@ export const Delete_UserInfo = asyncHandler(async (req, res, next) => {
 })
 
 export const AllUsers = asyncHandler(async (req, res, next) => {
-    const user = await Users.find().select('-password');
-    return res.json(user);
+    const resultperpage = 10;
+    const features = new Features(Users.find(), req.query).Pagination(resultperpage)
+    const users = await features.query;
+    return res.json(users);
 });

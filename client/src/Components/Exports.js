@@ -86,6 +86,8 @@ export { default as AddBrand } from './Dashboard/Layouts/AddBrand';
 export { default as Cart } from './Home/Cart/Cart';
 export { default as CartItem } from './Home/Cart/CartItem';
 
+export { default as Pagination } from './Home/Pagination';
+
 export { default as WhiteList } from './Home/WhitList/WhitList';
 export { default as WhiteListItem } from './Home/WhitList/WhiteList_Item';
 

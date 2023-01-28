@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link } from 'react-router-dom';
 import { useGetPendingOrderQuery } from '../../../../Redux/APIs/OrderApi';
-import { useTitle } from '../../../Exports';
+import { useTitle, Pagination } from '../../../Exports';
 import { useDispatch } from 'react-redux';
 import { FeaturesAction } from './../../../../Redux/Slices/FeaturesSlice';
 import PendingSideBar from './SubLayouts/PendingSideBar';
@@ -42,7 +42,9 @@ const Pending = () => {
             )}
         </tbody>
       </table>
-
+      <div className='flex justify-center items-center my-10'>
+        <Pagination />
+      </div>
     </>
   )
 }

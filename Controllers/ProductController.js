@@ -81,10 +81,15 @@ export const Fetch_Paginated_Products = async (req, res, next) => {
     }
 }
 export const Fetch_Products = asyncHandler(async (req, res, next) => {
-    const Product = await Products.find().populate('category', 'category')
-        .populate('brand', 'brand')
-        .populate('subcategory', 'nameOfSub');
-    return res.json(Product);
+   try {
+        const resultperpage = 10;
+        // const productCount = await Products.countDocuments();
+        const features = new Features(Products.find(), req.query).Pagination(resultperpage)
+        const Product = await features.query;
+        return res.status(200).json(Product);
+    } catch (error) {
+        return res.status(500).json({ msg: error.message })
+    }
 })
 export const Fetch_ProductDetails = asyncHandler(async (req, res, next) => {
     const Product = await Products.findById(req.params.id);

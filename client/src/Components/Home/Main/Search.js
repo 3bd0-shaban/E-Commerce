@@ -4,8 +4,11 @@ import { Header, Footer, ShowRating } from '../../Exports'
 import { Link } from 'react-router-dom';
 import { CiHeart } from 'react-icons/ci';
 import HomeProducts2 from './HomeProducts2';
+import { useSelector } from 'react-redux';
 const Search = () => {
     const { data: result } = useSearchQuery() || {};
+    const { Search } = useSelector(state => state.auth);
+    console.log(Search)
     return (
         <>
             <Header />
@@ -15,7 +18,7 @@ const Search = () => {
                     <div className='col-span-5'>
                         <div className='my-5'>
                             <HomeProducts2 />
-                        </div><hr/>
+                        </div><hr />
                         {result?.map(product => (
                             <div className='grid grid-cols-5 gap-10'>
                                 <div className='col-span-4'>

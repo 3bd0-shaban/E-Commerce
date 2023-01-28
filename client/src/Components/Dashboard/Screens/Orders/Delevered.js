@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { FeaturesAction } from './../../../../Redux/Slices/FeaturesSlice';
 import { RiMoreFill } from 'react-icons/ri';
 import PendingSideBar from './SubLayouts/PendingSideBar';
-import { useTitle } from '../../../Exports';
+import { useTitle, Pagination } from '../../../Exports';
 import { useDispatch } from 'react-redux';
 import { useGetDeliveredOrderQuery } from '../../../../Redux/APIs/OrderApi';
 import { Link } from 'react-router-dom';
@@ -45,6 +45,9 @@ const Delevered = () => {
             )}
         </tbody>
       </table>
+      <div className='flex justify-center items-center my-10'>
+        <Pagination />
+      </div>
     </>
   )
 }

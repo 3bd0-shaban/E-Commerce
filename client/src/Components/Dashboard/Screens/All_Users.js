@@ -1,8 +1,8 @@
 import React, { useState } from 'react'
 import { MdOutlineSearch } from 'react-icons/md'
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Sidebar, DashHeeder, useTitle } from '../../Exports';
+import { Sidebar, DashHeeder, useTitle, Pagination } from '../../Exports';
 import { Danger } from '../../../Components/Alerts';
 import { FeaturesAction } from './../../../Redux/Slices/FeaturesSlice';
 import UserInfo from './../Layouts/Sub_Layouts/UserInfo';
@@ -10,14 +10,17 @@ import moment from 'moment';
 import { useGetAllUsersQuery } from '../../../Redux/APIs/AuthApi';
 const Dashboard = () => {
     const [id, setId] = useState('');
-    useTitle('All Users - Dashboard')
-    const { data: AllUsers, isFetching, error } = useGetAllUsersQuery() || {};
     const dispatch = useDispatch();
+    useTitle('All Users - Dashboard');
+    const [params] = useSearchParams();
+    const pagenum = params.get('page');
+    const { data: AllUsers, isFetching, error } = useGetAllUsersQuery(pagenum) || {};
+
     return (
         <>
             <DashHeeder />
             {<UserInfo id={id} />}
-            <div className='flex'>
+            <div className='flex mb-10'>
                 <Sidebar />
                 <div className='container max-w-full lg:ml-80 mt-24'>
                     {isFetching ? <p className='mx-auto text-5xl font-Alegreya flex items-center'>Loading</p>
@@ -44,7 +47,6 @@ const Dashboard = () => {
                                     </form>
                                 </div>
                                 <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5">
-
                                     <table className="w-full text-sm text-left text-gray-500 mt-5">
                                         <thead className="text-xs text-gray-700 uppercase border-b-2 py-3">
                                             <tr className='whitespace-nowrap'>
@@ -73,10 +75,12 @@ const Dashboard = () => {
                                             ))}
                                         </tbody>
                                     </table>
+                                    <div className='flex justify-center items-center my-10'>
+                                        <Pagination />
+                                    </div>
                                 </div>
                             </>
                     }
-
                 </div>
             </div>
         </>

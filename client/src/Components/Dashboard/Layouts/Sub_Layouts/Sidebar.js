@@ -61,15 +61,15 @@ const SideBar = () => {
                             <div className="overflow-y-auto overflow-x-hidden flex-grow flex-col">
                                 <ul className="flex flex-col py-4 space-y-1 px-3 content-end">
                                     <Lilinks Link={"/dashboard"} selected={'/dashboard'} title='Dashboard' icon={<RiDashboardFill />} />
-                                    <Lilinks Link={"/dashboard/all_users"} selected={'/dashboard/all_users'} title='Users' icon={<ImUsers />} />
-                                    <Lilinks Link={"/dashboard/messages"} selected={'/dashboard/messages'} title='Messegaes' icon={<BsChatRightTextFill />} />
-                                    <Lilinks Link={"/dashboard/all_products"} selected={'/dashboard/all_products'} title='Products' icon={<GiShoppingBag />} />
+                                    <Lilinks Link={"/dashboard/all_users?page=1"} selected={'/dashboard/all_users'} title='Users' icon={<ImUsers />} />
+                                    <Lilinks Link={"/dashboard/messages"} selected={'/dashboard/messages'} title='Messages' icon={<BsChatRightTextFill />} />
+                                    <Lilinks Link={"/dashboard/all_products?page=1"} selected={'/dashboard/all_products'} title='Products' icon={<GiShoppingBag />} />
                                     <Lilinks Link={"/dashboard/addproduct"} selected={'/dashboard/addproduct'} title='Add Product' icon={<MdOutlineAddToPhotos />} />
                                     <Lilinks Link={"/dashboard/addfeatures"} selected={'/dashboard/addfeatures'} title='Add Features' icon={<MdOutlineAddToPhotos />} />
-                                    <Lilinks Link={"/dashboard/orders"} selected={'/dashboard/orders'} title='Orders' icon={<GiShoppingCart />} />
+                                    <Lilinks Link={"/dashboard/orders?page=1"} selected={'/dashboard/orders'} title='Orders' icon={<GiShoppingCart />} />
                                     <Lilinks Link={"/dashboard/stats"} selected={'/dashboard/stats'} title='Stats' icon={<AiOutlineBarChart />} />
                                     <Lilinks Link={"/dashboard/calender"} selected={'/dashboard/calender'} title='Calender' icon={<IoCalendarNumber />} />
-                                    <Lilinks Link={"/dashboard/issues"} selected={'/dashboard/issues'} title='Isseues' icon={<GoIssueReopened />} />
+                                    <Lilinks Link={"/dashboard/issues?page=1"} selected={'/dashboard/issues'} title='Isseues' icon={<GoIssueReopened />} />
                                     <div className="bottom-0 absolute w-[90%]">
                                         <Lilinks Link={"/settings"} selected={'/settings'} title='Settings' icon={<IoSettingsOutline />} />
                                         <Lilinks selected={''} onClick={HandleLogOut} title='Log Out' icon={<BiLogInCircle />} />
@@ -86,15 +86,15 @@ const SideBar = () => {
                 <div className="overflow-y-auto overflow-x-hidden flex-grow flex-col">
                     <ul className="flex flex-col py-4 space-y-1 px-3 content-end">
                         <Lilinks Link={"/dashboard"} selected={'/dashboard'} title='Dashboard' icon={<RiDashboardFill />} />
-                        <Lilinks Link={"/dashboard/all_users"} selected={'/dashboard/all_users'} title='Users' icon={<ImUsers />} />
-                        <Lilinks Link={"/dashboard/messages"} selected={'/dashboard/messages'} title='Messegaes' icon={<BsChatRightTextFill />} />
-                        <Lilinks Link={"/dashboard/all_products"} selected={'/dashboard/all_products'} title='Products' icon={<GiShoppingBag />} />
+                        <Lilinks Link={"/dashboard/all_users?page=1"} selected={'/dashboard/all_users'} title='Users' icon={<ImUsers />} />
+                        <Lilinks Link={"/dashboard/messages"} selected={'/dashboard/messages'} title='Messages' icon={<BsChatRightTextFill />} />
+                        <Lilinks Link={"/dashboard/all_products?page=1"} selected={'/dashboard/all_products'} title='Products' icon={<GiShoppingBag />} />
                         <Lilinks Link={"/dashboard/addproduct"} selected={'/dashboard/addproduct'} title='Add Product' icon={<MdOutlineAddToPhotos />} />
                         <Lilinks Link={"/dashboard/addfeatures"} selected={'/dashboard/addfeatures'} title='Add Features' icon={<MdOutlineAddToPhotos />} />
-                        <Lilinks Link={"/dashboard/orders"} selected={'/dashboard/orders'} title='Orders' icon={<GiShoppingCart />} />
+                        <Lilinks Link={"/dashboard/orders?page=1"} selected={'/dashboard/orders'} title='Orders' icon={<GiShoppingCart />} />
                         <Lilinks Link={"/dashboard/stats"} selected={'/dashboard/stats'} title='Stats' icon={<AiOutlineBarChart />} />
                         <Lilinks Link={"/dashboard/calender"} selected={'/dashboard/calender'} title='Calender' icon={<IoCalendarNumber />} />
-                        <Lilinks Link={"/dashboard/issues"} selected={'/dashboard/issues'} title='Isseues' icon={<GoIssueReopened />} />
+                        <Lilinks Link={"/dashboard/issues?page=1"} selected={'/dashboard/issues'} title='Isseues' icon={<GoIssueReopened />} />
                         <div className="bottom-0 absolute w-[93%]">
                             <Lilinks Link={"/settings"} selected={'/settings'} title='Settings' icon={<IoSettingsOutline />} />
                             <Lilinks selected={''} onClick={HandleLogOut} title='Log Out' icon={<BiLogInCircle />} />

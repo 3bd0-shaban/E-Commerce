@@ -6,7 +6,7 @@ import { RiMoreFill } from 'react-icons/ri';
 import { useDispatch } from 'react-redux';
 import { useGetcancelledOrderQuery } from '../../../../Redux/APIs/OrderApi';
 import moment from 'moment'
-import { useTitle } from '../../../Exports';
+import { useTitle, Pagination } from '../../../Exports';
 const Cancelled = () => {
   useTitle('Cancelled Orders - Dashboard')
   const [id, setID] = useState('');
@@ -43,6 +43,9 @@ const Cancelled = () => {
             )}
         </tbody>
       </table>
+      <div className='flex justify-center items-center my-10'>
+        <Pagination />
+      </div>
     </>
   )
 }

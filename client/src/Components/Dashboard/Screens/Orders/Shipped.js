@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import PendingSideBar from './SubLayouts/PendingSideBar';
-import { useTitle } from '../../../Exports';
+import { useTitle, Pagination } from '../../../Exports';
 import { FeaturesAction } from './../../../../Redux/Slices/FeaturesSlice';
 import { useDispatch } from 'react-redux';
 import { useGetShipppedOrderQuery } from '../../../../Redux/APIs/OrderApi';
@@ -45,6 +45,9 @@ const Shipped = () => {
             )}
         </tbody>
       </table>
+      <div className='flex justify-center items-center my-10'>
+        <Pagination />
+      </div>
     </>
   )
 }

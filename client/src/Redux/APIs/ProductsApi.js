@@ -2,8 +2,7 @@ import { apiSlice } from '../ApiSlice';
 export const ProductApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getProducts: builder.query({
-            query: () => '/api/product/get',
-            keepUnusedDataFor: 5,
+            query: (numpage) => `/api/product/get?page=${numpage}`,
             providesTags: (result, error, arg) =>
                 result
                     ? [...result.map(({ id }) => ({ type: 'Products', id })), 'Products']
@@ -17,13 +16,14 @@ export const ProductApi = apiSlice.injectEndpoints({
                     ? [...result.map(({ id }) => ({ type: 'Products', id })), 'Products']
                     : ['Products'],
         }),
-        Search: builder.query({
-            query: (keyword) => `/api/product/search?keyword=${keyword}`,
-            keepUnusedDataFor: 5,
-            providesTags: (result, error, arg) =>
-                result
-                    ? [...result.map(({ id }) => ({ type: 'Products', id })), 'Products']
-                    : ['Products'],
+        Search: builder.mutation({
+            query: (keyword) => ({
+                url: `/api/product/search?keyword=${keyword}`,
+                method: 'GET',
+                keepUnusedDataFor: 5,
+
+            }),
+            invalidatesTags: ['Products'],
         }),
         Filter: builder.query({
             query: () => '/api/product/filter',

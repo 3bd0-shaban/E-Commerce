@@ -6,7 +6,7 @@ import { useGetAllOrderQuery } from '../../../../Redux/APIs/OrderApi';
 import { Link } from 'react-router-dom';
 import { RiMoreFill } from 'react-icons/ri';
 import moment from 'moment'
-import { useTitle } from '../../../Exports';
+import { useTitle, Pagination } from '../../../Exports';
 const AllOrders = () => {
   useTitle('All Orders - Dashboard');
   const [id, setID] = useState('');
@@ -43,6 +43,9 @@ const AllOrders = () => {
             )}
         </tbody>
       </table>
+      <div className='flex justify-center items-center my-10'>
+        <Pagination />
+      </div>
     </>
   )
 }

@@ -18,8 +18,8 @@ export const AuthApi = apiSlice.injectEndpoints({
             providesTags: ['Auth'],
         }),
         getAllUsers: builder.query({
-            query: () => ({
-                url: '/api/auth/getall',
+            query: (pagenum) => ({
+                url: `/api/auth/getall?page=${pagenum}`,
                 method: 'GET',
                 credentials: 'include',
             }),
