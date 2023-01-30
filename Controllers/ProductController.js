@@ -81,16 +81,19 @@ export const Fetch_Paginated_Products = async (req, res, next) => {
     }
 }
 export const Fetch_Products = asyncHandler(async (req, res, next) => {
-   try {
-        const resultperpage = 10;
-        // const productCount = await Products.countDocuments();
-        const features = new Features(Products.find(), req.query).Pagination(resultperpage)
-        const Product = await features.query;
-        return res.status(200).json(Product);
-    } catch (error) {
-        return res.status(500).json({ msg: error.message })
-    }
+    const resultperpage = 10;
+    // const productCount = await Products.countDocuments();
+    const features = new Features(Products.find(), req.query).Pagination(resultperpage)
+    const Product = await features.query;
+    return res.status(200).json(Product);
+});
+export const Fetch_Product_BySubCategory = asyncHandler(async (req, res, next) => {
+    const resultperpage = 10;
+    const feature = new Features(Products.find({ subcategory: req.subcategory.query }).Pagination(resultperpage));
+    const product = await feature.query;
+    return res.json(product)
 })
+
 export const Fetch_ProductDetails = asyncHandler(async (req, res, next) => {
     const Product = await Products.findById(req.params.id);
     if (!Product) {

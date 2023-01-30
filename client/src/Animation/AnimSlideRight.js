@@ -1,8 +1,8 @@
 const AnimSlideRight = {
-    hidden: {
+    initial: {
         opacity: 1,
     },
-    visible: {
+    animate: {
         opacity: 1,
         transition: { delay: 1.5, duration: 1.5 }
     },

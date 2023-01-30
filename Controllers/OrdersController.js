@@ -48,7 +48,8 @@ export const Fetch_All_Orders = asyncHandler(async (req, res, next) => {
 export const Fetch_Order_Details = asyncHandler(async (req, res, next) => {
     const userOrder = await Orders.findById(req.params.id)
         .populate('orderitems.product_Id', 'name des price images')
-        .populate('user', 'firstname lastname email')
+        .populate('user', 'firstname lastname email');
+        console.log(userOrder.orderitems[0].product_Id)
     return res.json(userOrder);
 });
 export const Fetch_Notprocessed_Orders = asyncHandler(async (req, res, next) => {

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import { useParams, Link, useLocation } from 'react-router-dom';
-import { Header, ProductMainScreen, HomeCategory, Reviews, Footer, HomeProducts2,AnimRoutes } from '../../Exports'
+import { Header, ProductMainScreen, HomeCategory, Reviews, Footer, HomeProducts2 } from '../../Exports'
+import { AnimRoutes } from '../../../Animation/Exports'
 import { useGetProductsDetailsQuery } from '../../../Redux/APIs/ProductsApi'
 import { useTitle } from '../../Exports'
 import { motion } from 'framer-motion';

@@ -9,6 +9,7 @@ import PreviewImege from './PreviewImege';
 import 'react-toastify/dist/ReactToastify.css';
 import { ToastContainer, toast } from 'react-toastify';
 import { motion } from 'framer-motion';
+import { AnimDragabbleup } from './../../../../Animation/Exports';
 
 const CategoryInfo = (props) => {
     const id = props.id
@@ -66,9 +67,12 @@ const CategoryInfo = (props) => {
                 onClick={() => dispatch(FeaturesAction.Show_SideCategoryInfo(false))}
                 className="fixed inset-0 bg-black/20 z-20"></div>
             <motion.div className='h-screen w-full sm:w-[70%] md:w-[60%] lg:w-[50%] xl:w-[40%] xxl:w-[30%] z-30 bg-white shadow-xl fixed right-0 top-0 overflow-y-scroll '
-                initial={{ x: 250 }}
-                animate={{ x: 0 }}
-                transition={{ duration: .1 }}>
+                variants={AnimDragabbleup}
+                initial='initial'
+                animate='shown'
+                exit='exit'
+            // transition={{ duration: .1 }}
+            >
 
                 <div className='overflow-y-auto'>
                     <div className='py-2 pt-3 bg-[#F6F8F9] px-16 flex items-center justify-between relative'>
@@ -125,7 +129,9 @@ const CategoryInfo = (props) => {
                                 <label className='text-[.92rem] w-1/4 font-light font-serif text-gray-500'>Danger Zone</label>
                                 <hr className='w-full border-t-2 bg-gray-300'></hr>
                             </div>
-                            <p className='mb-5 text-base font-Rubik text-gray-500 font-light'>Onece you delete this category customers will not able to access it again, also all sub categories will be lost</p>
+                            <p className='mb-5 text-base font-Rubik text-gray-500 font-light'>
+                                Onece you delete this category customers will not able to access it again, also all sub categories will be lost
+                            </p>
                             <button
                                 disabled={isUpdating || isDeleting}
                                 className='bg-blue-500 rounded-md text-base font-semibold text-white px-4 w-40 py-2 mb-3 focus:bg-blue-400 absolute top-0 right-0 mt-5 mr-10'>

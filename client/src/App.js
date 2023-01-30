@@ -1,6 +1,6 @@
 import React from 'react'
 import {
-  Home, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, AddFeatures, EmailVerify, SetAddress, ForgetPassword, ResetPassword,
+  Home, Signup, Signin, ProductScreen, AllUsers, AddProduct, AllProducts, AddFeatures, EmailVerify, SetAddress, ForgetPassword, ResetPassword, OrderAdminDetails,
   Mainprofile, Charts, Calender, Orders, Chat, Issues, Cart, WhiteList, Dashboard, RequireAuth, Layout, NotFounded, PersistLogin, Search
 } from './Components/Exports';
 import { Route, Routes, useLocation } from 'react-router-dom'
@@ -38,6 +38,7 @@ function App() {
                 <Route path='dashboard/stats' element={<Charts />} />
                 <Route path='dashboard/calender' element={<Calender />} />
                 <Route path='dashboard/Orders' element={<Orders />} />
+                <Route path='dashboard/Orders/details/:id' element={<OrderAdminDetails />} />
                 <Route path='dashboard/messages' element={<Chat />} />
                 <Route path='dashboard/issues' element={<Issues />} />
               </Route>

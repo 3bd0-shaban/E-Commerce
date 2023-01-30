@@ -1,15 +1,16 @@
 const AnimSlideLeft = {
-    hidden: {
-        x: "100vh",
-        opacity: 1,
+    initial: {
+        x: "100vw",
+        opacity: 0,
     },
-    visible: {
+    animate: {
         x: "0",
         opacity: 1,
-        transition: { duration: 5.5 }
+        transition: { duration: 0.4 }
     },
     exit: {
-        x: "-100vh",
+        x: 250,
+        opacity: 0,
         transition: { ease: 'easeInOut' }
     }
 };

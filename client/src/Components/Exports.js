@@ -55,7 +55,7 @@ export { default as Cancelled } from './Dashboard/Screens/Orders/Cancelled';
 export { default as AllOrders } from './Dashboard/Screens/Orders/AllOrders';
 export { default as Dashboard } from './Dashboard/Screens/Dashboard';
 
-export { default as PendingSideBar } from './Dashboard/Screens/Orders/SubLayouts/PendingSideBar';
+export { default as OrderAdminDetails } from './Dashboard/Screens/Orders/OrderAdminDetails';
 
 
 export { default as SideProfile } from './Profile/SideProfile';
@@ -108,9 +108,3 @@ export { default as useTitle } from '../Hooks/useTitle'
 export { default as usePersist } from '../Hooks/usePersist'
 export { default as useAuth } from '../Hooks/useAuth';
 export { default as useBreakpoint } from '../Hooks/useBreakpoint';
-
-
-export { default as AnimSideBar } from '../Animation/AnimSideBar';
-export { default as AnimRoutes } from '../Animation/AnimRoutes';
-export { default as AnimSlideRight } from '../Animation/AnimSlideRight';
-export { default as AnimSlideLeft } from '../Animation/AnimSlideLeft';

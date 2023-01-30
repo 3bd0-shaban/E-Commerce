@@ -17,7 +17,7 @@ Router.get('/get/pending', auth, authorizeRoles("admin"), Fetch_Notprocessed_Ord
 Router.get('/get/shipped', auth, authorizeRoles("admin"), Fetch_Shipped_Orders);
 Router.get('/get/delivered', auth, authorizeRoles("admin"), Fetch_Delivered_Orders);
 Router.get('/get/cancelled', auth, authorizeRoles("admin"), Fetch_Cancelled_Orders);
-Router.put('/cancel', auth, CancelOrder);
-Router.put('/change/status', auth, ChangeStatus);
+Router.put('/cancel/:id', auth, CancelOrder);
+Router.put('/change/status/:id', auth, ChangeStatus);
 
 export default Router

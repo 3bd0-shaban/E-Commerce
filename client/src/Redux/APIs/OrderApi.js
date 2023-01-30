@@ -52,18 +52,20 @@ export const OrderApi = apiSlice.injectEndpoints({
             }),
             providesTags: ['Order'],
         }),
-        CancelOrder: builder.query({
-            query: () => ({
-                url: '/api/order/cancel',
+        CancelOrder: builder.mutation({
+            query: (id) => ({
+                url: `/api/order/cancel/${id}`,
                 credentials: 'include',
+                method: 'PUT'
             }),
-            providesTags: ['Order'],
+            invalidatesTags: ['Order'],
         }),
         changeOrderStatus: builder.mutation({
-            query: (id) => ({
+            query: ({ data, id }) => ({
                 url: `/api/order/change/status/${id}`,
-                method: 'POST',
+                method: 'PUT',
                 credentials: 'include',
+                bosy: data,
             }),
             invalidatesTags: ['Order'],
         }),
@@ -88,6 +90,6 @@ export const {
     useGetDeliveredOrderQuery,
     useGetcancelledOrderQuery,
     useChangeOrderStatusMutation,
-    useCancelOrderQuery,
+    useCancelOrderMutation,
     useNewOrderMutation,
 } = OrderApi;

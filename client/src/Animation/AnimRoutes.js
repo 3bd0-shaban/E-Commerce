@@ -7,7 +7,9 @@ const AnimRoutes = {
         opacity: 1,
         y: 0,
         transition: {
-            duration: 0.3,
+            duration: 0.2,
+            mass: 0.4,
+            damping: 0,
             type: 'anticipate',
         },
     },
