@@ -2,6 +2,7 @@ import jwt from "jsonwebtoken";
 import Users from '../Models/Users.js';
 import ErrorHandler from './../Utils/ErrorHandler.js';
 import { asyncHandler } from "./asyncErrorHandler.js";
+
 export const auth = asyncHandler(async (req, res, next) => {
     const authHeader = req.headers.authorization || req.headers.Authorization;
     if (!authHeader) return next(

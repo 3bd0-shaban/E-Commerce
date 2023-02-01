@@ -110,7 +110,7 @@ export const MessageErrorActivate = (props) => {
           <span className="sr-only">Info</span>
           <h3 className="text-lg font-medium text-red-900 dark:text-red-800 block">{props.error}</h3>
         </div>
-        <Link onClick={handleSubmit} className='text-red-700 mx-7 font-medium underline block'>Activate Account</Link>
+        <button onClick={handleSubmit} className='text-red-700 mx-7 font-medium underline block'>Activate Account</button>
         <div className="mt-2 mb-4 text-sm text-red-900 dark:text-red-800"></div>
         <div className="flex ml-7">
           <button type="button" className="text-white gap-2 bg-red-900 hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 font-medium rounded-lg text-xs px-3 py-1.5 mr-2 text-center inline-flex items-center">

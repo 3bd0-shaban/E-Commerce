@@ -28,11 +28,11 @@ app.use(
     credentials: true,
     origin: true
   })
-  );
-  app.use(cookieParser());
-  app.use(helmet());
-  app.use(morgan('common'));
-  // app.use(fileUpload({ useTempFiles: true }));
+);
+app.use(cookieParser());
+app.use(helmet());
+app.use(morgan('common'));
+// app.use(fileUpload({ useTempFiles: true }));
 mongoose
   .connect(config.MONGODB_URI)
   .then(() => {
@@ -43,7 +43,9 @@ mongoose
   .catch((err) => {
     console.log(err);
   });
-
+app.get('/api/keys/paypal', (req, res) => {
+  res.send(process.env.PayPal_Client_ID || "SB")
+})
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use('/api/auth', UsersRouter);

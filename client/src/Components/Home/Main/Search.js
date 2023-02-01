@@ -1,14 +1,15 @@
 import React from 'react'
-import { useSearchQuery } from '../../../Redux/APIs/ProductsApi'
+import { useProductsByCategoryQuery, useSearchQuery } from '../../../Redux/APIs/ProductsApi'
 import { Header, Footer, ShowRating } from '../../Exports'
-import { Link } from 'react-router-dom';
+import { Link, useSearchParams, useParams } from 'react-router-dom';
 import { CiHeart } from 'react-icons/ci';
 import HomeProducts2 from './HomeProducts2';
-import { useSelector } from 'react-redux';
 const Search = () => {
-    const { data: result } = useSearchQuery() || {};
-    const { Search } = useSelector(state => state.auth);
-    console.log(Search)
+    const [searchquery] = useSearchParams();
+    const keyword = searchquery.get('keyword')
+    const category = searchquery.get('category')
+    // const { data: result } = useSearchQuery(keyword) || {};
+    const { data: result } = useProductsByCategoryQuery(category) || {};
     return (
         <>
             <Header />
@@ -20,7 +21,7 @@ const Search = () => {
                             <HomeProducts2 />
                         </div><hr />
                         {result?.map(product => (
-                            <div className='grid grid-cols-5 gap-10'>
+                            <div key={product?._id} className='grid grid-cols-5 gap-10'>
                                 <div className='col-span-4'>
                                     <div className='grid grid-cols-5 gap-10'>
                                         <div className='col-span-1 flex justify-center mr-5'>

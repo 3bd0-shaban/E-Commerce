@@ -4,38 +4,27 @@ import { SlHandbag } from 'react-icons/sl'
 import { CgDetailsMore } from 'react-icons/cg'
 import { CiHeart } from 'react-icons/ci'
 import { SecNavbar, Logo } from '../../Exports';
-import { useSearchQuery } from '../../../Redux/APIs/ProductsApi'
-import { DataAction } from './../../../Redux/Slices/DataSlice';
-import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 const Header = () => {
-  const [keyword, setKeyword] = useState();
-  // const [Search] = useSearchQuery();
-  const dispatch = useDispatch();
+  const [inputs, setInputs] = useState({
+    keyword: ''
+  });
   const navigate = useNavigate();
-  const handlesubmit = async (event) => {
-    event.preventDefault();
-    try {
-      // await Search().unwrap()
-      //   .then((payload) => {
-      //     dispatch(DataAction.setSearch(payload));
-      //     navigate('/search')
-      //   })
-      //   .catch((error) => console.log(error.data.msg));
-      // navigate(`/verify?email=${email}&code=`)
-    } catch (error) {
-      console.log(error)
-    }
+  const handleChange = ({ currentTarget: input }) => {
+    setInputs({ ...inputs, [input.name]: input.value });
+  };
+  const handlesearch = (e) => {
+    e.preventDefault();
+    navigate(`/search?keyword=${inputs.keyword}`)
   }
-
 
   const SearchPart = () => {
     return (
-      <form onSubmit={handlesubmit} className='w-[52%] hidden xl:flex justify-center '>
+      <form onSubmit={handlesearch} className='w-[52%] hidden xl:flex justify-center '>
         <div className="relative w-full">
-          <input type="search" onChange={(e) => setKeyword(e.target.value)} value={keyword} className="py-4 px-4 w-full text-sm rounded-lg text-gray-900 bg-gray-50 border outline-none border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Search for product " required="" />
+          <input type="search" onChange={handleChange} value={inputs.keyword} name='keyword' className="py-4 px-4 w-full text-sm rounded-lg text-gray-900 bg-gray-50 border outline-none border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Search for product "/>
           <Link className="absolute top-0 inset-y-0 right-[9rem] px-4 text-md font-medium flex items-center text-center text-gray-500 border-l my-3">All Category</Link>
-          <button className="absolute top-0 right-0 py-4 px-10 text-sm font-semibold tracking-wide text-white border rounded-r-lg border-blue-700 hover:border-blue-800 bg-blue-700 hover:bg-blue-800">Search</button>
+          <button type='submit' className="absolute top-0 right-0 py-4 px-10 text-sm font-semibold tracking-wide text-white border rounded-r-lg border-blue-700 hover:border-blue-800 bg-blue-700 hover:bg-blue-800">Search</button>
         </div>
       </form>
     )

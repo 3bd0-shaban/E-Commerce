@@ -10,24 +10,29 @@ export const ProductApi = apiSlice.injectEndpoints({
         }),
         getPaginated: builder.query({
             query: () => '/api/product/paginated',
-            keepUnusedDataFor: 5,
             providesTags: (result, error, arg) =>
                 result
                     ? [...result.map(({ id }) => ({ type: 'Products', id })), 'Products']
                     : ['Products'],
         }),
-        Search: builder.mutation({
+        Search: builder.query({
             query: (keyword) => ({
                 url: `/api/product/search?keyword=${keyword}`,
                 method: 'GET',
-                keepUnusedDataFor: 5,
 
             }),
-            invalidatesTags: ['Products'],
+            providesTags: ['Products'],
+        }),
+        ProductsByCategory: builder.query({
+            query: (category) => ({
+                url: `/api/product/getsub?category=${category}`,
+                method: 'GET',
+
+            }),
+            providesTags: ['Products'],
         }),
         Filter: builder.query({
             query: () => '/api/product/filter',
-            keepUnusedDataFor: 5,
             providesTags: (result, error, arg) =>
                 result
                     ? [...result.map(({ id }) => ({ type: 'Products', id })), 'Products']
@@ -35,7 +40,6 @@ export const ProductApi = apiSlice.injectEndpoints({
         }),
         getProductsDetails: builder.query({
             query: (id) => `/api/product/get/${id}`,
-            keepUnusedDataFor: 5,
             providesTags: ['Products'],
         }),
         createProducts: builder.mutation({
@@ -76,4 +80,5 @@ export const {
     useGetProductsDetailsQuery,
     useUpdateProductsMutation,
     useDeleteProductsMutation,
+    useProductsByCategoryQuery,
 } = ProductApi;

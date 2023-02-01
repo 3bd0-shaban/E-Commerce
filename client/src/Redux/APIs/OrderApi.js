@@ -77,7 +77,14 @@ export const OrderApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['Order'],
         }),
-
+        LoadPaypal: builder.mutation({
+            query: () => ({
+                url: '/api/keys/paypal',
+                method: 'GET',
+                credentials: 'include',
+            }),
+            invalidatesTags: ['Order'],
+        }),
     }),
 });
 
@@ -92,4 +99,5 @@ export const {
     useChangeOrderStatusMutation,
     useCancelOrderMutation,
     useNewOrderMutation,
+    useLoadPaypalMutation,
 } = OrderApi;

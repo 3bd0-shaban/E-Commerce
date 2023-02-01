@@ -5,9 +5,10 @@ import { Link } from 'react-router-dom';
 import { useDecrementMutation, useDeleteItemInCartMutation, useGetCartQuery, useIncrementMutation } from '../../../Redux/APIs/CartApi';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
-import { useNewOrderMutation } from '../../../Redux/APIs/OrderApi';
+import { useLoadPaypalMutation, useNewOrderMutation } from '../../../Redux/APIs/OrderApi';
 import { Danger, MessageErrorActivate, Success } from '../../Alerts';
 import { ImSpinner7 } from 'react-icons/im';
+import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { useTitle } from '../../Exports'
 import { useGetUserQuery } from '../../../Redux/APIs/AuthApi';
 const CartEmpty = () => {
@@ -34,6 +35,8 @@ const Cart = () => {
     const { data: user } = useGetUserQuery() || {};
     const [deleteItemInCart] = useDeleteItemInCartMutation();
     const [newOrder, { isLoading, error: orderError }] = useNewOrderMutation();
+    const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
+    const [LoadPaypal] = useLoadPaypalMutation()
     const IncrementHandler = async () => {
         await Increment({ product_Id }).unwrap()
             .then((payload) => toast.success(payload.msg))
@@ -59,6 +62,7 @@ const Cart = () => {
         if (user?.address == 0) {
             setAddressPage(true)
         }
+        // usePayPalScriptReducer();
         await newOrder().unwrap()
             .then((payload) => setSuccess(payload.msg))
     }
@@ -143,6 +147,9 @@ const Cart = () => {
                                     </div>
                                 </div>
                                 <div className='flex justify-center mt-4'>
+                                <PayPalButtons >
+                                    Paypal
+                                </PayPalButtons>
                                     <button onClick={NewOrderHandler} className='btn-success !mb-2 !block !w-3/4 !py-4 !rounded-3xl' disabled={isLoading}>
                                         {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Checkout'}</button>
                                 </div>

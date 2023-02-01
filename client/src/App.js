@@ -19,7 +19,8 @@ function App() {
             <Route path='forgetpassword' element={<ForgetPassword />} />
             <Route path='resetpassword' element={<ResetPassword />} />
             <Route path='product/:id' element={<ProductScreen />} />
-            <Route path='search?keyword=:keyword' element={<Search />} />
+            <Route path='search' element={<Search />} />
+            <Route path='product' element={<Search />} />
             <Route path='notfound' element={<NotFounded />} />
             <Route index element={<Home />} />
             <Route element={<RequireAuth allowedRoles={[...Object.values(ROLES)]} />}>

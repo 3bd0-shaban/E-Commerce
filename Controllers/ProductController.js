@@ -89,10 +89,11 @@ export const Fetch_Products = asyncHandler(async (req, res, next) => {
 });
 export const Fetch_Product_BySubCategory = asyncHandler(async (req, res, next) => {
     const resultperpage = 10;
-    const feature = new Features(Products.find({ subcategory: req.subcategory.query }).Pagination(resultperpage));
+    const { category } = req.query
+    const feature = new Features(Products.find({ subcategory: category }), req.query).Pagination(resultperpage);
     const product = await feature.query;
     return res.json(product)
-})
+});
 
 export const Fetch_ProductDetails = asyncHandler(async (req, res, next) => {
     const Product = await Products.findById(req.params.id);

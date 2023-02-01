@@ -10,7 +10,7 @@ const Signin = () => {
   useTitle('Login')
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [persist, setPersist] = usePersist()
+  const [persist, setPersist] = usePersist();
   const userRef = useRef();
   const [inputs, setInputs] = useState({
     email: '',
