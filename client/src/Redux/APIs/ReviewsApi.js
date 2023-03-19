@@ -4,13 +4,13 @@ import { apiSlice } from '../ApiSlice';
 export const ReviewApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getReviews: builder.query({
-            query: (id) => `/api/review/get/${id}`,
+            query: (id) => `/api/review/${id}`,
             providesTags: ['Reviews'],
             keepUnusedDataFor: 5,
         }),
         createReview: builder.mutation({
             query: ({ data, id }) => ({
-                url: `/api/review/new/${id}`,
+                url: `/api/review/${id}`,
                 method: 'POST',
                 credentials: 'include',
                 body: data,
@@ -19,7 +19,7 @@ export const ReviewApi = apiSlice.injectEndpoints({
         }),
         updateReview: builder.mutation({
             query: ({ data, id }) => ({
-                url: `/api/review/update/${id}`,
+                url: `/api/review/${id}`,
                 method: 'PUT',
                 credentials: 'include',
                 body: data,
@@ -28,7 +28,7 @@ export const ReviewApi = apiSlice.injectEndpoints({
         }),
         deleteReview: builder.mutation({
             query: (id) => ({
-                url: `/api/review/delete/${id}`,
+                url: `/api/review/${id}`,
                 method: 'DELETE',
                 credentials: 'include',
             }),

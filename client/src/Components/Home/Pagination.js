@@ -21,7 +21,7 @@ const Pagination = () => {
             </button>
             {items.map((i, index) => (
                 <div className='' key={index}>
-                    <Link to={`?page=${i}`}
+                    <Link draggable={false} to={`?page=${i}`}
                         className={`w-10 h-10 rounded-full hover:bg-gray-200 font-semibold flex items-center justify-center hover:text-gray-600 ${pagenum === i && `bg-blue-500 text-white hover:!bg-blue-500 hover:!text-white`}`}>{i}</Link>
                 </div>
             ))}

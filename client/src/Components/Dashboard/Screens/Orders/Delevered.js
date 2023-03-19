@@ -44,7 +44,7 @@ const Delevered = () => {
                     <td className="py-4 px-6 text-base font-semibold">{product.totalPrice} EGP</td>
                     <td className="py-4 px-6">{moment(product.createdAt).calendar()}</td>
                     <td className="py-4 px-6 flex items-center">
-                      <Link to="" className="font-medium text-blue-600 text-3xl hover:underline mr-3"><RiMoreFill /></Link>
+                      <Link draggable={false} to="" className="font-medium text-blue-600 text-3xl hover:underline mr-3"><RiMoreFill /></Link>
                     </td>
                   </tr>
                 )}

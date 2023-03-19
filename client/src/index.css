@@ -203,6 +203,10 @@ html {
     from { opacity: 0; }
     to { opacity: 1; }
 }
+.slick-slider .slick-track .slick-list{
+    @apply
+    !h-full
+}
 .slide-right-enter{
     @apply
     translate-x-[100%]

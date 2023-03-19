@@ -13,7 +13,7 @@ const Address = () => {
     if (city) setSubRegions(city.subregions)
   }, [inputs.city]);
   return (
-    <div className='container max-w-8xl'>
+    <div className='container select-none max-w-8xl'>
       <p className='font-meduim text-2xl mb-3'>Billing Address</p><hr />
       <div className='w-full my-7'>
         <label className='text-sm py-3 font-light font-serif text-gray-500'>Phone Number</label>

@@ -1,30 +1,8 @@
 import { LogOut, setCredentials } from '../Slices/UserSlice';
 import { apiSlice } from '../ApiSlice';
+import getSocket from './../../Utils/SocketConnect';
 export const AuthApi = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        getUserById: builder.query({
-            query: (id) => ({
-                url: `/api/auth/get/${id}`,
-                credentials: 'include',
-            }),
-            providesTags: ['Auth'],
-        }),
-        getUser: builder.query({
-            query: () => ({
-                url: '/api/auth/info',
-                method: 'GET',
-                credentials: 'include',
-            }),
-            providesTags: ['Auth'],
-        }),
-        getAllUsers: builder.query({
-            query: (pagenum) => ({
-                url: `/api/auth/getall?page=${pagenum}`,
-                method: 'GET',
-                credentials: 'include',
-            }),
-            providesTags: ['Auth'],
-        }),
         signin: builder.mutation({
             query: (data) => ({
                 url: '/api/auth/signin',
@@ -32,6 +10,22 @@ export const AuthApi = apiSlice.injectEndpoints({
                 credentials: 'include',
                 body: data,
             }),
+            async onQueryStarted(arg, { dispatch, queryFulfilled }) {
+                try {
+                    const { data } = await queryFulfilled
+                    const { accessToken, user } = data
+                    dispatch(setCredentials({ accessToken, user }));
+                    localStorage.setItem('persist', true)
+                    localStorage.setItem('id', data.user._id)
+                    let userId = user?._id;
+                    const socket = getSocket()
+                    socket.on("connect", () => {
+                        socket.emit("join", userId);
+                    });
+                } catch (err) {
+                    console.log(err)
+                }
+            },
             invalidatesTags: ['Auth'],
         }),
         signup: builder.mutation({
@@ -47,7 +41,7 @@ export const AuthApi = apiSlice.injectEndpoints({
             query: () => ({
                 url: '/api/auth/logout',
                 method: 'POST',
-                credentials: 'include',
+
             }),
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
@@ -55,6 +49,8 @@ export const AuthApi = apiSlice.injectEndpoints({
                     dispatch(LogOut())
                     setTimeout(() => {
                         dispatch(apiSlice.util.resetApiState())
+                        localStorage.removeItem('persist')
+                        localStorage.removeItem('id')
                     }, 1000)
                 } catch (err) {
                     console.log(err)
@@ -70,25 +66,60 @@ export const AuthApi = apiSlice.injectEndpoints({
             async onQueryStarted(arg, { dispatch, queryFulfilled }) {
                 try {
                     const { data } = await queryFulfilled
-                    const { accessToken } = data
-                    dispatch(setCredentials({ accessToken }))
+                    const { accessToken, user } = data
+                    dispatch(setCredentials({ accessToken, user }));
+                    let userId = user?._id;
+                    const socket = getSocket()
+                    socket.on("connect", () => {
+                        socket.emit("join", userId);
+                    });
                 } catch (err) {
                     console.log(err)
                 }
-            }
+            },
+            invalidatesTags: ['Auth'],
         }),
         VerifyEmail: builder.mutation({
             query: ({ email, code }) => ({
                 url: `/api/auth/activateEmail?email=${email}&code=${code}`,
                 method: 'PUT',
             }),
-            invalidatesTags: ['Auth'],
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    localStorage.setItem('persist', true)
+                    localStorage.setItem('id', result.data.user._id)
+                    dispatch(
+                        setCredentials({
+                            accessToken: result.data.accessToken,
+                            user: result.data.user,
+                        })
+                    );
+                } catch (err) {
+                    // do nothing
+                }
+            },
         }),
         VerifyEmailtoResest: builder.mutation({
             query: ({ email, code }) => ({
                 url: `/api/auth/verifyOtp?email=${email}&code=${code}`,
                 method: 'GET',
             }),
+            async onQueryStarted(arg, { queryFulfilled, dispatch }) {
+                try {
+                    const result = await queryFulfilled;
+                    localStorage.setItem('persist', true)
+                    localStorage.setItem('id', result.data.user._id)
+                    dispatch(
+                        setCredentials({
+                            accessToken: result.data.accessToken,
+                            user: result.data.user,
+                        })
+                    );
+                } catch (err) {
+                    // do nothing
+                }
+            },
             invalidatesTags: ['Auth'],
         }),
         RequestOTP2: builder.mutation({
@@ -123,40 +154,9 @@ export const AuthApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['Auth'],
         }),
-        DeleteUser: builder.mutation({
-            query: (id) => ({
-                url: `/api/auth/get/deleteuser/${id}`,
-                method: 'POST',
-                credentials: 'include',
-            }),
-            invalidatesTags: ['Auth'],
-        }),
-        updateUserInfo: builder.mutation({
-            query: (data, id) => ({
-                url: `/api/auth/updateuser/${id}`,
-                method: 'POST',
-                credentials: 'include',
-                body: data,
-            }),
-            invalidatesTags: ['Auth'],
-        }),
-        updateUserRole: builder.mutation({
-            query: (id) => ({
-                url: `/api/auth/updateuserrole/${id}`,
-                method: 'POST',
-                credentials: 'include',
-            }),
-            invalidatesTags: ['Auth'],
-        }),
     }),
 });
 export const {
-    useGetUserByIdQuery,
-    useGetAllUsersQuery,
-    useGetUserQuery,
-    useDeleteUserMutation,
-    useUpdateUserInfoMutation,
-    useUpdateUserRoleMutation,
     useForgetPasswordMutation,
     useResetPasswordMutation,
     useLogOutMutation,

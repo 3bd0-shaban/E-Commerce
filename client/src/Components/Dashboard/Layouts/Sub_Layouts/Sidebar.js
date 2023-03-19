@@ -37,7 +37,7 @@ const SideBar = () => {
         return (
             <li className={(pathname === `${props.selected}`) ? 'bg-[#D7EDFF] rounded-lg text-[#4060ee]' : 'hover:bg-[#D7EDFF] hover:rounded-lg hover:text-[#4060ee] text-gray-600'}>
                 <div onClick={props.onClick}>
-                    <Link to={props.Link} className="relative flex flex-row items-center h-11 focus:outline-none border-l-4 border-transparent pr-6" onClick={() => { dispatch(FeaturesAction.ShowSideBar(false)) }}>
+                    <Link draggable={false} to={props.Link} className="relative flex flex-row items-center h-11 focus:outline-none border-l-4 border-transparent pr-6" onClick={() => { dispatch(FeaturesAction.ShowSideBar(false)) }}>
                         <span className="inline-flex justify-center items-center text-2xl ml-4">{props.icon}</span>
                         <span className="ml-4 text-base tracking-wide truncate font-medium">{props.title}</span>
                     </Link>

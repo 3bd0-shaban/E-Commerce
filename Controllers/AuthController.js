@@ -109,21 +109,21 @@ export const SignIn = asyncHandler(async (req, res, next) => {
             expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7d
             sameSite: 'none'
         });
-        return res.json({ msg: 'successfully Logged In', accessToken });
+        return res.json({ msg: 'successfully Logged In', accessToken, user });
     }
 })
-export const RefreshToken = asyncHandler((req, res, next) => {
+export const RefreshToken = asyncHandler(async (req, res, next) => {
     const refreshToken = req.cookies.Jwt
     if (!refreshToken) {
         return next(new ErrorHandler('Sign In First', 400));
     }
-    Jwt.verify(refreshToken, process.env.JWT_REFRESH, (err, user) => {
-        if (err) {
-            return next(new ErrorHandler('Authorization Failed, Please Log In Again', 400));
-        }
-        const accessToken = createAccessToken({ id: user.id, roles: user.roles });
-        return res.json({ accessToken })
-    });
+    const auth = Jwt.verify(refreshToken, process.env.JWT_REFRESH)
+    if (!auth) {
+        return next(new ErrorHandler('Authorization Failed, Please Log In Again', 400));
+    }
+    const accessToken = createAccessToken({ id: auth.id, roles: auth.roles });
+    const user = await Users.findOne({ _id: auth.id })
+    return res.json({ accessToken, user })
 });
 
 export const logout = asyncHandler((req, res, next) => {

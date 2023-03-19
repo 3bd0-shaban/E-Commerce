@@ -6,11 +6,12 @@ import { useDecrementMutation, useDeleteItemInCartMutation, useGetCartQuery, use
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import { useLoadPaypalMutation, useNewOrderMutation } from '../../../Redux/APIs/OrderApi';
-import { Danger, MessageErrorActivate, Success } from '../../Alerts';
+import { Danger, MessageErrorActivate, Success } from '../../../Utils/Alerts';
 import { ImSpinner7 } from 'react-icons/im';
 import { PayPalButtons, usePayPalScriptReducer } from '@paypal/react-paypal-js';
 import { useTitle } from '../../Exports'
-import { useGetUserQuery } from '../../../Redux/APIs/AuthApi';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from './../../../Redux/Slices/UserSlice';
 const CartEmpty = () => {
     return (
         <div className='text-center'>
@@ -19,7 +20,7 @@ const CartEmpty = () => {
                 <FaShoppingBag />
             </div>
             <p className='py-4'>Go to main page and shope for your products</p>
-            <Link to='/' className='border border-green-300 rounded-2xl text-2xl text-white bg-green-600 py-2 px-3'>Browse Products</Link>
+            <Link draggable={false} to='/' className='border border-green-300 rounded-2xl text-2xl text-white bg-green-600 py-2 px-3'>Browse Products</Link>
         </div>
     )
 }
@@ -32,7 +33,7 @@ const Cart = () => {
     const { data: cart, isFetching: loading, error } = useGetCartQuery() || {};
     const [Increment] = useIncrementMutation();
     const [Decrement] = useDecrementMutation();
-    const { data: user } = useGetUserQuery() || {};
+    const user = useSelector(selectCurrentUser)
     const [deleteItemInCart] = useDeleteItemInCartMutation();
     const [newOrder, { isLoading, error: orderError }] = useNewOrderMutation();
     const [{ isPending }, paypalDispatch] = usePayPalScriptReducer();
@@ -77,7 +78,7 @@ const Cart = () => {
             <div>
                 <Header />
                 <ToastContainer position="bottom-center" closeOnClick autoClose={1200} hideProgressBar={true} limit={1} />
-                <div className='container px-0 xl:px-4 max-w-[140rem]'>
+                <div className='container select-none px-0 xl:px-4 max-w-[120rem]'>
                     <div className='grid grid-cols-1 xl:grid-cols-4'>
                         <div className='conatiner px-0 max-w-full col-span-3'>
                             {orderError && <Danger error={orderError?.data?.msg} className={'container my-5 px-0'} />}
@@ -89,7 +90,7 @@ const Cart = () => {
                                         <div className='col-span-1 space-y-3 hidden xl:block'>
                                             <p className='text-2xl font-medium text-gray-600'>Add New Address</p>
                                             <p className='mt-2 text-base font-semibold text-gray-500 leading-7'>Please provide us with with an address you usually in</p>
-                                            <p><Link className='text-blue-400 hover:text-blue-500 underline font-bold mt-3'>Your Address</Link></p>
+                                            <p><Link draggable={false} className='text-blue-400 hover:text-blue-500 underline font-bold mt-3'>Your Address</Link></p>
                                         </div>
                                         <div className='col-span-6 xl:col-span-5 container px-0'>
                                             <Address />
@@ -147,13 +148,13 @@ const Cart = () => {
                                     </div>
                                 </div>
                                 <div className='flex justify-center mt-4'>
-                                <PayPalButtons >
-                                    Paypal
-                                </PayPalButtons>
+                                    <PayPalButtons >
+                                        Paypal
+                                    </PayPalButtons>
                                     <button onClick={NewOrderHandler} className='btn-success !mb-2 !block !w-3/4 !py-4 !rounded-3xl' disabled={isLoading}>
                                         {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Checkout'}</button>
                                 </div>
-                                <Link to='/' className='text-lg flex justify-center my-2 font-thin font-serif text-gray-500 hover:underline hover:text-blue-700'>Back to shoping</Link>
+                                <Link draggable={false} to='/' className='text-lg flex justify-center my-2 font-thin font-serif text-gray-500 hover:underline hover:text-blue-700'>Back to shoping</Link>
                             </div>
                         </div>
                     </div>

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useSearchParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
-import { Danger } from '../../Alerts';
+import { Danger } from '../../../Utils/Alerts';
 import { Sidebar, DashHeeder, ShowRating, ProductsInfo, useTitle, Pagination } from '../../Exports';
 import { useGetProductsQuery } from '../../../Redux/APIs/ProductsApi';
 import moment from 'moment';
@@ -28,10 +28,10 @@ const AllProducts = () => {
                     }
                     <p className='text-5xl font-Rubik '>All Products</p>
                     <div className='flex gap-6 font-light text-xl mt-5'>
-                        <Link to='?page=1' className='border-b-transparent hover:border-b-black'>Delevred</Link>
-                        <Link to='?page=1' className='border-b-transparent hover:border-b-black'>Beneding</Link>
-                        <Link to='?page=1' className='border-b-transparent hover:border-b-black'>Rejected</Link>
-                        <Link to='?page=1' className='border-b-transparent hover:border-b-black'>All</Link>
+                        <Link draggable={false} to='?page=1' className='border-b-transparent hover:border-b-black'>Delevred</Link>
+                        <Link draggable={false} to='?page=1' className='border-b-transparent hover:border-b-black'>Beneding</Link>
+                        <Link draggable={false} to='?page=1' className='border-b-transparent hover:border-b-black'>Rejected</Link>
+                        <Link draggable={false} to='?page=1' className='border-b-transparent hover:border-b-black'>All</Link>
                     </div>
                     <hr className='mt-3 h-[2px] bg-gray-400 rounded' />
                     <div className='flex justify-end pr-2 md:pr-10 mt-5'>
@@ -63,7 +63,7 @@ const AllProducts = () => {
                                     products?.map(product =>
                                         <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer" onClick={() => setId(product?._id)} key={product?._id}>
                                             <td className="flex items-center py-4 ml-4">
-                                                <img className="w-14 h-14 rounded-full" src={product?.images ? product?.images[0].url : 'error'} alt="" />
+                                                <img draggable={false} className="w-14 h-14 rounded-full" src={product?.images ? product?.images[0].url : 'error'} alt="" />
                                                 <div className="pl-3">
                                                     <div className="text-sm xl:text-base font-semibold  overflow-x-hidden mr-8 w-44 xxl:w-[95%] ellipse-2">{product?.name}</div>
                                                     <div className="font-bold text-emerald-600 ">{product?.price}$</div>

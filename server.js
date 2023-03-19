@@ -15,8 +15,13 @@ import IsssesRouter from './Routes/IssessRouter.js';
 import ReviewsRouter from './Routes/ReviewsRouter.js';
 import WhiteListRouter from './Routes/WhiteListRoter.js';
 import BrandRouter from './Routes/BrandRouter.js';
+import AllowedOrigins from "./Origins.js";
+import SocketServer from "./SocketServer.js";
+import { createServer } from 'http';
+import { Server } from "socket.io";
 import config from './config.js';
 const app = express();
+const http = createServer(app);
 
 const port = config.PORT || 5000;
 app.use(
@@ -36,13 +41,22 @@ app.use(morgan('common'));
 mongoose
   .connect(config.MONGODB_URI)
   .then(() => {
-    app.listen(port, () => {
+    http.listen(port, () => {
       console.log(`Successfully started at http://localhost:${port}`);
     });
   })
   .catch((err) => {
     console.log(err);
   });
+  const io = new Server(http, {
+    cors: {
+        origin: AllowedOrigins,
+        credentials: true
+    }
+});
+io.on('connection', (socket) => {
+    SocketServer(socket);
+});
 app.get('/api/keys/paypal', (req, res) => {
   res.send(process.env.PayPal_Client_ID || "SB")
 })

@@ -3,7 +3,7 @@ import { apiSlice } from '../ApiSlice';
 export const CategoryApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getCategory: builder.query({
-            query: () => '/api/category/get',
+            query: () => '/api/category/',
             keepUnusedDataFor: 5,
             providesTags: (result, error, arg) =>
                 result
@@ -11,12 +11,12 @@ export const CategoryApi = apiSlice.injectEndpoints({
                     : ['Category'],
         }),
         getCategoryDetails: builder.query({
-            query: (id) => `/api/category/get/${id}`,
+            query: (id) => `/api/category/${id}`,
             // providesTags: ['Category'],
         }),
         createCategory: builder.mutation({
             query: (data) => ({
-                url: '/api/Category/new',
+                url: '/api/Category/',
                 method: 'POST',
                 credentials: 'include',
                 body: data,
@@ -25,7 +25,7 @@ export const CategoryApi = apiSlice.injectEndpoints({
         }),
         updateCategory: builder.mutation({
             query: ({ data, id }) => ({
-                url: `/api/category/update/${id}`,
+                url: `/api/category/${id}`,
                 method: 'PUT',
                 credentials: 'include',
                 body: data,
@@ -34,7 +34,7 @@ export const CategoryApi = apiSlice.injectEndpoints({
         }),
         deleteCategory: builder.mutation({
             query: (id) => ({
-                url: `/api/category/delete/${id}`,
+                url: `/api/category/${id}`,
                 method: 'DELETE',
                 credentials: 'include',
             }),

@@ -13,10 +13,10 @@ const AddFeatures = () => {
                 <div className='container px-1 lg:ml-[21.8rem] max-w-full mt-24'>
                     <p className='text-4xl xl:text-5xl font-Rubik '>Features</p>
                     <div className='flex gap-6 font-light text-xl mt-5'>
-                        <Link onClick={() => { setCategory(true); setBrand(false); setBanner(false) }} className='border-b-transparent hover:border-b-black'>Categores</Link>
-                        <Link onClick={() => { setCategory(false); setBrand(true); setBanner(false) }} className='border-b-transparent hover:border-b-black'>Brands</Link>
-                        <Link onClick={() => { setCategory(false); setBrand(false); setBanner(true) }} className='border-b-transparent hover:border-b-black'>Banners</Link>
-                        {/* <Link onClick={()=> set} className='border-b-transparent hover:border-b-black'>All</Link> */}
+                        <Link draggable={false} onClick={() => { setCategory(true); setBrand(false); setBanner(false) }} className='border-b-transparent hover:border-b-black'>Categores</Link>
+                        <Link draggable={false} onClick={() => { setCategory(false); setBrand(true); setBanner(false) }} className='border-b-transparent hover:border-b-black'>Brands</Link>
+                        <Link draggable={false} onClick={() => { setCategory(false); setBrand(false); setBanner(true) }} className='border-b-transparent hover:border-b-black'>Banners</Link>
+                        {/* <Link draggable={false} onClick={()=> set} className='border-b-transparent hover:border-b-black'>All</Link> */}
                     </div>
                     <hr className='mt-3 h-[2px] bg-gray-400 rounded' />
                     {category && <AddCategory />}

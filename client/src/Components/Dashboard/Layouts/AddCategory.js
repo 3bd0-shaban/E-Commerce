@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useCreateCategoryMutation, useGetCategoryQuery } from '../../../Redux/APIs/CategoryApi'
-import { Success, Danger } from './../../Alerts';
+import { Success, Danger } from '../../../Utils/Alerts';
 import { ImSpinner7 } from 'react-icons/im'
 import moment from 'moment';
 import { BsTrash } from 'react-icons/bs'
@@ -58,7 +58,7 @@ const AddCategory = () => {
     const PreviewImeges = (props) => {
         return (
             <>
-                <img className='relative object-cover max-h-40 rounded-lg' src={props.img} alt='' />
+                <img draggable={false} className='relative object-cover max-h-40 rounded-lg' src={props.img} alt='' />
                 <button className='text-red-500 font-semibold hover:underline mt-3 ml-auto block' onClick={props.onClick}>Remove Image</button>
             </>
         )
@@ -117,7 +117,7 @@ const AddCategory = () => {
                                                 Category?.map(cat => (
                                                     <tr className="bg-white border-b hover:bg-gray-50 cursor-pointer" key={cat._id} onClick={() => setId(cat._id)}>
                                                         <td className="flex items-center py-4 justify-start ml-7">
-                                                            <img className="w-10 h-10 rounded-full object-cover" src={cat.image && cat?.image.url} alt="" />
+                                                            <img draggable={false} className="w-10 h-10 rounded-full object-cover" src={cat.image && cat?.image.url} alt="" />
                                                         </td>
                                                         <td className="font-normal text-gray-500 ">{cat.category}</td>
                                                         <td className="py-4"><span className={(`${cat.isActive}` === 'true') ? 'bg-green-200 text-green-500 rounded-full text-base px-8 py-1.5' : 'bg-red-200 text-red-500 rounded-full text-base px-8 py-1.5'}>{cat.isActive.toString()}</span></td>

@@ -3,7 +3,7 @@ import { apiSlice } from '../ApiSlice';
 export const BrandApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getBrand: builder.query({
-            query: () => '/api/brand/get',
+            query: () => '/api/brand/',
             keepUnusedDataFor: 5,
             providesTags: (result, error, arg) =>
                 result
@@ -11,13 +11,13 @@ export const BrandApi = apiSlice.injectEndpoints({
                     : ['Brand'],
         }),
         getBrandDetails: builder.query({
-            query: (id) => `/api/brand/get/${id}`,
+            query: (id) => `/api/brand/${id}`,
             keepUnusedDataFor: 5,
             // providesTags: ['Brand'],
         }),
         createBrand: builder.mutation({
             query: (data) => ({
-                url: '/api/brand/new',
+                url: '/api/brand/',
                 method: 'POST',
                 credentials: 'include',
                 body: data,
@@ -26,7 +26,7 @@ export const BrandApi = apiSlice.injectEndpoints({
         }),
         updateBrand: builder.mutation({
             query: ({ data, id }) => ({
-                url: `/api/brand/update/${id}`,
+                url: `/api/brand/${id}`,
                 method: 'PUT',
                 credentials: 'include',
                 body: data,
@@ -35,7 +35,7 @@ export const BrandApi = apiSlice.injectEndpoints({
         }),
         deleteBrand: builder.mutation({
             query: (id) => ({
-                url: `/api/brand/delete/${id}`,
+                url: `/api/brand/${id}`,
                 method: 'DELETE',
                 credentials: 'include',
             }),

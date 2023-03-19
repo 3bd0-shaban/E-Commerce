@@ -1,5 +1,5 @@
 import React from 'react'
-import { Footer, Header,useTitle } from './Exports'
+import { Footer, Header,useTitle } from '../Components/Exports'
 
 const NotFounded = () => {
     useTitle('Not Founded !')

@@ -71,13 +71,13 @@ const Signup = () => {
                 </div>
               </div>
               <div className='text-center px-6'>
-                <p className='text-sm font-normal text-gray-500'>People who use our service may have uploaded your contact information to Instagram. <Link to='/more' className='font-semibold text-gray-500'>Learn More</Link></p>
-                <p className='text-sm font-normal text-gray-500 mt-5'>By signing up, you agree to our Terms , <Link to='/privacy' className='font-semibold text-gray-500'>Privacy Policy </Link>and<Link to='/cookies' className='font-semibold text-gray-500'> Cookies Policy .</Link></p>
+                <p className='text-sm font-normal text-gray-500'>People who use our service may have uploaded your contact information to Instagram. <Link draggable={false} to='/more' className='font-semibold text-gray-500'>Learn More</Link></p>
+                <p className='text-sm font-normal text-gray-500 mt-5'>By signing up, you agree to our Terms , <Link draggable={false} to='/privacy' className='font-semibold text-gray-500'>Privacy Policy </Link>and<Link draggable={false} to='/cookies' className='font-semibold text-gray-500'> Cookies Policy .</Link></p>
               </div>
               <button type='submit' className='btn-primary my-3 !w-1/2 !py-3 !rounded-3xl !mt-8' disabled={isLoading}>
                 {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Submit'}</button>
               <div className='justify-center flex mt-2'>
-                <p className="py-5 inline">Already have an account? <Link to="/signin" className='font-semibold text-blue-400 px-3'>Log In</Link></p>
+                <p className="py-5 inline">Already have an account? <Link draggable={false} to="/signin" className='font-semibold text-blue-400 px-3'>Log In</Link></p>
               </div>
               {isError && <span className="text-red-500 pb-3 font-poppins font-medium text-center">{error?.data?.msg}</span>}
             </form>

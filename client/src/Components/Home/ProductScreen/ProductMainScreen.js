@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react'
-import { Danger } from '../../Alerts';
+import { Danger } from '../../../Utils/Alerts';
 import { ShowRating } from '../../Exports'
 import { Link, useParams } from 'react-router-dom'
 import { useGetProductsDetailsQuery } from '../../../Redux/APIs/ProductsApi';
@@ -34,7 +34,7 @@ const ProductMainScreen = () => {
             .catch((error) => toast.error(error.data.msg));
     }
     return (
-        <div className='container px-0 xl:px-2 max-w-[140rem] mt-5'>
+        <div className='container px-0 xl:px-2 max-w-[120rem] select-none mt-5'>
             {loading ?
                 <p className='mx-auto mt-20 text-3xl font-serif font-semibold'>Loading ....</p>
                 : error ? <Danger error={'No Product Founded'} className={'mx-auto mt-20 text-7xl font-serif font-semibold bg-red-200 py-3 px-5'} /> : productDetails._id &&
@@ -45,17 +45,17 @@ const ProductMainScreen = () => {
                                 <div className='w-[25%] hidden xl:block'>
                                     {productDetails &&
                                         productDetails?.images?.map((img) => (
-                                            <div key={img._id} onClick={() => setImage(img.url)}><img src={img.url} className={'border w-[80%] object-cover cursor-pointer hover:border-slate-900'} alt='' /></div>
+                                            <div key={img._id} onClick={() => setImage(img.url)}><img draggable={false} src={img.url} className={'border w-[80%] object-cover cursor-pointer hover:border-slate-900'} alt='' /></div>
                                         ))}
                                 </div>
                                 <div className='flex justify-center mr-5'>
-                                    <img src={image} className='h-[35rem] min-w-full mx-auto' alt='' />
+                                    <img draggable={false} src={image} className='h-[35rem] min-w-full mx-auto' alt='' />
                                 </div>
                             </div>
                             <div className='xl:col-span-2 '>
                                 <div className='flex justify-between items-start'>
                                     <p className='text-xl font-semibold py-3 '>{productDetails?.name}</p>
-                                    <Link onClick={HandleToWhiteList} className='fill-black'><CiHeart style={{ fontSize: "2.5rem" }} /></Link>
+                                    <Link draggable={false} onClick={HandleToWhiteList} className='fill-black'><CiHeart style={{ fontSize: "2.5rem" }} /></Link>
                                 </div>
                                 <hr />
                                 <div className='flex items-center gap-3'>
@@ -86,7 +86,7 @@ const ProductMainScreen = () => {
                                             <p className='text-2xl items-center flex text-gray-500 line-through'>$ {productDetails.discountprice}</p>
                                         </div>
                                         <div className='flex items-center justify-center'>
-                                            <Link onClick={AddToCartHandler} className='px-32 mt-5 text-center border-4 border-blue-500 py-4 rounded-full font-medium hover:bg-blue-500 focus:ring focus:ring-blue-600 hover:text-white'>Add to Card</Link>
+                                            <Link draggable={false} onClick={AddToCartHandler} className='px-32 mt-5 text-center border-4 border-blue-500 py-4 rounded-full font-medium hover:bg-blue-500 focus:ring focus:ring-blue-600 hover:text-white'>Add to Card</Link>
                                         </div>
                                     </div>
                                     :

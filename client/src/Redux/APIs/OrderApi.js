@@ -5,14 +5,14 @@ export const OrderApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getUserOrder: builder.query({
             query: () => ({
-                url: '/api/order/get/user',
+                url: '/api/order/user',
                 credentials: 'include',
             }),
             providesTags: ['Order'],
         }),
         getAllOrder: builder.query({
             query: () => ({
-                url: '/api/order/get/all',
+                url: '/api/order/all',
                 credentials: 'include',
             }),
             providesTags: ['Order'],
@@ -26,28 +26,28 @@ export const OrderApi = apiSlice.injectEndpoints({
         }),
         getPendingOrder: builder.query({
             query: () => ({
-                url: '/api/order/get/pending',
+                url: '/api/order/pending',
                 credentials: 'include',
             }),
             providesTags: ['Order'],
         }),
         getShipppedOrder: builder.query({
             query: () => ({
-                url: '/api/order/get/shipped',
+                url: '/api/order/shipped',
                 credentials: 'include',
             }),
             providesTags: ['Order'],
         }),
         getDeliveredOrder: builder.query({
             query: () => ({
-                url: '/api/order/get/delivered',
+                url: '/api/order/delivered',
                 credentials: 'include',
             }),
             providesTags: ['Order'],
         }),
         getcancelledOrder: builder.query({
             query: () => ({
-                url: '/api/order/get/cancelled',
+                url: '/api/order/cancelled',
                 credentials: 'include',
             }),
             providesTags: ['Order'],
@@ -71,7 +71,7 @@ export const OrderApi = apiSlice.injectEndpoints({
         }),
         newOrder: builder.mutation({
             query: () => ({
-                url: '/api/order/new',
+                url: '/api/order/',
                 method: 'POST',
                 credentials: 'include',
             }),

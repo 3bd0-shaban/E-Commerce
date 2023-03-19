@@ -4,9 +4,9 @@ const CartItem = (props) => {
     return (
         <div key={props.Mykey}>
             <hr />
-            <div className=' rounded-xl relative py-2 mt-5'>
+            <div className='select-none rounded-xl relative py-2 mt-5'>
                 <div className='flex'>
-                    <img className='h-52 m-2 object-cover' src={props.Src} alt=''></img>
+                    <img draggable={false} className='h-52 m-2 object-cover' src={props.Src} alt=''></img>
                     <div className=''>
                         <p className='py-3 text-lg'>{props.Name}</p>
                         <p className='py-3 text-lg'>{props.Price} EGP</p>

@@ -40,7 +40,7 @@ const Pending = () => {
                     <td className="py-4 px-6 text-base font-semibold">{product?.totalPrice} EGP</td>
                     <td className="py-4 px-6">{moment(product?.createdAt).calendar()}</td>
                     <td className="py-4 px-6 flex items-center">
-                      <Link to="" className="font-medium">{product?._id}</Link>
+                      <Link draggable={false} to="" className="font-medium">{product?._id}</Link>
                     </td>
                   </tr>
                 )}

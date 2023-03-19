@@ -99,10 +99,10 @@ export { default as SKHomeProducts } from './Skiliton/SK_HomeProducts';
 export { default as SKBanners } from './Skiliton/SK_Banners';
 
 // export { default as getError } from './utile';
-export { default as RequireAuth } from './RequiredAuth';
-export { default as PersistLogin } from './PersistLogin';
-export { default as NotFounded } from './NotFounded';
-export { default as Layout } from './Layout';
+export { default as RequireAuth } from '../Utils/RequiredAuth';
+export { default as PersistLogin } from '../Utils/PersistLogin';
+export { default as NotFounded } from '../Utils/NotFounded';
+export { default as Layout } from '../Utils/Layout';
 
 export { default as useTitle } from '../Hooks/useTitle'
 export { default as usePersist } from '../Hooks/usePersist'

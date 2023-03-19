@@ -1,15 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
 import { useSigninMutation } from '../Redux/APIs/AuthApi';
-import { setCredentials } from '../Redux/Slices/UserSlice';
 import { ImSpinner7 } from 'react-icons/im';
 import { useTitle, usePersist, Header, Footer } from '../Components/Exports'
 import { BsCheck2 } from 'react-icons/bs';
 const Signin = () => {
   useTitle('Login')
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const [persist, setPersist] = usePersist();
   const userRef = useRef();
   const [inputs, setInputs] = useState({
@@ -36,13 +33,10 @@ const Signin = () => {
     const { email, password } = inputs;
     const data = { email, password }
     try {
-      const { accessToken } = await signin(data).unwrap()
-      dispatch(setCredentials({ accessToken }));
+      await signin(data).unwrap()
       setInputs({ email: '', password: '' });
       navigate('/')
-    } catch (error) {
-      console.log(error)
-    }
+    } catch (error) {}
   }
 
   return (
@@ -62,7 +56,7 @@ const Signin = () => {
                   <input type='checkbox' id='persist' onChange={HandleToggle} checked={persist} />
                   Remmber ME
                 </label>
-                <Link to='/forgetpassword' className='text-blue-800 focus:text-blue-300 text-sm'>Forgot password ?</Link>
+                <Link draggable={false} to='/forgetpassword' className='text-blue-800 focus:text-blue-300 text-sm'>Forgot password ?</Link>
               </div>
               <button type='submit' className='btn-primary my-3 !w-1/2 !py-3 !rounded-3xl !mt-8' disabled={isLoading}>
                 {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Submit'}</button>
@@ -81,7 +75,7 @@ const Signin = () => {
             <p className='text-2xl font-semibold text-gray-700 my-3'>New Customer</p><hr />
             <div className='my-6'>
               <p className='text-lg text-gray-700'>Creating an acount today to reap the beneits of personalized shopping experince </p>
-              <div className='my-3 font-bold text-blue-600 hover:text-blue-700 hover:underline mt-8'><Link to='/signup' className='w-full'>Create Account</Link></div>
+              <div className='my-3 font-bold text-blue-600 hover:text-blue-700 hover:underline mt-8'><Link draggable={false} to='/signup' className='w-full'>Create Account</Link></div>
             </div>
             <div>
               <p className='text-2xl font-medium text-gray-600'>Sign Up today and you will be able to :</p>

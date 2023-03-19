@@ -9,14 +9,14 @@ import { auth, authorizeRoles, CheckVerification } from './../Middlewares/Auth.j
 const Router = express.Router();
 
 
-Router.post('/new', auth, CheckVerification, Add_NEW_Order);
-Router.get('/get/user', auth, Fetch_Users_Orders);
-Router.get('/get/all', auth, authorizeRoles("admin"), Fetch_All_Orders);
+Router.post('/', auth, CheckVerification, Add_NEW_Order);
+Router.get('/user', auth, Fetch_Users_Orders);
+Router.get('/all', auth, authorizeRoles("admin"), Fetch_All_Orders);
 Router.get('/:id', auth, Fetch_Order_Details);
-Router.get('/get/pending', auth, authorizeRoles("admin"), Fetch_Notprocessed_Orders);
-Router.get('/get/shipped', auth, authorizeRoles("admin"), Fetch_Shipped_Orders);
-Router.get('/get/delivered', auth, authorizeRoles("admin"), Fetch_Delivered_Orders);
-Router.get('/get/cancelled', auth, authorizeRoles("admin"), Fetch_Cancelled_Orders);
+Router.get('/pending', auth, authorizeRoles("admin"), Fetch_Notprocessed_Orders);
+Router.get('/shipped', auth, authorizeRoles("admin"), Fetch_Shipped_Orders);
+Router.get('/delivered', auth, authorizeRoles("admin"), Fetch_Delivered_Orders);
+Router.get('/cancelled', auth, authorizeRoles("admin"), Fetch_Cancelled_Orders);
 Router.put('/cancel/:id', auth, CancelOrder);
 Router.put('/change/status/:id', auth, ChangeStatus);
 

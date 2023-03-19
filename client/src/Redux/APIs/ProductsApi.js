@@ -2,7 +2,7 @@ import { apiSlice } from '../ApiSlice';
 export const ProductApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getProducts: builder.query({
-            query: (numpage) => `/api/product/get?page=${numpage}`,
+            query: (numpage) => `/api/product?page=${numpage}`,
             providesTags: (result, error, arg) =>
                 result
                     ? [...result.map(({ id }) => ({ type: 'Products', id })), 'Products']
@@ -39,12 +39,12 @@ export const ProductApi = apiSlice.injectEndpoints({
                     : ['Products'],
         }),
         getProductsDetails: builder.query({
-            query: (id) => `/api/product/get/${id}`,
+            query: (id) => `/api/product/${id}`,
             providesTags: ['Products'],
         }),
         createProducts: builder.mutation({
             query: (data) => ({
-                url: '/api/product/new',
+                url: '/api/product/',
                 method: 'POST',
                 credentials: 'include',
                 body: data,
@@ -53,7 +53,7 @@ export const ProductApi = apiSlice.injectEndpoints({
         }),
         updateProducts: builder.mutation({
             query: ({ data, id }) => ({
-                url: `/api/product/update/${id}`,
+                url: `/api/product/${id}`,
                 method: 'PUT',
                 credentials: 'include',
                 body: data,
@@ -62,7 +62,7 @@ export const ProductApi = apiSlice.injectEndpoints({
         }),
         deleteProducts: builder.mutation({
             query: (id) => ({
-                url: `/api/product/delete/${id}`,
+                url: `/api/product/${id}`,
                 method: 'DELETE',
                 credentials: 'include',
             }),

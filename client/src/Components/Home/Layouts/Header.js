@@ -20,10 +20,10 @@ const Header = () => {
 
   const SearchPart = () => {
     return (
-      <form onSubmit={handlesearch} className='w-[52%] hidden xl:flex justify-center '>
+      <form onSubmit={handlesearch} className='w-[52%] hidden xl:flex justify-center select-none'>
         <div className="relative w-full">
-          <input type="search" onChange={handleChange} value={inputs.keyword} name='keyword' className="py-4 px-4 w-full text-sm rounded-lg text-gray-900 bg-gray-50 border outline-none border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Search for product "/>
-          <Link className="absolute top-0 inset-y-0 right-[9rem] px-4 text-md font-medium flex items-center text-center text-gray-500 border-l my-3">All Category</Link>
+          <input type="search" onChange={handleChange} value={inputs.keyword} name='keyword' className="py-4 px-4 w-full text-sm rounded-lg text-gray-900 bg-gray-50 border outline-none border-gray-300 focus:ring-blue-500 focus:border-blue-500" placeholder="Search for product " />
+          <Link draggable={false} className="absolute top-0 inset-y-0 right-[9rem] px-4 text-md font-medium flex items-center text-center text-gray-500 border-l my-3">All Category</Link>
           <button type='submit' className="absolute top-0 right-0 py-4 px-10 text-sm font-semibold tracking-wide text-white border rounded-r-lg border-blue-700 hover:border-blue-800 bg-blue-700 hover:bg-blue-800">Search</button>
         </div>
       </form>
@@ -32,11 +32,11 @@ const Header = () => {
   const Rightnav = () => {
     return (
       <div className='flex gap-3 justify-end ml-auto xl:ml-0'>
-        <Link to='/whitelist' className='items-center text-black hidden md:flex gap-2'>
+        <Link draggable={false} to='/whitelist' className='items-center text-black hidden md:flex gap-2'>
           <CiHeart style={{ 'fontSize': '2.5rem', 'hight': '2.5rem' }} />
           <p className='text-xl'>5</p>
         </Link>
-        <Link to='/cart' className="flex gap-3 relative items-center px-3 text-sm font-medium text-center text-black rounded-lg focus:outline-none">
+        <Link draggable={false} to='/cart' className="flex gap-3 relative items-center px-3 text-sm font-medium text-center text-black rounded-lg focus:outline-none">
           <div className='text-3xl lg:text-4xl'>
             <SlHandbag />
           </div>
@@ -68,7 +68,7 @@ const Header = () => {
         <div className='mb-4 bg-white fixed z-20 w-screen top-0 block transition-all' id='navbar'>
           <SecNavbar />
           <div className='border-b shadow'>
-            <div className='container max-w-[140rem] my-3 px-4 flex items-center justify-between md:px-5'>
+            <div className='container max-w-[120rem] my-3 px-4 flex items-center justify-between md:px-5'>
               <div className='hidden xl:flex'>
                 <Logo />
                 <div className='text-4xl ml-14'>

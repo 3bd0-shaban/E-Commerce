@@ -17,12 +17,12 @@ const SideBarMain = () => {
             <div onClick={() => dispatch(FeaturesAction.Show_HomeSideBar(false))} className={HomeSideBar ? "backdrop opened" : 'backdrop closed'}></div>
             <div className={HomeSideBar ? "sidebar opened" : 'sidebar closed'}>
                 {isFetching ?
-                    <div><div className="animate-pulse p-2 w-80 h-full bg-gray-300 rounded"></div></div>
+                    <div><div className="animate-pulse p-2 w-80 h-full bg-gray-300 select-none rounded"></div></div>
                     : isError ?
                         <>Error while fetching category</>
                         : (
                             <div
-                                className='rounded-xl bg-[#F8F8F8]'>
+                                className='rounded-xl select-none bg-[#F8F8F8]'>
                                 <div className="text-black mt-5 font-light text-xl font-poppins block">
                                     {Category &&
                                         Category?.map((cat) => (
@@ -50,7 +50,7 @@ const SideBarMain = () => {
                                 <>Error while fetching category</>
                                 : (
                                     <>
-                                        <div onClick={() => setShowSub(false)} className='text-3xl mx-3 mt-3 cursor-pointer h-10 w-10 hover:bg-gray-200 focus:bg-gray-300 duration-300 rounded-full flex justify-center items-center'><BsArrowLeftShort /></div><hr />
+                                        <div onClick={() => setShowSub(false)} className='text-3xl select-none mx-3 mt-3 cursor-pointer h-10 w-10 hover:bg-gray-200 focus:bg-gray-300 duration-300 rounded-full flex justify-center items-center'><BsArrowLeftShort /></div><hr />
                                         <div className="font-light text-xl font-poppins block">
                                             <div
                                                 className="text-gray-500 font-light text-xl font-poppins">

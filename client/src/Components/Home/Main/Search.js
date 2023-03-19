@@ -13,7 +13,7 @@ const Search = () => {
     return (
         <>
             <Header />
-            <div className='Container max-w-[140rem] mt-5'>
+            <div className='Container max-w-[120rem] mt-5 select-none'>
                 <div className='grid grid-cols-6'>
                     <div className='col-span-1'></div>
                     <div className='col-span-5'>
@@ -25,13 +25,13 @@ const Search = () => {
                                 <div className='col-span-4'>
                                     <div className='grid grid-cols-5 gap-10'>
                                         <div className='col-span-1 flex justify-center mr-5'>
-                                            <img src={product?.images[0].url} className=' min-w-full mx-auto' alt='' />
+                                            <img draggable={false} src={product?.images[0].url} className=' min-w-full mx-auto' alt='' />
                                         </div>
                                         <div className='col-span-4'>
                                             <div className='xl:col-span-2 '>
                                                 <div className='flex justify-between items-start'>
                                                     <p className='text-xl font-semibold py-3 '>{product?.name}</p>
-                                                    <Link className='fill-black'><CiHeart style={{ fontSize: "2.5rem" }} /></Link>
+                                                    <Link draggable={false} className='fill-black'><CiHeart style={{ fontSize: "2.5rem" }} /></Link>
                                                 </div>
                                                 <hr />
                                                 <div className='flex items-center gap-3'>
@@ -64,7 +64,7 @@ const Search = () => {
                                                 <p className='text-2xl items-center flex text-gray-500 line-through'>$ {product.discountprice}</p>
                                             </div>
                                             <div className='flex items-center justify-center'>
-                                                <Link className='px-28 mt-5 whitespace-nowrap text-center border-4 border-blue-500 py-3 rounded-full font-medium hover:bg-blue-500 focus:ring focus:ring-blue-600 hover:text-white'>Add to Card</Link>
+                                                <Link draggable={false} className='px-28 mt-5 whitespace-nowrap text-center border-4 border-blue-500 py-3 rounded-full font-medium hover:bg-blue-500 focus:ring focus:ring-blue-600 hover:text-white'>Add to Card</Link>
                                             </div>
                                         </div>
                                         :

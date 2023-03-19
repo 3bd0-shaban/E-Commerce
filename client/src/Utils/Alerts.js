@@ -1,8 +1,10 @@
 import React, { useEffect, useState } from 'react'
 import { MdOutlineError } from 'react-icons/md'
 import { IoEyeSharp } from 'react-icons/io5'
-import { useActivateLoggedEmailMutation, useGetUserQuery } from '../Redux/APIs/AuthApi';
-import { Link, useNavigate } from 'react-router-dom';
+import { useActivateLoggedEmailMutation } from '../Redux/APIs/AuthApi';
+import { useNavigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';
+import { selectCurrentUser } from '../Redux/Slices/UserSlice';
 export const Danger = (props) => {
   return (
     <div className={props.className}>
@@ -85,8 +87,8 @@ export const ToastSucces = (props) => {
 };
 export const MessageErrorActivate = (props) => {
   const [ActivateLoggedEmail] = useActivateLoggedEmailMutation();
-  const { data: user } = useGetUserQuery() || {}
   const navigate = useNavigate();
+  const user = useSelector(selectCurrentUser)
   const [email, setEmail] = useState();
   useEffect(() => {
     setEmail(user.email)

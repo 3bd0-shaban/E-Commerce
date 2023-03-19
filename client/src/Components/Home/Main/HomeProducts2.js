@@ -1,7 +1,7 @@
 import React from 'react'
 import { Link } from 'react-router-dom';
 import { SKHomeProducts, ShowRating } from '../../Exports';
-import { Danger } from '../../Alerts';
+import { Danger } from '../../../Utils/Alerts';
 import Slider from "react-slick";
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
@@ -93,21 +93,21 @@ const HomeProducts2 = (props) => {
                     <SKHomeProducts />
                 </div>
                 : error &&
-                <Danger error={error?.data?.msg || 'Can not load products'}/>
+                <Danger error={error?.data?.msg || 'Can not load products'} />
             }
             <Slider {...settings}>
                 {products
                     && products?.map((product) => (
-                        <div key={product._id} className=' product px-3'>
+                        <div key={product._id} className=' product px-3 select-none'>
                             <div className='py-5'>
                                 <div className='grid grid-cols-3 items-center relative overflow-hidden justify-center mx-auto'>
-                                    <Link to={`/product/${product._id}`}>
-                                        <img src={product.images ? product.images[0].url : 'Can not load images'} className='rounded-2xl p-1 object-contain h-32 mx-auto' alt={product.name}></img>
+                                    <Link draggable={false} to={`/product/${product._id}`}>
+                                        <img draggable={false} src={product.images ? product.images[0].url : 'Can not load images'} className='rounded-2xl p-1 object-contain h-32 mx-auto' alt={product.name}></img>
                                     </Link>
                                     {product.stock > 0 &&
                                         <>
                                             <div className='block col-span-2'>
-                                                <Link to={`/product/${product._id}`} className='text-xl hover:text-orange-300 font-semibold ellipse-2'>{product.name}</Link>
+                                                <Link draggable={false} to={`/product/${product._id}`} className='text-xl hover:text-orange-300 font-semibold ellipse-2'>{product.name}</Link>
                                                 <p className='text-xl mt-4 font-semibold text-cyan-600'>{product.price}$</p>
                                                 <div className='flex items-center gap-3'>
                                                     <ShowRating Rating={product.rating} className={'!text-lg gap-1 text-[#FDD901]'} />

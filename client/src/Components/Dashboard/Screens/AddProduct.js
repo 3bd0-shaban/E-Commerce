@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DashHeeder, Sidebar, PreviewImege, AddImage, Category, useTitle, Editor } from '../../Exports'
-import { Success, Danger } from './../../Alerts';
+import { Success, Danger } from '../../../Utils/Alerts';
 import { useCreateProductsMutation } from '../../../Redux/APIs/ProductsApi';
 import { ImSpinner7 } from 'react-icons/im';
 import { useGetBrandQuery } from '../../../Redux/APIs/BrandApi';

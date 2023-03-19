@@ -33,9 +33,9 @@ const Home = () => {
     }
     return (
         <>
-            <div>
+            <div className='select-none'>
                 <Header />
-                <div className='container max-w-full px-0 xl:max-w-[142rem] gap-3'>
+                <div className='container overflow-hidden max-w-full px-0 xl:max-w-[120rem] gap-3'>
                     <div className='flex '>
                         <HomeCategory />
                         <div className='container max-w-full'>
@@ -52,7 +52,7 @@ const Home = () => {
                 </div>
                 <FeaturesCategory />
 
-                <div className='container max-w-full xl:max-w-[140rem] xl:mt-5'>
+                <div className='container max-w-full xl:max-w-[120rem] xl:mt-5'>
 
                     <div className='grid grid-cols-7 xl:mt-10 gap-6'>
                         <div className='col-span-1 hidden xl:block xl:mt-10 space-y-5'>

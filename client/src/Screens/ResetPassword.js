@@ -55,7 +55,7 @@ const ResetPassword = () => {
             <p className='text-2xl font-semibold text-gray-700 my-3'>New Customer</p><hr />
             <div className='my-6'>
               <p className='text-lg text-gray-700'>Creating an acount today to reap the beneits of personalized shopping experince </p>
-              <div className='my-3 font-bold text-blue-600 hover:text-blue-700 hover:underline mt-8'><Link to='/signup' className='w-full'>Create Account</Link></div>
+              <div className='my-3 font-bold text-blue-600 hover:text-blue-700 hover:underline mt-8'><Link draggable={false} to='/signup' className='w-full'>Create Account</Link></div>
             </div>
             <div>
               <p className='text-2xl font-medium text-gray-600'>Sign Up today and you will be able to :</p>

@@ -2,7 +2,7 @@ import React, { useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { ImSpinner7 } from 'react-icons/im'
 import { useGetBrandQuery, useCreateBrandMutation } from '../../../Redux/APIs/BrandApi';
-import { Success, Danger } from './../../Alerts';
+import { Success, Danger } from '../../../Utils/Alerts';
 import { FeaturesAction } from '../../../Redux/Slices/FeaturesSlice';
 import { BrandInfo, AddImage } from '../../Exports';
 const AddBrand = () => {
@@ -43,7 +43,7 @@ const AddBrand = () => {
   const PreviewImeges = (props) => {
     return (
       <>
-        <img className='relative object-cover max-h-40 rounded-lg' src={props.img} alt='' />
+        <img draggable={false} className='relative object-cover max-h-40 rounded-lg' src={props.img} alt='' />
         <button className='text-red-500 font-semibold hover:underline mt-3 ml-auto block' onClick={props.onClick}>Remove Image</button>
       </>
     )
@@ -81,7 +81,7 @@ const AddBrand = () => {
                     <div key={old?._id} onClick={() => dispatch(FeaturesAction.Show_SideBrandInfo())}>
                       <div onClick={() => setId(old?._id)} className='border shadow-sm text-center rounded-lg py-5 cursor-pointer relative'>
                         <div className='py-3 px-5'>
-                          <img src={old?.image.url} alt='' className='w-full h-36 object-contain py-4 mx-auto' /><hr className='my-3' />
+                          <img draggable={false} src={old?.image.url} alt='' className='w-full h-36 object-contain py-4 mx-auto' /><hr className='my-3' />
                           <p className='text-lg font-serif font-semibold text-gray-500 mt-3'>{old?.brand}</p>
                         </div>
                       </div>

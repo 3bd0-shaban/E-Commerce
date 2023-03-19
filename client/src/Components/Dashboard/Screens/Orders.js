@@ -38,11 +38,11 @@ const Orders = () => {
                 <div className='container max-w-full lg:ml-80 mt-24'>
                     <p className='text-5xl font-Rubik '>Orders</p>
                     <div className='flex gap-6 font-light text-xl mt-5'>
-                        <Link to='?page=1' onClick={OpenPending} className={`${pending && 'font-normal border-b-2 border-b-black'}`}>Beneding</Link>
-                        <Link to='?page=1' onClick={OpenShipped} className={`${shipped && 'font-normal border-b-2 border-b-black'}`}>Shipping</Link>
-                        <Link to='?page=1' onClick={OpenDelvered} className={`${delevered && 'font-normal border-b-2 border-b-black'}`}>Delvered</Link>
-                        <Link to='?page=1' onClick={OpenCancelled} className={`${cancelled && 'font-normal border-b-2 border-b-black'}`} >Rejected</Link>
-                        <Link to='?page=1' onClick={OpenAllOrders} className={`${allOrders && 'font-normal border-b-2 border-b-black'}`}>All</Link>
+                        <Link draggable={false} to='?page=1' onClick={OpenPending} className={`${pending && 'font-normal border-b-2 border-b-black'}`}>Beneding</Link>
+                        <Link draggable={false} to='?page=1' onClick={OpenShipped} className={`${shipped && 'font-normal border-b-2 border-b-black'}`}>Shipping</Link>
+                        <Link draggable={false} to='?page=1' onClick={OpenDelvered} className={`${delevered && 'font-normal border-b-2 border-b-black'}`}>Delvered</Link>
+                        <Link draggable={false} to='?page=1' onClick={OpenCancelled} className={`${cancelled && 'font-normal border-b-2 border-b-black'}`} >Rejected</Link>
+                        <Link draggable={false} to='?page=1' onClick={OpenAllOrders} className={`${allOrders && 'font-normal border-b-2 border-b-black'}`}>All</Link>
                     </div>
                     <hr className='mt-3 h-[2px] bg-gray-400 rounded' />
                     <div className='flex justify-end pr-2 md:pr-10 mt-5'>

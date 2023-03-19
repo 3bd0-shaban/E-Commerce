@@ -3,7 +3,7 @@ export const WhitelistApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getWhitelist: builder.query({
             query: () => ({
-                url: '/api/whitelist/get',
+                url: '/api/whitelist/',
                 keepUnusedDataFor: 5,
                 credentials: 'include',
             }),
@@ -11,7 +11,7 @@ export const WhitelistApi = apiSlice.injectEndpoints({
         }),
         addToWhitelist: builder.mutation({
             query: (id) => ({
-                url: `/api/whitelist/new/${id}`,
+                url: `/api/whitelist/${id}`,
                 method: 'POST',
                 credentials: 'include',
             }),
@@ -28,7 +28,7 @@ export const WhitelistApi = apiSlice.injectEndpoints({
         }),
         deleteProductInWhitelist: builder.mutation({
             query: (id) => ({
-                url: `/api/whitelist/delete/${id}`,
+                url: `/api/whitelist/${id}`,
                 method: 'POST',
                 credentials: 'include',
             }),

@@ -7,8 +7,8 @@ import Logo from './Logo';
 const Footer = () => {
     return (
         <>
-            <div className='container px-0 max-w-full shadow-xl bg-[#F9F9F9]'>
-                <div className='mt-12 pt-9 text-gray-500 grid grid-cols-1 xl:grid-cols-3 space-y-5 justify-between items-center container max-w-[140rem]'>
+            <div className='container px-0 max-w-full shadow-xl bg-[#F9F9F9] select-none'>
+                <div className='mt-12 pt-9 text-gray-500 grid grid-cols-1 xl:grid-cols-3 space-y-5 justify-between items-center container max-w-[120rem]'>
                     <div className='flex gap-5 items-center justify-center'>
                         <div className='text-2xl xl:text-6xl'><BsCursor /></div>
                         <div>
@@ -37,7 +37,7 @@ const Footer = () => {
                     </div>
                 </div>
                 <div className=' border-t shadow mt-10'>
-                    <div className='container max-w-[140rem]'>
+                    <div className='container max-w-[120rem]'>
                         <div className='grid grid-cols-2 space-y-8 lg:grid-cols-2 xxl:grid-cols-4 gap-10 py-10'>
                             <div>
                                 <div className='py-2'><Logo /></div>
@@ -54,32 +54,32 @@ const Footer = () => {
                                 </div>
                             </div>
                             <div className='text-gray-500 font-medium text-base md:text-lg'>
-                                <Link className='block py-2'>Laptops, Ultrabooks & Computers</Link>
-                                <Link className='block py-2'>Cameras & Photography</Link>
-                                <Link className='block py-2'>Smart Phones & Tablets</Link>
-                                <Link className='block py-2'>Video Games B Consoles</Link>
-                                <Link className='block py-2'>TV &Audio</Link>
-                                <Link className='block py-2'>Gadgets</Link>
-                                <Link className='block py-2'>Car Electronic & GPS</Link>
+                                <Link draggable={false} className='block py-2'>Laptops, Ultrabooks & Computers</Link>
+                                <Link draggable={false} className='block py-2'>Cameras & Photography</Link>
+                                <Link draggable={false} className='block py-2'>Smart Phones & Tablets</Link>
+                                <Link draggable={false} className='block py-2'>Video Games B Consoles</Link>
+                                <Link draggable={false} className='block py-2'>TV &Audio</Link>
+                                <Link draggable={false} className='block py-2'>Gadgets</Link>
+                                <Link draggable={false} className='block py-2'>Car Electronic & GPS</Link>
                             </div>
                             <div className='text-gray-500 font-medium text-base md:text-lg'>
-                                <Link className='block py-2'>Printer & lnk</Link>
-                                <Link className='block py-2'>Software</Link>
-                                <Link className='block py-2'>Office Supplies</Link>
-                                <Link className='block py-2'>Computer Components</Link>
-                                <Link className='block py-2'>Virtual Reality</Link>
-                                <Link className='block py-2'>Smartwatches</Link>
+                                <Link draggable={false} className='block py-2'>Printer & lnk</Link>
+                                <Link draggable={false} className='block py-2'>Software</Link>
+                                <Link draggable={false} className='block py-2'>Office Supplies</Link>
+                                <Link draggable={false} className='block py-2'>Computer Components</Link>
+                                <Link draggable={false} className='block py-2'>Virtual Reality</Link>
+                                <Link draggable={false} className='block py-2'>Smartwatches</Link>
                             </div>
 
                             <div className='text-gray-500'>
                                 <p>CUSTOMER CAREt</p>
                                 <div className='font-medium text-base md:text-lg'>
-                                    <Link className='block py-2'>My Account</Link>
-                                    <Link className='block py-2'>Track your Order</Link>
-                                    <Link className='block py-2'>Wishlist</Link>
-                                    <Link className='block py-2'>Returns & Exchange</Link>
-                                    <Link className='block py-2'>FAQ</Link>
-                                    <Link className='block py-2'>Product Support</Link>
+                                    <Link draggable={false} className='block py-2'>My Account</Link>
+                                    <Link draggable={false} className='block py-2'>Track your Order</Link>
+                                    <Link draggable={false} className='block py-2'>Wishlist</Link>
+                                    <Link draggable={false} className='block py-2'>Returns & Exchange</Link>
+                                    <Link draggable={false} className='block py-2'>FAQ</Link>
+                                    <Link draggable={false} className='block py-2'>Product Support</Link>
                                 </div>
                             </div>
 

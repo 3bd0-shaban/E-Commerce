@@ -6,7 +6,7 @@ const PreviewImege = (props) => {
         <div className='mb-4'>
             <div className='border rounded-md  py-3 mt-5 w-full flex justify-between'>
                 <div className='flex items-center'>
-                    <img className='h-12 w-12 object-cover mx-3' src={props.img} alt='' />
+                    <img draggable={false} className='h-12 w-12 object-cover mx-3' src={props.img} alt='' />
                     <div>
                         <p>product name</p>
                         <p className='text-xs'>product name</p>

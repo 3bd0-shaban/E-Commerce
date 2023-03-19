@@ -2,9 +2,9 @@ import { AiOutlineHeart } from 'react-icons/ai';
 
 const WhiteListItem = (props) => {
     return (
-        <div key={props.Mykey} className='bg-white shadow rounded-xl relative py-2 my-5'>
+        <div key={props.Mykey} className='bg-white shadow rounded-xl relative select-none py-2 my-5'>
             <div className='flex'>
-                <img className='h-52 m-2 object-cover' src={props.Src} alt=''></img>
+                <img draggable={false} className='h-52 m-2 object-cover' src={props.Src} alt=''></img>
                 <div className=''>
                     <p className='py-3 text-lg'>{props.Name}</p>
                     <div className='absolute bottom-0 mb-10'>

@@ -19,7 +19,7 @@ const WhiteList = () => {
         <div>
             <Header />
             <ToastContainer position="bottom-center" closeOnClick autoClose={1200} hideProgressBar={true} limit={1} />
-            <div className='col-span-2 bg-[#F6F8F9]'>
+            <div className='col-span-2 select-none bg-[#F6F8F9]'>
                 <div className='container max-w-6xl'>
                     <div className=''>
                         <div className='flex justify-center py-4'>
@@ -28,10 +28,10 @@ const WhiteList = () => {
                     </div>
                     <div>
                         {loading ? <p className='text-3xl font-bold flex justify-center items-center'>loading</p> :
-                            Products?.whiteList?.map((child,index) => (
+                            Products?.whiteList?.map((child, index) => (
                                 <div key={index} className='bg-white shadow rounded-xl relative py-2 my-5'>
                                     <div className='flex'>
-                                        <img className='h-52 m-2 object-cover' src={child._id.images[0].url} alt=''></img>
+                                        <img draggable={false} className='h-52 m-2 object-cover' src={child._id.images[0].url} alt=''></img>
                                         <div className=''>
                                             <p className='py-3 text-lg'>{child._id.Name}</p>
                                             <div className='absolute bottom-0 mb-10'>

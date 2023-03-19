@@ -1,8 +1,6 @@
 import React, { useState, useRef, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { useDispatch } from 'react-redux';
 import { useForgetPasswordMutation, useRequestOTP2Mutation, useVerifyEmailMutation, useVerifyEmailtoResestMutation } from '../Redux/APIs/AuthApi';
-import { setCredentials } from '../Redux/Slices/UserSlice';
 import { ImSpinner7 } from 'react-icons/im';
 import { useTitle, Header, Footer } from '../Components/Exports'
 import { BsCheck2 } from 'react-icons/bs';
@@ -11,7 +9,6 @@ import { useSearchParams } from 'react-router-dom';
 const EmailVerify = () => {
     useTitle('Add new Address')
     const navigate = useNavigate();
-    const dispatch = useDispatch();
     const userRef = useRef();
     const [inputs, setInputs] = useState({
         code: '',
@@ -36,8 +33,7 @@ const EmailVerify = () => {
         event.preventDefault();
         const { code } = inputs;
         try {
-            const { accessToken } = await VerifyEmail({ code, email }).unwrap()
-            dispatch(setCredentials({ accessToken }));
+            await VerifyEmail({ code, email }).unwrap()
             localStorage.setItem('persist', true)
             setInputs({ code: '' });
             if (isCartVerify) {
@@ -53,8 +49,7 @@ const EmailVerify = () => {
         event.preventDefault();
         const { code } = inputs;
         try {
-            const { accessToken } = await VerifyEmailtoResest({ code, email }).unwrap()
-            dispatch(setCredentials({ accessToken }));
+            await VerifyEmailtoResest({ code, email }).unwrap()
             localStorage.setItem('persist', true)
             setInputs({ code: '' });
             navigate(`/resetpassword?email=${email}`)
@@ -91,7 +86,7 @@ const EmailVerify = () => {
                         <form className='flex flex-col' onSubmit={isActivate ? SubmitActivateEmail : SubmitVerifingEmailToReset}>
                             <label className='text-lg py-2 font-light font-serif text-gray-500'>OTP :</label>
                             <input type='number' ref={userRef} onChange={handleChange} value={inputs.code} name='code' autoComplete='off' className='inputfield' placeholder='Enter OTP' />
-                            <Link onClick={isActivate ? RequestOTP2Activate : Request2ResetOTP} className='text-blue-800 focus:text-blue-300 text-sm'>Didn't get OTP ?</Link>
+                            <Link draggable={false} onClick={isActivate ? RequestOTP2Activate : Request2ResetOTP} className='text-blue-800 focus:text-blue-300 text-sm'>Didn't get OTP ?</Link>
 
                             <button type='submit' className='btn-primary my-3 !w-1/2 !py-3 !rounded-3xl !mt-8' disabled={isLoading || loading}>
                                 {(isLoading || loading) ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Submit'}</button>
@@ -103,7 +98,7 @@ const EmailVerify = () => {
                         <p className='text-2xl font-semibold text-gray-700 my-3'>New Customer</p><hr />
                         <div className='my-6'>
                             <p className='text-lg text-gray-700'>Creating an acount today to reap the beneits of personalized shopping experince </p>
-                            <div className='my-3 font-bold text-blue-600 hover:text-blue-700 hover:underline mt-8'><Link to='/signup' className='w-full'>Create Account</Link></div>
+                            <div className='my-3 font-bold text-blue-600 hover:text-blue-700 hover:underline mt-8'><Link draggable={false} to='/signup' className='w-full'>Create Account</Link></div>
                         </div>
                         <div>
                             <p className='text-2xl font-medium text-gray-600'>Sign Up today and you will be able to :</p>

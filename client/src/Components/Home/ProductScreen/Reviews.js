@@ -32,9 +32,9 @@ const Reviews = (props) => {
             {Reviews &&
                 <>
                     <ToastContainer position="bottom-center" closeOnClick autoClose={1200} hideProgressBar={true} limit={1} />
-                    <div className='xl:px-32 py-12'>
+                    <div className='xl:px-32 py-12 select-none'>
                         <hr />
-                        <div className='grid grid-cols-1 md:grid-cols-2'>
+                        <div className='grid grid-cols-1 md:grid-cols-2 gap-5'>
                             <div className='text-[4rem]'>
 
                                 <div className='flex items-center py-10 text-yellow-300 text-2xl gap-8'>

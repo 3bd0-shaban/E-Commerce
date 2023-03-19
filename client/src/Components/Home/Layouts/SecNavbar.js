@@ -28,12 +28,12 @@ const SecNavbar = () => {
     const MoblieView = () => {
         return (
             <div className="w-screen block px-4 py-5 z-10 bg-gray-50 space-y-4 font-semibold text-gray-500 uppercase whitespace-nowrap text-lg drop">
-                <Link className="block" >Super Deals</Link>
-                <Link className="block" >New Arrival</Link>
-                <Link className="block" >Hot Products</Link>
-                <Link className="block" >Features Brand</Link>
-                <Link className="block" >Top Sells</Link>
-                <Link to='/dashboard' className="block" >Dashboard</Link>
+                <Link draggable={false} className="block" >Super Deals</Link>
+                <Link draggable={false} className="block" >New Arrival</Link>
+                <Link draggable={false} className="block" >Hot Products</Link>
+                <Link draggable={false} className="block" >Features Brand</Link>
+                <Link draggable={false} className="block" >Top Sells</Link>
+                <Link draggable={false} to='/dashboard' className="block" >Dashboard</Link>
             </div>
         )
     }
@@ -41,7 +41,7 @@ const SecNavbar = () => {
     return (
         <>
             {HomeSideBar && <SideBarMain />}
-            <div className={open ? 'xl:hidden block bg-gray-50' : `xl:hidden block`}>
+            <div className={`select-none ${open ? 'xl:hidden block bg-gray-50' : `xl:hidden block`}`}>
                 <div className="flex items-center justify-between py-1 px-5 text-2xl ">
                     <div className="flex gap-2 items-center">
                         <button onClick={() => dispatch(FeaturesAction.Show_HomeSideBar(true))} className="bg-gray-50 p-2 rounded-3xl hover:bg-gray-100 focus:bg-gray-200 focus:ring focus:ring-gray-200 text-3xl text-gray-500" ><BsList /></button>
@@ -53,21 +53,21 @@ const SecNavbar = () => {
                 </div>
                 {open && < MoblieView />}
             </div>
-            <div className='container max-w-[140rem] px-8 hidden xl:block'>
+            <div className='container max-w-[120rem] px-8 hidden xl:block'>
                 <div className='flex justify-between items-center py-3'>
                     <div className="flex xl:gap-8 xxl:gap-14 font-semibold text-gray-500 uppercase whitespace-nowrap xl:text-base xxl:text-lg">
-                        <Link >Super Deals</Link>
-                        <Link >New Arrival</Link>
-                        <Link >Hot Products</Link>
-                        <Link >Features Brand</Link>
-                        <Link >Top Sells</Link>
-                        <Link to='/dashboard' >Dashboard</Link>
-                        {roles && <Link onClick={HandleLogOut} >{roles}</Link>}
+                        <Link draggable={false} >Super Deals</Link>
+                        <Link draggable={false} >New Arrival</Link>
+                        <Link draggable={false} >Hot Products</Link>
+                        <Link draggable={false} >Features Brand</Link>
+                        <Link draggable={false} >Top Sells</Link>
+                        <Link draggable={false} to='/dashboard' >Dashboard</Link>
+                        {roles && <Link draggable={false} onClick={HandleLogOut} >{roles}</Link>}
                     </div>
                     <div className='text-gray-500 font-light text-center divide-x-2 flex gap-4'>
-                        <Link className="flex gap-1 items-center">Track Your Order</Link>
-                        <Link className="flex gap-1 items-center">$ Dollar (US)</Link>
-                        <Link to='/signin' className="flex gap-1 items-center"><IoPersonOutline />Register Or Sign in</Link>
+                        <Link draggable={false} className="flex gap-1 items-center">Track Your Order</Link>
+                        <Link draggable={false} className="flex gap-1 items-center">$ Dollar (US)</Link>
+                        <Link draggable={false} to='/signin' className="flex gap-1 items-center"><IoPersonOutline />Register Or Sign in</Link>
                     </div>
                 </div>
             </div>

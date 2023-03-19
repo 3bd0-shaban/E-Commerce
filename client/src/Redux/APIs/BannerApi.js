@@ -3,7 +3,7 @@ export const BannerApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getBanner: builder.query({
             query: () => ({
-                url: '/api/banner/get',
+                url: '/api/banner/',
                 credentials: 'include',
                 keepUnusedDataFor: 5,
             }),
@@ -11,7 +11,7 @@ export const BannerApi = apiSlice.injectEndpoints({
         }),
         getBannerTop: builder.query({
             query: () => ({
-                url: '/api/banner/get/top',
+                url: '/api/banner/top',
                 credentials: 'include',
                 keepUnusedDataFor: 5,
             }),
@@ -19,14 +19,14 @@ export const BannerApi = apiSlice.injectEndpoints({
         }),
         getBannerSide: builder.query({
             query: () => ({
-                url: '/api/banner/get/side',
+                url: '/api/banner/side',
                 credentials: 'include',
                 keepUnusedDataFor: 5,
             }),
             providesTags: ['Banner'],
         }),
         getBannerDetails: builder.query({
-            query: (id) => `/api/banner/get/${id}`,
+            query: (id) => `/api/banner/${id}`,
             providesTags: ['Banner'],
         }),
         createBanner: builder.mutation({
@@ -40,7 +40,7 @@ export const BannerApi = apiSlice.injectEndpoints({
         }),
         createTopBanner: builder.mutation({
             query: (data) => ({
-                url: '/api/banner/new/top',
+                url: '/api/banner/top',
                 method: 'POST',
                 credentials: 'include',
                 body: data,
@@ -49,7 +49,7 @@ export const BannerApi = apiSlice.injectEndpoints({
         }),
         createSideBanner: builder.mutation({
             query: (data) => ({
-                url: '/api/banner/new/side',
+                url: '/api/banner/side',
                 method: 'POST',
                 credentials: 'include',
                 body: data,
@@ -58,7 +58,7 @@ export const BannerApi = apiSlice.injectEndpoints({
         }),
         deleteBanner: builder.mutation({
             query: (id) => ({
-                url: `/api/Banner/delete/${id}`,
+                url: `/api/Banner/${id}`,
                 method: 'DELETE',
                 credentials: 'include',
             }),

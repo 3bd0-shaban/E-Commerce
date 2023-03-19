@@ -3,7 +3,7 @@ import { apiSlice } from '../ApiSlice';
 export const IssessApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getIssess: builder.query({
-            query: () => '/api/Issess/get',
+            query: () => '/api/Issess/',
             providesTags: (result, error, arg) =>
                 result
                     ? [...result.map(({ id }) => ({ type: 'Issess', id })), 'Issess']
@@ -11,7 +11,7 @@ export const IssessApi = apiSlice.injectEndpoints({
         }),
         createIssess: builder.mutation({
             query: (data) => ({
-                url: '/api/issess/new',
+                url: '/api/issess/',
                 method: 'POST',
                 credentials: 'include',
                 body: data,
@@ -20,7 +20,7 @@ export const IssessApi = apiSlice.injectEndpoints({
         }),
         deleteIssess: builder.mutation({
             query: (id) => ({
-                url: `/api/issess/delete/${id}`,
+                url: `/api/issess/${id}`,
                 method: 'DELETE',
                 credentials: 'include',
             }),

@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { Danger, Success } from '../../Alerts';
+import { Danger, Success } from '../../../Utils/Alerts';
 import {
     useCreateBannerMutation, useCreateSideBannerMutation, useCreateTopBannerMutation, useDeleteBannerMutation, useGetBannerSideQuery, useGetBannerTopQuery
 } from '../../../Redux/APIs/BannerApi';
@@ -90,7 +90,7 @@ const Addbanner = () => {
                             {props.Loading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Submit'}</button>
                     </div>
                 </form>
-                {props.Preview && <img src={props.Preview} className='py-2' alt='' />}
+                {props.Preview && <img draggable={false} src={props.Preview} className='py-2' alt='' />}
             </>
         )
     }
@@ -129,7 +129,7 @@ const Addbanner = () => {
                                 <div className='grid grid-cols-2 xl:grid-cols-4 gap-5 px-5'>
                                     {topbanner?.map(banner => (
                                         <div key={banner._id} className='h-80 cursor-pointer hover:brightness-50 duration-200 group relative'>
-                                            <img className='w-full object-cover h-[17rem]' src={banner?.banners?.url} alt='' />
+                                            <img draggable={false} className='w-full object-cover h-[17rem]' src={banner?.banners?.url} alt='' />
                                             <div onClick={() => { dispatch(FeaturesAction.Show_Confirm(true)); setID(banner._id) }} className='absolute inset-1/2 top-[30%] z-10 gap-3 items-center w-full text-white font-bold hidden group-hover:flex'>
                                                 <div className='text-2xl text-wihte'>x</div>
                                             </div>
@@ -137,7 +137,7 @@ const Addbanner = () => {
                                     ))}
                                     {Sidebanner?.map(banner => (
                                         <div key={banner._id} className='h-80 cursor-pointer hover:brightness-50 duration-200 group relative'>
-                                            <img className='w-full object-cover h-[17rem]' src={banner?.banners?.url} alt='' />
+                                            <img draggable={false} className='w-full object-cover h-[17rem]' src={banner?.banners?.url} alt='' />
                                             <div onClick={() => { dispatch(FeaturesAction.Show_Confirm(true)); setID(banner._id) }} className='absolute inset-1/2 top-[30%] z-10 gap-3 items-center w-full text-white font-bold hidden group-hover:flex'>
                                                 <div className='text-2xl text-wihte'>x</div>
                                             </div>

@@ -46,7 +46,7 @@ const OrderAdminDetails = () => {
                 <div className='container max-w-full lg:ml-80 mt-24'>
                     <div className='flex gap-1 items-center text-gray-500 font-medium'>
                         <MdBorderColor />
-                        <Link to='/dashboard/orders' className=' hover:underline'>Package</Link>
+                        <Link draggable={false} to='/dashboard/orders' className=' hover:underline'>Package</Link>
                         <BiChevronRight size={25} />
                         <p>Order</p>
                     </div>
@@ -163,7 +163,7 @@ const OrderAdminDetails = () => {
                                         <p>Shipped</p>
                                     </div>
                                 </div>
-                                <Link className='text-red-500 font-medium hover:underline mt-5'>Delete Shippment</Link>
+                                <Link draggable={false} className='text-red-500 font-medium hover:underline mt-5'>Delete Shippment</Link>
                             </div>
                             <div className='border shadow-md p-5 rounded-xl min-h-[35rem]'>
                                 <p className='font-semibold text-xl text-gray-700'>Shipment Timeline</p>

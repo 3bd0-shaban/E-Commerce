@@ -7,7 +7,7 @@ const Mainprofile = () => {
     return (
         <>
             <Header />
-            <div className='container max-w-7xl'>
+            <div className='container select-none max-w-7xl'>
                 <div className='flex'>
                     <SideProfile />
                     <PersonalInfo />

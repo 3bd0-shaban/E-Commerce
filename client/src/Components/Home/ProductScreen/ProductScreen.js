@@ -20,10 +20,10 @@ const ProductScreen = () => {
     return (
       <div className='w-full my-5 py-12 bg-[#F5F5F5]'>
         <div className='text-lg xl:text-2xl font-semibold flex gap-5 xl:gap-16 text-gray-600 items-center whitespace-nowrap px-4 xl:px-32 uppercase'>
-          <Link>related</Link>
-          <Link>DESCRIPTION</Link>
-          <Link>specification</Link>
-          <Link>Reviews ( {productDetails?.numofreviews} )</Link>
+          <Link draggable={false}>related</Link>
+          <Link draggable={false}>DESCRIPTION</Link>
+          <Link draggable={false}>specification</Link>
+          <Link draggable={false}>Reviews ( {productDetails?.numofreviews} )</Link>
         </div>
       </div>
     )
@@ -35,7 +35,7 @@ const ProductScreen = () => {
       <motion.div variants={AnimRoutes}
         initial="initial"
         animate="shown"
-        exit="exit" className='flex container max-w-full xl:max-w-[144rem] gap-5'>
+        exit="exit" className='flex container max-w-full select-none xl:max-w-[120rem] gap-5'>
         <HomeCategory Hight={'h-[54.5rem]'} />
         <div>
           <ProductMainScreen />
@@ -44,8 +44,8 @@ const ProductScreen = () => {
           <Reviews id={id} />
         </div>
       </motion.div>
-      <div className='container max-w-[145rem]'>
-        <div className='conatiner max-w-full xl:max-w-[144rem]'>
+      <div className='container max-w-[120rem]'>
+        <div className='conatiner max-w-full xl:max-w-[120rem]'>
         </div>
         <HomeProducts2 Category={'Revently Viewed'} />
       </div>

@@ -92,7 +92,7 @@ const SetAddress = () => {
                             <input type='text' onChange={handleChange} value={inputs.nearestlandmark} name='nearestlandmark' className='inputfield !w-full' placeholder='Enter nearest landmark' />
                             <button type='submit' className='btn-primary my-3 !w-1/2 !py-3 !rounded-3xl !mt-8' disabled={isLoading}>
                                 {isLoading ? <span className='flex items-center justify-center text-2xl py-1 animate-spin'><ImSpinner7 /> </span> : 'Submit'}</button>
-                            <Link to='/' className='text-blue-800 focus:text-blue-300 text-sm block mx-3 mt-4'>Skip for now ?</Link>
+                            <Link draggable={false} to='/' className='text-blue-800 focus:text-blue-300 text-sm block mx-3 mt-4'>Skip for now ?</Link>
                             {isError && <span className="text-red-500 pb-3 font-poppins font-medium text-center block my-4">{error?.data?.msg}</span>}
 
                         </div>

@@ -2,7 +2,7 @@ import moment from 'moment';
 import React from 'react'
 import { HiOutlineMail } from 'react-icons/hi'
 import { useSelector, useDispatch } from 'react-redux';
-import { useGetUserByIdQuery } from '../../../../Redux/APIs/AuthApi';
+import { useGetUserByIdQuery } from '../../../../Redux/APIs/UserApi';
 import { FeaturesAction } from '../../../../Redux/Slices/FeaturesSlice';
 const UserInfo = (props) => {
     const { isAdmin } = useSelector((state) => state.auth);
