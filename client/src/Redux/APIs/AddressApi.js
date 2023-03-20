@@ -4,7 +4,6 @@ export const AddressApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getAddress: builder.query({
             query: () => '/api/Address/get',
-            keepUnusedDataFor: 5,
             providesTags: (result, error, arg) =>
                 result
                     ? [...result.map(({ id }) => ({ type: 'Address', id })), 'Address']
@@ -12,14 +11,12 @@ export const AddressApi = apiSlice.injectEndpoints({
         }),
         getAddressDetails: builder.query({
             query: (id) => `/api/auth/get/${id}`,
-            keepUnusedDataFor: 5,
             providesTags: ['Address'],
         }),
         Address: builder.mutation({
             query: (data) => ({
                 url: '/api/auth/newaddress',
                 method: 'PUT',
-                credentials: 'include',
                 body: data,
             }),
             invalidatesTags: ['Address'],
@@ -28,7 +25,6 @@ export const AddressApi = apiSlice.injectEndpoints({
             query: (id) => ({
                 url: '/api/auth/delete',
                 method: 'DELETE',
-                credentials: 'include',
             }),
             invalidatesTags: (result, error, arg) => [{ type: 'Address', id: arg.id }],
         }),
@@ -36,7 +32,6 @@ export const AddressApi = apiSlice.injectEndpoints({
             query: (id) => ({
                 url: '/api/auth/delete',
                 method: 'DELETE',
-                credentials: 'include',
             }),
             invalidatesTags: (result, error, arg) => [{ type: 'Address', id: arg.id }],
         }),

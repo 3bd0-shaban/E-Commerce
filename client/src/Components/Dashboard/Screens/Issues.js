@@ -1,15 +1,12 @@
 import React from 'react'
-import { Sidebar, DashHeeder, useTitle } from '../../Exports';
+import {useTitle } from '../../Exports';
 
 const Issues = () => {
   useTitle('Issues - Dashboard');
   return (
     <>
-      <DashHeeder />
-      <div className='flex'>
-        <Sidebar />
-        <div className='container lg:ml-80 mt-24'>
-        </div>
+
+      <div className='container'>
       </div>
     </>
   )

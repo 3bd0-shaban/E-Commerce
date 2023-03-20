@@ -1,13 +1,17 @@
 import React, { useState } from 'react'
 import { SKBanners, Confirm } from '../../Exports';
 import { useDeleteBannerMutation, useGetBannerQuery } from '../../../Redux/APIs/BannerApi';
-// import { AnimatePresence, motion } from 'framer-motion';
-
 import useAuth from './../../../Hooks/useAuth';
 import { useDispatch, useSelector } from 'react-redux';
 import { FeaturesAction } from '../../../Redux/Slices/FeaturesSlice';
-import Slider from 'react-slick';
-import { BsX } from 'react-icons/bs';
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Pagination } from "swiper"; import { BsX } from 'react-icons/bs';
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+
 const Banners = () => {
   const { data: Banners, isLoading: loading } = useGetBannerQuery() || {};
   const dispatch = useDispatch();
@@ -16,13 +20,6 @@ const Banners = () => {
   const [id, setID] = useState('');
   const { isAdmin } = useAuth();
 
-  const settings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1
-  };
   return (
     <>
       {ConfirmModal && <Confirm OnConfirm={() => { deleteBanner(id).unwrap(); dispatch(FeaturesAction.Show_Confirm(true)) }} />}
@@ -37,11 +34,23 @@ const Banners = () => {
               </div>
             }
           </div>
-          <Slider {...settings} className='h-full w-full'>
+          <Swiper
+            slidesPerView={1}
+            speed="500"
+            loop="true"
+            spaceBetween={5}
+            pagination={{
+              clickable: true,
+            }}
+            modules={[Pagination]}
+            className="h-full"
+          >
             {Banners?.map((image) => (
-              <img draggable={false} className='w-full h-full' key={image?._id} src={image.banners.url} alt='' />
+              <SwiperSlide className='h-full' key={image?._id}>
+                <img draggable={false} className='w-full h-full object-cover' src={image.banners.url} alt='' />
+              </SwiperSlide>
             ))}
-          </Slider>
+          </Swiper>
         </div>
       }
     </>

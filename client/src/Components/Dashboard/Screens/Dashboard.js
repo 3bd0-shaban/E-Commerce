@@ -1,38 +1,35 @@
 import React from 'react'
-import { IoIosPeople } from 'react-icons/io'
-import { DashHeeder, Sidebar, Pending, PieChart, LineChart,useTitle } from '../../Exports'
+import { useState } from 'react';
+import { useParams } from 'react-router-dom';
+import {
+    DashHeeder, Sidebar, AddProduct, Charts, Calender, Orders,
+    OrderAdminDetails, Chat, Issues, AllUsers, AllProducts, AddFeatures, useTitle, Overflow
+} from '../../Exports'
 const Dashboard = () => {
     useTitle('Dashboard');
-    const State = (props) => {
-        return (
-            <div className='bg-white rounded-lg py-5 border-[.1px] space-y-4 xl:space-y-10'>
-                <p className='text-lg text-gray-500 font-bold px-3'>{props.Title}</p>
-                <div className='flex justify-between px-6'>
-                    <div className='text-4xl text-green-600'>{props.Icon}</div>
-                    <p className='text-green-500 bg-green-200 px-4 py-1.5 rounded-xl font-semibold'>+10%</p>
-                </div>
-            </div>
-        )
-    }
+    const { dash } = useParams();
+
+    const [sideWidth, setIsSideWidth] = useState('300px');
+    const [sideMargin, setIsSideMargin] = useState('300px');
     return (
         <>
-            <DashHeeder />
-            <div className='flex bg-[#F9FBFC] min-h-screen'>
-                <Sidebar />
-                <div className='container lg:px-1 lg:pr-8 lg:ml-[21.8rem] max-w-full mt-24 '>
-                    <div className='grid grid-cols-2 md:grid-cols-2 xl:grid-cols-4 gap-2 xl:gap-7'>
-                        <State Icon={<IoIosPeople />} Title={'Total visits'} />
-                        <State Icon={<IoIosPeople />} Title={'Total visits'} />
-                        <State Icon={<IoIosPeople />} Title={'Total visits'} />
-                        <State Icon={<IoIosPeople />} Title={'Total visits'} />
-                    </div>
-                    <div className='grid grid-cols-1 lg:grid-cols-3'>
-                        <div className="overflow-x-auto relative shadow-md sm:rounded-lg mt-5 col-span-2">
-                            <Pending />
-                        </div>
-                        {/* <div className='text-7xl h-[25rem]'><PieChart /></div> */}
-                    </div>
-                    {/* <div className='h-[25rem] lg:h-[35rem] lg:w-[70%]'><LineChart /></div> */}
+            <DashHeeder setIsSideMargin={setIsSideMargin} setIsSideWidth={setIsSideWidth} sideMargin={sideMargin} />
+            <div className='pb-24'>
+                <Sidebar sideWidth={sideWidth} />
+            </div>
+            <div className='gap-1 duration-300 container max-w-full' style={{ paddingLeft: `${sideMargin}` }}>
+                <div className='p-5'>
+                    {(dash === 'overflow') && <Overflow />}
+                    {(dash === 'all-users') && <AllUsers />}
+                    {(dash === 'add-product') && <AddProduct />}
+                    {(dash === 'add-feature') && <AddFeatures />}
+                    {(dash === 'all-products') && <AllProducts />}
+                    {(dash === 'charts') && <Charts />}
+                    {(dash === 'calender') && <Calender />}
+                    {(dash === 'orders') && <Orders />}
+                    {(dash === 'order-details') && <OrderAdminDetails />}
+                    {(dash === 'chat') && <Chat />}
+                    {(dash === 'issess') && <Issues />}
                 </div>
             </div>
         </>

@@ -4,24 +4,19 @@ export const BannerApi = apiSlice.injectEndpoints({
         getBanner: builder.query({
             query: () => ({
                 url: '/api/banner/',
-                credentials: 'include',
-                keepUnusedDataFor: 5,
+
             }),
             providesTags: ['Banner'],
         }),
         getBannerTop: builder.query({
             query: () => ({
                 url: '/api/banner/top',
-                credentials: 'include',
-                keepUnusedDataFor: 5,
             }),
             providesTags: ['Banner'],
         }),
         getBannerSide: builder.query({
             query: () => ({
                 url: '/api/banner/side',
-                credentials: 'include',
-                keepUnusedDataFor: 5,
             }),
             providesTags: ['Banner'],
         }),
@@ -33,7 +28,6 @@ export const BannerApi = apiSlice.injectEndpoints({
             query: (data) => ({
                 url: '/api/banner/new',
                 method: 'POST',
-                credentials: 'include',
                 body: data,
             }),
             invalidatesTags: ['Banner'],
@@ -42,7 +36,6 @@ export const BannerApi = apiSlice.injectEndpoints({
             query: (data) => ({
                 url: '/api/banner/top',
                 method: 'POST',
-                credentials: 'include',
                 body: data,
             }),
             invalidatesTags: ['Banner'],
@@ -51,7 +44,6 @@ export const BannerApi = apiSlice.injectEndpoints({
             query: (data) => ({
                 url: '/api/banner/side',
                 method: 'POST',
-                credentials: 'include',
                 body: data,
             }),
             invalidatesTags: ['Banner'],
@@ -60,7 +52,6 @@ export const BannerApi = apiSlice.injectEndpoints({
             query: (id) => ({
                 url: `/api/Banner/${id}`,
                 method: 'DELETE',
-                credentials: 'include',
             }),
             invalidatesTags: (result, error, arg) => [{ type: 'Banner', id: arg.id }],
         }),

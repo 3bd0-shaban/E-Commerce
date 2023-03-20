@@ -38,12 +38,12 @@ const Home = () => {
                 <div className='container overflow-hidden max-w-full px-0 xl:max-w-[120rem] gap-3'>
                     <div className='flex '>
                         <HomeCategory />
-                        <div className='container max-w-full'>
+                        <div className='container px-0 max-w-full'>
                             <div className='grid grid-cols-1 xl:grid-cols-5 gap-5'>
-                                <div className='col-span-4'><Banners /></div>
+                                <div className='col-span-4 h-52 sm:h-auto'><Banners /></div>
                                 <div className='col-span-1 hidden xl:block'><SideBanner /></div>
                             </div>
-                            <div className='mt-5 xl:mt-10'>
+                            <div className='p-3 xl:mt-10'>
                                 <p className='xl:text-3xl font-bold'>Features Brands</p>
                                 <HomeBrands />
                             </div>

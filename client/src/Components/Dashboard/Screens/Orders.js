@@ -32,62 +32,59 @@ const Orders = () => {
     }
     return (
         <>
-            <DashHeeder />
-            <div className='flex'>
-                <Sidebar />
-                <div className='container max-w-full lg:ml-80 mt-24'>
-                    <p className='text-5xl font-Rubik '>Orders</p>
-                    <div className='flex gap-6 font-light text-xl mt-5'>
-                        <Link draggable={false} to='?page=1' onClick={OpenPending} className={`${pending && 'font-normal border-b-2 border-b-black'}`}>Beneding</Link>
-                        <Link draggable={false} to='?page=1' onClick={OpenShipped} className={`${shipped && 'font-normal border-b-2 border-b-black'}`}>Shipping</Link>
-                        <Link draggable={false} to='?page=1' onClick={OpenDelvered} className={`${delevered && 'font-normal border-b-2 border-b-black'}`}>Delvered</Link>
-                        <Link draggable={false} to='?page=1' onClick={OpenCancelled} className={`${cancelled && 'font-normal border-b-2 border-b-black'}`} >Rejected</Link>
-                        <Link draggable={false} to='?page=1' onClick={OpenAllOrders} className={`${allOrders && 'font-normal border-b-2 border-b-black'}`}>All</Link>
-                    </div>
-                    <hr className='mt-3 h-[2px] bg-gray-400 rounded' />
-                    <div className='flex justify-end pr-2 md:pr-10 mt-5'>
-                        <form >
-                            <div className="relative">
-                                <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none font-extralight text-2xl text-gray-400">
-                                    <MdOutlineSearch />
-                                </div>
-                                <input type="search" className="Searchbar !border" placeholder="Search" required="" />
-                            </div>
-                        </form>
-                    </div>
 
-                    <AnimatePresence>
-                        {
-                            pending &&
-                            <Pending />
-                        }
-                    </AnimatePresence>
-                    <AnimatePresence>
-                        {
-                            shipped &&
-                            <Shipped />
-                        }
-                    </AnimatePresence>
-                    <AnimatePresence>
-                        {
-                            delevered &&
-                            <Delevered />
-
-                        }
-                    </AnimatePresence>
-                    <AnimatePresence>
-                        {
-                            cancelled &&
-                            <Cancelled />
-                        }
-                    </AnimatePresence>
-                    <AnimatePresence>
-                        {
-                            allOrders &&
-                            <AllOrders />
-                        }
-                    </AnimatePresence>
+            <div className='container max-w-full'>
+                <p className='text-5xl font-Rubik '>Orders</p>
+                <div className='flex gap-6 font-light text-xl mt-5'>
+                    <Link draggable={false} to='?page=1' onClick={OpenPending} className={`${pending && 'font-normal border-b-2 border-b-black'}`}>Beneding</Link>
+                    <Link draggable={false} to='?page=1' onClick={OpenShipped} className={`${shipped && 'font-normal border-b-2 border-b-black'}`}>Shipping</Link>
+                    <Link draggable={false} to='?page=1' onClick={OpenDelvered} className={`${delevered && 'font-normal border-b-2 border-b-black'}`}>Delvered</Link>
+                    <Link draggable={false} to='?page=1' onClick={OpenCancelled} className={`${cancelled && 'font-normal border-b-2 border-b-black'}`} >Rejected</Link>
+                    <Link draggable={false} to='?page=1' onClick={OpenAllOrders} className={`${allOrders && 'font-normal border-b-2 border-b-black'}`}>All</Link>
                 </div>
+                <hr className='mt-3 h-[2px] bg-gray-400 rounded' />
+                <div className='flex justify-end pr-2 md:pr-10 mt-5'>
+                    <form >
+                        <div className="relative">
+                            <div className="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none font-extralight text-2xl text-gray-400">
+                                <MdOutlineSearch />
+                            </div>
+                            <input type="search" className="Searchbar !border" placeholder="Search" required="" />
+                        </div>
+                    </form>
+                </div>
+
+                <AnimatePresence>
+                    {
+                        pending &&
+                        <Pending />
+                    }
+                </AnimatePresence>
+                <AnimatePresence>
+                    {
+                        shipped &&
+                        <Shipped />
+                    }
+                </AnimatePresence>
+                <AnimatePresence>
+                    {
+                        delevered &&
+                        <Delevered />
+
+                    }
+                </AnimatePresence>
+                <AnimatePresence>
+                    {
+                        cancelled &&
+                        <Cancelled />
+                    }
+                </AnimatePresence>
+                <AnimatePresence>
+                    {
+                        allOrders &&
+                        <AllOrders />
+                    }
+                </AnimatePresence>
             </div>
         </>
     )

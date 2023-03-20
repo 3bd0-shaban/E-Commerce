@@ -4,7 +4,6 @@ export const BrandApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getBrand: builder.query({
             query: () => '/api/brand/',
-            keepUnusedDataFor: 5,
             providesTags: (result, error, arg) =>
                 result
                     ? [...result.map(({ id }) => ({ type: 'Brand', id })), 'Brand']
@@ -12,14 +11,12 @@ export const BrandApi = apiSlice.injectEndpoints({
         }),
         getBrandDetails: builder.query({
             query: (id) => `/api/brand/${id}`,
-            keepUnusedDataFor: 5,
             // providesTags: ['Brand'],
         }),
         createBrand: builder.mutation({
             query: (data) => ({
                 url: '/api/brand/',
                 method: 'POST',
-                credentials: 'include',
                 body: data,
             }),
             invalidatesTags: ['Brand'],
@@ -28,7 +25,6 @@ export const BrandApi = apiSlice.injectEndpoints({
             query: ({ data, id }) => ({
                 url: `/api/brand/${id}`,
                 method: 'PUT',
-                credentials: 'include',
                 body: data,
             }),
             invalidatesTags: ['Brand'],
@@ -37,7 +33,6 @@ export const BrandApi = apiSlice.injectEndpoints({
             query: (id) => ({
                 url: `/api/brand/${id}`,
                 method: 'DELETE',
-                credentials: 'include',
             }),
             invalidatesTags: (result, error, arg) => [{ type: 'Brand', id: arg.id }],
         }),

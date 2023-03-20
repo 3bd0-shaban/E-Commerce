@@ -64,7 +64,7 @@ const Header = () => {
   }
   return (
     <>
-      <div className='pb-[10rem]'>
+      <div className='pb-32 lg:pb-[10rem]'>
         <div className='mb-4 bg-white fixed z-20 w-screen top-0 block transition-all' id='navbar'>
           <SecNavbar />
           <div className='border-b shadow'>

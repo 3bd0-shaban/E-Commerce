@@ -2,80 +2,17 @@ import React from 'react'
 import { Link } from 'react-router-dom';
 import { SKHomeProducts, ShowRating } from '../../Exports';
 import { Danger } from '../../../Utils/Alerts';
-import Slider from "react-slick";
-import 'slick-carousel/slick/slick.css';
-import 'slick-carousel/slick/slick-theme.css';
 import { useGetProductsQuery } from '../../../Redux/APIs/ProductsApi'
+import { Swiper, SwiperSlide } from "swiper/react";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+
+
+// import required modules
 const HomeProducts2 = (props) => {
     const { data: products, isLoading: loading, error } = useGetProductsQuery() || {};
-
-    const settings = {
-        dots: true,
-        infinite: true,
-        speed: 500,
-        slidesToShow: 5,
-        slidesToScroll: 1,
-        initialSlide: 0,
-        customPaging: i => (
-            <div className='bg-gray-400 rounded-full w-2 h-2'></div>
-        ),
-        responsive: [
-            {
-                breakpoint: 1600,
-                settings: {
-                    slidesToShow: 5,
-                    slidesToScroll: 5,
-                    infinite: true,
-                }
-            },
-            {
-                breakpoint: 1400,
-                settings: {
-                    slidesToShow: 5,
-                    slidesToScroll: 5,
-                    infinite: true,
-                }
-            },
-            {
-                breakpoint: 1200,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 4,
-                    infinite: true,
-                }
-            },
-            {
-                breakpoint: 992,
-                settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 4,
-                    infinite: true,
-                    autoplay: true,
-                    arrows: false,
-                }
-            },
-            {
-                breakpoint: 768,
-                settings: {
-                    slidesToShow: 3,
-                    slidesToScroll: 3,
-                    initialSlide: 2,
-                    autoplay: false,
-                    arrows: false,
-                }
-            },
-            {
-                breakpoint: 567,
-                settings: {
-                    slidesToShow: 2,
-                    slidesToScroll: 2,
-                    infinite: true,
-                    autoplay: false,
-                    arrows: false,
-                }
-            }
-        ]
-    };
     return (
         <>
             <div className='flex items-center mt-16 gap-3'>
@@ -95,10 +32,26 @@ const HomeProducts2 = (props) => {
                 : error &&
                 <Danger error={error?.data?.msg || 'Can not load products'} />
             }
-            <Slider {...settings}>
+            <Swiper
+                slidesPerView={2}
+                breakpoints={{
+                    567: {
+                        slidesPerView: 3,
+
+                    },
+                    768: {
+                        slidesPerView: 4,
+                    },
+                    992: {
+                        slidesPerView: 4,
+                    },
+                    1600: {
+                        slidesPerView: 6,
+                    },
+                }}>
                 {products
                     && products?.map((product) => (
-                        <div key={product._id} className=' product px-3 select-none'>
+                        <SwiperSlide key={product._id} className=' product px-3 select-none'>
                             <div className='py-5'>
                                 <div className='grid grid-cols-3 items-center relative overflow-hidden justify-center mx-auto'>
                                     <Link draggable={false} to={`/product/${product._id}`}>
@@ -118,10 +71,10 @@ const HomeProducts2 = (props) => {
                                     }
                                 </div>
                             </div>
-                        </div>
+                        </SwiperSlide>
                     )
                     )}
-            </Slider>
+            </Swiper>
         </>
     )
 }

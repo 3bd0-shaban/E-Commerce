@@ -7,7 +7,7 @@
     theme: {
       container: {
         center: true,
-        padding: '1.2rem',
+        padding: '5px',
       },
       extend: {
         colors: {
