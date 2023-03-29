@@ -43,7 +43,6 @@ export { default as ModalConfirm } from './Dashboard/Layouts/Sub_Layouts/ModalCo
 export { default as AllUsers } from './Dashboard/Screens/All_Users';
 export { default as Charts } from './Dashboard/Screens/Charts';
 export { default as Orders } from './Dashboard/Screens/Orders';
-export { default as Chat } from './Dashboard/Screens/Chat';
 export { default as Issues } from './Dashboard/Screens/Issues';
 export { default as AddProduct } from './Dashboard/Screens/AddProduct';
 

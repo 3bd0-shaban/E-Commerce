@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { useParams } from 'react-router-dom';
 import {
     DashHeeder, Sidebar, AddProduct, Charts, Calender, Orders,
-    OrderAdminDetails, Chat, Issues, AllUsers, AllProducts, AddFeatures, useTitle, Overflow
+    OrderAdminDetails, Issues, AllUsers, AllProducts, AddFeatures, useTitle, Overflow, MainChat
 } from '../../Exports'
 const Dashboard = () => {
     useTitle('Dashboard');
@@ -14,7 +14,7 @@ const Dashboard = () => {
     return (
         <>
             <DashHeeder setIsSideMargin={setIsSideMargin} setIsSideWidth={setIsSideWidth} sideMargin={sideMargin} />
-            <div className='pb-24'>
+            <div className='pb-20'>
                 <Sidebar sideWidth={sideWidth} />
             </div>
             <div className='gap-1 duration-300 container max-w-full' style={{ paddingLeft: `${sideMargin}` }}>
@@ -28,7 +28,7 @@ const Dashboard = () => {
                     {(dash === 'calender') && <Calender />}
                     {(dash === 'orders') && <Orders />}
                     {(dash === 'order-details') && <OrderAdminDetails />}
-                    {(dash === 'chat') && <Chat />}
+                    {(dash === 'chat') && <MainChat />}
                     {(dash === 'issess') && <Issues />}
                 </div>
             </div>

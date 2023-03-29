@@ -46,7 +46,7 @@ const Messages = () => {
         )
     }
     return (
-        <div className='container px-0 md:pt-5 xl:pt-0 md:px-2 max-w-full'>
+        <div className='container -py-5 max-w-full'>
             <div className='grid grid-cols-4 gap-5 h-[85vh]'>
                 {(!chatId || !mobile) &&
                     <div className='sm:shadow-[.2px_.2px_3px_1px] sm:shadow-gray-200 overflow-hidden rounded-xl col-span-4 lg:col-span-4 xxl:col-span-1 h-screen md:h-[90vh]'>
