@@ -1,8 +1,6 @@
-import "@styles/globals.css";
+import "../styles/globals.css";
 import { Inter } from "next/font/google";
 import Providers from "@app/Providers";
-import Header from "@Components/app/Header";
-import Footer from "@Components/app/Footer";
 import Toast from "@lib/Toast";
 
 export const metadata = {
