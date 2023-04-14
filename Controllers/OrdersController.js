@@ -19,7 +19,10 @@ export const Add_NEW_Order = asyncHandler(async (req, res, next) => {
         purchaseprice += CartProducts.items[i].quentity * CartProducts.items[i].product_Id.price;
     }
     const saved = await new Orders({
-        user: req.user._id, address: defaultAddress, PhoneNumber: defaultAddress.PhoneNumber, orderitems: CartProducts.items,
+        user: req.user._id,
+        address: defaultAddress,
+        PhoneNumber: defaultAddress.PhoneNumber,
+        orderitems: CartProducts.items,
         totalPrice: purchaseprice
     }).save()
     if (!saved) {
@@ -49,7 +52,7 @@ export const Fetch_Order_Details = asyncHandler(async (req, res, next) => {
     const userOrder = await Orders.findById(req.params.id)
         .populate('orderitems.product_Id', 'name des price images')
         .populate('user', 'firstname lastname email');
-        console.log(userOrder.orderitems[0].product_Id)
+    console.log(userOrder.orderitems[0].product_Id)
     return res.json(userOrder);
 });
 export const Fetch_Notprocessed_Orders = asyncHandler(async (req, res, next) => {

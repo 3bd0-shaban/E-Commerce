@@ -8,14 +8,14 @@ import send_Email from '../Utils/sendEmail.js';
 
 
 export const SignUp = asyncHandler(async (req, res, next) => {
-    const { email, password, confirmpassword, firstname, lastname } = req.body;
-    if (!email || !password || !confirmpassword || !firstname || !lastname) {
+    const { email, password, passwordConfirm, firstname, lastname } = req.body;
+    if (!email || !password || !passwordConfirm || !firstname || !lastname) {
         return next(new ErrorHandler('Please Fill All Fields', 400));
     }
     if (password.lenght <= 6) {
         return next(new ErrorHandler('Passowrd must be more than 6 characters', 400));
     }
-    if (password !== confirmpassword) {
+    if (password !== passwordConfirm) {
         return next(new ErrorHandler('Passwords do not match', 400));
     }
     if (!validateEmail(email)) {
@@ -100,7 +100,7 @@ export const SignIn = asyncHandler(async (req, res, next) => {
                 return next(new ErrorHandler('Invalid Email Or Password', 400));;
             }
         }
-        const accessToken = createAccessToken({ id: user.id, roles: user.roles });
+        const token = createAccessToken({ id: user.id, roles: user.roles });
         const refresh_Token = createRefreshToken({ id: user._id, roles: user.roles });
         res.cookie('Jwt', refresh_Token, {
             httpOnly: true,
@@ -109,7 +109,7 @@ export const SignIn = asyncHandler(async (req, res, next) => {
             expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7d
             sameSite: 'none'
         });
-        return res.json({ msg: 'successfully Logged In', accessToken, user });
+        return res.json({ msg: 'successfully Logged In', token, user });
     }
 })
 export const RefreshToken = asyncHandler(async (req, res, next) => {
@@ -121,9 +121,9 @@ export const RefreshToken = asyncHandler(async (req, res, next) => {
     if (!auth) {
         return next(new ErrorHandler('Authorization Failed, Please Log In Again', 400));
     }
-    const accessToken = createAccessToken({ id: auth.id, roles: auth.roles });
+    const token = createAccessToken({ id: auth.id, roles: auth.roles });
     const user = await Users.findOne({ _id: auth.id })
-    return res.json({ accessToken, user })
+    return res.json({ token, user })
 });
 
 export const logout = asyncHandler((req, res, next) => {
@@ -182,11 +182,11 @@ export const ResetPassword = asyncHandler(async (req, res, next) => {
     if (!req.app.locals.resetsession) {
         return next(new ErrorHandler('Session Expired !', 400));
     }
-    const { password, confirmpassword, email } = req.body;
-    if (!password || !confirmpassword) {
+    const { password, passwordConfirm, email } = req.body;
+    if (!password || !passwordConfirm) {
         return next(new ErrorHandler('Fill all fields'), 400)
     }
-    if (password !== confirmpassword) {
+    if (password !== passwordConfirm) {
         return next(new ErrorHandler('Passwords do not match'), 400);
     }
     if (password.lenght <= 6) {
