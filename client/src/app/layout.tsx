@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "./globals.css";
 import { Inter } from "next/font/google";
 import Providers from "@app/Providers";
 import Toast from "@lib/Toast";
