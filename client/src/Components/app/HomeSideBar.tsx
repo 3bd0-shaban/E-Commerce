@@ -5,17 +5,14 @@ import { FeaturesAction } from '@Redux/Slices/FeaturesSlice';
 import { BiChevronRight } from 'react-icons/bi';
 import { BsArrowLeftShort } from 'react-icons/bs';
 import { useAppDispatch, useAppSelector } from '@Hooks/useRedux';
+import { subCategoryType } from '@lib/types/category';
 
-interface SubCategoryProps {
-    _id?: string;
-    nameOfSub: string;
-}
-export default function SideBarMain(){
+export default function SideBarMain() {
 
     const dispatch = useAppDispatch();
     const { HomeSideBar } = useAppSelector(state => state.Features)
     const { data: Category, isFetching, isError } = useGetCategoryQuery() || {};
-    const [SubCat, setSubCat] = useState<SubCategoryProps[]>();
+    const [SubCat, setSubCat] = useState<subCategoryType[]>();
     const [showsub, setShowSub] = useState<Boolean>(false);
     return (
         HomeSideBar &&
@@ -35,7 +32,7 @@ export default function SideBarMain(){
                                 <div className="text-black mt-5 font-light text-xl font-poppins block">
                                     {Category?.map((cat) => (
                                         <div key={cat._id}
-                                            onClick={() => { setSubCat(cat.subcategory); setShowSub(true) }}
+                                            onClick={() => { setSubCat(cat?.subcategory as subCategoryType[]); setShowSub(true) }}
                                             className="py-2 px-6 w-80 font-semibold text-gray-700 cursor-pointer">
                                             <div className="flex justify-between">
                                                 <p className="mb-3 relative">{cat.category}</p>

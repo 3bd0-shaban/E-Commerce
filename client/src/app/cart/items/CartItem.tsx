@@ -23,20 +23,20 @@ const CartItem: React.FC<{ item: cartItem }> = ({ item }) => {
     const [Decrement] = useDecrementMutation();
     const [deleteItemInCart] = useDeleteItemInCartMutation();
 
-    const IncrementHandler = async (id: string) => {
-        await Increment({ id }).unwrap()
-            .then((payload) => toast.success(payload.msg))
-            .catch((error) => toast.error(error.data.msg));
+    const IncrementHandler = async (product_Id: string) => {
+        await Increment({ product_Id }).unwrap()
+            .then((payload) => toast.success(payload.message))
+            .catch((error) => toast.error(error.data.message));
     };
-    const DecrementHandler = async (id: string) => {
-        await Decrement({ id }).unwrap()
-            .then((payload) => toast.success(payload.msg))
-            .catch((error) => toast.error(error.data.msg));
+    const DecrementHandler = async (product_Id: string) => {
+        await Decrement({ product_Id }).unwrap()
+            .then((payload) => toast.success(payload.message))
+            .catch((error) => toast.error(error.data.message));
     }
-    const DeleteItemHandler = async (id: string) => {
-        await deleteItemInCart({ id }).unwrap()
-            .then((payload) => toast.success(payload.msg))
-            .catch((error) => toast.error(error.data.msg));
+    const DeleteItemHandler = async (product_Id: string) => {
+        await deleteItemInCart({ product_Id }).unwrap()
+            .then((payload) => toast.success(payload.message))
+            .catch((error) => toast.error(error.data.message));
     }
     return (
         <div key={item._id}>
@@ -47,7 +47,7 @@ const CartItem: React.FC<{ item: cartItem }> = ({ item }) => {
                         height={200}
                         width={200}
                         draggable={false} className='h-52 m-2 object-cover'
-                        src={item.product_Id?.images[0].url}
+                        src={item.product_Id?.images[0].url as string}
                         alt=''
                     >
                     </Image>
@@ -60,13 +60,13 @@ const CartItem: React.FC<{ item: cartItem }> = ({ item }) => {
                                     <div className='flex items-center gap-3'>
                                         <label>Select Quentity</label>
                                         <button
-                                            onClick={() => IncrementHandler(item.product_Id._id)}
+                                            onClick={() => IncrementHandler(item.product_Id._id as string)}
                                             className='text-3xl font-semibold'>
                                             +
                                         </button>
                                         <div className='p-2 borber'>{item.quentity}</div>
                                         <button
-                                            onClick={() => DecrementHandler(item.product_Id?._id)}
+                                            onClick={() => DecrementHandler(item.product_Id?._id as string)}
                                             className='text-3xl font-semibold'>
                                             -
                                         </button>
@@ -74,7 +74,7 @@ const CartItem: React.FC<{ item: cartItem }> = ({ item }) => {
                                 </div>
                                 <div className='flex gap-3'>
                                     <button
-                                        onClick={() => DeleteItemHandler(item.product_Id?._id)}
+                                        onClick={() => DeleteItemHandler(item.product_Id?._id as string)}
                                         className='text-teal-800 font-semibold'>
                                         Remove
                                     </button>

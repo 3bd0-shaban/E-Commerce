@@ -1,7 +1,8 @@
 'use client';
 import React, { useEffect, useRef, FC, useState } from 'react'
 import { AiFillFacebook } from 'react-icons/ai';
-import { useSigninMutation } from '@Redux/APIs/AuthApi';
+import { useSigninUserMutation } from '@Redux/APIs/AuthApi';
+import { signIn } from "next-auth/react"
 import { ImSpinner7 } from 'react-icons/im';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
@@ -23,26 +24,25 @@ const Form: FC = ({ }) => {
     }: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
         setInputs({ ...inputs, [input.name]: input.value });
     };
-    const [signin, { isLoading, isError, error }] = useSigninMutation();
+    const [SigninUser, { isLoading, isError, error }] = useSigninUserMutation();
     useEffect(() => {
         userRef.current?.focus()
     }, []);
-    const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
+    const SubmitSignIn = async (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const { email, password } = inputs;
-        const data = { email, password }
-        await signin(data).unwrap()
+        await SigninUser({ email, password }).unwrap()
             .then(() => {
-                router.push('/')
-                setInputs({ email: '', password: '' });
-            }).catch((err: any) => {
-                console.log(err)
+                signIn("credentials", {
+                    email,
+                    password,
+                })
             })
     }
 
 
     return (
-        <form className='flex flex-col my-4' onSubmit={handleSubmit}>
+        <form className='flex flex-col my-4' onSubmit={SubmitSignIn}>
             <label className='text-sm text-gray-500 font-medium text-start my-1'>Your Email</label>
             <input
                 type='email'

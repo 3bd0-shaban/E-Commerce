@@ -3,7 +3,7 @@ import React, { useEffect, useRef, FC, useState } from 'react'
 import { ImSpinner7 } from 'react-icons/im'
 import { useResetPasswordMutation } from '@Redux/APIs/AuthApi';
 import GetError from '@lib/GetError';
-import { usePathname, useRouter } from 'next/navigation';
+import { useParams, usePathname, useRouter } from 'next/navigation';
 import Link from 'next/link';
 interface Inputs {
     password: string;
@@ -11,8 +11,8 @@ interface Inputs {
 }
 const Form: FC = ({ }) => {
     const router = useRouter();
-    const path = usePathname();
-    const token = path.split('/')[3]
+    const params = useParams() as { token: string };
+    const token = params.token;
     const userRef = useRef<HTMLInputElement>(null);
     const [inputs, setInputs] = useState<Inputs>({
         password: '',

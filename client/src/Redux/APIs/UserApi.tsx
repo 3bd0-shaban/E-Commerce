@@ -1,10 +1,11 @@
 'use client';
+import { userType } from '@lib/types/user';
 import { apiSlice } from '../ApiSlice';
 export const UserApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         Search: builder.query({
             query: ({ keyword, pagnum }) => ({
-                url: `/api/user/search?keyword=${keyword}&page=${pagnum}`,
+                url: `/api/auth/search?keyword=${keyword}&page=${pagnum}`,
                 method: 'GET',
                 credentials: 'include',
             }),
@@ -12,50 +13,57 @@ export const UserApi = apiSlice.injectEndpoints({
         }),
         getUserById: builder.query({
             query: (username) => ({
-                url: `/api/user/get/${username}`,
+                url: `/api/auth/get/${username}`,
                 credentials: 'include',
             }),
             providesTags: ['Auth'],
         }),
-        getUser: builder.query({
+        getAllUsers: builder.query<{ status: string, results: number; users: userType[] }, void>({
             query: () => ({
-                url: '/api/user/info',
+                url: '/api/auth/getall',
                 method: 'GET',
                 credentials: 'include',
             }),
             providesTags: ['Auth'],
         }),
-        Suggestion: builder.query({
-            query: () => ({
-                url: '/api/user/suggestion',
-                method: 'GET',
-                credentials: 'include',
-            }),
-            // providesTags: ['Auth'],
-        }),
-        getAllUsers: builder.query({
-            query: () => ({
-                url: '/api/user/getall',
+        getAdmins: builder.query<{ status: string, results: number; users: userType[] }, { page: number }>({
+            query: ({ page }) => ({
+                url: `/api/auth/admins?=page${page}`,
                 method: 'GET',
                 credentials: 'include',
             }),
             providesTags: ['Auth'],
         }),
-        FollowersList: builder.query({
-            query: (id) => ({
-                url: `/api/user/fowllowerslist/${id}`,
+        getMoreAdmins: builder.query<{ status: string, results: number; users: userType[] }, { page: number }>({
+            query: ({ page }) => ({
+                url: `/api/auth/admins?=page${page}`,
                 method: 'GET',
                 credentials: 'include',
             }),
             providesTags: ['Auth'],
-        }),
-        FollowingList: builder.query({
-            query: (id) => ({
-                url: `/api/user/followinglist/${id}`,
-                method: 'GET',
-                credentials: 'include',
-            }),
-            providesTags: ['Auth'],
+
+            async onQueryStarted(args, { queryFulfilled, dispatch }) {
+                try {
+
+                    const { data } = await queryFulfilled;
+
+                    dispatch(
+                        UserApi.util.updateQueryData("getAdmins", { page: 1 }, (draft) => {
+                            return {
+                                users: [
+                                    ...draft.users,
+                                    ...data.users,
+                                ],
+                                results: data.results,
+                                status: data.status,
+                            };
+                        })
+                    );
+                } catch (err) {
+                    console.log(err)
+                }
+            },
+
         }),
         DeleteUser: builder.mutation({
             query: (id) => ({
@@ -91,38 +99,6 @@ export const UserApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['Auth'],
         }),
-        Block: builder.mutation({
-            query: (id) => ({
-                url: `/api/user/block/${id}`,
-                method: 'PUT',
-                credentials: 'include',
-            }),
-            invalidatesTags: ['Auth'],
-        }),
-        UnBlock: builder.mutation({
-            query: (id) => ({
-                url: `/api/user/block/${id}`,
-                method: 'PUT',
-                credentials: 'include',
-            }),
-            invalidatesTags: ['Auth'],
-        }),
-        Follow: builder.mutation({
-            query: (id) => ({
-                url: `/api/user/follow/${id}`,
-                method: 'PUT',
-                credentials: 'include',
-            }),
-            invalidatesTags: ['Auth'],
-        }),
-        UnFollow: builder.mutation({
-            query: (id) => ({
-                url: `/api/user/unfollow/${id}`,
-                method: 'PUT',
-                credentials: 'include',
-            }),
-            invalidatesTags: ['Auth'],
-        }),
     }),
 
 });
@@ -133,14 +109,7 @@ export const {
     useUpdateUserInfoMutation,
     useUpdateUserRoleMutation,
     useUpdateProfilePicMutation,
-    useFollowersListQuery,
-    useFollowingListQuery,
-    useFollowMutation,
-    useUnFollowMutation,
-    useSuggestionQuery,
     useGetUserByIdQuery,
+    useGetAdminsQuery,
     useGetAllUsersQuery,
-    useGetUserQuery,
-    useBlockMutation,
-    useUnBlockMutation,
 } = UserApi;

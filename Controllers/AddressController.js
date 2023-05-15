@@ -13,14 +13,14 @@ export const SetNewAddress = asyncHandler(async (req, res, next) => {
                 address: {city, state, zipCode, PhoneNumber, area, nearestlandmark, street, floor, isDefault: true}
             },
             { new: true });
-        return res.json({ msg: 'Added New Address' });
+        return res.json({ message: 'Added New Address' });
     } else {
         await Users.findByIdAndUpdate({ _id: req.user.id }, {
             $push: {
                 address: req.body
             }
         }, { new: true });
-        return res.json({ msg: 'Added New Address' });
+        return res.json({ message: 'Added New Address' });
     }
 });
 
@@ -34,7 +34,7 @@ export const Delete_All_Address = asyncHandler(async (req, res, next) => {
         runValidators: true,
         useFindAndModify: false,
     });
-    return res.json({ msg: 'All Address deleted successfully' });
+    return res.json({ message: 'All Address deleted successfully' });
 });
 
 export const Delete_Spacific_Address = asyncHandler(async (req, res, next) => {
@@ -46,5 +46,5 @@ export const Delete_Spacific_Address = asyncHandler(async (req, res, next) => {
             address: req.body._id
         }
     }, { new: true, });
-    return res.json({ msg: ' Address deleted ' });
+    return res.json({ message: ' Address deleted ' });
 })

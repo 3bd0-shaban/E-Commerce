@@ -36,12 +36,12 @@ export const SignUp = asyncHandler(async (req, res, next) => {
             .then(newuser => {
 
                 send_Email(email, 'Here is the OTP to recover your account, please do not share it with anyone', req.app.locals.OTP)
-                return res.json({ msg: 'Account Created successfully , Please activate your acount' });
+                return res.json({ message: 'Account Created successfully , Please activate your acount' });
 
-                // return res.json({ msg: 'Account Created successfully' });
+                // return res.json({ message: 'Account Created successfully' });
             })
             .catch(err => {
-                return res.status(400).json({ msg: err.message });
+                return res.status(400).json({ message: err.message });
             })
     }
 });
@@ -63,7 +63,7 @@ export const activateEmail = asyncHandler(async (req, res, next) => {
                 expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7d
                 sameSite: 'none'
             });
-            return res.json({ msg: "Your email verified successfully", accessToken })
+            return res.json({ message: "Your email verified successfully", accessToken })
         }
         return next(new ErrorHandler('Invalid OTP !', 400));
 
@@ -77,7 +77,7 @@ export const Request2OTPActivate = asyncHandler(async (req, res, next) => {
     req.app.locals.OTP = await otpGenerator.generate(6, { lowerCaseAlphabets: false, upperCaseAlphabets: false, specialChars: false });
     send_Email(email, 'Here is the OTP to recover your account, please do not share it with anyone', req.app.locals.OTP)
     await Users.updateOne({ email }, { otp: req.app.locals.OTP }, { new: true });
-    return res.json({ msg: "Access Granted !" })
+    return res.json({ message: "Access Granted !" })
 });
 
 export const SignIn = asyncHandler(async (req, res, next) => {
@@ -92,7 +92,7 @@ export const SignIn = asyncHandler(async (req, res, next) => {
 
 
         if (!user) {
-            return res.status(400).json({ msg: 'wrong Email' });
+            return res.status(400).json({ message: 'wrong Email' });
         } else {
             const isMatch = await bcrypt.compare(password, user.password);
 
@@ -109,7 +109,7 @@ export const SignIn = asyncHandler(async (req, res, next) => {
             expires: new Date(Date.now() + 7 * 1000 * 60 * 60 * 24), // 7d
             sameSite: 'none'
         });
-        return res.json({ msg: 'successfully Logged In', token, user });
+        return res.json({ message: 'successfully Logged In', token, user });
     }
 })
 export const RefreshToken = asyncHandler(async (req, res, next) => {
@@ -140,7 +140,7 @@ export const logout = asyncHandler((req, res, next) => {
                 }
                 res.clearCookie(`${user.id}`);
                 req.cookies[`${user.id}`] = "";
-                return res.json({ msg: "Successfully Logged Out" });
+                return res.json({ message: "Successfully Logged Out" });
             })
         }
     });
@@ -163,7 +163,7 @@ export const VerifyOtp = asyncHandler(async (req, res, next) => {
     if (parseInt(req.app.locals.OTP) === parseInt(code) && user.otp == parseInt(code)) {
         req.app.locals.OTP = null;
         req.app.locals.resetsession = true
-        return res.json({ msg: 'Verified Successflly' })
+        return res.json({ message: 'Verified Successflly' })
     }
     return next(new ErrorHandler('Invalid OTP !', 400));
 });
@@ -172,7 +172,7 @@ export const CreateResetSession = asyncHandler(async (req, res, next) => {
     // const { code } = req.query;
     if (req.app.locals.resetsession) {
         req.app.locals.resetsession = true
-        return res.json({ msg: "Access Granted !" })
+        return res.json({ message: "Access Granted !" })
     }
     return next(new ErrorHandler('OTP Expired !', 400));
 });
@@ -200,7 +200,7 @@ export const ResetPassword = asyncHandler(async (req, res, next) => {
                         { password: hashedPassword }, function (err, data) {
                             if (err) throw err;
                             req.app.locals.resetsession = false; // reset session
-                            return res.json({ msg: "Record Updated...!" })
+                            return res.json({ message: "Record Updated...!" })
                         });
                 })
                 .catch(e => {
@@ -215,7 +215,7 @@ export const LogOut = asyncHandler(async (req, res, next) => {
     res.clearCookie('token', { path: '/', maxAge: 1 });
     res.clearCookie('Logged_in', { path: '/', maxAge: 1 });
     res.clearCookie('Admin', { path: '/' });
-    return res.json({ msg: 'Loged Out' });
+    return res.json({ message: 'Loged Out' });
 });
 
 

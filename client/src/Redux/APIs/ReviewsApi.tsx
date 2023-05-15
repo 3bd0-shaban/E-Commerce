@@ -1,26 +1,22 @@
 'use client';
 import { apiSlice } from '../ApiSlice';
-import { productType } from '@lib/types/product';
+import { reviewType } from '@lib/types/review';
 interface ReviewArgs {
     productId: string;
     comment: string;
     rating: string;
 }
-interface NewReview {
-    Review: productType
-    msg: string;
-}
 export const ReviewApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        getReviews: builder.query<productType, { productId: string }>({
+        getReviews: builder.query<{ status: string; results: number; reviews: reviewType[] }, { productId: string }>({
             query: ({ productId }) => `/api/review/${productId}`,
             providesTags: ['Reviews'],
         }),
-        createReview: builder.mutation<NewReview, ReviewArgs>({
-            query: ({ comment, productId }) => ({
+        createReview: builder.mutation<{ message: string, review: reviewType }, { productId: string; comment: string; rating: string }>({
+            query: ({ comment, rating, productId }) => ({
                 url: `/api/review/${productId}`,
                 method: 'POST',
-                body: comment,
+                body: { comment, rating },
             }),
             invalidatesTags: ['Reviews'],
         }),
@@ -33,7 +29,7 @@ export const ReviewApi = apiSlice.injectEndpoints({
             invalidatesTags: ['Reviews'],
         }),
         deleteReview: builder.mutation({
-            query: (productId) => ({
+            query: ({ productId }) => ({
                 url: `/api/review/${productId}`,
                 method: 'DELETE',
             }),

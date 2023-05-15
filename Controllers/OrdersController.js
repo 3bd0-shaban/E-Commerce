@@ -34,7 +34,7 @@ export const Add_NEW_Order = asyncHandler(async (req, res, next) => {
         }, { new: true });
     }
     await Cart.deleteOne({ user: req.user.id });
-    return res.json({ msg: 'You Order Is Placed Successfully' })
+    return res.json({ message: 'You Order Is Placed Successfully' })
 });
 export const Fetch_Users_Orders = asyncHandler(async (req, res, next) => {
     const userOrder = await Orders.find({ user: req.user.id })
@@ -43,10 +43,10 @@ export const Fetch_Users_Orders = asyncHandler(async (req, res, next) => {
     return res.json(userOrder);
 });
 export const Fetch_All_Orders = asyncHandler(async (req, res, next) => {
-    const userOrder = await Orders.find()
+    const orders = await Orders.find()
         .populate('orderitems.product_Id', 'name des price images')
         .populate('user', 'firstname lastname')
-    return res.json(userOrder);
+    return res.json({ status: 'success', results: orders.length, orders});
 });
 export const Fetch_Order_Details = asyncHandler(async (req, res, next) => {
     const userOrder = await Orders.findById(req.params.id)
@@ -83,7 +83,7 @@ export const ChangeStatus = asyncHandler(async (req, res, next) => {
     await Orders.findOneAndUpdate(req.params.id, {
         $set: { status: req.body.status }
     }, { new: true });
-    return res.json({ msg: 'Changed Order Status Successfully' });
+    return res.json({ message: 'Changed Order Status Successfully' });
 });
 export const CancelOrder = asyncHandler(async (req, res, next) => {
     const products = await Orders.findOneAndUpdate({ user: req.user._id, id: req.params.id }, {
@@ -94,6 +94,6 @@ export const CancelOrder = asyncHandler(async (req, res, next) => {
             $inc: { stock: products.orderitems[x].quentity },
         }, { new: true });
     }
-    return res.json({ msg: 'Order Canceled Successfully' });
+    return res.json({ message: 'Order Canceled Successfully' });
 });
 

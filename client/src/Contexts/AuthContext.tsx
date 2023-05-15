@@ -4,11 +4,11 @@ import { selectCurrentToken, setCredentials } from '@Redux/Slices/UserSlice';
 import usePersist from '@Hooks/usePersist';
 import { useAppDispatch, useAppSelector } from '@Hooks/useRedux';
 import Loadingscreen from '@Components/Layouts/Loadingscreen';
-import { user } from '@lib/types';
+import { userType } from '@lib/types/user';
 
 interface AuthContextProps {
     token?: string;
-    user?: user
+    user?: userType
 }
 
 

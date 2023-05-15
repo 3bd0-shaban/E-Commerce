@@ -27,7 +27,7 @@ const HomeCategory: React.FC<CategoryProps> = ({ Height }) => {
               }
             >
 
-              <div className="text-black mt-5 font-light text-xl font-poppins block select-none">
+              <div className="text-black mt-5 font-light text-sm font-poppins block select-none">
                 {Category?.map((cat) => (
                   <div
                     key={cat._id}
@@ -45,7 +45,7 @@ const HomeCategory: React.FC<CategoryProps> = ({ Height }) => {
                     onMouseLeave={() => setShow(false)}
                     onMouseEnter={() => setShow(true)}
                     className="absolute -top-5 py-5 left-80 h-full bg-[#F8F8F8] 
-                    rounded-r-lg text-start z-10 text-black mt-5 font-light text-xl font-poppins">
+                    rounded-r-lg text-start z-10 text-black mt-5 font-light text-sm font-poppins">
                     {SubCat?.map((sub) => (
                       <div key={sub._id} className="text-start">
                         <Link

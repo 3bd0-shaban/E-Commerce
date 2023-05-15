@@ -21,9 +21,9 @@ const Form: FC<FormProps> = ({ }) => {
     const userRef = useRef<HTMLInputElement>(null);
     const Router = useRouter();
     const SearchQuery = useSearchParams();
-    const email: string | null = SearchQuery.get('email');
-    const isActivate: boolean = SearchQuery.get('activate') === 'true';
-    const isCartVerify: string | null = SearchQuery.get('cart');
+    const email = SearchQuery?.get('email') as string;
+    const isActivate = SearchQuery?.get('activate') === 'true' ? true : false;
+    const isCartVerify = SearchQuery?.get('cart') as string;
 
     const [VerifyEmail, { isLoading, isError, error }] = useVerifyEmailMutation();
     const [VerifyEmailtoResest, { isLoading: loading, isError: isErrorReset, error: errorReset }] = useVerifyEmailtoResestMutation();
@@ -46,10 +46,10 @@ const Form: FC<FormProps> = ({ }) => {
             console.log(error)
         }
     }
-    const SubmitVerifingEmailToReset = async (event: React.FormEvent<HTMLFormElement>) => {
+    const SubmitVerifingEmailToReset = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         try {
-            await VerifyEmailtoResest({ code, email }).unwrap()
+            VerifyEmailtoResest({ code, email }).unwrap()
             localStorage.setItem('persist', 'true')
             setCode(0);
             Router.push(`/resetpassword?email=${email}`)
@@ -58,34 +58,27 @@ const Form: FC<FormProps> = ({ }) => {
         }
     }
 
-    const Request2ResetOTP = async (event: React.FormEvent<HTMLFormElement>) => {
+    const Request2ResetOTP = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
-        try {
-            await ForgetPassword(email).unwrap()
-        } catch (error) {
-            console.log(error)
-        }
+        ForgetPassword(email).unwrap()
     }
-    const RequestOTP2Activate = async (event: React.FormEvent<HTMLFormElement>) => {
+    const RequestOTP2Activate = (event: React.FormEvent<HTMLFormElement>) => {
         event.preventDefault();
         const data = { email }
-        try {
-            await RequestOTP2(data).unwrap()
-        } catch (error) {
-            console.log(error)
-        }
+        RequestOTP2(data).unwrap()
+
     }
     return (
         <>
-            <div className='mb-5 space-y-2'>
+            <form onSubmit={isActivate ? RequestOTP2Activate : Request2ResetOTP} className='mb-5 space-y-2'>
                 <span className='dark:text-slate-400'>Enter the confirmation code we sent to {email}
                     <button
-                        onClick={isActivate ? RequestOTP2Activate : Request2ResetOTP}
                         aria-label='submit'
-                        className='text-blue-500 font-semibold'>Resend Code
+                        className='text-blue-500 font-semibold'>
+                        Resend Code
                     </button>
                 </span>
-            </div>
+            </form>
             <form className='flex flex-col'
                 onSubmit={isActivate ? SubmitActivateEmail : SubmitVerifingEmailToReset}>
                 <div className='flex gap-3 '>

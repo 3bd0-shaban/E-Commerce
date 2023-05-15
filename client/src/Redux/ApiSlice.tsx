@@ -7,7 +7,7 @@ import type {
     FetchBaseQueryError,
 } from "@reduxjs/toolkit/query";
 import { RootState } from "./Store";
-import { AuthState, user } from "@lib/types";
+import { AuthState, userType } from "@lib/types/user";
 
 const url = process.env.NEXT_PUBLIC_API_KEY;
 
@@ -42,7 +42,7 @@ const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQue
             // store the new token
             api.dispatch(setCredentials({
                 token: token as string,
-                user: user as user
+                user: user as userType
             }));
 
             // retry the original query with new access token

@@ -15,7 +15,7 @@ const SideBanner = () => {
                         width={500}
                         draggable={false}
                         key={banner?._id}
-                        className='w-full object-cover h-[17rem]'
+                        className='w-full object-cover h-[12rem]'
                         src={banner?.banners?.url}
                         alt=''
                     />

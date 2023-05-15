@@ -1,6 +1,5 @@
 'use client';
 import React from 'react'
-import { BsChat, BsChatSquareText, BsChatText, BsGear, BsGrid, BsPeople, BsPersonLinesFill } from 'react-icons/bs'
 import AnimSlideRight from '@Animation/AnimSlideRight';
 import { AiOutlineAlipay } from 'react-icons/ai'
 import { IoCalendarNumberOutline, IoNewspaperOutline } from 'react-icons/io5'
@@ -11,70 +10,8 @@ import { GiAlarmClock } from 'react-icons/gi';
 import { usePathname } from 'next/navigation';
 import Link from 'next/link';
 import { useAppDispatch, useAppSelector } from '@Hooks/useRedux';
+import { siteFeatures } from '@config/siteFeatures';
 
-interface LinkListProps {
-    Icon: React.ReactNode;
-    Title: string;
-    Href: string;
-    // onClose?: () => void;
-}
-const linkListItems: LinkListProps[] = [
-    {
-        Icon: <BsGrid size={15} />,
-        Title: 'Dashboard',
-        Href: '/doctor/doctor-dashboard'
-    },
-    {
-        Icon: <IoCalendarNumberOutline size={17} />,
-        Title: 'Appointment',
-        Href: '/doctor/doctor-appointment'
-    },
-    {
-        Icon: <GiAlarmClock size={17} />,
-        Title: 'Schedule Timing',
-        Href: '/doctor/doctor-schedule'
-    },
-    {
-        Icon: <IoNewspaperOutline size={17} />,
-        Title: 'Invoices',
-        Href: '/doctor/invoices'
-    },
-    {
-        Icon: <BsChatText size={17} />,
-        Title: 'Messages',
-        Href: '/doctor/doctor-messages'
-    },
-    {
-        Icon: <BsPeople size={17} />,
-        Title: 'Patient List',
-        Href: '/doctor/patient-list'
-    },
-    {
-        Icon: <BsChatSquareText size={17} />,
-        Title: 'Patients Review',
-        Href: '/doctor/patient-review'
-    },
-    {
-        Icon: <BsChat size={17} />,
-        Title: 'Chat',
-        Href: '/doctor/doctor-chat'
-    },
-    {
-        Icon: <AiOutlineAlipay size={17} />,
-        Title: 'Payment Information',
-        Href: '/doctor/payment'
-    },
-    {
-        Icon: <BsGear size={17} />,
-        Title: 'Profile',
-        Href: '/doctor/doctor-profile'
-    },
-    {
-        Icon: <BsPersonLinesFill size={17} />,
-        Title: 'Profile Settings',
-        Href: '/doctor/settings'
-    }
-];
 
 const SideBar: React.FC = () => {
     const { MobileView } = useBreakpoint();
@@ -85,7 +22,7 @@ const SideBar: React.FC = () => {
     const LinkList: React.FC = ({ }) => {
         return (
             <>
-                {linkListItems.map((item, index) => (
+                {siteFeatures.SideBar.DashBoard.map((item, index) => (
 
                     <div
                         key={index}
@@ -117,7 +54,7 @@ const SideBar: React.FC = () => {
     return (
         <>
             {!MobileView &&
-                <div className='dark:shadow-slate-700 hidden md:block px-0 overflow-hidden rounded-lg mt-10'>
+                <div className='dark:shadow-slate-700 hidden lg:block px-0 overflow-hidden rounded-lg mt-10'>
                     <LinkList />
                 </div>
             }

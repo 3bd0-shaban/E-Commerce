@@ -1,15 +1,17 @@
 'use client';
 import { io } from 'socket.io-client';
-import { createContext, FC, useEffect, useRef, ReactNode } from 'react';
+import { createContext, FC, useEffect, useRef, ReactNode, useContext } from 'react';
+import { useAppSelector } from '@Hooks/useRedux';
+import { selectCurrentUser } from '@Redux/Slices/UserSlice';
 
-const url: string | undefined = process.env.NEXT_PUBLIC_API_KEY ?? 'http://localhost:5000';
+const url = process.env.NEXT_PUBLIC_API_KEY;
 const SocketContext = createContext({});
 
 export const SocketProvider: FC<{ children: ReactNode }> = ({ children }) => {
     const socket = useRef(io(url));
 
-    const userId = localStorage.getItem('id');
-
+    const user = useAppSelector(selectCurrentUser)
+    const userId = user._id
     useEffect(() => {
         if (userId) {
             socket.current?.on('connect', () => {
@@ -24,5 +26,9 @@ export const SocketProvider: FC<{ children: ReactNode }> = ({ children }) => {
 
     return <SocketContext.Provider value={{ socket: socket.current }}>{children}</SocketContext.Provider>;
 };
+export const useSocket = () => {
+    const socket = useContext(SocketContext);
 
-export default SocketContext;
+    return socket as any;
+};
+export default SocketProvider;

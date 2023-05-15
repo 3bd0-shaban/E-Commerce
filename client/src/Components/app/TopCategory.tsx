@@ -15,13 +15,15 @@ export default function TopCategory() {
 
                     {Category?.slice(0, 6).map((cat) => (
                         <div key={cat._id} className='rounded-xl font-semibold text-gray-700'>
-                            <Image
-                                height={500}
-                                width={500}
-                                draggable={false}
-                                src={cat.image?.url} className='h-32 w-32 object-contain mx-auto'
-                                alt=''
-                            />
+                            {cat.image &&
+                                <Image
+                                    height={500}
+                                    width={500}
+                                    draggable={false}
+                                    src={cat.image?.url} className='h-32 w-32 object-contain mx-auto'
+                                    alt=''
+                                />
+                            }
                             <p className='mb-3' >{cat.category}</p>
                         </div>
                     ))}

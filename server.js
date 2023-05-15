@@ -15,6 +15,7 @@ import IsssesRouter from './Routes/IssessRouter.js';
 import ReviewsRouter from './Routes/ReviewsRouter.js';
 import WhiteListRouter from './Routes/WhiteListRoter.js';
 import BrandRouter from './Routes/BrandRouter.js';
+import AdminRouter from './Routes/AdminRouter.js';
 import AllowedOrigins from "./Origins.js";
 import SocketServer from "./SocketServer.js";
 import { createServer } from 'http';
@@ -34,9 +35,23 @@ app.use(
     origin: true
   })
 );
+
+// async function update() {
+//   try {
+//     const user = await Users.updateMany({}, { $set: { profilePicture: 'http://localhost:5000/images/default.png' } })
+//     if (user) {
+//       console.log('updated')
+//     }
+//   } catch (error) {
+//     console.log(error)
+//   }
+// }
+// update()
+
+
 app.use(cookieParser());
 app.use(helmet());
-app.use(morgan('common'));
+app.use(morgan('dev'));
 // app.use(fileUpload({ useTempFiles: true }));
 mongoose
   .connect(config.MONGODB_URI)
@@ -63,6 +78,7 @@ app.get('/api/keys/paypal', (req, res) => {
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use('/api/auth', UsersRouter);
+app.use('/api/admin', AdminRouter);
 app.use('/api/banner', BannersRouter);
 app.use('/api/product', ProductsRouter);
 app.use('/api/category', CategoryRouter);

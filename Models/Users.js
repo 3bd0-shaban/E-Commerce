@@ -22,9 +22,9 @@ const usesrSchema = new mongoose.Schema(
       type: String,
       required: true
     },
-    roles: {
-      type: [String],
-      default: ["user"],
+    isAdmin: {
+      type: Boolean,
+      default: false,
     },
     isVerified: {
       type: Boolean,

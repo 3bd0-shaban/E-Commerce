@@ -12,7 +12,8 @@ interface mainProps {
 }
 
 const Main: FC<mainProps> = ({ }) => {
-    const { productId } = useParams();
+    const params = useParams() as { productId :string};
+    const productId = params.productId;
     const { data: productDetails } = useGetProductsDetailsQuery({ productId }) || {};
     const pathname = usePathname();
     useEffect(() => {
@@ -39,9 +40,9 @@ const Main: FC<mainProps> = ({ }) => {
             <div
                 className='conatiner max-w-full my-7'
                 dangerouslySetInnerHTML=
-                {{ __html: productDetails?.fulldes }}
+                {{ __html: productDetails?.fulldes as string}}
             />
-            <Reviews productId={productId} />
+            <Reviews productId={productId} productDetails={productDetails} />
         </div>
     )
 }

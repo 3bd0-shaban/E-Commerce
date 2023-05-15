@@ -23,13 +23,13 @@ interface ItemProps {
 export default function Home() {
 
   const FeaturesHeader = () => {
-    const Item = ({ Icon, Title, SubRating, SubTitle }: ItemProps) => {
+    const Item = ({ Icon, Title, SubTitle }: ItemProps) => {
       return (
-        <div className='xl:grid grid-cols-4 justify-center items-center text-start border-t py-14 px-8 hidden '>
-          <div className='text-5xl text-blue-500 col-span-1'>{Icon}</div>
+        <div className='hidden xl:flex flex-col justify-center items-center text-start border-t p-5 '>
+          <div className='text-blue-500 col-span-1'>{Icon}</div>
           <div className='text-center col-span-3'>
-            <p className='text-2xl font-semibold text-gray-700'>{Title}</p>
-            <p className='font-light text-xl'>{SubTitle}</p>
+            <p className='text-xl text-gray-700'>{Title}</p>
+            <p className='font-light text-sm'>{SubTitle}</p>
           </div>
         </div>
       )
@@ -37,11 +37,11 @@ export default function Home() {
     return (
       <div className='border rounded-xl flex items-center justify-center'>
         <div>
-          <Item Icon={<BsTruck style={{ fontSize: '3.rem' }} />} Title={'Free Delivary'} SubTitle={'From 50$'} />
-          <Item Icon={<BsChat style={{ fontSize: '2.7rem' }} />} Title={'99% Customer'} SubTitle={'Feedbacks'} />
-          <Item Icon={<TfiReload style={{ fontSize: '2.5rem' }} />} Title={'365 Days'} SubTitle={'For Free Return'} />
-          <Item Icon={<SiContactlesspayment style={{ fontSize: '4.5rem' }} />} Title={'Payment'} SubTitle={'Secure System'} />
-          <Item Icon={<IoPricetagsOutline style={{ fontSize: '3rem' }} />} Title={'Only Best'} SubTitle={'Brands'} />
+          <Item Icon={<BsTruck size={25} />} Title={'Free Delivary'} SubTitle={'From 50$'} />
+          <Item Icon={<BsChat size={25} />} Title={'99% Customer'} SubTitle={'Feedbacks'} />
+          <Item Icon={<TfiReload size={25} />} Title={'365 Days'} SubTitle={'For Free Return'} />
+          <Item Icon={<SiContactlesspayment size={25} />} Title={'Payment'} SubTitle={'Secure System'} />
+          <Item Icon={<IoPricetagsOutline size={25} />} Title={'Only Best'} SubTitle={'Brands'} />
         </div>
       </div>
     )
@@ -50,24 +50,24 @@ export default function Home() {
   return (
     <>
       <Header />
-      <div className='container overflow-hidden max-w-full px-0 xl:max-w-[120rem] gap-3'>
-        <div className='flex '>
+      <div className='container overflow-hidden max-w-[100rem] gap-3'>
+        <div className='flex gap-5'>
           <HomeCategory />
-          <div className='container px-0 max-w-full'>
+          <div>
             <div className='grid grid-cols-1 xl:grid-cols-5 gap-5'>
               <div className='col-span-4 h-52 sm:h-auto'><Banners /></div>
               <div className='col-span-1 hidden xl:block'><SideBanner /></div>
             </div>
-            <div className='p-3 xl:mt-10'>
-              <p className='xl:text-3xl font-bold'>Features Brands</p>
-              <HomeBrands />
-            </div>
           </div>
         </div>
+        <div className='p-3 xl:mt-10'>
+          <p className='xl:text-xl font-medium'>Features Brands</p>
+          <HomeBrands />
+        </div>
+        <TopCategory />
       </div>
-      <TopCategory />
 
-      <div className='container max-w-full xl:max-w-[120rem] xl:mt-5'>
+      <div className='container max-w-full xl:max-w-[100rem] xl:mt-5'>
 
         <div className='grid grid-cols-7 xl:mt-10 gap-6'>
           <div className='col-span-1 hidden xl:block xl:mt-10 space-y-5'>

@@ -1,8 +1,8 @@
 import { imageType } from "@lib/types/featuresType";
 
 export interface subCategoryType {
-    nameOfSub: string;
-    _id: string;
+    nameOfSub?: string;
+    _id?: string;
 }
 export interface categoryType {
     _id?: string;

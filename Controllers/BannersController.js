@@ -19,7 +19,7 @@ export const Upload_Banners = asyncHandler(async (req, res, next) => {
     })
         .save()
         .then(banners => {
-            return res.json({ msg: 'Banner uploaded successfully' });
+            return res.json({ message: 'Banner uploaded successfully' });
         }).catch(error => {
             return next(new ErrorHandler(error.message, 500));
         })
@@ -42,7 +42,7 @@ export const Add_top_Banners = asyncHandler(async (req, res, next) => {
     })
         .save()
         .then(banners => {
-            return res.json({ msg: 'Banner uploaded successfully' });
+            return res.json({ message: 'Banner uploaded successfully' });
         }).catch(error => {
             return next(new ErrorHandler(error.message, 500));
         })
@@ -65,7 +65,7 @@ export const Add_side_Banners = asyncHandler(async (req, res, next) => {
     })
         .save()
         .then(banners => {
-            return res.json({ msg: 'Banner uploaded successfully' });
+            return res.json({ message: 'Banner uploaded successfully' });
         }).catch(error => {
             return next(new ErrorHandler(error.message, 500));
         })
@@ -89,6 +89,6 @@ export const Delete_Banner = asyncHandler(async (req, res, next) => {
     } else {
         await cloudinary.uploader.destroy(banners.banners.public_id);
         await Banners.deleteOne({ _id: req.params.id });
-        return res.json({ msg: 'Banner deleted successfully' });
+        return res.json({ message: 'Banner deleted successfully' });
     }
 });

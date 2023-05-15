@@ -14,11 +14,12 @@ import Link from 'next/link';
 import ShowRating from '@Components/Layouts/ShowRating';
 import Image from 'next/image';
 const UpperProductDetails = () => {
-    const { productId } = useParams();
+    const params = useParams() as { productId: string };
+    const productId = params.productId
     const [image, setImage] = useState('');
     const { data: productDetails, isLoading: loading, error } = useGetProductsDetailsQuery({ productId }) || {};
     useEffect(() => {
-        setImage(productDetails?.images && productDetails?.images[0].url);
+        setImage(productDetails?.images[0]?.url as string);
     }, [setImage, productDetails]);
 
     const [addToWhitelist] = useAddToWhitelistMutation()
@@ -26,13 +27,13 @@ const UpperProductDetails = () => {
 
     const HandleToWhiteList = async () => {
         addToWhitelist({ productId }).unwrap()
-            .then((payload) => toast.success(payload.msg))
-            .catch((error) => toast.error(error.data.msg));
+            .then((payload) => toast.success(payload.message))
+            .catch((error) => toast.error(error.data.message));
     }
     const AddToCartHandler = async () => {
         await addToCart({ productId }).unwrap()
-            .then((payload) => toast.success(payload.msg))
-            .catch((error) => toast.error(error.data.msg));
+            .then((payload) => toast.success(payload.message))
+            .catch((error) => toast.error(error.data.message));
     }
     return (
         <div className='container px-0 xl:px-2 max-w-[120rem] select-none mt-5'>
@@ -40,24 +41,26 @@ const UpperProductDetails = () => {
                 <p className='mx-auto mt-20 text-3xl font-serif font-semibold'>Loading ....</p>
                 : error ?
                     <GetError error={error} danger /> :
-                    productDetails._id &&
+                    productDetails?._id &&
                     <>
                         <div className='grid grid-cols-1 xl:grid-cols-5 min-h-[45rem]'>
                             <div className='xl:col-span-2 flex'>
                                 <div className='w-[25%] hidden xl:block'>
-                                    {productDetails &&
-                                        productDetails?.images?.map((img) => (
-                                            <div key={img._id}
-                                                onClick={() => setImage(img.url)}>
+                                    {productDetails?.images?.map((img) => (
+                                        <div key={img?._id}
+                                            onClick={() => setImage(img?.url as string)}>
+                                            {img.url &&
                                                 <Image
                                                     height={500}
                                                     width={500}
                                                     draggable={false}
                                                     src={img.url}
                                                     className={'border w-[80%] object-cover cursor-pointer hover:border-slate-900'}
-                                                    alt='' />
-                                            </div>
-                                        ))}
+                                                    alt=''
+                                                />
+                                            }
+                                        </div>
+                                    ))}
                                 </div>
                                 <div className='flex justify-center mr-5'>
                                     <Image
@@ -97,15 +100,15 @@ const UpperProductDetails = () => {
                                             Avability :
                                             <span className='font-semibold text-green-600'>In Stock</span>
                                         </p>
-                                        {(productDetails.stock < 5) &&
+                                        {(productDetails?.stock ?? 0 < 5) &&
                                             <p className='my-3'>
                                                 Only {productDetails.stock} is available
                                             </p>
                                         }
                                         <hr />
                                         <div className='flex gap-5'>
-                                            <p className='text-3xl font-bold mt-auto text-blue-600 py-3'>$ {productDetails.price}</p>
-                                            <p className='text-2xl items-center flex text-gray-500 line-through'>$ {productDetails.discountprice}</p>
+                                            <p className='text-3xl font-bold mt-auto text-blue-600 py-3'>$ {productDetails?.price}</p>
+                                            <p className='text-2xl items-center flex text-gray-500 line-through'>$ {productDetails?.discountprice ?? 0}</p>
                                         </div>
                                         <div className='flex items-center justify-center'>
                                             <Link

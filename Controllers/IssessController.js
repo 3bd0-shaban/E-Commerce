@@ -10,7 +10,7 @@ export const Send_Issess_Report = asyncHandler(async (req, res, next) => {
         .then((sendedReport) => {
             return res.json(sendedReport);
         }).catch((error) => {
-            return res.status(500).json({ msg: error.message })
+            return res.status(500).json({ message: error.message })
         })
 })
 export const Fetch_Issess_Report = asyncHandler(async (req, res, next) => {
@@ -23,6 +23,6 @@ export const Delete_Issess_Report = asyncHandler(async (req, res, next) => {
         return next(new ErrorHandler('No reports founded with that ID', 400));
     } else {
         await Issess.deleteOne({ _id: req.params.id });
-        return res.json({ msg: 'Report deleted successfully' });
+        return res.json({ message: 'Report deleted successfully' });
     }
 })

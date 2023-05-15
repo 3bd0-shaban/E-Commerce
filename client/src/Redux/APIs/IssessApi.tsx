@@ -5,10 +5,6 @@ export const IssessApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getIssess: builder.query({
             query: () => '/api/Issess/',
-            providesTags: (result, error, arg) =>
-                result
-                    ? [...result.map(({ id }) => ({ type: 'Issess', id })), 'Issess']
-                    : ['Issess'],
         }),
         createIssess: builder.mutation({
             query: (data) => ({
@@ -33,6 +29,5 @@ export const IssessApi = apiSlice.injectEndpoints({
 export const {
     useCreateIssessMutation,
     useGetIssessQuery,
-    useGetIssessDetailsQuery,
     useDeleteIssessMutation,
 } = IssessApi;

@@ -44,7 +44,7 @@ body {
 html {
     height: -webkit-fill-available;
 }
-/* width */
+/* width
 ::-webkit-scrollbar {
     @apply
     w-1.5 xl:w-3 
@@ -52,7 +52,7 @@ html {
 ::-webkit-scrollbar-thumb {
     @apply
     bg-gray-500 hover:bg-gray-600 rounded-xl
-  }
+  } */
 .rate:not(:checked) > input {
     position:absolute;
     /* top:-9999px; */

@@ -17,7 +17,9 @@ interface HomeCategoryProps {
 }
 
 const HomeProducts2 = ({ Category }: HomeCategoryProps) => {
-    const { data: products, isLoading: loading, error } = useGetProductsQuery({ numpage: 1 }) || {};
+    const { data, isLoading: loading, error } = useGetProductsQuery({ page: 1 }) || {};
+    const { products } = data || {};
+
     return (
         <>
             <div className='flex items-center mt-16 gap-3'>
@@ -47,54 +49,50 @@ const HomeProducts2 = ({ Category }: HomeCategoryProps) => {
                     768: {
                         slidesPerView: 4,
                     },
-                    992: {
-                        slidesPerView: 4,
-                    },
-                    1600: {
+                    1400: {
                         slidesPerView: 6,
                     },
                 }}>
-                {products
-                    && products?.map((product) => (
-                        <SwiperSlide key={product._id} className=' product px-3 select-none'>
-                            <div className='py-5'>
-                                <div className='grid grid-cols-3 items-center relative overflow-hidden justify-center mx-auto'>
-                                    <Link draggable={false}
-                                        href={`/product/${product._id}`}>
-                                        <Image
-                                            height={500}
-                                            width={500}
-                                            draggable={false}
-                                            src={product.images ? product.images[0].url : 'Can not load images'}
-                                            className='rounded-2xl p-1 object-contain h-32 mx-auto' alt={product.name}
-                                        />
-                                    </Link>
-                                    {(product.stock ?? 0 > 0) &&
-                                        <>
-                                            <div className='block col-span-2'>
-                                                <Link
-                                                    draggable={false}
-                                                    href={`/product/${product._id}`} className='text-xl hover:text-orange-300 font-semibold ellipse-2'>
-                                                    {product.name}
-                                                </Link>
-                                                <p className='text-xl mt-4 font-semibold text-cyan-600'>
-                                                    {product.price}$
-                                                </p>
-                                                <div className='flex items-center gap-3'>
-                                                    <ShowRating
-                                                        Rating={product.rating ?? 0}
-                                                        className={'!text-lg gap-1 text-[#FDD901]'}
-                                                    />
-                                                    <p>( {product.numofreviews} )</p>
-                                                </div>
+                {products?.map((product) => (
+                    <SwiperSlide key={product._id} className=' product px-3 select-none'>
+                        <div className='py-5'>
+                            <div className='grid grid-cols-3 items-center relative overflow-hidden justify-center mx-auto'>
+                                <Link draggable={false}
+                                    href={`/product/${product._id}`}>
+                                    <Image
+                                        height={500}
+                                        width={500}
+                                        draggable={false}
+                                        src={product.images ? product.images[0].url : 'Can not load images'}
+                                        className='rounded-2xl p-1 object-contain h-32 mx-auto' alt={product.name}
+                                    />
+                                </Link>
+                                {(product.stock ?? 0 > 0) &&
+                                    <>
+                                        <div className='block col-span-2'>
+                                            <Link
+                                                draggable={false}
+                                                href={`/product/${product._id}`} className='text-sm hover:text-orange-300 font-medium ellipse-2'>
+                                                {product.name}
+                                            </Link>
+                                            <p className='text-xl mt-4 font-semibold text-cyan-600'>
+                                                {product.price}$
+                                            </p>
+                                            <div className='flex items-center gap-3'>
+                                                <ShowRating
+                                                    Rating={product.rating ?? 0}
+                                                    className={'!text-lg gap-1 text-[#FDD901]'}
+                                                />
+                                                <p className='whitespace-nowrap'>( {product.numofreviews} )</p>
                                             </div>
-                                        </>
-                                    }
-                                </div>
+                                        </div>
+                                    </>
+                                }
                             </div>
-                        </SwiperSlide>
-                    )
-                    )}
+                        </div>
+                    </SwiperSlide>
+                )
+                )}
             </Swiper>
         </>
     )

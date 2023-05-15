@@ -1,10 +1,24 @@
 'use client';
-import { productType } from '@lib/types/product';
+import { productType, specificationsType } from '@lib/types/product';
 import { apiSlice } from '../ApiSlice';
+interface NewProductProps {
+    name: string;
+    des: string;
+    stock: string;
+    price: string;
+    brand: string;
+    category: string;
+    subcategory: string;
+    images: string[];
+    specs: specificationsType[];
+    fulldes: string;
+    discountprice: string;
+    warranty: boolean;
+}
 export const ProductApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
-        getProducts: builder.query<productType[], { numpage?: 1 }>({
-            query: ({ numpage }) => `/api/product?page=${numpage}`,
+        getProducts: builder.query<{ status: string; results: number; products: productType[] }, { page?: number }>({
+            query: ({ page }) => `/api/product?page=${page}`,
             providesTags: ['Products'],
         }),
         getPaginated: builder.query<productType[], void>({
@@ -35,12 +49,11 @@ export const ProductApi = apiSlice.injectEndpoints({
             query: ({ productId }) => `/api/product/${productId}`,
             providesTags: ['Products'],
         }),
-        createProducts: builder.mutation({
-            query: (data) => ({
+        createProducts: builder.mutation<{ status: string; message: string; product: productType }, NewProductProps>({
+            query: ({ name, des, stock, price, brand, category, subcategory, images, specs, fulldes, discountprice, warranty }) => ({
                 url: '/api/product/',
                 method: 'POST',
-                credentials: 'include',
-                body: data,
+                body: { name, des, stock, price, brand, category, subcategory, images, specs, fulldes, discountprice, warranty }
             }),
             invalidatesTags: ['Products'],
         }),

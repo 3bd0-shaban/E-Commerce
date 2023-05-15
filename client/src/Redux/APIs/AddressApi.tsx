@@ -4,10 +4,6 @@ export const AddressApi = apiSlice.injectEndpoints({
     endpoints: (builder) => ({
         getAddress: builder.query({
             query: () => '/api/Address/get',
-            providesTags: (result, error, arg) =>
-                result
-                    ? [...result.map(({ id }) => ({ type: 'Address', id })), 'Address']
-                    : ['Address'],
         }),
         getAddressDetails: builder.query({
             query: (id) => `/api/auth/get/${id}`,

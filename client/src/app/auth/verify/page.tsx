@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import Image from 'next/image';
 import Form from './Form';
 import { BsCheck2 } from 'react-icons/bs';
 export default function page() {

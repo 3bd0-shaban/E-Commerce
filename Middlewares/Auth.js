@@ -17,16 +17,14 @@ export const auth = asyncHandler(async (req, res, next) => {
     next()
 });
 
-export const authorizeRoles = (...roles) => {
-    return (req, res, next) => {
-        if (!roles.some(role => req.user.roles.includes(role))) {
-            return next(
-                new ErrorHandler(`Role: ${roles.includes(req.user)} is not allowed to access this resouce `, 403)
-            );
-        }
-        next();
-    };
-};
+export const isAdmin = asyncHandler(async (req, res, next) => {
+    if (!req.user.isAdmin) {
+        return next(
+            new ErrorHandler(`your are not allowed to access this resouce `, 403)
+        );
+    }
+    next()
+});
 export const LocalVariable = (req, res, next) => {
     req.app.locals = {
         OTP: null,

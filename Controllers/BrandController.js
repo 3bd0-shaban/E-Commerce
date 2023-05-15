@@ -22,7 +22,7 @@ export const Add_New_Brand = asyncHandler(async (req, res, next) => {
     })
         .save()
         .then(brand => {
-            return res.json({ msg: 'Banner uploaded successfully', brand });
+            return res.json({ message: 'Banner uploaded successfully', brand });
         }).catch(error => {
             return next(new ErrorHandler(error.message, 500));
         })
@@ -44,7 +44,7 @@ export const Delete_Brand = asyncHandler(async (req, res, next) => {
     };
     await cloudinary.uploader.destroy(brand.image.public_id);
     await Brand.deleteOne({ _id: req.params.id });
-    return res.json({ msg: 'Brand Deleted Successfully' });
+    return res.json({ message: 'Brand Deleted Successfully' });
 })
 export const Update_Brand = asyncHandler(async (req, res, next) => {
     const { brand, des } = req.body;
@@ -56,7 +56,7 @@ export const Update_Brand = asyncHandler(async (req, res, next) => {
     };
     const CheckBrand = await Brand.findOne({ brand });
     if (CheckBrand) {
-        return res.status(400).json({ msg: 'Brand aleardy exists' });
+        return res.status(400).json({ message: 'Brand aleardy exists' });
     };
     if (brand == '' || des == '') return next(new ErrorHandler('Fields can not be empty', 400));
     if (file) {
@@ -72,5 +72,5 @@ export const Update_Brand = asyncHandler(async (req, res, next) => {
     await Brand.findByIdAndUpdate(req.params.id, {
         brand, des, image: newImage
     }, { new: true, });
-    return res.json({ msg: 'Brand updated successfully' });
+    return res.json({ message: 'Brand updated successfully' });
 })

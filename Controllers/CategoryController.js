@@ -25,7 +25,7 @@ export const Upload_Category = asyncHandler(async (req, res, next) => {
     })
         .save()
         .then((saved) => {
-            return res.json({ msg: 'Category added successfully' });
+            return res.json({ message: 'Category added successfully' });
         }).catch(error => {
             return next(new ErrorHandler(error.message, 400));
         })
@@ -66,7 +66,7 @@ export const Update_Category = asyncHandler(async (req, res, next) => {
         };
     }
     await Category.findByIdAndUpdate(req.params.id, { category, des, image: newCategory, nameOfSub }, { new: true })
-    return res.json({ msg: 'Category updated successfully' })
+    return res.json({ message: 'Category updated successfully' })
 })
 export const Delete_Category = asyncHandler(async (req, res, next) => {
     const isCategory = await Category.findById(req.params.id);
@@ -74,5 +74,5 @@ export const Delete_Category = asyncHandler(async (req, res, next) => {
         return next(new ErrorHandler('No Category founded with that ID', 400));
     };
     await Category.deleteOne({ _id: req.params.id });
-    return res.json({ msg: 'Category Deleted successfully' })
+    return res.json({ message: 'Category Deleted successfully' })
 })

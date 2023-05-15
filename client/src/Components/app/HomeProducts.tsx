@@ -23,19 +23,20 @@ interface HomeCategoryProps {
 }
 export default function HomeProducts({ Category }: HomeCategoryProps) {
 
-    const { data: products, isLoading: loading, isError, error } = useGetProductsQuery({ numpage: 1 }) || {};
+    const { data, isLoading: loading, isError, error } = useGetProductsQuery({ page: 1 });
+    const { products } = data || {};
     const [addToWhitelist] = useAddToWhitelistMutation();
     const [addToCart] = useAddToCartMutation();
 
     const HandleToWhiteList = async (product_Id: string) => {
         await addToWhitelist(product_Id).unwrap()
-            .then((payload) => toast.success(payload.msg))
-            .catch((error) => toast.error(error.data.msg));
+            .then((payload) => toast.success(payload.message))
+            .catch((error) => toast.error(error.data.message));
     }
-    const AddToCartHandler = async (product_Id: string) => {
-        await addToCart({ product_Id }).unwrap()
-            .then((payload) => toast.success(payload.msg))
-            .catch((error) => toast.error(error.data.msg));
+    const AddToCartHandler = async (productId: string) => {
+        await addToCart({ productId }).unwrap()
+            .then((payload) => toast.success(payload.message))  
+            .catch((error) => toast.error(error.data.message));
     }
     const SwiperButtons = () => {
         const swiper = useSwiper();
@@ -73,10 +74,7 @@ export default function HomeProducts({ Category }: HomeCategoryProps) {
                     768: {
                         slidesPerView: 4,
                     },
-                    992: {
-                        slidesPerView: 4,
-                    },
-                    1600: {
+                    1400: {
                         slidesPerView: 6,
                     },
                 }}
@@ -110,7 +108,7 @@ export default function HomeProducts({ Category }: HomeCategoryProps) {
                                     <div className='-bottom-20 inset-x-0 hover:block max-h-full absolute text-white items'>
                                         <div className='flex justify-center gap-4'>
                                             <button aria-label='add to cart'
-                                                onClick={() => AddToCartHandler(product?._id ?? '')}
+                                                onClick={() => AddToCartHandler(product?._id as string)}
                                                 className='rounded-full flex items-center font-medium text-orange-300
                                                      hover:text-white p-2 text-xl border border-orange-300 
                                                      hover:bg-orange-300 focus:ring focus:ring-orange-200'>
@@ -118,7 +116,7 @@ export default function HomeProducts({ Category }: HomeCategoryProps) {
                                             </button>
                                             <button
                                                 aria-label='add to white list'
-                                                onClick={() => HandleToWhiteList(product._id ?? '')}
+                                                onClick={() => HandleToWhiteList(product._id as string)}
                                                 className='rounded-full flex items-center font-medium text-orange-300
                                                      hover:text-white p-2 text-xl border border-orange-300
                                                       hover:bg-orange-300 focus:ring focus:ring-orange-200'>
@@ -146,7 +144,7 @@ export default function HomeProducts({ Category }: HomeCategoryProps) {
                                         <Link
                                             draggable={false}
                                             href={`/product/${product._id}`}
-                                            className='text-xl hover:text-orange-300 font-semibold ellipse-2'>
+                                            className='text-sm hover:text-orange-300 font-medium ellipse-2'>
                                             {product.name}
                                         </Link>
                                         <p className='text-xl mt-4 font-semibold text-cyan-600'>

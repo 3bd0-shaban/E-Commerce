@@ -39,7 +39,7 @@ export const Update_UserRole = asyncHandler(async (req, res, next) => {
             runValidators: true,
             useFindAndModify: false,
         });
-        return res.json({ msg: 'User Updated Successfully', user });
+        return res.json({ message: 'User Updated Successfully', user });
     }
 })
 export const Delete_UserInfo = asyncHandler(async (req, res, next) => {
@@ -48,7 +48,7 @@ export const Delete_UserInfo = asyncHandler(async (req, res, next) => {
         return next(new ErrorHandler('User Not Founded with that ID', 400));
     } else {
         await Users.deleteOne({ _id: req.params.id });
-        return res.json({ msg: 'User deleted successfully' });
+        return res.json({ message: 'User deleted successfully' });
     }
 })
 
@@ -56,5 +56,11 @@ export const AllUsers = asyncHandler(async (req, res, next) => {
     const resultperpage = 10;
     const features = new Features(Users.find(), req.query).Pagination(resultperpage)
     const users = await features.query;
-    return res.json(users);
+    return res.json({ status: 'success', results: 10, users });
+});
+export const AllAdmins = asyncHandler(async (req, res, next) => {
+    const resultperpage = 10;
+    const features = new Features(Users.find({ isAdmin: true }), req.query).Pagination(resultperpage)
+    const users = await features.query;
+    return res.json({ status: 'success', results: 10, users });
 });

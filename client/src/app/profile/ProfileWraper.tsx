@@ -25,8 +25,8 @@ export default function ProfileWraper({ children }: { children: React.ReactNode 
   };
   const pathname = usePathname();
   const userInfo = useAppSelector(selectCurrentUser)
-  const profile = (pathname.includes(`${userInfo.username}`));
-  const profileSettings = (pathname.includes('settings'));
+  const profile = (pathname?.includes(`${userInfo.username}`));
+  const profileSettings = (pathname?.includes('settings'));
   const INFO = ({ Icon, Title, Value }: InfoProps) => {
     return (
       <div className='flex items-center gap-3'>

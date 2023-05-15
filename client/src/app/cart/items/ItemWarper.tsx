@@ -30,14 +30,14 @@ export default function ItemWraper() {
         }
         // usePayPalScriptReducer();
         await newOrder().unwrap()
-            .then((payload) => setSuccess(payload.msg))
+            .then((payload) => setSuccess(payload.message))
     }
     let purchaseprice = 0;
     // let totalProductPreice = 0;
-    for (let i = 0; i < cart.items.length; i++) {
-        purchaseprice += cart.items[i].quentity * cart.items[i].product_Id.price
-        // totalProductPreice = cart?.items[i].quentity * cart?.items[i].product_Id.price;
-    }
+    // for (let i = 0; i < cart?.items?.length as number ?? 0; i++) {
+    //     purchaseprice += cart?.items[i]?.quentity as number * cart?.items[i]?.product_Id?.price ?? 0
+    //     // totalProductPreice = cart?.items[i].quentity * cart?.items[i].product_Id.price;
+    // }
     return (
         <>
             <div className='conatiner px-0 max-w-full col-span-3'>
@@ -72,8 +72,8 @@ export default function ItemWraper() {
                                         {loading ? <p className='text-3xl font-bold flex justify-center items-center'>loading</p> :
                                             error ?
                                                 <GetError error={error} danger /> :
-                                                (cart.items.length > 0) ?
-                                                    cart.items.map((item, index) => (
+                                                (cart?.items.length ?? 0 > 0) ?
+                                                    cart?.items.map((item, index) => (
                                                         <div key={index}>
                                                             <CartItem item={item} />
                                                         </div>

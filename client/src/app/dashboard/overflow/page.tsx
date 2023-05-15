@@ -14,7 +14,7 @@ interface StateProps {
 export default function page() {
   const State: React.FC<StateProps> = ({ Title, Icon, Value, Percent, bgcolor, textcolor }) => {
     return (
-      <div className='bg-white rounded-lg p-4 border flex justify-between border-gray-200 hover:shadow-xl duration-300 shadow-gray-500 h-full 
+      <div className='bg-white rounded-lg p-4 border flex justify-between border-gray-200 hover:shadow-xl duration-700 shadow-gray-500 h-full
       dark:bg-slate-900 dark:border-slate-500 dark:text-slate-300'>
         <div className='space-y-3'>
           <p className='font-medium text-gray-400'>{Title}</p>

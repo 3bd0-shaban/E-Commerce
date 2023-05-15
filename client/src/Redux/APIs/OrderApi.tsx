@@ -1,4 +1,5 @@
 'use client';
+import { orderType } from '@lib/types/order';
 import { apiSlice } from '../ApiSlice';
 
 export const OrderApi = apiSlice.injectEndpoints({
@@ -10,52 +11,51 @@ export const OrderApi = apiSlice.injectEndpoints({
             }),
             providesTags: ['Order'],
         }),
-        getAllOrder: builder.query({
-            query: () => ({
-                url: '/api/order/all',
-                credentials: 'include',
+        getAllOrder: builder.query<{ status: string; results: number, orders: orderType[] }, { page: 1 }>({
+            query: ({ page }) => ({
+                url: `/api/order/all?page=${page}`,
+                method:'GET',
             }),
             providesTags: ['Order'],
         }),
         getOrderDetails: builder.query({
             query: (id) => ({
                 url: `/api/order/${id}`,
-                credentials: 'include',
+                method: 'GET',
             }),
             providesTags: ['Order'],
         }),
         getPendingOrder: builder.query({
             query: () => ({
                 url: '/api/order/pending',
-                credentials: 'include',
+                method: 'GET',
             }),
             providesTags: ['Order'],
         }),
         getShipppedOrder: builder.query({
             query: () => ({
                 url: '/api/order/shipped',
-                credentials: 'include',
+                method: 'GET',
             }),
             providesTags: ['Order'],
         }),
         getDeliveredOrder: builder.query({
             query: () => ({
                 url: '/api/order/delivered',
-                credentials: 'include',
+                method: 'GET',
             }),
             providesTags: ['Order'],
         }),
         getcancelledOrder: builder.query({
             query: () => ({
                 url: '/api/order/cancelled',
-                credentials: 'include',
+                method: 'GET',
             }),
             providesTags: ['Order'],
         }),
         CancelOrder: builder.mutation({
             query: (id) => ({
                 url: `/api/order/cancel/${id}`,
-                credentials: 'include',
                 method: 'PUT'
             }),
             invalidatesTags: ['Order'],
@@ -64,12 +64,11 @@ export const OrderApi = apiSlice.injectEndpoints({
             query: ({ data, id }) => ({
                 url: `/api/order/change/status/${id}`,
                 method: 'PUT',
-                credentials: 'include',
                 bosy: data,
             }),
             invalidatesTags: ['Order'],
         }),
-        newOrder: builder.mutation<{ msg: string }, void>({
+        newOrder: builder.mutation<{ message: string }, void>({
             query: () => ({
                 url: '/api/order/',
                 method: 'POST',

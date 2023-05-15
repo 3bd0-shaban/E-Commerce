@@ -13,12 +13,12 @@ interface Breakpoints {
 const useBreakpoint = () => {
     const breakpoints: Breakpoints = {
         0: 'xs',
-        500: 'sm',
-        680: 'md',
-        952: 'lg',
-        1150: 'xl',
-        1300: 'xxl',
-        1500: 'xxxl',
+        576: 'sm',
+        768: 'md',
+        992: 'lg',
+        1200: 'xl',
+        1400: 'xxl',
+        1600: 'xxxl',
     };
     const [breakpoint, setBreakPoint] = useState<string>('');
     const [windowSize, setWindowSize] = useState<WindowSize>({
@@ -36,32 +36,32 @@ const useBreakpoint = () => {
         window.addEventListener('resize', handleResize);
         handleResize();
 
-        if (0 < windowSize.width! && windowSize.width! < 500) {
+        if (0 < windowSize.width! && windowSize.width! < 576) {
             setBreakPoint(breakpoints[0]); //xs mobile
         }
-        if (500 < windowSize.width! && windowSize.width! < 680) {
-            setBreakPoint(breakpoints[500]); //sm
+        if (576 < windowSize.width! && windowSize.width! < 768) {
+            setBreakPoint(breakpoints[576]); //sm
         }
-        if (680 < windowSize.width! && windowSize.width! < 952) {
-            setBreakPoint(breakpoints[680]); //md
+        if (768 < windowSize.width! && windowSize.width! < 992) {
+            setBreakPoint(breakpoints[768]); //md
         }
-        if (952 < windowSize.width! && windowSize.width! < 1150) {
-            setBreakPoint(breakpoints[952]); //lg
+        if (992 < windowSize.width! && windowSize.width! < 1200) {
+            setBreakPoint(breakpoints[992]); //lg
         }
-        if (1150 < windowSize.width! && windowSize.width! < 1300) {
-            setBreakPoint(breakpoints[1150]); //xl
+        if (1200 < windowSize.width! && windowSize.width! < 1400) {
+            setBreakPoint(breakpoints[1200]); //xl
         }
-        if (1300 < windowSize.width! && windowSize.width! < 1500) {
-            setBreakPoint(breakpoints[1300]); //xxl
+        if (1400 < windowSize.width! && windowSize.width! < 1600) {
+            setBreakPoint(breakpoints[1400]); //xxl
         }
-        if (windowSize.width! >= 1500) { //xxxl
-            setBreakPoint(breakpoints[1500]);
+        if (windowSize.width! >= 1600) { //xxxl
+            setBreakPoint(breakpoints[1600]);
         }
         return () => window.removeEventListener('resize', handleResize);
-
+        // eslint-disable-next-line
     }, [windowSize.width]);
 
-    const MobileView = (breakpoint === 'xs') || (breakpoint === 'sm') || (breakpoint === 'md') || (breakpoint === 'lg');
+    const MobileView = (breakpoint === 'xs') || (breakpoint === 'sm') || (breakpoint === 'md');
     return { breakpoint, MobileView };
 };
 

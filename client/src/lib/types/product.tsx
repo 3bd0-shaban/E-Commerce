@@ -10,6 +10,8 @@ export interface productType {
     _id?: string;
     name: string;
     category?: string;
+    subcategory?:string;
+    brand?:string;
     createdAt?: string;
     updatedAt?: string;
     des?: string;
@@ -19,6 +21,7 @@ export interface productType {
     price?: number;
     rating?: number;
     stock?: number;
+    discountprice?:number;
     sumOfRating?: number;
     warranty?: Boolean;
     reviews?: reviewType[];

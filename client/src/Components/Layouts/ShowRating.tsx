@@ -7,7 +7,7 @@ interface ShowRatingProps {
 }
 const ShowRating = ({ Rating, className }: ShowRatingProps) => {
     return (
-        <div className={`${className} flex items-center gap-3 text-yellow-300 text-3xl select-none py-5`}>
+        <div className={`${className} flex items-center gap-1 text-orange-500 text-xl select-none py-5`}>
             {parseFloat((Math.round(Rating * 2) / 2).toFixed(1)) === 0 &&
                 <>
                     <BsStar />

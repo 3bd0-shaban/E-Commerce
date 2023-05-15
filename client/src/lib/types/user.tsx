@@ -1,23 +1,27 @@
+import { imageType } from "./featuresType";
 
 export type appointments = {
     _id: string;
 };
 
-export type user = {
-    appointments: appointments | null;
+export type userType = {
     _id?: string;
-    name?: string;
+    firstname?: string;
+    lastname?: string;
     email?: string;
     username?: string;
+    phone?: string;
+    isAdmin?: boolean;
+    image:imageType;
     confirmed?: boolean;
     __t?: string;
     __v?: number;
-    createdAt?: Date;
-    updatedAt?: Date;
+    createdAt?: string;
+    updatedAt?: string;
 };
 
 export interface AuthState {
     status?: string;
     token?: string;
-    user?: user
+    user?: userType
 }

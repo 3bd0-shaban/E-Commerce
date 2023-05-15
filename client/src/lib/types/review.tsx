@@ -1,10 +1,14 @@
 import { imageType } from "@lib/types/featuresType";
+import { productType } from "./product";
+import { userType } from "./user";
 
 export interface reviewType {
-    _id?: string;
+    user?: userType;
+    product?: productType;
     comment?: string;
-    name?: string;
-    rating?: string;
-    time?: string;
-    user?: string;
+    rating?: number;
+    createdAt?: string;
+    updatedAt?: string;
+    _id?: string;
+    __v?: string;
 }

@@ -3,7 +3,7 @@ import { LogOut, setCredentials } from '../Slices/UserSlice';
 import { apiSlice } from '../ApiSlice';
 import getSocket from '../SocketRTK';
 import { RootState } from '../Store';
-import { AuthState, user } from '@lib/types';
+import { AuthState, userType } from '@lib/types/user';
 interface SignInData {
     email: string;
     password: string;
@@ -18,11 +18,11 @@ interface SignUpData {
 
 export const AuthApi = apiSlice.injectEndpoints({
     endpoints: builder => ({
-        signin: builder.mutation<AuthState, SignInData>({
-            query: (data) => ({
+        SigninUser: builder.mutation<AuthState, SignInData>({
+            query: ({ email, password }) => ({
                 url: '/api/auth/signin',
                 method: 'POST',
-                body: data,
+                body: { email, password },
             }),
             async onQueryStarted(arg, { queryFulfilled, dispatch, getState }) {
                 try {
@@ -31,7 +31,7 @@ export const AuthApi = apiSlice.injectEndpoints({
                     dispatch(
                         setCredentials({
                             token: data.token as string,
-                            user: data.user as user,
+                            user: data.user as userType,
                         })
                     );
                     let userId = (getState() as RootState).auth?.user?._id;
@@ -44,7 +44,7 @@ export const AuthApi = apiSlice.injectEndpoints({
                 }
             },
         }),
-        signup: builder.mutation<{ status: string; token: string; user: user }, SignUpData>({
+        signup: builder.mutation<{ status: string; token: string; user: userType }, SignUpData>({
             query: (data) => ({
                 url: '/api/auth/signup',
                 method: 'POST',
@@ -85,7 +85,7 @@ export const AuthApi = apiSlice.injectEndpoints({
             },
             invalidatesTags: ['Auth'],
         }),
-        refresh: builder.mutation<{ token: string; user: user }, void>({
+        refresh: builder.mutation<{ token: string; user: userType }, void>({
             query: () => ({
                 url: '/api/auth/refresh',
                 method: 'GET',
@@ -129,7 +129,7 @@ export const AuthApi = apiSlice.injectEndpoints({
                     dispatch(
                         setCredentials({
                             token: data.token as string,
-                            user: data.user as user,
+                            user: data.user as userType,
                         })
                     );
                 } catch (err) {
@@ -190,7 +190,7 @@ export const AuthApi = apiSlice.injectEndpoints({
 export const {
     useLogOutMutation,
     useRefreshMutation,
-    useSigninMutation,
+    useSigninUserMutation,
     useSignupMutation,
     useVerifyEmailMutation,
     useRequestOTP2Mutation,
