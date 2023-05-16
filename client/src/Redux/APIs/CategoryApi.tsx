@@ -7,12 +7,12 @@ export const CategoryApi = apiSlice.injectEndpoints({
         getCategory: builder.query<categoryType[], void>({
             query: () => ({
                 url: '/api/category/',
-                method:'GET',
+                method: 'GET',
                 providesTags: ['Category'],
             }),
         }),
         getCategoryDetails: builder.query<categoryType, { id: string }>({
-            query: (id) => `/api/category/${id}`,
+            query: ({ id }) => `/api/category/${id}`,
             // providesTags: ['Category'],
         }),
         createCategory: builder.mutation({
@@ -31,13 +31,11 @@ export const CategoryApi = apiSlice.injectEndpoints({
             }),
             invalidatesTags: ['Category'],
         }),
-        deleteCategory: builder.mutation({
+        deleteCategory: builder.mutation<{ message: string }, { id: string }>({
             query: (id) => ({
                 url: `/api/category/${id}`,
                 method: 'DELETE',
-                credentials: 'include',
             }),
-            invalidatesTags: (result, error, arg) => [{ type: 'Category', id: arg.id }],
         }),
     }),
 });

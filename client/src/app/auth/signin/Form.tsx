@@ -86,7 +86,7 @@ const Form: FC = ({ }) => {
                 </p>
             </button>
             <Link
-                href='/auth/forgetpassword'
+                href='/auth/forget-password'
                 aria-label='forget password'
                 className='text-blue-800 focus:text-blue-300 md:mb-7 text-sm mt-2'>
                 Forgot password ?

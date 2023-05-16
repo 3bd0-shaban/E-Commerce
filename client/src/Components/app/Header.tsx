@@ -11,11 +11,14 @@ import { useLogOutMutation } from '@Redux/APIs/AuthApi';
 import { FeaturesAction } from '@Redux/Slices/FeaturesSlice';
 import { BsList } from 'react-icons/bs';
 import { siteFeatures } from '@config/siteFeatures';
+import { useSession } from 'next-auth/react';
+import { IoPersonOutline } from 'react-icons/io5';
+import { selectCurrentUser } from '@Redux/Slices/UserSlice';
 
 const Header: React.FC = () => {
   const [keyword, setKeyword] = useState<string>('');
   const router = useRouter();
-
+  const { data: session } = useSession();
   const handlesearch = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     router.push(`/search?keyword=${keyword}`)
@@ -60,16 +63,25 @@ const Header: React.FC = () => {
     return (
 
       <>
-        {
-          siteFeatures.NaveBar.MainNav.map((item, index) => (
+        <div className='flex gap-2 items-center'>
+          {
+            siteFeatures.NaveBar.MainNav.map((item, index) => (
+              <Link
+                key={index}
+                href={item.linkDir}
+                draggable={false}>
+                {item.title}
+              </Link>
+            ))
+          }
+          {session?.isAdmin &&
             <Link
-              key={index}
-              href={item.linkDir}
+              href={'/dashboard/overflow'}
               draggable={false}>
-              {item.title}
+              Dashboard
             </Link>
-          ))
-        }
+          }
+        </div>
       </>
 
     )
@@ -117,7 +129,7 @@ const Header: React.FC = () => {
 
         <Link
           draggable={false}
-          href='/cart'
+          href='/cart/item'
           className="flex gap-3 relative items-center px-3 text-sm font-medium text-center text-black rounded-lg focus:outline-none">
           <SlHandbag size={20} />
           <p className="flex absolute left-[3.2rem] justify-center items-center w-6 h-6  bg-[#E9EFF2] text-gray-600 rounded-full">20</p>
@@ -163,16 +175,30 @@ const Header: React.FC = () => {
                 <ListLinks />
               </div>
               <div className='text-gray-500 font-light text-center divide-x-2 flex text-sm gap-4'>
-                {siteFeatures.NaveBar.topRight.map((item, index) => (
+                <div className='flex gap-2 items-center'>
                   <Link
-                    key={index}
-                    href={item.linkDir}
+                    href={'/'}
                     draggable={false}
                     className="flex gap-1 items-center" >
-                    {item.title}
-                    {item.icon}
+                    <p>Track Your Order</p>
                   </Link>
-                ))}
+                  {session ?
+                    <button
+                      onClick={HandleLogOut}
+                      className='flex items-center gap-1'>
+                      <p>Log Out</p>
+                      <IoPersonOutline />
+                    </button> :
+                    <Link
+                      href={'/auth/signin'}
+                      draggable={false}
+                      className='flex items-center gap-1'>
+                      <p>Register Or Sign in</p>
+                      <IoPersonOutline />
+                    </Link>
+                  }
+
+                </div>
               </div>
             </div>
           </div>

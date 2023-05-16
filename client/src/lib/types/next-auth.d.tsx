@@ -10,6 +10,7 @@ declare module 'next-auth/jwt' {
         token: string;
         role?: string;
         status: string;
+        isAdmin?: boolean;
     }
 }
 

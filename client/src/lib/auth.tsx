@@ -123,7 +123,7 @@ export const authOptions: NextAuthOptions = {
             if (user) {
                 token.token = user.token
                 token.user = user.user
-                token.role = user.user.__t
+                token.isAdmin = user.user.isAdmin
             }
 
             return token

@@ -213,8 +213,6 @@ export const ResetPassword = asyncHandler(async (req, res, next) => {
 });
 export const LogOut = asyncHandler(async (req, res, next) => {
     res.clearCookie('token', { path: '/', maxAge: 1 });
-    res.clearCookie('Logged_in', { path: '/', maxAge: 1 });
-    res.clearCookie('Admin', { path: '/' });
     return res.json({ message: 'Loged Out' });
 });
 

@@ -66,12 +66,10 @@ export const siteFeatures: docsConfigProps = {
             { title: 'Hot Products', linkDir: '/' },
             { title: 'Features Brand', linkDir: '/' },
             { title: 'Top Sells', linkDir: '/' },
-            { title: 'Dashboard', linkDir: '/dashboard/overflow' },
         ],
         topRight: [
             { title: 'Track Your Order', linkDir: '/' },
             { title: '$ Dollar (US)', linkDir: '/' },
-            { title: 'Register Or Sign in', linkDir: '/auth/signin', icon: <IoPersonOutline /> },
         ]
     },
     SideBar: {
@@ -99,7 +97,7 @@ export const siteFeatures: docsConfigProps = {
             {
                 Icon: <GiAlarmClock size={17} />,
                 Title: 'Add Features',
-                Href: '/dashboard/add-features'
+                Href: '/dashboard/add-features/category'
             },
             {
                 Icon: <GiAlarmClock size={17} />,

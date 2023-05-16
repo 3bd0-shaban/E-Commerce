@@ -3,14 +3,14 @@ import { asyncHandler } from "./../Middlewares/asyncErrorHandler.js";
 import ErrorHandler from "./../Utils/ErrorHandler.js";
 import Cart from "../Models/Cart.js";
 export const Add_New_Cart = asyncHandler(async (req, res, next) => {
-    const { product_Id } = req.body;
-    if (!req.body.product_Id)
+    const { product_Id } = req.params;
+    if (!req.params.product_Id)
         return next(new ErrorHandler("No product founded to add to cart", 400));
     let UserCart = await Cart.findOne({ user: req.user.id });
     if (!UserCart) {
         new Cart({
             user: req.user._id,
-            items: { product_Id: req.body.product_Id, quentity: 1 },
+            items: { product_Id: req.params.product_Id, quentity: 1 },
             numofitems: 1,
         })
             .save()
@@ -30,7 +30,7 @@ export const Add_New_Cart = asyncHandler(async (req, res, next) => {
                 {
                     $inc: { numofitems: 1 },
                     $push: {
-                        items: { product_Id: req.body.product_Id, quentity: 1 },
+                        items: { product_Id: req.params.product_Id, quentity: 1 },
                     },
                 },
                 { new: true }
@@ -41,7 +41,7 @@ export const Add_New_Cart = asyncHandler(async (req, res, next) => {
 });
 
 export const Increment = asyncHandler(async (req, res, next) => {
-    const { product_Id } = req.body;
+    const { product_Id } = req.params;
     let UserCart = await Cart.findOne({ user: req.user.id });
     let ProductInCart = UserCart.items.find((p) => p.product_Id == product_Id);
     let Product = await Cart.findOne({ user: req.user.id }).populate(
@@ -54,7 +54,7 @@ export const Increment = asyncHandler(async (req, res, next) => {
             return next(new ErrorHandler("Can not increase more", 400));
         }
         const Updated_Cart = await Cart.findOneAndUpdate(
-            { user: req.user._id, "items.product_Id": req.body.product_Id },
+            { user: req.user._id, "items.product_Id": req.params.product_Id },
             {
                 $inc: { "items.$.quentity": 1 },
             },
@@ -66,7 +66,7 @@ export const Increment = asyncHandler(async (req, res, next) => {
 });
 
 export const Decrement = asyncHandler(async (req, res, next) => {
-    const { product_Id } = req.body;
+    const { product_Id } = req.params;
     let UserCart = await Cart.findOne({ user: req.user.id });
     let isExist = UserCart.items.find((p) => p.product_Id == product_Id);
     if (isExist) {
@@ -74,7 +74,7 @@ export const Decrement = asyncHandler(async (req, res, next) => {
             return next(new ErrorHandler("Can not decrease more", 400));
         }
         const Updated_Cart = await Cart.findOneAndUpdate(
-            { user: req.user._id, "items.product_Id": req.body.product_Id },
+            { user: req.user._id, "items.product_Id": req.params.product_Id },
             {
                 $inc: { "items.$.quentity": -1 },
             },
@@ -108,19 +108,21 @@ export const Delete_All_Items_In_Cart = asyncHandler(async (req, res, next) => {
 });
 export const Delete_Specific_Item_In_Cart = asyncHandler(
     async (req, res, next) => {
-        const { product_Id } = req.body;
+        const { product_Id } = req.params;
         const userCart = await Cart.findOne({ user: req.user.id });
         if (!userCart)
             return next(new ErrorHandler("No cart founded for that user", 400));
         const cart = userCart.items.find((p) => p.product_Id == product_Id);
         if (!cart) {
-            return res.status(400).json({ message: "No cart founded for with that id" });
+            return res
+                .status(400)
+                .json({ message: "No cart founded for with that id" });
         }
         await Cart.findOneAndUpdate(
-            { user: req.user._id, "items.product_Id._id": req.body.product_Id },
+            { user: req.user._id, "items.product_Id._id": req.params.product_Id },
             {
                 $inc: { numofitems: -1 },
-                $pull: { items: { "product_Id._id": req.body.product_Id } },
+                $pull: { items: { "product_Id._id": req.params.product_Id } },
             },
             { new: true }
         );

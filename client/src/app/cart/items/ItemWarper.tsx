@@ -1,8 +1,7 @@
 'use client';
 import { useGetCartQuery } from "@Redux/APIs/CartApi";
 import GetError from "@lib/GetError";
-import React, { useState } from "react";
-import CartItem from "./CartItem";
+import React, { useEffect, useState } from "react";
 import CartEmpty from "./CartEmpty";
 import Link from "next/link";
 import { ImSpinner7 } from "react-icons/im";
@@ -10,6 +9,7 @@ import { useLoadPaypalMutation, useNewOrderMutation } from "@Redux/APIs/OrderApi
 import { useAppSelector } from '@Hooks/useRedux';
 import { selectCurrentUser } from '@Redux/Slices/UserSlice';
 import { MessageErrorActivate } from "@lib/Alerts";
+import CartItem from "./CartItem";
 export default function ItemWraper() {
 
     const { data: cart, isFetching: loading, error } = useGetCartQuery() || {};
@@ -32,16 +32,20 @@ export default function ItemWraper() {
         await newOrder().unwrap()
             .then((payload) => setSuccess(payload.message))
     }
-    let purchaseprice = 0;
-    // let totalProductPreice = 0;
-    // for (let i = 0; i < cart?.items?.length as number ?? 0; i++) {
-    //     purchaseprice += cart?.items[i]?.quentity as number * cart?.items[i]?.product_Id?.price ?? 0
-    //     // totalProductPreice = cart?.items[i].quentity * cart?.items[i].product_Id.price;
-    // }
+    const [purchasePrice, setPurchasePrice] = useState(0);
+
+    useEffect(() => {
+        let totalPrice = 0;
+        const itemLength = cart?.items.length || 0;
+        for (let i = 0; i < itemLength; i++) {
+            totalPrice += (cart?.items[i]?.quentity || 0) * (cart?.items[i]?.product_Id.price || 0);
+        }
+        setPurchasePrice(totalPrice);
+    }, [cart]);
     return (
         <>
             <div className='conatiner px-0 max-w-full col-span-3'>
-                {orderError && <GetError error={error} danger />}
+                {/* {orderError && <GetError error={error} danger />} */}
                 {activateMSG && <MessageErrorActivate error={'Your email is not verified ,please verify it first before you continue to checkout'}
                     className={'container my-5 px-0'} />}
                 {success && <GetError error={error} success />}
@@ -101,7 +105,7 @@ export default function ItemWraper() {
                         </div><hr className='my-4' />
                         <div className='flex justify-between py-2'>
                             <p className='text-xl text-red-700 font-bold'>Order Total</p>
-                            <p className='text-lg text-green-500 font-bold'>{purchaseprice} EGP</p>
+                            <p className='text-lg text-green-500 font-bold'>{purchasePrice} EGP</p>
                         </div>
                     </div>
                     <div className='flex justify-center mt-4'>

@@ -111,14 +111,13 @@ const UpperProductDetails = () => {
                                             <p className='text-2xl items-center flex text-gray-500 line-through'>$ {productDetails?.discountprice ?? 0}</p>
                                         </div>
                                         <div className='flex items-center justify-center'>
-                                            <Link
-                                                href='/'
+                                            <button
                                                 draggable={false}
                                                 onClick={AddToCartHandler}
                                                 className='px-32 mt-5 text-center border-4 border-blue-500 py-4 rounded-full 
                                                 font-medium hover:bg-blue-500 focus:ring focus:ring-blue-600 hover:text-white'>
                                                 Add to Card
-                                            </Link>
+                                            </button>
                                         </div>
                                     </div>
                                     :

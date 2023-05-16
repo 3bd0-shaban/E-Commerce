@@ -12,42 +12,37 @@ export const CartApi = apiSlice.injectEndpoints({
         }),
         addToCart: builder.mutation<{ message: string }, { productId: string }>({
             query: ({ productId }) => ({
-                url: '/api/cart/',
+                url: `/api/cart/${productId}`,
                 method: 'POST',
-                body: productId,
             }),
             invalidatesTags: ['Cart'],
         }),
-        Increment: builder.mutation<{ message: string }, { product_Id: string }>({
-            query: ({ product_Id }) => ({
-                url: '/api/cart/increment',
+        Increment: builder.mutation<{ message: string }, { productId: string }>({
+            query: ({ productId }) => ({
+                url: `/api/cart/increment/${productId}`,
                 method: 'POST',
-                body: product_Id,
             }),
             invalidatesTags: ['Cart'],
         }),
-        Decrement: builder.mutation<{ message: string }, { product_Id: string }>({
-            query: ({ product_Id }) => ({
-                url: '/api/cart/decrement',
+        Decrement: builder.mutation<{ message: string }, { productId: string }>({
+            query: ({ productId }) => ({
+                url: `/api/cart/decrement/${productId}`,
                 method: 'POST',
-                body: product_Id,
             }),
             invalidatesTags: ['Cart'],
         }),
 
-        deleteCart: builder.mutation<{ message: string }, { product_Id: string }>({
-            query: ({ product_Id }) => ({
+        deleteCart: builder.mutation<{ message: string }, { productId: string }>({
+            query: ({ productId }) => ({
                 url: '/api/cart/deleteall',
                 method: 'POST',
-                body: product_Id,
             }),
             invalidatesTags: ['Cart'],
         }),
-        deleteItemInCart: builder.mutation<{ message: string }, { product_Id: string }>({
-            query: ({ product_Id }) => ({
-                url: '/api/cart/',
+        deleteItemInCart: builder.mutation<{ message: string }, { productId: string }>({
+            query: ({ productId }) => ({
+                url: `/api/cart/delete-single/${productId}`,
                 method: 'POST',
-                body: product_Id,
 
             }),
             invalidatesTags: ['Cart'],

@@ -1,6 +1,5 @@
 import Footer from "@Components/app/Footer";
 import Header from "@Components/app/Header";
-import CartWraper from "./CartWraper";
 
 export const metadata = {
   title: "cart",
@@ -14,9 +13,9 @@ export default function RootLayout({
 
   return (
     <>
-      <CartWraper>
+      <Header />
         {children}
-      </CartWraper>
+      <Footer />
     </>
   );
 }

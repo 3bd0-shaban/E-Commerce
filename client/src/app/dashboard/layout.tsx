@@ -1,14 +1,19 @@
+import { authOptions } from "@lib/auth";
+import { getServerSession } from "next-auth";
+import { notFound } from "next/navigation";
 import Header from "./Header";
 import SideBar from "./SideBar";
 
 export const metadata = {
   title: "Dashboard",
 };
-export default function Layout({
+export default async function Layout({
   children,
 }: {
   children: React.ReactNode;
 }) {
+  const session = await getServerSession(authOptions)
+  if (!session?.isAdmin) notFound()
   return (
     <>
       <Header />
